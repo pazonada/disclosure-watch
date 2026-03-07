@@ -114,26 +114,16 @@ export default function DocumentModal({ doc, onClose }: Props) {
           </div>
         )}
 
-        {/* Action buttons */}
-        <div className="flex gap-3">
+        {/* Action button */}
+        <div>
           <a
             href={doc.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 rounded-lg bg-accent-blue px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-accent-blue/90"
+            className="inline-block rounded-lg bg-accent-blue px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-accent-blue/90"
           >
             View Source →
           </a>
-          {doc.documentUrl && (
-            <a
-              href={doc.documentUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-3 text-center text-sm font-semibold text-slate-200 transition-colors hover:bg-slate-800 hover:text-white"
-            >
-              View Document ↗
-            </a>
-          )}
         </div>
       </div>
     </div>
