@@ -1,0 +1,158 @@
+import { UAPDocument, UAPEvent, TimelineMilestone, DocumentCategory, Importance } from "./types";
+
+export interface SearchResult {
+  type: "document" | "event" | "milestone";
+  id: string;
+  title: string;
+  content: UAPDocument | UAPEvent | TimelineMilestone;
+}
+
+export interface GroupedSearchResults {
+  documents: SearchResult[];
+  events: SearchResult[];
+  milestones: SearchResult[];
+  query: string;
+}
+
+export function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+export function formatDateLong(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+export function isUpcoming(dateStr: string): boolean {
+  return new Date(dateStr) > new Date();
+}
+
+export function sortByDate<T extends { date?: string; publishedDate?: string }>(
+  items: T[],
+  direction: "asc" | "desc" = "desc"
+): T[] {
+  return [...items].sort((a, b) => {
+    const dateA = new Date(a.publishedDate || a.date || "").getTime();
+    const dateB = new Date(b.publishedDate || b.date || "").getTime();
+    return direction === "desc" ? dateB - dateA : dateA - dateB;
+  });
+}
+
+export function filterDocuments(
+  docs: UAPDocument[],
+  filters: {
+    category?: DocumentCategory;
+    importance?: Importance;
+    search?: string;
+  }
+): UAPDocument[] {
+  return docs.filter((doc) => {
+    if (filters.category && doc.category !== filters.category) return false;
+    if (filters.importance && doc.importance !== filters.importance) return false;
+    if (filters.search) {
+      const q = filters.search.toLowerCase();
+      return (
+        doc.title.toLowerCase().includes(q) ||
+        doc.summary.toLowerCase().includes(q) ||
+        doc.tags.some((t) => t.toLowerCase().includes(q))
+      );
+    }
+    return true;
+  });
+}
+
+export function importanceBadgeColor(importance: Importance): string {
+  switch (importance) {
+    case "Critical": return "bg-red-500/20 text-red-400 border-red-500/30";
+    case "High": return "bg-amber-500/20 text-amber-400 border-amber-500/30";
+    case "Medium": return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+    case "Low": return "bg-slate-500/20 text-slate-400 border-slate-500/30";
+  }
+}
+
+export function categoryIcon(category: UAPDocument["category"]): string {
+  switch (category) {
+    case "Report": return "📄";
+    case "Hearing": return "🏛️";
+    case "FOIA Release": return "🔓";
+    case "Image": return "📸";
+    case "News": return "📰";
+    case "Video": return "📺";
+  }
+}
+
+export function sourceLabel(source: UAPDocument["source"]): string {
+  switch (source) {
+    case "AARO": return "AARO";
+    case "Archives": return "National Archives";
+    case "Congress": return "Congress";
+    case "News": return "News";
+    case "Manual": return "Editorial";
+  }
+}
+
+export function searchAllContent(
+  query: string,
+  documents: UAPDocument[],
+  events: UAPEvent[],
+  milestones: TimelineMilestone[]
+): GroupedSearchResults {
+  const q = query.toLowerCase().trim();
+
+  const documentResults = documents
+    .filter((doc) => {
+      return (
+        doc.title.toLowerCase().includes(q) ||
+        doc.summary.toLowerCase().includes(q) ||
+        doc.tags.some((t) => t.toLowerCase().includes(q))
+      );
+    })
+    .map((doc) => ({
+      type: "document" as const,
+      id: doc.id,
+      title: doc.title,
+      content: doc,
+    }));
+
+  const eventResults = events
+    .filter((event) => {
+      return (
+        event.title.toLowerCase().includes(q) ||
+        event.description.toLowerCase().includes(q)
+      );
+    })
+    .map((event) => ({
+      type: "event" as const,
+      id: event.id,
+      title: event.title,
+      content: event,
+    }));
+
+  const milestoneResults = milestones
+    .filter((milestone) => {
+      return (
+        milestone.title.toLowerCase().includes(q) ||
+        milestone.description.toLowerCase().includes(q)
+      );
+    })
+    .map((milestone) => ({
+      type: "milestone" as const,
+      id: milestone.id,
+      title: milestone.title,
+      content: milestone,
+    }));
+
+  return {
+    documents: documentResults,
+    events: eventResults,
+    milestones: milestoneResults,
+    query,
+  };
+}

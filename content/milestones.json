@@ -1,0 +1,198 @@
+[
+  {
+    "id": "trump-declassification-order-2026",
+    "date": "2026-02-20",
+    "title": "Trump Orders Declassification of All Government UAP Files",
+    "description": "President Trump signed an executive order directing the Pentagon and all relevant agencies to begin identifying and releasing government files related to UAP, alien life, and extraterrestrial materials.",
+    "importance": "Critical"
+  },
+  {
+    "id": "hegseth-disclosure-2026",
+    "date": "2026-02-25",
+    "title": "Hegseth Reaffirms UAP Disclosure Commitment",
+    "description": "Defense Secretary Pete Hegseth doubled down on Trump's promise of UAP transparency as AARO's caseload surpassed 2,000 reports.",
+    "importance": "Critical"
+  },
+  {
+    "id": "fy2026-ndaa-signed",
+    "date": "2025-12-10",
+    "title": "FY2026 NDAA Mandates UAP Briefings",
+    "description": "Congress enacted legislation requiring the Pentagon to brief lawmakers on the number, location, and nature of UAP intercepts by NORTHCOM and NORAD.",
+    "importance": "Critical"
+  },
+  {
+    "id": "faa-uap-procedures-update",
+    "date": "2025-10-26",
+    "title": "FAA Formalizes UAP Reporting Procedures for Air Traffic Control",
+    "description": "The FAA issued updated notices requiring all ATC personnel to report UAP sightings through standardized channels and notify AARO directly.",
+    "importance": "Major"
+  },
+  {
+    "id": "nara-deadline-partial-compliance",
+    "date": "2025-09-30",
+    "title": "NARA Deadline: Agencies Required to Transfer UAP Records",
+    "description": "Deadline for all federal agencies to transfer UAP records to National Archives per 2024 NDAA. ODNI, OSD, FAA, and NRC complied; FBI, CIA, and most DoD sub-agencies did not meet the deadline.",
+    "importance": "Critical"
+  },
+  {
+    "id": "aaro-workshop-2025",
+    "date": "2025-08-15",
+    "title": "AARO Hosts Civilian Researcher Workshop",
+    "description": "First formal workshop bringing together government, academic, and civilian researchers to standardize UAP data collection and analysis.",
+    "importance": "Major"
+  },
+  {
+    "id": "aaro-2000-cases",
+    "date": "2025-06-01",
+    "title": "AARO Caseload Exceeds 2,000 Reports",
+    "description": "AARO's total UAP caseload officially passed the 2,000-report milestone, with approximately 1,000 reports lacking sufficient data for resolution held in an Active Archive.",
+    "importance": "Major"
+  },
+  {
+    "id": "nara-first-uap-records-release",
+    "date": "2025-04-01",
+    "title": "National Archives Releases First Batch of UAP Records",
+    "description": "NARA published the first UAP records from Record Group 615, including materials from ODNI, Office of the Secretary of Defense, FAA, and NRC. Bulk download portal made available.",
+    "importance": "Critical"
+  },
+  {
+    "id": "burlison-disclosure-act-2025",
+    "date": "2025-06-15",
+    "title": "Burlison Introduces UAP Disclosure Act of 2025 as NDAA Amendment",
+    "description": "Rep. Eric Burlison submitted the UAP Disclosure Act of 2025 as an amendment to the FY2026 NDAA to increase transparency on government UAP records.",
+    "importance": "Major"
+  },
+  {
+    "id": "hr1187-uap-transparency-act",
+    "date": "2025-02-11",
+    "title": "UAP Transparency Act (H.R. 1187) Introduced",
+    "description": "Bipartisan bill requiring declassification of all government UAP documents within 270 days of enactment, with quarterly progress reports to Congress.",
+    "importance": "Major"
+  },
+  {
+    "id": "house-oversight-exposing-truth",
+    "date": "2024-11-13",
+    "title": "House Oversight Hearing: 'Exposing the Truth'",
+    "description": "Second major House hearing on UAPs, featuring military and government witnesses testifying on encounters and alleged cover-ups.",
+    "importance": "Critical"
+  },
+  {
+    "id": "aaro-annual-analysis-2024",
+    "date": "2024-11-14",
+    "title": "AARO Unveils FY2024 Annual Report — 757 New Reports",
+    "description": "ODNI/AARO annual report covering 757 UAP reports received May 2023–June 2024. Resolved 118 cases; 21 remained truly unexplained. Total caseload reached 1,652.",
+    "importance": "Critical"
+  },
+  {
+    "id": "nrc-records-transfer",
+    "date": "2024-10-20",
+    "title": "NRC Transfers UAP Records to National Archives",
+    "description": "Nuclear Regulatory Commission became one of the first agencies to comply with the NDAA mandate, transferring all UAP-related records to NARA.",
+    "importance": "Major"
+  },
+  {
+    "id": "nara-rg615",
+    "date": "2024-09-01",
+    "title": "National Archives Creates Record Group 615",
+    "description": "NARA established a dedicated record group for UAP-related documents, enabling federal agencies to transfer historical records for permanent public access.",
+    "importance": "Critical"
+  },
+  {
+    "id": "doe-nnsa-uap-documents",
+    "date": "2024-06-01",
+    "title": "DOE/NNSA Releases UAP Documents on Nuclear Site Incursions",
+    "description": "Department of Energy released documents detailing unexplained aerial incursions near nuclear weapons facilities including Pantex and Lawrence Livermore.",
+    "importance": "Major"
+  },
+  {
+    "id": "aaro-historical-report-vol1",
+    "date": "2024-03-08",
+    "title": "AARO Historical Record Report Vol. 1 Released",
+    "description": "Comprehensive review of U.S. government UAP involvement from 1945–2023. Found no evidence of extraterrestrial technology but acknowledged gaps in record-keeping.",
+    "importance": "Critical"
+  },
+  {
+    "id": "nasa-uap-study-director",
+    "date": "2023-09-14",
+    "title": "NASA Releases UAP Study, Appoints Director of UAP Research",
+    "description": "NASA published its independent study team report on UAPs and appointed a Director of UAP Research to establish an institutional science program for data collection and analysis.",
+    "importance": "Major"
+  },
+  {
+    "id": "schumer-rounds-disclosure-act",
+    "date": "2023-07-25",
+    "title": "Schumer-Rounds UAP Disclosure Act Filed",
+    "description": "Bipartisan amendment modeled on JFK Assassination Records Act mandating presumption of disclosure for UAP records with 25-year declassification timeline.",
+    "importance": "Critical"
+  },
+  {
+    "id": "grusch-hearing-2023",
+    "date": "2023-07-26",
+    "title": "Landmark House Hearing: Grusch, Graves, Fravor Testify",
+    "description": "David Grusch alleged the government possesses non-human craft and biologics. Navy pilots Ryan Graves and David Fravor described firsthand UAP encounters. Watched by millions worldwide.",
+    "importance": "Critical"
+  },
+  {
+    "id": "senate-armed-services-aaro-2023",
+    "date": "2023-04-19",
+    "title": "Senate Armed Services Hearing on AARO Mission",
+    "description": "AARO Director Dr. Sean Kirkpatrick testified on the office's mission, case resolution methodology, and budget before the Senate Armed Services Subcommittee.",
+    "importance": "Major"
+  },
+  {
+    "id": "aaro-established",
+    "date": "2022-07-20",
+    "title": "AARO Officially Established",
+    "description": "The All-domain Anomaly Resolution Office (AARO) was created within the Department of Defense to investigate UAPs, replacing the earlier AOIMSG.",
+    "importance": "Critical"
+  },
+  {
+    "id": "first-hearing-50-years",
+    "date": "2022-05-17",
+    "title": "First Public Congressional UFO Hearing in 50+ Years",
+    "description": "House Intelligence Subcommittee held the first open congressional hearing on UFOs since 1969. Pentagon officials acknowledged encounters and committed to transparency.",
+    "importance": "Critical"
+  },
+  {
+    "id": "uaptf-preliminary-report",
+    "date": "2021-06-25",
+    "title": "DNI Preliminary Assessment: UAP Report",
+    "description": "The Office of the Director of National Intelligence released the landmark preliminary assessment of UAPs, acknowledging 144 reports from military personnel and resolving only one.",
+    "importance": "Critical"
+  },
+  {
+    "id": "fy2021-iai-provision",
+    "date": "2020-12-27",
+    "title": "Intelligence Authorization Act Mandates UAP Task Force Report",
+    "description": "Congress required the DNI to produce an unclassified report on UAPs within 180 days, setting the stage for the June 2021 preliminary assessment.",
+    "importance": "Major"
+  },
+  {
+    "id": "uaptf-created",
+    "date": "2020-08-14",
+    "title": "Unidentified Aerial Phenomena Task Force (UAPTF) Created",
+    "description": "The Department of Defense formally established the UAPTF within the Department of the Navy to investigate UAP encounters reported by military personnel.",
+    "importance": "Major"
+  },
+  {
+    "id": "pentagon-uap-videos",
+    "date": "2020-04-27",
+    "title": "Pentagon Officially Releases Three UAP Videos",
+    "description": "The DOD formally released the FLIR1, Gimbal, and GoFast videos showing Navy encounters with unidentified objects. The videos had previously leaked in 2017.",
+    "importance": "Critical"
+  },
+  {
+    "id": "nyt-uap-story-2017",
+    "date": "2017-12-16",
+    "title": "New York Times Reveals Pentagon's Secret UAP Program (AATIP)",
+    "description": "Groundbreaking NYT investigation revealed the existence of the Advanced Aerospace Threat Identification Program (AATIP), a $22 million Pentagon program to study UAPs. The story changed the public conversation.",
+    "importance": "Critical"
+  },
+  {
+    "id": "nimitz-tic-tac-encounter",
+    "date": "2004-11-14",
+    "title": "USS Nimitz 'Tic Tac' Encounter",
+    "description": "Commander David Fravor and other Navy pilots encountered a white, 40-foot 'Tic Tac' shaped object over the Pacific exhibiting unexplained acceleration. Later became one of the most studied UAP cases in history.",
+    "importance": "Critical"
+  }
+]
