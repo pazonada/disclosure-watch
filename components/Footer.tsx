@@ -34,7 +34,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-pink-400 hover:text-pink-300"
             >
-              ☕ Support This Project
+              🛸 Support this project
             </a>
           </div>
         </div>
