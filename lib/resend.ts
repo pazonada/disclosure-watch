@@ -1,0 +1,161 @@
+/**
+ * Resend REST API helpers for Disclosure Watch.
+ *
+ * Uses the Resend Audiences/Contacts API to store subscribers
+ * and the Send API to deliver emails. No SDK needed.
+ *
+ * Environment variables:
+ *   RESEND_API_KEY     — API key from resend.com
+ *   RESEND_AUDIENCE_ID — Audience ID (created once in Resend dashboard)
+ */
+
+const RESEND_BASE = "https://api.resend.com";
+
+function getApiKey(): string {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error("RESEND_API_KEY not set");
+  return key;
+}
+
+function getAudienceId(): string {
+  const id = process.env.RESEND_AUDIENCE_ID;
+  if (!id) throw new Error("RESEND_AUDIENCE_ID not set");
+  return id;
+}
+
+// ── Contacts (subscriber management) ────────────────────────────────────────
+
+export async function addContact(email: string): Promise<{ id: string }> {
+  const resp = await fetch(
+    `${RESEND_BASE}/audiences/${getAudienceId()}/contacts`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${getApiKey()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, unsubscribed: false }),
+    }
+  );
+
+  if (!resp.ok) {
+    const err = await resp.text();
+    throw new Error(`Resend addContact failed: ${resp.status} ${err}`);
+  }
+
+  return resp.json();
+}
+
+export async function removeContact(email: string): Promise<void> {
+  // Resend's delete contact endpoint uses the contact ID, but we can also
+  // update the contact to set unsubscribed: true
+  const resp = await fetch(
+    `${RESEND_BASE}/audiences/${getAudienceId()}/contacts`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${getApiKey()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, unsubscribed: true }),
+    }
+  );
+
+  if (!resp.ok) {
+    const err = await resp.text();
+    throw new Error(`Resend removeContact failed: ${resp.status} ${err}`);
+  }
+}
+
+export async function getContacts(): Promise<
+  Array<{ id: string; email: string; unsubscribed: boolean }>
+> {
+  const resp = await fetch(
+    `${RESEND_BASE}/audiences/${getAudienceId()}/contacts`,
+    {
+      headers: { Authorization: `Bearer ${getApiKey()}` },
+    }
+  );
+
+  if (!resp.ok) {
+    const err = await resp.text();
+    throw new Error(`Resend getContacts failed: ${resp.status} ${err}`);
+  }
+
+  const data = await resp.json();
+  return data?.data || [];
+}
+
+// ── Email sending ───────────────────────────────────────────────────────────
+
+interface SendEmailOptions {
+  to: string | string[];
+  subject: string;
+  html: string;
+  from?: string;
+}
+
+export async function sendEmail(options: SendEmailOptions): Promise<void> {
+  const resp = await fetch(`${RESEND_BASE}/emails`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${getApiKey()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: options.from || "Disclosure Watch <alerts@disclosurewatch.com>",
+      to: options.to,
+      subject: options.subject,
+      html: options.html,
+    }),
+  });
+
+  if (!resp.ok) {
+    const err = await resp.text();
+    throw new Error(`Resend sendEmail failed: ${resp.status} ${err}`);
+  }
+}
+
+/** Send to all active subscribers using Resend Batch API */
+export async function sendBatchEmail(options: {
+  subject: string;
+  html: string;
+  from?: string;
+}): Promise<{ sent: number }> {
+  const contacts = await getContacts();
+  const active = contacts.filter((c) => !c.unsubscribed);
+
+  if (active.length === 0) return { sent: 0 };
+
+  // Resend batch API supports up to 100 emails per call
+  const from = options.from || "Disclosure Watch <alerts@disclosurewatch.com>";
+  const batches: Array<Array<{ from: string; to: string; subject: string; html: string }>> = [];
+  const emails = active.map((c) => ({
+    from,
+    to: c.email,
+    subject: options.subject,
+    html: options.html,
+  }));
+
+  for (let i = 0; i < emails.length; i += 100) {
+    batches.push(emails.slice(i, i + 100));
+  }
+
+  let sent = 0;
+  for (const batch of batches) {
+    const resp = await fetch(`${RESEND_BASE}/emails/batch`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${getApiKey()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(batch),
+    });
+
+    if (resp.ok) {
+      sent += batch.length;
+    }
+  }
+
+  return { sent };
+}

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { removeContact } from "@/lib/resend";
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,17 +9,32 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Email required." }, { status: 400 });
     }
 
-    // Uncomment when Supabase is set up:
-    // const supabase = createClient(
-    //   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    //   process.env.SUPABASE_SERVICE_ROLE_KEY!
-    // );
-    // await supabase.from("subscribers").delete().eq("email", email);
+    await removeContact(email);
 
-    console.log(`Unsubscribed: ${email}`);
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("Unsubscribe error:", err);
-    return NextResponse.json({ error: "Internal server error." }, { status: 500 });
+    return NextResponse.json({ error: "Failed to unsubscribe." }, { status: 500 });
   }
+}
+
+// Also support GET for one-click unsubscribe links in emails
+export async function GET(request: NextRequest) {
+  const email = request.nextUrl.searchParams.get("email");
+
+  if (!email) {
+    return new Response("Missing email parameter.", { status: 400 });
+  }
+
+  try {
+    await removeContact(email);
+  } catch {
+    // Non-fatal
+  }
+
+  // Redirect to homepage with a friendly message
+  return Response.redirect(
+    new URL("/?unsubscribed=true", request.nextUrl.origin),
+    302
+  );
 }

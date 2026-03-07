@@ -867,6 +867,174 @@ function buildTemplateSummary(
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+// ALERT EMAILS
+// ══════════════════════════════════════════════════════════════════════════════
+
+interface AlertItem {
+  title: string;
+  type: "document" | "news" | "event";
+  url: string;
+  summary: string;
+  date: string;
+}
+
+/**
+ * Send alert emails to all subscribers when new content is ingested.
+ * Uses Resend Audiences to get subscriber list and Batch API to send.
+ * Only sends if there are genuinely new items worth alerting about.
+ */
+async function sendAlertEmails(
+  newDocs: UAPDocument[],
+  newNews: NewsItem[],
+  newEvents: UAPEvent[]
+): Promise<{ sent: number }> {
+  const resendKey = process.env.RESEND_API_KEY;
+  const audienceId = process.env.RESEND_AUDIENCE_ID;
+  if (!resendKey || !audienceId) return { sent: 0 };
+
+  // Build alert items — prioritize documents, then events, then news
+  const alertItems: AlertItem[] = [];
+
+  for (const doc of newDocs.slice(0, 5)) {
+    alertItems.push({
+      title: doc.title,
+      type: "document",
+      url: doc.sourceUrl,
+      summary: doc.summary,
+      date: doc.publishedDate,
+    });
+  }
+
+  for (const event of newEvents.slice(0, 3)) {
+    alertItems.push({
+      title: event.title,
+      type: "event",
+      url: event.sourceUrl,
+      summary: event.description,
+      date: event.date,
+    });
+  }
+
+  for (const item of newNews.slice(0, 5)) {
+    alertItems.push({
+      title: item.title,
+      type: "news",
+      url: item.url,
+      summary: item.description,
+      date: item.publishedDate,
+    });
+  }
+
+  // Don't send alerts for fewer than 1 item
+  if (alertItems.length === 0) return { sent: 0 };
+
+  // Build the email HTML inline (to avoid import issues in API route)
+  const subject = alertItems.length === 1
+    ? `🛸 ${alertItems[0].title}`
+    : `🛸 ${alertItems.length} new updates on Disclosure Watch`;
+
+  const typeColors: Record<string, string> = {
+    document: "#3b82f6",
+    news: "#22d3ee",
+    event: "#a78bfa",
+  };
+  const typeLabels: Record<string, string> = {
+    document: "📄 New Document",
+    news: "📰 News",
+    event: "📅 Event",
+  };
+
+  const itemsHtml = alertItems
+    .slice(0, 10)
+    .map(
+      (item) => `
+      <div style="margin-bottom: 20px; padding: 16px; background: #1e293b; border-radius: 8px; border-left: 3px solid ${typeColors[item.type]};">
+        <div style="font-size: 11px; font-weight: 600; color: ${typeColors[item.type]}; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
+          ${typeLabels[item.type]}
+        </div>
+        <a href="${item.url}" style="color: #f1f5f9; font-size: 16px; font-weight: 600; text-decoration: none; line-height: 1.3;">
+          ${item.title}
+        </a>
+        <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 8px 0 0;">
+          ${item.summary.slice(0, 200)}${item.summary.length > 200 ? "..." : ""}
+        </p>
+      </div>
+    `
+    )
+    .join("");
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <body style="margin: 0; padding: 0; background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+      <div style="max-width: 560px; margin: 0 auto; padding: 24px 16px;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <span style="font-size: 28px;">🛸</span>
+          <h1 style="color: #f1f5f9; font-size: 20px; margin: 8px 0 4px;">Disclosure Watch Alert</h1>
+          <p style="color: #64748b; font-size: 13px; margin: 0;">New items just added to the tracker</p>
+        </div>
+        ${itemsHtml}
+        <div style="text-align: center; margin: 28px 0;">
+          <a href="https://disclosurewatch.com" style="display: inline-block; background: #3b82f6; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">
+            View all updates →
+          </a>
+        </div>
+        <div style="border-top: 1px solid #1e293b; padding-top: 16px; text-align: center;">
+          <p style="color: #475569; font-size: 11px; line-height: 1.5; margin: 0;">
+            You subscribed to Disclosure Watch alerts.<br>
+            <a href="https://disclosurewatch.com/api/newsletter/unsubscribe?email={{email}}" style="color: #64748b; text-decoration: underline;">Unsubscribe</a>
+          </p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  // Get subscriber list
+  try {
+    const contactsResp = await fetch(
+      `https://api.resend.com/audiences/${audienceId}/contacts`,
+      { headers: { Authorization: `Bearer ${resendKey}` } }
+    );
+    if (!contactsResp.ok) return { sent: 0 };
+
+    const contactsData = (await contactsResp.json()) as any;
+    const contacts: Array<{ email: string; unsubscribed: boolean }> =
+      contactsData?.data || [];
+    const active = contacts.filter((c) => !c.unsubscribed);
+
+    if (active.length === 0) return { sent: 0 };
+
+    // Send in batches of 100
+    let sent = 0;
+    for (let i = 0; i < active.length; i += 100) {
+      const batch = active.slice(i, i + 100).map((c) => ({
+        from: "Disclosure Watch <alerts@disclosurewatch.com>",
+        to: c.email,
+        subject,
+        html: html.replace("{{email}}", encodeURIComponent(c.email)),
+      }));
+
+      const resp = await fetch("https://api.resend.com/emails/batch", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${resendKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(batch),
+      });
+
+      if (resp.ok) sent += batch.length;
+    }
+
+    return { sent };
+  } catch {
+    return { sent: 0 };
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // ROUTE HANDLER
 // ══════════════════════════════════════════════════════════════════════════════
 
@@ -875,6 +1043,7 @@ async function runIngestion(): Promise<{
   news: { fetched: number; added: number; total: number };
   events: { fetched: number; added: number; total: number };
   weeklySummary: { updated: boolean };
+  alerts: { sent: number };
 }> {
   // 1. Load existing data
   const existingDocs = loadJson<UAPDocument>(DOCUMENTS_PATH);
@@ -926,6 +1095,28 @@ async function runIngestion(): Promise<{
     // Non-fatal — summary generation shouldn't break ingestion
   }
 
+  // 8. Send alert emails if new content was added
+  let alertsSent = 0;
+  const totalNew = docResult.added + newsResult.added + eventResult.added;
+  if (totalNew > 0) {
+    try {
+      // Collect the newly added items (they're at the end before sort, so
+      // grab items not in the existing sets)
+      const existingDocIds = new Set(existingDocs.map((d) => d.id));
+      const existingNewsIds = new Set(existingNews.map((n) => n.id));
+      const existingEventIds = new Set(existingEvents.map((e) => e.id));
+
+      const newDocs = docResult.merged.filter((d) => !existingDocIds.has(d.id));
+      const newNews = newsResult.merged.filter((n) => !existingNewsIds.has(n.id));
+      const newEvents = eventResult.merged.filter((e) => !existingEventIds.has(e.id));
+
+      const alertResult = await sendAlertEmails(newDocs, newNews, newEvents);
+      alertsSent = alertResult.sent;
+    } catch {
+      // Non-fatal — alerts shouldn't break ingestion
+    }
+  }
+
   return {
     documents: {
       fetched: incomingDocs.length,
@@ -943,6 +1134,7 @@ async function runIngestion(): Promise<{
       total: eventResult.merged.length,
     },
     weeklySummary: { updated: summaryUpdated },
+    alerts: { sent: alertsSent },
   };
 }
 
