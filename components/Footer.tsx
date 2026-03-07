@@ -9,7 +9,7 @@ export default function Footer() {
             <span>🛸</span>
             <span>Disclosure Watch — Tracking government disclosure so you don&apos;t have to.</span>
           </div>
-          <div className="flex gap-4 text-sm text-slate-500">
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-500 sm:justify-end">
             <Link href="/about" className="hover:text-slate-300">About</Link>
             <Link href="/submit" className="hover:text-slate-300">Know something we missed?</Link>
             <a
@@ -27,6 +27,14 @@ export default function Footer() {
               className="hover:text-slate-300"
             >
               National Archives
+            </a>
+            <a
+              href="https://ko-fi.com/studiocrux"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-pink-400 hover:text-pink-300"
+            >
+              ☕ Support This Project
             </a>
           </div>
         </div>
