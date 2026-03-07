@@ -1,5 +1,14 @@
 [
   {
+    "id": "cnn-trump-ufo-files-delay",
+    "title": "Trump vowed to release government files on aliens and UFOs — why haven't they been publicized yet?",
+    "source": "CNN",
+    "url": "https://www.cnn.com/2026/03/07/us/aliens-ufos-files-release-trump",
+    "description": "Two weeks after Trump's directive, CNN investigates why no UFO files have actually been released, examining bureaucratic delays and Pentagon pushback.",
+    "publishedDate": "2026-03-07",
+    "type": "article"
+  },
+  {
     "id": "american-airlines-ufo-texas-simpleflying",
     "title": "American Airlines pilots perplexed after witnessing 'super bright' UFOs over Texas",
     "source": "Simple Flying",
@@ -33,6 +42,51 @@
     "url": "https://time.com/7380751/us-government-ufo-alien-files-release-hegseth-update/",
     "description": "Defense Secretary Hegseth says the Pentagon is actively working to identify and release UAP-related files in compliance with Trump's directive.",
     "publishedDate": "2026-02-25",
+    "type": "article"
+  },
+  {
+    "id": "cbs-scientists-ufo-files",
+    "title": "We asked scientists what they think we'll learn from the government's UFO files",
+    "source": "CBS News",
+    "url": "https://www.cbsnews.com/news/ufo-files-released-scientists-trump/",
+    "description": "Scientists weigh in on what government UAP files might reveal, from sensor data to classified encounters, and what it all means for our understanding of the phenomenon.",
+    "publishedDate": "2026-02-20",
+    "type": "article"
+  },
+  {
+    "id": "npr-trump-ufo-directive",
+    "title": "Trump says he doesn't know if aliens are real but directs government to release files",
+    "source": "NPR",
+    "url": "https://www.npr.org/2026/02/20/nx-s1-5720667/trump-says-he-doesnt-know-if-aliens-are-real-but-directs-government-to-release-files-on-ufos",
+    "description": "National Public Radio covers Trump's directive to release government UFO files, noting the President's own hedging on whether aliens exist.",
+    "publishedDate": "2026-02-20",
+    "type": "article"
+  },
+  {
+    "id": "stars-and-stripes-trump-ufo-order",
+    "title": "Trump orders Pentagon, federal agencies to release files on UFOs and aliens",
+    "source": "Stars and Stripes",
+    "url": "https://www.stripes.com/theaters/us/2026-02-20/trump-orders-release-government-alien-files-20813493.html",
+    "description": "The U.S. military's independent news source covers Trump's declassification directive and its implications for Department of Defense transparency.",
+    "publishedDate": "2026-02-20",
+    "type": "article"
+  },
+  {
+    "id": "karl-nell-2026-tipping-point",
+    "title": "Col. Karl Nell's Warning: The 2026 tipping point for controlled disclosure vs. catastrophe",
+    "source": "UFO Matrix",
+    "url": "https://www.ufomatrix.org/2026/01/karl-nell-warning-2026-critical-year-uap-transparency.html",
+    "description": "Retired Army Colonel Karl Nell — who previously confirmed a 'non-human intelligence' presence — warns that 2026 is the critical year for controlled disclosure before information leaks chaotically.",
+    "publishedDate": "2026-01-12",
+    "type": "article"
+  },
+  {
+    "id": "yahoo-bank-of-england-aliens",
+    "title": "Bank of England warned to prepare for aliens due to imminent US 'disclosure'",
+    "source": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/news/bank-england-warned-prepare-aliens-212252751.html",
+    "description": "Former Bank of England analyst Helen McCaw urges the central bank to develop contingency plans for economic fallout from potential confirmation of non-human intelligence.",
+    "publishedDate": "2026-01-18",
     "type": "article"
   },
   {

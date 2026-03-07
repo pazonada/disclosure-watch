@@ -1,5 +1,66 @@
 [
   {
+    "id": "dod-ig-uap-whistleblower-reprisal-report-2026",
+    "title": "DoD Inspector General UAP Whistleblower Reprisal Report",
+    "source": "AARO",
+    "sourceUrl": "https://www.theblackvault.com/documentarchive/dod-ig-releases-final-uap-whistleblower-reprisal-report/",
+    "summary": "The Department of Defense Inspector General released a heavily redacted final report on UAP-related whistleblower reprisal investigations, centering on the revocation of classified access from individuals who reported UAP information to Congress.",
+    "expandedSummary": "In January 2026, the Department of Defense Office of Inspector General published its final report on UAP whistleblower reprisal complaints — a document that had been anticipated by the disclosure community for months. The report, while heavily redacted, addresses allegations that individuals within the defense and intelligence establishment faced retaliatory action, including revocation of security clearances and classified access, after providing UAP-related information to members of Congress as authorized under federal whistleblower protections. The redactions themselves have become a point of contention, with transparency advocates arguing that the censored sections likely contain the most consequential findings regarding institutional efforts to suppress UAP-related testimony.",
+    "keyPoints": [
+      "DoD Inspector General completed investigation into UAP whistleblower reprisal allegations",
+      "Report heavily redacted, with key findings and names obscured",
+      "Centers on revocation of classified access as retaliatory measure against whistleblowers",
+      "Addresses institutional response to authorized congressional disclosures about UAP",
+      "Redactions themselves fueled further calls for transparency and legislative protections"
+    ],
+    "category": "Report",
+    "importance": "Critical",
+    "tags": ["DoD IG", "Whistleblower", "Reprisal", "Classified Access", "2026"],
+    "publishedDate": "2026-01-07",
+    "addedDate": "2026-03-07"
+  },
+  {
+    "id": "hr-5060-uap-whistleblower-protection-act",
+    "title": "H.R. 5060: UAP Whistleblower Protection Act (119th Congress)",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/119th-congress/house-bill/5060",
+    "summary": "Bipartisan legislation introduced by Reps. Burchett and Luna to codify federal protections for individuals disclosing information about UAP-related government programs, including crash retrieval and reverse engineering activities.",
+    "expandedSummary": "The UAP Whistleblower Protection Act (H.R. 5060) represents a targeted legislative effort to shield individuals with knowledge of classified UAP programs from institutional retaliation. Co-sponsored by Representatives Tim Burchett and Anna Paulina Luna, the bill builds on revelations from the 2023 Grusch hearing and the DoD IG reprisal report by creating statutory protections specifically tailored to UAP-related disclosures. The legislation would establish safe channels for reporting through the Intelligence Community Inspector General and congressional intelligence committees, while explicitly prohibiting security clearance revocation, reassignment, or termination as retaliatory measures. It also mandates that the DoD IG track and report on UAP-related reprisal complaints annually.",
+    "keyPoints": [
+      "Bipartisan bill co-sponsored by Reps. Burchett (R-TN) and Luna (R-FL)",
+      "Creates statutory protections specifically for UAP-related whistleblower disclosures",
+      "Prohibits security clearance revocation as retaliatory measure against UAP whistleblowers",
+      "Establishes safe reporting channels through ICIG and congressional intelligence committees",
+      "Mandates annual DoD IG reporting on UAP-related reprisal complaints"
+    ],
+    "category": "Report",
+    "importance": "High",
+    "tags": ["Congress", "Whistleblower", "Legislation", "Burchett", "Luna", "119th Congress"],
+    "publishedDate": "2025-09-15",
+    "addedDate": "2026-03-07"
+  },
+  {
+    "id": "borland-written-testimony-sept-2025",
+    "title": "Dylan Borland Written Testimony for House Task Force on UAP",
+    "source": "Congress",
+    "sourceUrl": "https://oversight.house.gov/wp-content/uploads/2025/09/Borland-Written-Testimony.pdf",
+    "documentUrl": "",
+    "summary": "Federal whistleblower Dylan Borland submitted written testimony to the House Oversight Task Force claiming direct knowledge of non-human craft and technologies operating outside Congressional oversight.",
+    "expandedSummary": "Dylan Borland's written testimony, submitted for the September 2025 House Task Force hearing on UAP transparency, represents one of the most direct claims from a federal whistleblower regarding alleged non-human technology under U.S. government control. Borland, who came forward under whistleblower protections, detailed what he described as firsthand knowledge of programs involving recovered non-human craft and associated technologies that have been operating without proper Congressional notification or oversight. The testimony echoed and expanded upon claims made by David Grusch in 2023, but with additional specificity about the chain of custody and institutional structures allegedly involved in concealing these programs from elected officials.",
+    "keyPoints": [
+      "Federal whistleblower testimony submitted to House Oversight Task Force",
+      "Claims direct knowledge of non-human craft and technologies under U.S. control",
+      "Alleges programs operating without required Congressional oversight or notification",
+      "Builds on and expands claims originally made by whistleblower David Grusch in 2023",
+      "Submitted under federal whistleblower protections ahead of September 2025 hearing"
+    ],
+    "category": "Hearing",
+    "importance": "Critical",
+    "tags": ["Whistleblower", "Congress", "Borland", "Non-Human Technology", "Oversight"],
+    "publishedDate": "2025-09-09",
+    "addedDate": "2026-03-07"
+  },
+  {
     "id": "trump-declassification-order-feb-2026",
     "title": "Trump Executive Order Directs Pentagon to Declassify UFO and UAP Files",
     "source": "News",
