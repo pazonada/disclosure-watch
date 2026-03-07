@@ -1,5 +1,19 @@
 [
   {
+    "id": "dod-ig-whistleblower-report-2026",
+    "date": "2026-01-07",
+    "title": "DoD IG Releases Heavily Redacted UAP Whistleblower Reprisal Report",
+    "description": "The Department of Defense Inspector General published its final report on UAP-related whistleblower reprisal complaints, confirming investigations into security clearance revocation as retaliation. Heavy redactions fueled further transparency demands.",
+    "importance": "Critical"
+  },
+  {
+    "id": "james-fox-press-conference-2026",
+    "date": "2026-01-20",
+    "title": "James Fox Hosts Landmark UAP Press Conference at National Press Club",
+    "description": "Filmmaker James Fox convened witnesses, medical experts, and government insiders at the National Press Club to present new evidence of alleged non-human encounters and crash-retrieval programs.",
+    "importance": "Major"
+  },
+  {
     "id": "trump-declassification-order-2026",
     "date": "2026-02-20",
     "title": "Trump Orders Declassification of All Government UAP Files",
@@ -12,6 +26,34 @@
     "title": "Hegseth Reaffirms UAP Disclosure Commitment",
     "description": "Defense Secretary Pete Hegseth doubled down on Trump's promise of UAP transparency as AARO's caseload surpassed 2,000 reports.",
     "importance": "Critical"
+  },
+  {
+    "id": "aaro-full-operational-capability",
+    "date": "2024-12-05",
+    "title": "AARO Reaches Full Operational Capability",
+    "description": "The All-domain Anomaly Resolution Office achieved full operational capability, completing its organizational buildout and establishing permanent analytical, collection, and reporting infrastructure.",
+    "importance": "Major"
+  },
+  {
+    "id": "sol-foundation-italy-2025",
+    "date": "2025-10-24",
+    "title": "Sol Foundation Symposium Convenes in Italy",
+    "description": "The Sol Foundation, founded by Stanford's Garry Nolan, held its 2025 symposium at Lake Maggiore in Italy — bringing together scientists, former officials, and policy experts for one of the year's most significant UAP academic gatherings.",
+    "importance": "Major"
+  },
+  {
+    "id": "house-task-force-hearing-sept-2025",
+    "date": "2025-09-09",
+    "title": "House Task Force Hearing: UAP Transparency and Whistleblower Protection",
+    "description": "The House Oversight Committee's Task Force on Declassification held its third public UAP hearing, featuring military whistleblowers presenting new evidence and testimony on alleged government concealment.",
+    "importance": "Critical"
+  },
+  {
+    "id": "age-of-disclosure-documentary-2025",
+    "date": "2025-11-21",
+    "title": "'The Age of Disclosure' Documentary Released on Prime Video",
+    "description": "Feature-length documentary featuring active and retired military personnel revealing firsthand accounts of UAP activity, including encounters at Vandenberg Space Force Base and alleged Russian craft recovery.",
+    "importance": "Major"
   },
   {
     "id": "fy2026-ndaa-signed",
@@ -54,6 +96,20 @@
     "title": "National Archives Releases First Batch of UAP Records",
     "description": "NARA published the first UAP records from Record Group 615, including materials from ODNI, Office of the Secretary of Defense, FAA, and NRC. Bulk download portal made available.",
     "importance": "Critical"
+  },
+  {
+    "id": "hr5060-whistleblower-protection-act",
+    "date": "2025-09-15",
+    "title": "UAP Whistleblower Protection Act (H.R. 5060) Introduced",
+    "description": "Reps. Burchett and Luna introduced bipartisan legislation to codify federal protections for UAP whistleblowers, explicitly prohibiting security clearance revocation as retaliation.",
+    "importance": "Major"
+  },
+  {
+    "id": "scu-conference-huntsville-2025",
+    "date": "2025-06-06",
+    "title": "SCU Conference in Huntsville Features Former DIA UAPTF Director",
+    "description": "The Scientific Coalition for UAP Studies held its annual conference in Huntsville, Alabama, featuring a keynote by Jay Stratton — retired DIA official and first director of the UAP Task Force.",
+    "importance": "Major"
   },
   {
     "id": "burlison-disclosure-act-2025",
