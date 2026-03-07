@@ -22,7 +22,7 @@ export default function NewsletterSignup() {
 
       if (res.ok) {
         setStatus("success");
-        setMessage("You're in! Check your inbox for a welcome email.");
+        setMessage("You're in! Your first briefing arrives this Friday.");
         setEmail("");
       } else {
         setStatus("error");
@@ -35,13 +35,7 @@ export default function NewsletterSignup() {
   }
 
   return (
-    <section className="rounded-xl border border-accent-blue/20 bg-gradient-to-br from-accent-blue/5 to-accent-cyan/5 p-6">
-      <h3 className="mb-1 text-lg font-semibold text-white">Stay in the loop</h3>
-      <p className="mb-4 text-sm text-slate-400">
-        Get a weekly digest of new government UAP releases, upcoming hearings, and disclosure
-        milestones. No spam, unsubscribe anytime.
-      </p>
-
+    <div>
       {status === "success" ? (
         <p className="rounded-lg bg-accent-green/10 px-4 py-3 text-sm text-accent-green">
           {message}
@@ -69,6 +63,6 @@ export default function NewsletterSignup() {
       {status === "error" && (
         <p className="mt-2 text-sm text-accent-red">{message}</p>
       )}
-    </section>
+    </div>
   );
 }

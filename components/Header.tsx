@@ -7,6 +7,7 @@ const navLinks = [
   { href: "/documents", label: "Documents" },
   { href: "/events", label: "Hearings and events" },
   { href: "/timeline", label: "Disclosure timeline" },
+  { href: "/subscribe", label: "Subscribe" },
   { href: "/about", label: "About" },
 ];
 

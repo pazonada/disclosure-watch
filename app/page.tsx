@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { getDocuments, getOfficialDocuments, getUpcomingEvents, getPastEvents, getMilestones, getNews, getWeeklySummary } from "@/lib/content";
 import { formatDate, sortByDate } from "@/lib/utils";
-import NewsletterSignup from "@/components/NewsletterSignup";
 import EventCard from "@/components/EventCard";
 import DocumentCard from "@/components/DocumentCard";
 import DocumentModal from "@/components/DocumentModal";
@@ -210,12 +209,6 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="mt-12 pt-8 border-t border-slate-700/50">
-        <div className="mx-auto max-w-md">
-          <NewsletterSignup />
-        </div>
-      </section>
 
       {/* Lightbox modals triggered from feed headlines */}
       {activeDoc && (
