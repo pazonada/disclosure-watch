@@ -12,23 +12,7 @@ export default function Footer() {
           <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-500 sm:justify-end">
             <Link href="/about" className="hover:text-slate-300">About</Link>
             <Link href="/submit" className="hover:text-slate-300">Know something we missed?</Link>
-            <a
-              href="https://www.aaro.mil/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-slate-300"
-            >
-              AARO.mil
-            </a>
-            <a
-              href="https://www.archives.gov/research/topics/uaps"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-slate-300"
-            >
-              National Archives
-            </a>
-            <a
+<a
               href="https://ko-fi.com/studiocrux"
               target="_blank"
               rel="noopener noreferrer"
