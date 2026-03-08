@@ -88,12 +88,8 @@ export default function HomePage() {
                 {weeklySummary.summary}
               </p>
 
-              <p className="mt-4 text-sm text-muted-foreground leading-relaxed lg:text-base font-light">
-                We&apos;re now tracking{" "}
-                <span className="text-lime font-semibold">{officialDocs.length} documents</span>,{" "}
-                <span className="text-blue font-semibold">{upcomingEvents.length + pastEvents.length} events</span>, and{" "}
-                <span className="text-foreground font-semibold">{newsItems.length} news items</span>.
-              </p>
+
+
             </div>
 
             {/* Right column — Quick stat cards */}
