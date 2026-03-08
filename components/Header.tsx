@@ -8,7 +8,6 @@ const navLinks = [
   { href: "/events", label: "Hearings and events" },
   { href: "/timeline", label: "Disclosure timeline" },
   { href: "/subscribe", label: "Subscribe" },
-  { href: "/about", label: "About" },
 ];
 
 export default function Header() {
@@ -21,7 +20,7 @@ export default function Header() {
           <span className="text-2xl">🛸</span>
           <div>
             <span className="text-lg font-bold text-white">Disclosure Watch</span>
-            
+
           </div>
         </Link>
 
