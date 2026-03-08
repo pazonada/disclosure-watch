@@ -20,21 +20,29 @@ export default function EventsPage() {
   const hasMorePast = past.length > pastShown;
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8">
-      <h1 className="mb-2 text-3xl font-bold text-white">Hearings & Events</h1>
-      <p className="mb-8 text-slate-400">
+    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <h1
+        className="mb-3 text-3xl font-display tracking-wide text-foreground sm:text-4xl uppercase"
+        style={{
+          textShadow: "0 0 1px currentColor, 0 0 1px currentColor",
+          WebkitTextStroke: "0.3px currentColor",
+        }}
+      >
+        Hearings & Events
+      </h1>
+      <p className="mb-10 max-w-2xl text-sm text-muted-foreground leading-relaxed lg:text-base font-light">
         Congressional hearings, Pentagon briefings, and other public events related to UAP disclosure.
       </p>
 
       {/* Upcoming */}
       <section className="mb-12">
-        <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-white">
-          <span className="h-2 w-2 rounded-full bg-accent-cyan" />
+        <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-foreground">
+          <span className="h-2 w-2 rounded-full bg-lime" />
           Upcoming
         </h2>
         {upcoming.length > 0 ? (
           <>
-            <div className="grid gap-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {visibleUpcoming.map((event) => (
                 <EventCard key={event.id} event={event} />
               ))}
@@ -42,31 +50,31 @@ export default function EventsPage() {
             {hasMoreUpcoming && (
               <button
                 onClick={() => setUpcomingShown((prev) => prev + ITEMS_PER_PAGE)}
-                className="mt-6 w-full rounded-lg border border-accent-cyan/30 bg-accent-cyan/5 px-4 py-2.5 font-medium text-accent-cyan transition-all hover:bg-accent-cyan/10 hover:border-accent-cyan/50"
+                className="mt-6 w-full rounded-lg border border-card-subtle bg-card px-4 py-2.5 font-mono text-sm text-muted-foreground transition-all hover:bg-[var(--muted-30)] hover:text-lime"
               >
                 Load more upcoming events
               </button>
             )}
           </>
         ) : (
-          <p className="rounded-xl border border-slate-700/50 bg-slate-850 p-8 text-center text-slate-500">
+          <p className="rounded-lg border border-card-subtle bg-card p-8 text-center text-muted-foreground">
             No upcoming events scheduled. Check back soon or subscribe to get notified.
           </p>
         )}
       </section>
 
       {/* Visual separator */}
-      <div className="my-12 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent" />
+      <div className="my-12 h-px bg-gradient-to-r from-transparent via-[var(--border-50)] to-transparent" />
 
       {/* Past */}
       <section>
-        <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-white">
-          <span className="h-2 w-2 rounded-full bg-slate-500" />
+        <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-foreground">
+          <span className="h-2 w-2 rounded-full bg-muted-foreground" />
           Past Hearings
         </h2>
         {past.length > 0 ? (
           <>
-            <div className="grid gap-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {visiblePast.map((event) => (
                 <EventCard key={event.id} event={event} />
               ))}
@@ -74,14 +82,14 @@ export default function EventsPage() {
             {hasMorePast && (
               <button
                 onClick={() => setPastShown((prev) => prev + ITEMS_PER_PAGE)}
-                className="mt-6 w-full rounded-lg border border-slate-700/50 bg-slate-850 px-4 py-2.5 font-medium text-slate-300 transition-all hover:border-slate-600 hover:bg-slate-800"
+                className="mt-6 w-full rounded-lg border border-card-subtle bg-card px-4 py-2.5 font-mono text-sm text-muted-foreground transition-all hover:bg-[var(--muted-30)] hover:text-foreground"
               >
                 Load more past hearings
               </button>
             )}
           </>
         ) : (
-          <p className="rounded-xl border border-slate-700/50 bg-slate-850 p-8 text-center text-slate-500">
+          <p className="rounded-lg border border-card-subtle bg-card p-8 text-center text-muted-foreground">
             No past events available.
           </p>
         )}

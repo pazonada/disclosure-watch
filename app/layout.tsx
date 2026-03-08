@@ -1,13 +1,28 @@
 import type { Metadata } from "next";
+import { Inter, Special_Elite } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const specialElite = Special_Elite({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-display",
+});
 
 export const metadata: Metadata = {
   title: "Disclosure Watch — UAP Government Disclosure Dashboard",
   description:
     "Track U.S. government UAP disclosure activity in one place. AARO records, congressional hearings, FOIA releases, and key milestones — summarized in plain English.",
   keywords: ["UAP", "UFO", "AARO", "disclosure", "government", "unidentified anomalous phenomena", "disclosure watch"],
+  other: {
+    "image-credit": "Hero photo by Javier Miranda on Unsplash",
+  },
   openGraph: {
     title: "Disclosure Watch — UAP Government Disclosure Dashboard",
     description:
@@ -26,10 +41,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col font-sans antialiased">
+    <html lang="en" className="dark">
+      <body className={`${inter.variable} ${specialElite.variable} min-h-screen bg-background text-foreground font-sans antialiased grid-bg relative`}>
+        {/* Scanline overlay for tech effect */}
+        <div className="fixed inset-0 scanline z-50 pointer-events-none" />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="relative flex-1">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-br from-[var(--lime-5)] via-transparent to-[var(--blue-5)]" />
+          <div className="relative">{children}</div>
+        </main>
         <Footer />
       </body>
     </html>

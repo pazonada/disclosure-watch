@@ -2,11 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* ── v0 Design Tokens (Tailwind v3 compatible) ── */
+:root {
+  --background: #0a0e14;
+  --foreground: #e8eef4;
+  --card: #0f1520;
+  --card-foreground: #e8eef4;
+  --muted: #1a2030;
+  --muted-foreground: #8591a0;
+  --border: #181e28;
+  --border-50: #131923;
+  --lime: #c6d751;
+  --blue: #0085f5;
+  --destructive: #cc2730;
+  --high: #e1a200;
+  --teal: #00efc5;
+  --coral: #e33d59;
+  --ring: #c6d751;
+  --glow: rgba(198, 215, 81, 0.15);
 
-body {
-  background-color: #0a0e1a;
-  color: #e2e8f0;
+  /* Pre-computed opacity variants (Tailwind v3 can't do /opacity on CSS vars) */
+  --lime-5: rgba(198, 215, 81, 0.05);
+  --lime-10: rgba(198, 215, 81, 0.1);
+  --lime-30: rgba(198, 215, 81, 0.3);
+  --blue-5: rgba(0, 133, 245, 0.05);
+  --blue-10: rgba(0, 133, 245, 0.1);
+  --blue-30: rgba(0, 133, 245, 0.3);
+  --muted-30: rgba(26, 32, 48, 0.3);
+  --muted-50: rgba(26, 32, 48, 0.5);
+  --background-80: rgba(10, 14, 20, 0.8);
+  --destructive-10: rgba(204, 39, 48, 0.1);
+  --destructive-20: rgba(204, 39, 48, 0.2);
+  --high-10: rgba(225, 162, 0, 0.1);
+  --high-20: rgba(225, 162, 0, 0.2);
+  --teal-10: rgba(0, 239, 197, 0.1);
+  --coral-10: rgba(227, 61, 89, 0.1);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+
+/* ── Utility classes from v0 ── */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display, 'Special Elite'), 'Courier New', monospace;
+  }
+  .glow-primary {
+    box-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow);
+  }
+  .glow-primary-sm {
+    box-shadow: 0 0 8px var(--glow);
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(24, 30, 40, 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(24, 30, 40, 0.5) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .scanline {
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 0, 0, 0.03) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+  }
+  /* Subtle card border — matches v0's border-border/50 */
+  .border-card-subtle {
+    border-color: var(--border-50);
+  }
 }
 
 /* Custom scrollbar */
@@ -14,10 +86,10 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f1729;
+  background: var(--card);
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: var(--border);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {

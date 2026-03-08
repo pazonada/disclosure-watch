@@ -48,7 +48,7 @@ export default function DocumentFeed({ documents }: Props) {
       </div>
 
       {/* Results count */}
-      <p className="mb-4 text-sm text-slate-500">
+      <p className="mb-4 text-sm text-muted-foreground font-mono">
         {visible.length}/{filtered.length} document{filtered.length !== 1 ? "s" : ""}
         {(search || category || importance) && " matching filters"}
       </p>
@@ -64,18 +64,18 @@ export default function DocumentFeed({ documents }: Props) {
           {hasMore && (
             <button
               onClick={() => setDisplayed((prev) => prev + ITEMS_PER_PAGE)}
-              className="mt-6 w-full rounded-lg border border-accent-blue/30 bg-accent-blue/5 px-4 py-2.5 font-medium text-accent-blue transition-all hover:bg-accent-blue/10 hover:border-accent-blue/50"
+              className="mt-6 w-full rounded-lg border border-card-subtle bg-card px-4 py-2.5 font-mono text-sm text-muted-foreground transition-all hover:bg-[var(--muted-30)] hover:text-lime"
             >
               Load more documents
             </button>
           )}
         </>
       ) : (
-        <div className="rounded-xl border border-slate-700/50 bg-slate-850 p-12 text-center">
-          <p className="text-lg text-slate-400">No documents match your filters.</p>
+        <div className="rounded-lg border border-card-subtle bg-card p-12 text-center">
+          <p className="text-lg text-muted-foreground">No documents match your filters.</p>
           <button
             onClick={handleClearFilters}
-            className="mt-3 text-sm text-accent-blue hover:underline"
+            className="mt-3 text-sm text-lime hover:underline"
           >
             Clear all filters
           </button>

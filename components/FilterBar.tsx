@@ -23,7 +23,7 @@ export default function FilterBar({
         onChange={(e) =>
           onCategoryChange((e.target.value || undefined) as DocumentCategory | undefined)
         }
-        className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-slate-300 outline-none focus:border-accent-blue"
+        className="rounded-lg border border-card-subtle bg-muted px-3 py-2 text-sm text-muted-foreground outline-none focus:border-lime"
       >
         <option value="">All Types</option>
         {categories.map((c) => (
@@ -36,9 +36,9 @@ export default function FilterBar({
         onChange={(e) =>
           onImportanceChange((e.target.value || undefined) as Importance | undefined)
         }
-        className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-slate-300 outline-none focus:border-accent-blue"
+        className="rounded-lg border border-card-subtle bg-muted px-3 py-2 text-sm text-muted-foreground outline-none focus:border-lime"
       >
-        <option value="">All Priority</option>
+        <option value="">All Importance</option>
         {importances.map((i) => (
           <option key={i} value={i}>{i}</option>
         ))}

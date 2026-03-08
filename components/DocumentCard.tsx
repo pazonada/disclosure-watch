@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { UAPDocument } from "@/lib/types";
-import { formatDate, importanceBadgeColor, categoryIcon } from "@/lib/utils";
+import { formatDate, importanceBadgeColor } from "@/lib/utils";
 import DocumentModal from "./DocumentModal";
-import TagPill from "./TagPill";
+import { CategoryIcon } from "./Icons";
 
 interface Props {
   doc: UAPDocument;
@@ -14,64 +14,73 @@ export default function DocumentCard({ doc }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCardClick = (e: React.MouseEvent) => {
-    // Prevent opening modal when clicking on links
-    if ((e.target as HTMLElement).closest("a")) {
-      return;
-    }
+    if ((e.target as HTMLElement).closest("a")) return;
     setIsModalOpen(true);
+  };
+
+  const importanceDot: Record<string, string> = {
+    High: "bg-destructive",
+    Medium: "bg-high",
+    Low: "bg-green-500",
   };
 
   return (
     <>
       <article
         onClick={handleCardClick}
-        className="group cursor-pointer rounded-xl border border-slate-700/50 bg-slate-850 p-5 transition-all hover:border-accent-blue/40 hover:bg-slate-800/80"
+        className="group relative cursor-pointer flex flex-col rounded-lg border border-card-subtle p-5 transition-all hover:border-[var(--lime-30)] hover:bg-[var(--muted-30)]"
       >
-        {/* Top row: category + importance */}
-        <div className="mb-3 flex items-center justify-between">
+        {/* Header: category + importance */}
+        <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <span className="text-lg">{categoryIcon(doc.category)}</span>
-            <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
+            <span className={`h-2 w-2 rounded-full ${importanceDot[doc.importance] || "bg-muted-foreground"}`} />
+            <span className="inline-flex items-center rounded border border-border bg-[var(--muted-50)] px-2 py-0.5 text-xs font-mono text-muted-foreground">
               {doc.category}
             </span>
           </div>
-          <span
-            className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${importanceBadgeColor(doc.importance)}`}
-          >
-            {doc.importance}
-          </span>
+          <CategoryIcon category={doc.category} className="h-5 w-5 text-muted-foreground" />
         </div>
 
         {/* Title */}
-        <h3 className="mb-2 text-base font-semibold leading-snug text-white group-hover:text-accent-cyan">
+        <h3 className="text-base font-semibold text-foreground leading-snug mb-2 line-clamp-2 group-hover:text-lime transition-colors">
           {doc.title}
         </h3>
 
         {/* Summary */}
-        <p className="mb-4 text-sm leading-relaxed text-slate-400">{doc.summary}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+          {doc.summary}
+        </p>
 
-        {/* Meta row */}
-        <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
-          <span>{formatDate(doc.publishedDate)}</span>
-          {doc.tags.slice(0, 3).map((tag) => (
-            <TagPill key={tag} tag={tag} />
-          ))}
+        {/* Footer */}
+        <div className="mt-4 pt-4 border-t border-card-subtle">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono text-muted-foreground">{formatDate(doc.publishedDate)}</span>
+            <div className="flex items-center gap-1.5">
+              {doc.tags.slice(0, 2).map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Links */}
-        <div className="mt-4">
+        {/* Source link */}
+        <div className="mt-3">
           <a
             href={doc.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg bg-accent-blue/10 px-3 py-1.5 text-xs font-medium text-accent-blue transition-colors hover:bg-accent-blue/20"
+            className="rounded-lg bg-[var(--lime-10)] px-3 py-1.5 text-xs font-medium text-lime transition-colors hover:bg-[rgba(198,215,81,0.2)]"
           >
             View Source →
           </a>
         </div>
       </article>
 
-      {/* Modal */}
       {isModalOpen && (
         <DocumentModal doc={doc} onClose={() => setIsModalOpen(false)} />
       )}

@@ -68,7 +68,7 @@ export default function SubmissionForm() {
           title: "",
           url: "",
           description: "",
-      
+
           notes: "",
           email: "",
         });
@@ -84,9 +84,9 @@ export default function SubmissionForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-accent-green/30 bg-accent-green/5 p-6">
-        <h3 className="mb-2 text-lg font-semibold text-accent-green">Thank you!</h3>
-        <p className="text-sm text-slate-300 leading-relaxed">
+      <div className="rounded-lg border border-[var(--lime-10)] bg-[var(--lime-5)] p-6">
+        <h3 className="mb-2 text-lg font-semibold text-lime">Thank you!</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">
           Your submission has been received and will be reviewed by our team before being added to
           the site. We appreciate your contribution to making Disclosure Watch more complete.
         </p>
@@ -95,7 +95,7 @@ export default function SubmissionForm() {
             setStatus("idle");
             setMessage("");
           }}
-          className="mt-4 text-sm text-accent-green hover:text-accent-green/80 font-medium transition-colors"
+          className="mt-4 text-sm text-lime hover:underline font-medium transition-colors"
         >
           Submit another tip →
         </button>
@@ -103,26 +103,28 @@ export default function SubmissionForm() {
     );
   }
 
+  const inputClass = "w-full rounded-lg border border-card-subtle bg-muted px-4 py-2.5 text-foreground placeholder-muted-foreground outline-none focus:border-lime transition-colors";
+
   return (
-    <div className="rounded-xl border border-slate-700 bg-slate-850/50 p-6">
-      <h3 className="mb-1 text-lg font-semibold text-white">Know something we missed?</h3>
-      <p className="mb-6 text-sm text-slate-400">
-        Found a document, event, or timeline entry we haven't covered? Submit a tip and help us
+    <div className="rounded-lg border border-card-subtle bg-card p-6">
+      <h3 className="mb-1 text-lg font-semibold text-foreground">Know something we missed?</h3>
+      <p className="mb-6 text-sm text-muted-foreground font-light">
+        Found a document, event, or timeline entry we haven&apos;t covered? Submit a tip and help us
         keep Disclosure Watch complete.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Submission Type */}
         <div>
-          <label htmlFor="type" className="block text-sm font-medium text-slate-300 mb-2">
-            Submission type <span className="text-accent-red">*</span>
+          <label htmlFor="type" className="block text-sm font-medium text-muted-foreground mb-2">
+            Submission type <span className="text-destructive">*</span>
           </label>
           <select
             id="type"
             name="type"
             value={formData.type}
             onChange={handleChange}
-            className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-2.5 text-white outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/20 transition-colors"
+            className={inputClass}
           >
             <option value="Missed Document">Missed Document</option>
             <option value="Hearing/Event">Hearing/Event</option>
@@ -133,8 +135,8 @@ export default function SubmissionForm() {
 
         {/* Title */}
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-slate-300 mb-2">
-            Title or headline <span className="text-accent-red">*</span>
+          <label htmlFor="title" className="block text-sm font-medium text-muted-foreground mb-2">
+            Title or headline <span className="text-destructive">*</span>
           </label>
           <input
             type="text"
@@ -143,15 +145,15 @@ export default function SubmissionForm() {
             value={formData.title}
             onChange={handleChange}
             placeholder="e.g., AARO Report on 2023 Cases"
-            className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/20 transition-colors"
+            className={inputClass}
             required
           />
         </div>
 
         {/* Description */}
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-slate-300 mb-2">
-            Description <span className="text-accent-red">*</span>
+          <label htmlFor="description" className="block text-sm font-medium text-muted-foreground mb-2">
+            Description <span className="text-destructive">*</span>
           </label>
           <textarea
             id="description"
@@ -160,15 +162,15 @@ export default function SubmissionForm() {
             onChange={handleChange}
             placeholder="Tell us what this is about and why it's relevant to UAP disclosure..."
             rows={4}
-            className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/20 transition-colors resize-none"
+            className={`${inputClass} resize-none`}
             required
           />
         </div>
 
         {/* Link/URL */}
         <div>
-          <label htmlFor="url" className="block text-sm font-medium text-slate-300 mb-2">
-            Link or URL <span className="text-slate-500 text-xs font-normal">(optional)</span>
+          <label htmlFor="url" className="block text-sm font-medium text-muted-foreground mb-2">
+            Link or URL <span className="text-xs font-normal">(optional)</span>
           </label>
           <input
             type="url"
@@ -177,15 +179,15 @@ export default function SubmissionForm() {
             value={formData.url}
             onChange={handleChange}
             placeholder="https://example.com"
-            className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/20 transition-colors"
+            className={inputClass}
           />
         </div>
 
         {/* Additional Notes */}
         <div>
-          <label htmlFor="notes" className="block text-sm font-medium text-slate-300 mb-2">
+          <label htmlFor="notes" className="block text-sm font-medium text-muted-foreground mb-2">
             Additional context or notes{" "}
-            <span className="text-slate-500 text-xs font-normal">(optional)</span>
+            <span className="text-xs font-normal">(optional)</span>
           </label>
           <textarea
             id="notes"
@@ -194,14 +196,14 @@ export default function SubmissionForm() {
             onChange={handleChange}
             placeholder="Any extra details that would help us verify or categorize this submission..."
             rows={3}
-            className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/20 transition-colors resize-none"
+            className={`${inputClass} resize-none`}
           />
         </div>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-            Your email <span className="text-slate-500 text-xs font-normal">(optional)</span>
+          <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-2">
+            Your email <span className="text-xs font-normal">(optional)</span>
           </label>
           <input
             type="email"
@@ -210,10 +212,10 @@ export default function SubmissionForm() {
             value={formData.email}
             onChange={handleChange}
             placeholder="you@example.com"
-            className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/20 transition-colors"
+            className={inputClass}
           />
-          <p className="mt-1 text-xs text-slate-500">
-            Provide your email if you'd like us to follow up or give you credit.
+          <p className="mt-1 text-xs text-muted-foreground">
+            Provide your email if you&apos;d like us to follow up or give you credit.
           </p>
         </div>
 
@@ -221,14 +223,14 @@ export default function SubmissionForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="w-full rounded-lg bg-accent-blue px-4 py-3 font-medium text-white transition-colors hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full rounded-lg bg-lime px-4 py-3 font-medium text-background transition-colors hover:bg-[var(--lime-30)] hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {status === "submitting" ? "Submitting..." : "Submit Tip"}
         </button>
 
         {/* Error Message */}
         {status === "error" && (
-          <p className="rounded-lg bg-accent-red/10 px-4 py-3 text-sm text-accent-red">{message}</p>
+          <p className="rounded-lg bg-[var(--destructive-10)] px-4 py-3 text-sm text-destructive">{message}</p>
         )}
       </form>
     </div>

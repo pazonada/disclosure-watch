@@ -37,7 +37,7 @@ export default function NewsletterSignup() {
   return (
     <div>
       {status === "success" ? (
-        <p className="rounded-lg bg-accent-green/10 px-4 py-3 text-sm text-accent-green">
+        <p className="rounded-lg bg-[var(--lime-10)] px-4 py-3 text-sm text-lime">
           {message}
         </p>
       ) : (
@@ -48,12 +48,12 @@ export default function NewsletterSignup() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="flex-1 rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm text-white placeholder-slate-500 outline-none focus:border-accent-blue"
+            className="flex-1 rounded-lg border border-card-subtle bg-muted px-4 py-2 text-sm text-foreground placeholder-muted-foreground outline-none focus:border-lime"
           />
           <button
             type="submit"
             disabled={status === "loading"}
-            className="rounded-lg bg-accent-blue px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600 disabled:opacity-50"
+            className="rounded-lg bg-lime px-5 py-2 text-sm font-medium text-background transition-colors hover:bg-[var(--lime-30)] hover:text-foreground disabled:opacity-50"
           >
             {status === "loading" ? "..." : "Subscribe"}
           </button>
@@ -61,7 +61,7 @@ export default function NewsletterSignup() {
       )}
 
       {status === "error" && (
-        <p className="mt-2 text-sm text-accent-red">{message}</p>
+        <p className="mt-2 text-sm text-destructive">{message}</p>
       )}
     </div>
   );
