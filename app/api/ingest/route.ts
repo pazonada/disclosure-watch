@@ -778,7 +778,7 @@ async function generateWithClaude(
     .map((e) => `- ${e.title} (${e.type}, ${e.date})`)
     .join("\n");
 
-  const prompt = `You write the weekly "State of Disclosure" blurb for Disclosure Watch, a site tracking UAP/UFO government disclosure. Write ONE paragraph (max 5 sentences) summarizing this week's activity. Be digestible, friendly, almost informal — like a smart friend catching you up. Mention specifics (names, numbers, sources) when interesting. End with a stat about total tracked items if it fits naturally.
+  const prompt = `You write the weekly "State of Disclosure" blurb for Disclosure Watch, a site tracking UAP/UFO government disclosure. Write ONE paragraph (max 5 sentences) summarizing this week's activity. Be digestible, friendly, almost informal — like a smart friend catching you up. Mention specifics (names, numbers, sources) when interesting. Do NOT include any stats about total tracked items — those are shown separately on the site.
 
 This week's news headlines:
 ${newsDigest || "(no new news this week)"}
@@ -857,11 +857,6 @@ function buildTemplateSummary(
       .join(", ");
     parts.push(`Also making headlines: ${others}.`);
   }
-
-  // Total stats
-  parts.push(
-    `We're now tracking ${totalDocs} documents, ${totalEvents} events, and ${totalNews} news items — and counting.`
-  );
 
   return parts.join(" ");
 }
