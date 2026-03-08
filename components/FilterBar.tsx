@@ -8,7 +8,7 @@ interface Props {
 }
 
 const categories: DocumentCategory[] = ["Report", "Hearing", "FOIA Release", "Image", "News"];
-const importances: Importance[] = ["Critical", "High", "Medium", "Low"];
+const importances: Importance[] = ["High", "Medium", "Low"];
 
 export default function FilterBar({
   category,

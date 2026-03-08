@@ -5,9 +5,9 @@ export interface WeeklySummary {
 
 export type DocumentSource = "AARO" | "Archives" | "Congress" | "News" | "Manual";
 export type DocumentCategory = "Report" | "Hearing" | "FOIA Release" | "Image" | "News" | "Video";
-export type Importance = "Critical" | "High" | "Medium" | "Low";
+export type Importance = "High" | "Medium" | "Low";
 export type EventType = "Hearing" | "Deadline" | "Conference" | "Press Conference" | "Legislation" | "Investigation" | "Agency Update" | "Advocacy" | "Document Release" | "Classified Briefing";
-export type MilestoneImportance = "Critical" | "Major" | "Minor";
+export type MilestoneImportance = "High" | "Medium" | "Low";
 
 export interface UAPDocument {
   id: string;

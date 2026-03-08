@@ -11,11 +11,11 @@ interface Props {
 
 function importanceStyle(importance: TimelineMilestone["importance"]) {
   switch (importance) {
-    case "Critical":
-      return { dot: "bg-red-500 ring-red-500/30", line: "border-red-500/30" };
-    case "Major":
+    case "High":
+      return { dot: "bg-amber-500 ring-amber-500/30", line: "border-amber-500/30" };
+    case "Medium":
       return { dot: "bg-accent-blue ring-accent-blue/30", line: "border-accent-blue/30" };
-    case "Minor":
+    case "Low":
       return { dot: "bg-slate-500 ring-slate-500/30", line: "border-slate-700" };
   }
 }
@@ -66,9 +66,9 @@ export default function Timeline({ milestones, maxItems = 15 }: Props) {
                 <p className="text-sm leading-relaxed text-slate-400">{m.description}</p>
                 <span
                   className={`mt-2 inline-block rounded-full px-2 py-0.5 text-xs ${
-                    m.importance === "Critical"
-                      ? "bg-red-500/20 text-red-400"
-                      : m.importance === "Major"
+                    m.importance === "High"
+                      ? "bg-amber-500/20 text-amber-400"
+                      : m.importance === "Medium"
                       ? "bg-accent-blue/20 text-accent-blue"
                       : "bg-slate-700 text-slate-400"
                   }`}

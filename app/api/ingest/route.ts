@@ -247,8 +247,8 @@ async function fetchCongress(): Promise<UAPDocument[]> {
             `Congressional bill from the ${congress}th Congress.`,
           category: "Report",
           importance: title.toLowerCase().includes("disclosure")
-            ? "Critical"
-            : "High",
+            ? "High"
+            : "Medium",
           tags: ["Congress", "Legislation", `${congress}th Congress`],
           publishedDate,
           addedDate: today(),

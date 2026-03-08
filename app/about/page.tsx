@@ -143,6 +143,17 @@ export default function AboutPage() {
           </li>
         </ul>
 
+        <h2 className="text-xl font-semibold text-white pt-4">How we rate importance</h2>
+        <p className="text-slate-400">
+          Every document and milestone on Disclosure Watch is scored as High, Medium, or Low importance.
+          These ratings are based on a weighted assessment of several factors: the directness of the
+          source (firsthand testimony scores higher than secondhand reporting), legislative impact
+          (signed legislation scores higher than introduced bills), historical significance (first-of-its-kind
+          events score higher than follow-ups), the breadth of media and Congressional attention received,
+          and recency. Ratings are reviewed periodically as new context emerges. They reflect editorial
+          judgment informed by these criteria — not official government classifications.
+        </p>
+
         <h2 className="text-xl font-semibold text-white pt-4">What this is not</h2>
         <p className="text-slate-400">
           This is not a sighting tracker, a forum for personal experiences, or a conspiracy site. We

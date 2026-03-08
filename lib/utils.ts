@@ -70,7 +70,6 @@ export function filterDocuments(
 
 export function importanceBadgeColor(importance: Importance): string {
   switch (importance) {
-    case "Critical": return "bg-red-500/20 text-red-400 border-red-500/30";
     case "High": return "bg-amber-500/20 text-amber-400 border-amber-500/30";
     case "Medium": return "bg-blue-500/20 text-blue-400 border-blue-500/30";
     case "Low": return "bg-slate-500/20 text-slate-400 border-slate-500/30";

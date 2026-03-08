@@ -5,7 +5,7 @@
     "source": "AARO",
     "sourceUrl": "https://www.theblackvault.com/documentarchive/dod-ig-releases-final-uap-whistleblower-reprisal-report/",
     "summary": "The Department of Defense Inspector General released a heavily redacted final report on UAP-related whistleblower reprisal investigations, centering on the revocation of classified access from individuals who reported UAP information to Congress.",
-    "expandedSummary": "In January 2026, the Department of Defense Office of Inspector General published its final report on UAP whistleblower reprisal complaints — a document that had been anticipated by the disclosure community for months. The report, while heavily redacted, addresses allegations that individuals within the defense and intelligence establishment faced retaliatory action, including revocation of security clearances and classified access, after providing UAP-related information to members of Congress as authorized under federal whistleblower protections. The redactions themselves have become a point of contention, with transparency advocates arguing that the censored sections likely contain the most consequential findings regarding institutional efforts to suppress UAP-related testimony.",
+    "expandedSummary": "In January 2026, the Department of Defense Office of Inspector General published its final report on UAP whistleblower reprisal complaints \u2014 a document that had been anticipated by the disclosure community for months. The report, while heavily redacted, addresses allegations that individuals within the defense and intelligence establishment faced retaliatory action, including revocation of security clearances and classified access, after providing UAP-related information to members of Congress as authorized under federal whistleblower protections. The redactions themselves have become a point of contention, with transparency advocates arguing that the censored sections likely contain the most consequential findings regarding institutional efforts to suppress UAP-related testimony.",
     "keyPoints": [
       "DoD Inspector General completed investigation into UAP whistleblower reprisal allegations",
       "Report heavily redacted, with key findings and names obscured",
@@ -14,8 +14,14 @@
       "Redactions themselves fueled further calls for transparency and legislative protections"
     ],
     "category": "Report",
-    "importance": "Critical",
-    "tags": ["DoD IG", "Whistleblower", "Reprisal", "Classified Access", "2026"],
+    "importance": "High",
+    "tags": [
+      "DoD IG",
+      "Whistleblower",
+      "Reprisal",
+      "Classified Access",
+      "2026"
+    ],
     "publishedDate": "2026-01-07",
     "addedDate": "2026-03-07"
   },
@@ -34,8 +40,15 @@
       "Mandates annual DoD IG reporting on UAP-related reprisal complaints"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["Congress", "Whistleblower", "Legislation", "Burchett", "Luna", "119th Congress"],
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Whistleblower",
+      "Legislation",
+      "Burchett",
+      "Luna",
+      "119th Congress"
+    ],
     "publishedDate": "2025-09-15",
     "addedDate": "2026-03-07"
   },
@@ -55,8 +68,14 @@
       "Submitted under federal whistleblower protections ahead of September 2025 hearing"
     ],
     "category": "Hearing",
-    "importance": "Critical",
-    "tags": ["Whistleblower", "Congress", "Borland", "Non-Human Technology", "Oversight"],
+    "importance": "High",
+    "tags": [
+      "Whistleblower",
+      "Congress",
+      "Borland",
+      "Non-Human Technology",
+      "Oversight"
+    ],
     "publishedDate": "2025-09-09",
     "addedDate": "2026-03-07"
   },
@@ -75,8 +94,14 @@
       "Initiates coordinated federal review process across multiple agencies including AARO"
     ],
     "category": "News",
-    "importance": "Critical",
-    "tags": ["Trump", "Executive Order", "Declassification", "Disclosure", "2026"],
+    "importance": "High",
+    "tags": [
+      "Trump",
+      "Executive Order",
+      "Declassification",
+      "Disclosure",
+      "2026"
+    ],
     "publishedDate": "2026-02-20",
     "addedDate": "2026-02-21"
   },
@@ -95,8 +120,14 @@
       "Milestone demonstrates acceleration of UAP reporting and investigation activities"
     ],
     "category": "News",
-    "importance": "Critical",
-    "tags": ["Hegseth", "Trump", "AARO", "Disclosure", "2026"],
+    "importance": "Medium",
+    "tags": [
+      "Hegseth",
+      "Trump",
+      "AARO",
+      "Disclosure",
+      "2026"
+    ],
     "publishedDate": "2026-02-25",
     "addedDate": "2026-02-26"
   },
@@ -115,8 +146,14 @@
       "Establishes sustained congressional oversight mechanism for military UAP encounters"
     ],
     "category": "Report",
-    "importance": "Critical",
-    "tags": ["NDAA", "Congress", "NORTHCOM", "NORAD", "Legislation"],
+    "importance": "High",
+    "tags": [
+      "NDAA",
+      "Congress",
+      "NORTHCOM",
+      "NORAD",
+      "Legislation"
+    ],
     "publishedDate": "2025-12-10",
     "addedDate": "2025-12-11"
   },
@@ -136,8 +173,14 @@
       "Procedures took effect October 26, 2025 across all FAA facilities nationwide"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["FAA", "ATC", "Reporting", "Procedures", "AARO"],
+    "importance": "Medium",
+    "tags": [
+      "FAA",
+      "ATC",
+      "Reporting",
+      "Procedures",
+      "AARO"
+    ],
     "publishedDate": "2025-10-26",
     "addedDate": "2025-10-27"
   },
@@ -156,8 +199,13 @@
       "Applies to all government agencies with UAP documentation and records"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["Legislation", "Transparency", "Declassification", "H.R.1187"],
+    "importance": "Medium",
+    "tags": [
+      "Legislation",
+      "Transparency",
+      "Declassification",
+      "H.R.1187"
+    ],
     "publishedDate": "2025-02-11",
     "addedDate": "2025-02-12"
   },
@@ -176,8 +224,13 @@
       "Demonstrated Pentagon's systematic approach to UAP investigation and case resolution"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["AARO", "Caseload", "Annual Report", "Pentagon"],
+    "importance": "Medium",
+    "tags": [
+      "AARO",
+      "Caseload",
+      "Annual Report",
+      "Pentagon"
+    ],
     "publishedDate": "2024-11-14",
     "addedDate": "2024-11-15"
   },
@@ -190,21 +243,27 @@
     "summary": "Official ODNI/AARO annual report covering 757 UAP reports received May 2023 to June 2024. AARO resolved 118 cases to prosaic explanations including balloons, birds, and UAS; 21 remained truly unexplained with no conventional resolution. Total caseload reached 1,652 reports. Report found no evidence of extraterrestrial connections but acknowledged persistent data collection gaps.",
     "expandedSummary": "The FY2024 Consolidated Annual Report represents the most comprehensive official accounting of unidentified anomalous phenomena investigations by the U.S. intelligence community. Covering the period from May 2023 through June 2024, the report documents 757 newly reported incidents, bringing the total investigated caseload to 1,652 reports. Of the new reports, AARO resolved 118 cases to identified causes including balloons, commercial drones, birds, and other prosaic explanations. Critically, 21 cases remained classified as truly unexplained after exhaustive analysis. The report maintained the intelligence community's position finding no evidence of extraterrestrial technology but emphasized significant data collection gaps that impede definitive conclusions. The acknowledgment of persistent analytical limitations suggests continued need for improved sensor deployment and standardized reporting.",
     "keyPoints": [
-      "757 new UAP reports received May 2023–June 2024; total caseload now 1,652",
+      "757 new UAP reports received May 2023\u2013June 2024; total caseload now 1,652",
       "AARO resolved 118 cases to prosaic explanations (balloons, birds, drones, UAS)",
       "21 cases remained truly unexplained with no conventional resolution identified",
       "No evidence of extraterrestrial technology detected or recovered",
       "Report acknowledges persistent data collection gaps limiting analytical certainty"
     ],
     "category": "Report",
-    "importance": "Critical",
-    "tags": ["ODNI", "AARO", "Annual Report", "FY2024", "Statistics"],
+    "importance": "High",
+    "tags": [
+      "ODNI",
+      "AARO",
+      "Annual Report",
+      "FY2024",
+      "Statistics"
+    ],
     "publishedDate": "2024-11-14",
     "addedDate": "2024-11-15"
   },
   {
     "id": "house-oversight-uap-hearing-nov-2024",
-    "title": "House Oversight Hearing: Unidentified Anomalous Phenomena — Exposing the Truth",
+    "title": "House Oversight Hearing: Unidentified Anomalous Phenomena \u2014 Exposing the Truth",
     "source": "Congress",
     "sourceUrl": "https://oversight.house.gov/hearing/unidentified-anomalous-phenomena-exposing-the-truth/",
     "summary": "The House Committee on Oversight held a public hearing titled 'Exposing the Truth' featuring testimony from military witnesses and government officials on UAP encounters and alleged cover-ups. Members pressed witnesses on the existence of secret retrieval programs, inadequate congressional notification, and whether intelligence agencies have been withholding information from elected officials.",
@@ -217,8 +276,13 @@
       "Addressed fundamental oversight questions about government UAP information sharing"
     ],
     "category": "Hearing",
-    "importance": "Critical",
-    "tags": ["House Oversight", "Hearing", "Testimony", "Military"],
+    "importance": "High",
+    "tags": [
+      "House Oversight",
+      "Hearing",
+      "Testimony",
+      "Military"
+    ],
     "publishedDate": "2024-11-13",
     "addedDate": "2024-11-14"
   },
@@ -237,8 +301,14 @@
       "Aimed to improve data consistency and eliminate analytical inconsistencies"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["AARO", "Research", "Workshop", "Civilian", "Universities"],
+    "importance": "Medium",
+    "tags": [
+      "AARO",
+      "Research",
+      "Workshop",
+      "Civilian",
+      "Universities"
+    ],
     "publishedDate": "2025-08-15",
     "addedDate": "2025-08-20"
   },
@@ -257,8 +327,14 @@
       "Transforms UAP records from classified archives into public historical materials"
     ],
     "category": "FOIA Release",
-    "importance": "Critical",
-    "tags": ["NARA", "Archives", "RG-615", "Records Release", "Rolling"],
+    "importance": "High",
+    "tags": [
+      "NARA",
+      "Archives",
+      "RG-615",
+      "Records Release",
+      "Rolling"
+    ],
     "publishedDate": "2025-04-01",
     "addedDate": "2025-04-05"
   },
@@ -277,8 +353,14 @@
       "Democratizes access to declassified UAP documentation for public research"
     ],
     "category": "FOIA Release",
-    "importance": "High",
-    "tags": ["NARA", "Bulk Download", "Portal", "Archives", "Public Access"],
+    "importance": "Low",
+    "tags": [
+      "NARA",
+      "Bulk Download",
+      "Portal",
+      "Archives",
+      "Public Access"
+    ],
     "publishedDate": "2025-04-01",
     "addedDate": "2025-04-05"
   },
@@ -298,8 +380,13 @@
       "Made transparency process institutional policy rather than discretionary practice"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["AARO", "Declassification", "NARA", "Transparency"],
+    "importance": "Medium",
+    "tags": [
+      "AARO",
+      "Declassification",
+      "NARA",
+      "Transparency"
+    ],
     "publishedDate": "2025-03-01",
     "addedDate": "2025-03-05"
   },
@@ -311,8 +398,13 @@
     "documentUrl": "https://www.aaro.mil/Portals/136/PDFs/AARO_Mission_Brief_2025.pdf",
     "summary": "Comprehensive overview of AARO's mission, organizational structure, investigation processes, and 2025 priorities. Outlines the office's approach to resolving anomalous cases and coordinating with intelligence agencies.",
     "category": "Report",
-    "importance": "Medium",
-    "tags": ["AARO", "Mission", "Organization", "2025"],
+    "importance": "Low",
+    "tags": [
+      "AARO",
+      "Mission",
+      "Organization",
+      "2025"
+    ],
     "publishedDate": "2025-01-15",
     "addedDate": "2025-01-20"
   },
@@ -331,8 +423,13 @@
       "Enabled permanent public access through unified archival framework"
     ],
     "category": "FOIA Release",
-    "importance": "Critical",
-    "tags": ["NARA", "Archives", "Record Group 615", "Historical Records"],
+    "importance": "High",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615",
+      "Historical Records"
+    ],
     "publishedDate": "2024-09-01",
     "addedDate": "2024-09-05"
   },
@@ -343,41 +440,56 @@
     "sourceUrl": "https://www.noaa.gov/information-technology/foia-reading-room/unidentified-anomalous-phenomena-uap-and-aaro-records",
     "summary": "NOAA published its UAP-related records in its FOIA Reading Room, including correspondence with AARO and internal documentation of anomalous atmospheric observations reported by NOAA personnel. The release was part of the broader federal agency compliance effort mandated by the 2024 NDAA requiring all agencies to identify, review, and transfer UAP records to the National Archives.",
     "category": "FOIA Release",
-    "importance": "Medium",
-    "tags": ["NOAA", "FOIA", "AARO", "Atmospheric"],
+    "importance": "Low",
+    "tags": [
+      "NOAA",
+      "FOIA",
+      "AARO",
+      "Atmospheric"
+    ],
     "publishedDate": "2025-05-01",
     "addedDate": "2025-05-05"
   },
   {
     "id": "aaro-records-page-update",
-    "title": "AARO UAP Records Portal — Ongoing Updates",
+    "title": "AARO UAP Records Portal \u2014 Ongoing Updates",
     "source": "AARO",
     "sourceUrl": "https://www.aaro.mil/UAP-Records/",
     "summary": "AARO maintains a publicly accessible records portal containing case resolutions, declassified imagery, congressional reports, and FOIA releases. The portal is updated as new information is declassified.",
     "category": "FOIA Release",
-    "importance": "Medium",
-    "tags": ["AARO", "Portal", "Records", "Ongoing"],
+    "importance": "Low",
+    "tags": [
+      "AARO",
+      "Portal",
+      "Records",
+      "Ongoing"
+    ],
     "publishedDate": "2025-06-01",
     "addedDate": "2025-06-01"
   },
   {
     "id": "aaro-historical-review-vol-1",
-    "title": "AARO Historical Record Report Volume 1 (1945–2023)",
+    "title": "AARO Historical Record Report Volume 1 (1945\u20132023)",
     "source": "AARO",
     "sourceUrl": "https://www.aaro.mil/",
     "documentUrl": "https://media.defense.gov/2024/Mar/08/2003409233/-1/-1/0/AARO-HISTORICAL-RECORD-REPORT-VOLUME-1-2024.PDF",
     "summary": "AARO's comprehensive historical review covering U.S. government involvement with UAPs from 1945 to 2023. Found no evidence of extraterrestrial technology but acknowledged gaps in record-keeping and institutional knowledge.",
     "expandedSummary": "AARO released its first comprehensive historical record report in March 2024, providing an authoritative retrospective examination of U.S. government UAP involvement spanning 1945 through 2023. The report documented the evolution of government investigation procedures, the institutional structures that managed UAP research across military and intelligence agencies, and the technical approaches employed to identify explanations for anomalous observations. The historical review examined government records, declassified documents, and institutional archives to trace continuities and discontinuities in official UAP policy across administrations. While the report found no evidence supporting recovery or possession of extraterrestrial technology, it identified significant gaps in official record-keeping practices and documented instances of institutional knowledge loss during agency transitions. The report's acknowledgment of these historical gaps has prompted improvements in archival procedures and documentation standards.",
     "keyPoints": [
-      "AARO published comprehensive historical review covering 1945–2023",
+      "AARO published comprehensive historical review covering 1945\u20132023",
       "Documented evolution of government UAP investigation procedures and structures",
       "Examined technical approaches across military and intelligence community",
       "Found no evidence of recovered extraterrestrial technology",
       "Identified significant gaps in record-keeping and institutional knowledge preservation"
     ],
     "category": "Report",
-    "importance": "Critical",
-    "tags": ["AARO", "Historical", "Review", "1945-2023"],
+    "importance": "High",
+    "tags": [
+      "AARO",
+      "Historical",
+      "Review",
+      "1945-2023"
+    ],
     "publishedDate": "2024-03-08",
     "addedDate": "2024-03-09"
   },
@@ -396,8 +508,13 @@
       "Creates statutory obligations for transparency rather than discretionary disclosure"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["NDAA", "Pentagon", "Briefings", "Oversight"],
+    "importance": "Medium",
+    "tags": [
+      "NDAA",
+      "Pentagon",
+      "Briefings",
+      "Oversight"
+    ],
     "publishedDate": "2025-07-15",
     "addedDate": "2025-07-16"
   },
@@ -417,8 +534,14 @@
       "Report established statistical baseline for ongoing intelligence community analysis"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["ODNI", "AARO", "Annual Report", "FY2023", "Statistics"],
+    "importance": "Medium",
+    "tags": [
+      "ODNI",
+      "AARO",
+      "Annual Report",
+      "FY2023",
+      "Statistics"
+    ],
     "publishedDate": "2023-10-17",
     "addedDate": "2023-10-18"
   },
@@ -438,8 +561,15 @@
       "Hearing transcript catalyzed sustained congressional and public attention to disclosure"
     ],
     "category": "Hearing",
-    "importance": "Critical",
-    "tags": ["House Oversight", "Grusch", "Fravor", "Graves", "Whistleblower", "Hearing"],
+    "importance": "High",
+    "tags": [
+      "House Oversight",
+      "Grusch",
+      "Fravor",
+      "Graves",
+      "Whistleblower",
+      "Hearing"
+    ],
     "publishedDate": "2023-07-26",
     "addedDate": "2023-07-27"
   },
@@ -458,8 +588,13 @@
       "Established budgetary and operational expectations for AARO performance"
     ],
     "category": "Hearing",
-    "importance": "High",
-    "tags": ["Senate Armed Services", "AARO", "Kirkpatrick", "Oversight"],
+    "importance": "Medium",
+    "tags": [
+      "Senate Armed Services",
+      "AARO",
+      "Kirkpatrick",
+      "Oversight"
+    ],
     "publishedDate": "2023-04-19",
     "addedDate": "2023-04-20"
   },
@@ -478,8 +613,14 @@
       "Shifts burden to demonstrating classification necessity rather than disclosure need"
     ],
     "category": "Report",
-    "importance": "Critical",
-    "tags": ["Legislation", "Disclosure Act", "NDAA", "Schumer", "Rounds"],
+    "importance": "High",
+    "tags": [
+      "Legislation",
+      "Disclosure Act",
+      "NDAA",
+      "Schumer",
+      "Rounds"
+    ],
     "publishedDate": "2023-07-25",
     "addedDate": "2023-07-26"
   },
@@ -492,15 +633,20 @@
     "summary": "Historic May 17, 2022 hearing before House Intelligence Subcommittee on Counterterrorism, Counterintelligence and Counterproliferation. First public congressional UAP hearing in over 50 years. Featured testimony from Pentagon officials Moultrie and Bray.",
     "expandedSummary": "The House Intelligence Subcommittee on Counterterrorism, Counterintelligence and Counterproliferation convened a historic public hearing on May 17, 2022, marking the first official congressional hearing focused on unidentified anomalous phenomena in over five decades. The hearing represented a watershed moment in elevating UAP from classified intelligence discussions to matters of public congressional scrutiny. Pentagon officials, including Deputy Director of Naval Intelligence Scott Bray and other Department of Defense representatives, testified regarding military observations of unexplained aerial phenomena and the Pentagon's investigative procedures. The public hearing transcript and subsequent congressional interest catalyzed legislative initiatives requiring sustained UAP transparency, standardized reporting procedures, and formal establishment of investigation offices. The 2022 hearing established the foundation for expanded governmental transparency mechanisms.",
     "keyPoints": [
-      "House Intelligence Subcommittee hearing on May 17, 2022 — first public UAP hearing in 50+ years",
+      "House Intelligence Subcommittee hearing on May 17, 2022 \u2014 first public UAP hearing in 50+ years",
       "Marked watershed moment elevating UAP to public congressional scrutiny",
       "Pentagon officials testified on military observations and investigation procedures",
       "Public hearing catalyzed subsequent legislative transparency initiatives",
       "Established foundation for formal government UAP investigation office creation"
     ],
     "category": "Hearing",
-    "importance": "Critical",
-    "tags": ["House Intelligence", "Hearing", "First Public Hearing", "Pentagon"],
+    "importance": "High",
+    "tags": [
+      "House Intelligence",
+      "Hearing",
+      "First Public Hearing",
+      "Pentagon"
+    ],
     "publishedDate": "2022-05-17",
     "addedDate": "2022-05-18"
   },
@@ -520,8 +666,13 @@
       "Identified critical data collection and sensor deployment gaps limiting analysis"
     ],
     "category": "Report",
-    "importance": "Critical",
-    "tags": ["ODNI", "Preliminary Assessment", "Landmark", "2021"],
+    "importance": "High",
+    "tags": [
+      "ODNI",
+      "Preliminary Assessment",
+      "Landmark",
+      "2021"
+    ],
     "publishedDate": "2021-06-25",
     "addedDate": "2021-06-26"
   },
@@ -540,8 +691,15 @@
       "Official declassification catalyzed expanded congressional and media attention to UAP"
     ],
     "category": "Video",
-    "importance": "Critical",
-    "tags": ["Pentagon", "Video Release", "GIMBAL", "GOFAST", "FLIR", "Declassified"],
+    "importance": "High",
+    "tags": [
+      "Pentagon",
+      "Video Release",
+      "GIMBAL",
+      "GOFAST",
+      "FLIR",
+      "Declassified"
+    ],
     "publishedDate": "2020-04-27",
     "addedDate": "2020-04-28"
   },
@@ -560,8 +718,14 @@
       "Pentagon UAP Task Force analysis confirmed observed characteristics remain anomalous"
     ],
     "category": "Report",
-    "importance": "Critical",
-    "tags": ["Nimitz", "Tic Tac", "2004", "Fravor", "Navy"],
+    "importance": "High",
+    "tags": [
+      "Nimitz",
+      "Tic Tac",
+      "2004",
+      "Fravor",
+      "Navy"
+    ],
     "publishedDate": "2004-11-14",
     "addedDate": "2020-04-27"
   },
@@ -580,8 +744,14 @@
       "Declassified collection contributes to government investigation database"
     ],
     "category": "FOIA Release",
-    "importance": "High",
-    "tags": ["DOE", "NNSA", "Nuclear Sites", "Security", "FOIA"],
+    "importance": "Low",
+    "tags": [
+      "DOE",
+      "NNSA",
+      "Nuclear Sites",
+      "Security",
+      "FOIA"
+    ],
     "publishedDate": "2024-06-01",
     "addedDate": "2024-06-05"
   },
@@ -600,8 +770,13 @@
       "Transfer demonstrates federal commitment to comprehensive UAP record centralization"
     ],
     "category": "FOIA Release",
-    "importance": "High",
-    "tags": ["NRC", "NARA", "Nuclear", "Records Transfer"],
+    "importance": "Low",
+    "tags": [
+      "NRC",
+      "NARA",
+      "Nuclear",
+      "Records Transfer"
+    ],
     "publishedDate": "2024-10-20",
     "addedDate": "2024-10-21"
   },
@@ -620,8 +795,13 @@
       "Declassified archive at National Archives available for public research"
     ],
     "category": "FOIA Release",
-    "importance": "High",
-    "tags": ["Project Blue Book", "Air Force", "Historical", "Declassified"],
+    "importance": "Low",
+    "tags": [
+      "Project Blue Book",
+      "Air Force",
+      "Historical",
+      "Declassified"
+    ],
     "publishedDate": "1969-12-17",
     "addedDate": "2020-01-01"
   },
@@ -640,8 +820,13 @@
       "Available through CIA FOIA Reading Room for public research access"
     ],
     "category": "FOIA Release",
-    "importance": "High",
-    "tags": ["CIA", "FOIA", "Declassified", "Historical"],
+    "importance": "Low",
+    "tags": [
+      "CIA",
+      "FOIA",
+      "Declassified",
+      "Historical"
+    ],
     "publishedDate": "2020-01-01",
     "addedDate": "2020-06-01"
   },
@@ -660,8 +845,13 @@
       "Systematically addressed alternative theories through historical evidence"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["Roswell", "1947", "Declassified", "Project MOGUL"],
+    "importance": "Low",
+    "tags": [
+      "Roswell",
+      "1947",
+      "Declassified",
+      "Project MOGUL"
+    ],
     "publishedDate": "1994-07-01",
     "addedDate": "1995-01-01"
   },
@@ -672,8 +862,13 @@
     "sourceUrl": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-95-187/html/GAOREPORTS-NSIAD-95-187.htm",
     "summary": "General Accounting Office investigation into 1947 Roswell incident conducted at request of Congressman Steven Schiff. Found limited records survived; recovered materials identified as classified surveillance balloon components.",
     "category": "Report",
-    "importance": "Medium",
-    "tags": ["Roswell", "GAO", "Investigation", "Records"],
+    "importance": "Low",
+    "tags": [
+      "Roswell",
+      "GAO",
+      "Investigation",
+      "Records"
+    ],
     "publishedDate": "1995-07-01",
     "addedDate": "1995-07-15"
   },
@@ -693,8 +888,13 @@
       "Established NASA as scientific partner in government UAP investigation"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["NASA", "Scientific Research", "Independent Study", "AI/ML"],
+    "importance": "Medium",
+    "tags": [
+      "NASA",
+      "Scientific Research",
+      "Independent Study",
+      "AI/ML"
+    ],
     "publishedDate": "2023-09-14",
     "addedDate": "2023-09-15"
   },
@@ -713,8 +913,13 @@
       "Coordinates with military and intelligence agencies on research agenda"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["NASA", "Science", "Research Director", "Program"],
+    "importance": "Medium",
+    "tags": [
+      "NASA",
+      "Science",
+      "Research Director",
+      "Program"
+    ],
     "publishedDate": "2023-09-14",
     "addedDate": "2023-09-15"
   },
@@ -725,8 +930,13 @@
     "sourceUrl": "https://vault.fbi.gov/Project%20Blue%20Book%20(UFO)%20/Project%20Blue%20Book%20(UFO)%20Part%2001%20(Final)/view",
     "summary": "FBI's declassified Project Blue Book files made publicly accessible through the FBI Vault FOIA system. Contains the Bureau's historical UFO investigation records from the Air Force study period 1952-1969, including inter-agency communications, field office reports on sightings, and FBI assessments of specific incidents that were referred to the Bureau by Air Force investigators.",
     "category": "FOIA Release",
-    "importance": "Medium",
-    "tags": ["FBI", "Vault", "Project Blue Book", "FOIA"],
+    "importance": "Low",
+    "tags": [
+      "FBI",
+      "Vault",
+      "Project Blue Book",
+      "FOIA"
+    ],
     "publishedDate": "2020-01-01",
     "addedDate": "2020-06-01"
   },
@@ -737,8 +947,13 @@
     "sourceUrl": "https://vault.fbi.gov/Roswell%20UFO",
     "summary": "FBI declassified files relating to the 1947 Roswell incident, accessible through the FBI Vault FOIA system. Includes original FBI teletype communications from the Roswell Army Air Field, investigative documents, and inter-agency correspondence about the recovery of unidentified debris. The records provide the Bureau's contemporaneous documentation of one of the most scrutinized incidents in UFO history.",
     "category": "FOIA Release",
-    "importance": "Medium",
-    "tags": ["FBI", "Vault", "Roswell", "FOIA"],
+    "importance": "Low",
+    "tags": [
+      "FBI",
+      "Vault",
+      "Roswell",
+      "FOIA"
+    ],
     "publishedDate": "1947-07-08",
     "addedDate": "2020-01-01"
   },
@@ -757,8 +972,13 @@
       "Mandates comprehensive UAP tracking and analysis across federal agencies"
     ],
     "category": "Report",
-    "importance": "High",
-    "tags": ["Senate", "Appropriations", "Oversight", "AARO"],
+    "importance": "Medium",
+    "tags": [
+      "Senate",
+      "Appropriations",
+      "Oversight",
+      "AARO"
+    ],
     "publishedDate": "2024-09-30",
     "addedDate": "2024-10-01"
   },
@@ -769,8 +989,13 @@
     "sourceUrl": "https://www.aaro.mil/Congressional-Press-Products/",
     "summary": "AARO maintains public archive of all congressional testimonies, press briefings, declassified presentations, and official statements. Updated as new information is released and congressional briefings occur.",
     "category": "Report",
-    "importance": "Medium",
-    "tags": ["AARO", "Congress", "Press", "Archive"],
+    "importance": "Low",
+    "tags": [
+      "AARO",
+      "Congress",
+      "Press",
+      "Archive"
+    ],
     "publishedDate": "2024-01-01",
     "addedDate": "2024-01-15"
   },
@@ -781,8 +1006,13 @@
     "sourceUrl": "https://www.archives.gov/research/topics/uaps",
     "summary": "NARA comprehensive research guide to UAP-related records held at the National Archives. Includes search tools for the online catalog, bulk download access to digitized materials, Record Group 615 collection details, and step-by-step guidance for researchers accessing declassified UAP materials both online and in person at Archives facilities in College Park, Maryland.",
     "category": "Report",
-    "importance": "Medium",
-    "tags": ["NARA", "Research Guide", "Archives", "Access"],
+    "importance": "Low",
+    "tags": [
+      "NARA",
+      "Research Guide",
+      "Archives",
+      "Access"
+    ],
     "publishedDate": "2024-09-01",
     "addedDate": "2024-09-05"
   },
@@ -793,8 +1023,13 @@
     "sourceUrl": "https://www.theblackvault.com/documentarchive/",
     "summary": "The Black Vault maintains extensive independently-maintained archive of declassified UAP/UFO documents, FOIA releases, government reports, and historical materials. Includes cross-referenced source documentation.",
     "category": "News",
-    "importance": "Medium",
-    "tags": ["Black Vault", "Archive", "Research", "Documents"],
+    "importance": "Low",
+    "tags": [
+      "Black Vault",
+      "Archive",
+      "Research",
+      "Documents"
+    ],
     "publishedDate": "2020-01-01",
     "addedDate": "2020-06-01"
   },
@@ -813,8 +1048,13 @@
       "Demonstrated federal recognition of UAP activity near sensitive infrastructure"
     ],
     "category": "News",
-    "importance": "High",
-    "tags": ["DOE", "Nuclear", "Investigation", "Security"],
+    "importance": "Medium",
+    "tags": [
+      "DOE",
+      "Nuclear",
+      "Investigation",
+      "Security"
+    ],
     "publishedDate": "2023-06-01",
     "addedDate": "2023-06-05"
   }
