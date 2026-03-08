@@ -47,7 +47,7 @@ import * as path from "path";
 interface UAPDocument {
   id: string;
   title: string;
-  source: "AARO" | "Archives" | "Congress" | "News" | "Manual";
+  source: "AARO" | "Archives" | "Congress" | "White House" | "Department of Defense" | "NASA" | "The Black Vault" | "The Debrief" | "Manual";
   sourceUrl: string;
   documentUrl?: string;
   summary: string;

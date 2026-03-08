@@ -17,10 +17,10 @@ export function getMilestones(): TimelineMilestone[] {
   return milestones as TimelineMilestone[];
 }
 
-/** All documents excluding News and Video categories (actual government documents only). */
+/** All documents excluding Video and Archive categories (primary disclosure documents only). */
 export function getOfficialDocuments(): UAPDocument[] {
   return getDocuments().filter(
-    (d) => d.category !== "News" && d.category !== "Video"
+    (d) => d.category !== "Video" && d.category !== "Archive"
   );
 }
 

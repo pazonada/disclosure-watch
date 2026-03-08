@@ -875,7 +875,7 @@
   {
     "id": "nasa-uap-independent-study-2023",
     "title": "NASA Unidentified Anomalous Phenomena Independent Study Team Report",
-    "source": "News",
+    "source": "NASA",
     "sourceUrl": "https://science.nasa.gov/uap/",
     "documentUrl": "https://science.nasa.gov/wp-content/uploads/2023/09/uap-independent-study-team-final-report.pdf",
     "summary": "September 2023 NASA study commissioned to examine UAP from scientific perspective. Found no evidence of extraterrestrial life but noted limited high-quality data prevents firm conclusions. Recommended systematic data collection and AI/ML analysis approaches.",
@@ -901,7 +901,7 @@
   {
     "id": "nasa-director-uap-research-appointed",
     "title": "NASA Appoints Director of UAP Research and Establishes UAP Science Program",
-    "source": "News",
+    "source": "NASA",
     "sourceUrl": "https://www.nasa.gov/news-release/update-nasa-shares-uap-independent-study-report-names-director/",
     "summary": "In response to Independent Study Team recommendations, NASA appointed a Director of UAP Research to oversee institutional scientific vision. Program focuses on data collection, AI/ML analysis, and satellite-based observation methodologies.",
     "expandedSummary": "NASA established an institutional commitment to unidentified anomalous phenomena research by appointing a Director of UAP Research and creating a formal science program within the agency structure. The appointment reflected recommendations from NASA's independent study team and signaled the agency's intention to contribute substantive scientific capabilities to government-wide UAP investigation efforts. The Director of UAP Research position coordinates with military and intelligence agencies while advancing NASA's scientific agenda focused on systematic data collection, artificial intelligence and machine learning analytical techniques, and development of satellite-based observation methodologies. The program emphasizes scientific rigor in evaluating UAP observations, establishing methodological standards for interdisciplinary research, and training the next generation of scientists dedicated to anomalous phenomena investigation.",
@@ -912,7 +912,7 @@
       "Emphasizes AI/ML analytical techniques and satellite observation capabilities",
       "Coordinates with military and intelligence agencies on research agenda"
     ],
-    "category": "Report",
+    "category": "Press Release",
     "importance": "Medium",
     "tags": [
       "NASA",
@@ -1032,30 +1032,5 @@
     ],
     "publishedDate": "2020-01-01",
     "addedDate": "2020-06-01"
-  },
-  {
-    "id": "debrief-uap-doe-nuclear-sites",
-    "title": "U.S. Department of Energy UAP Documents Reveal Incursions Near Nuclear Sites",
-    "source": "The Debrief",
-    "sourceUrl": "https://thedebrief.org/u-s-department-of-energy-uap-documents-reveal-puzzling-aerial-incursions-near-american-nuclear-sites/",
-    "summary": "Investigative report analyzing declassified DOE/NNSA documents detailing unexplained incursion incidents at American nuclear weapons facilities. Documents reveal security protocols and observed characteristics of anomalous objects.",
-    "expandedSummary": "The Debrief published a detailed investigative report analyzing declassified Department of Energy and National Nuclear Security Administration documents that documented unexplained aerial incursion incidents at U.S. nuclear weapons production facilities and research laboratories. The analysis of declassified materials revealed patterns of anomalous aerial activity near strategically sensitive nuclear infrastructure, including observations of objects with flight characteristics inconsistent with conventional aircraft. The investigative report examined security protocols, response procedures, and institutional documentation describing the observed phenomena. The materials revealed that federal agencies responsible for securing nuclear weapons facilities had encountered and documented multiple unexplained aerial incidents in restricted airspace. The investigation demonstrated that UAP activity in proximity to nuclear infrastructure represented a recognized concern for security agencies.",
-    "keyPoints": [
-      "Investigative report analyzing declassified DOE/NNSA nuclear facility incursion documents",
-      "Documented unexplained aerial activity near U.S. nuclear weapons facilities",
-      "Revealed objects with flight characteristics inconsistent with conventional aircraft",
-      "Examined security protocols and institutional incident documentation",
-      "Demonstrated federal recognition of UAP activity near sensitive infrastructure"
-    ],
-    "category": "News",
-    "importance": "Medium",
-    "tags": [
-      "DOE",
-      "Nuclear",
-      "Investigation",
-      "Security"
-    ],
-    "publishedDate": "2023-06-01",
-    "addedDate": "2023-06-05"
   }
 ]

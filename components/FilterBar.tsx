@@ -7,7 +7,7 @@ interface Props {
   onImportanceChange: (val: Importance | undefined) => void;
 }
 
-const categories: DocumentCategory[] = ["Report", "Hearing", "FOIA Release", "Image", "News"];
+const categories: DocumentCategory[] = ["Report", "Hearing", "FOIA Release", "Executive Order", "Official Statement", "Press Release", "Video", "Archive"];
 const importances: Importance[] = ["High", "Medium", "Low"];
 
 export default function FilterBar({

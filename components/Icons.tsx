@@ -128,9 +128,11 @@ export function CategoryIcon({ category, className = "h-5 w-5", strokeWidth = 1 
     case "Report": return <FileText className={className} strokeWidth={strokeWidth} />;
     case "Hearing": return <CalendarDays className={className} strokeWidth={strokeWidth} />;
     case "FOIA Release": return <Unlock className={className} strokeWidth={strokeWidth} />;
-    case "Image": return <Camera className={className} strokeWidth={strokeWidth} />;
-    case "News": return <Newspaper className={className} strokeWidth={strokeWidth} />;
+    case "Executive Order": return <FileText className={className} strokeWidth={strokeWidth} />;
+    case "Official Statement": return <Newspaper className={className} strokeWidth={strokeWidth} />;
+    case "Press Release": return <Newspaper className={className} strokeWidth={strokeWidth} />;
     case "Video": return <Video className={className} strokeWidth={strokeWidth} />;
+    case "Archive": return <Unlock className={className} strokeWidth={strokeWidth} />;
     default: return <FileText className={className} strokeWidth={strokeWidth} />;
   }
 }

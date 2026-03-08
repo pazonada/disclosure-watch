@@ -3,8 +3,8 @@ export interface WeeklySummary {
   summary: string;
 }
 
-export type DocumentSource = "AARO" | "Archives" | "Congress" | "News" | "Manual";
-export type DocumentCategory = "Report" | "Hearing" | "FOIA Release" | "Image" | "News" | "Video";
+export type DocumentSource = "AARO" | "Archives" | "Congress" | "White House" | "Department of Defense" | "NASA" | "The Black Vault" | "The Debrief" | "Manual";
+export type DocumentCategory = "Report" | "Hearing" | "FOIA Release" | "Executive Order" | "Official Statement" | "Press Release" | "Video" | "Archive";
 export type Importance = "High" | "Medium" | "Low";
 export type EventType = "Hearing" | "Deadline" | "Conference" | "Press Conference" | "Legislation" | "Investigation" | "Agency Update" | "Advocacy" | "Document Release" | "Classified Briefing";
 export type MilestoneImportance = "High" | "Medium" | "Low";
