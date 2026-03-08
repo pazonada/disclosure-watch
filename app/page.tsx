@@ -84,7 +84,7 @@ export default function HomePage() {
                 <span className="text-lime">UAP disclosure</span> activity.
               </h1>
 
-              <p className="mt-6 text-sm text-muted-foreground leading-relaxed lg:text-base font-light">
+              <p className="mt-6 text-sm text-muted-foreground leading-relaxed lg:text-base" style={{ fontWeight: 350 }}>
                 {weeklySummary.summary}
               </p>
 

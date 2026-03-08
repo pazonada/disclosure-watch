@@ -17,9 +17,9 @@ export default function DocumentsPage() {
           All Documents & Releases
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground leading-relaxed lg:text-base font-light">
-          Browse our complete collection of AARO records, congressional hearings,
-          FOIA releases, and disclosure announcements. Use search and filters to find
-          what interests you.
+          Primary government sources: executive orders, congressional hearings,
+          AARO reports, FOIA releases, and official statements. Use search and
+          filters to find what interests you.
         </p>
       </section>
 
