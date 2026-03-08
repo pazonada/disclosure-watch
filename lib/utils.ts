@@ -81,9 +81,12 @@ export function categoryIcon(category: UAPDocument["category"]): string {
     case "Report": return "📄";
     case "Hearing": return "🏛️";
     case "FOIA Release": return "🔓";
-    case "Image": return "📸";
-    case "News": return "📰";
+    case "Executive Order": return "📜";
+    case "Official Statement": return "📰";
+    case "Press Release": return "📰";
     case "Video": return "📺";
+    case "Archive": return "🗄️";
+    default: return "📄";
   }
 }
 
@@ -92,8 +95,13 @@ export function sourceLabel(source: UAPDocument["source"]): string {
     case "AARO": return "AARO";
     case "Archives": return "National Archives";
     case "Congress": return "Congress";
-    case "News": return "News";
+    case "White House": return "White House";
+    case "Department of Defense": return "Dept. of Defense";
+    case "NASA": return "NASA";
+    case "The Black Vault": return "The Black Vault";
+    case "The Debrief": return "The Debrief";
     case "Manual": return "Editorial";
+    default: return source;
   }
 }
 
