@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 
+/* Tailwind v4 CSS */
 @custom-variant dark (&:is(.dark *));
 
 :root {
