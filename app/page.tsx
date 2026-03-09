@@ -106,11 +106,7 @@ export default function HomePage() {
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">Latest document</p>
                       <h3 className="mt-0.5 text-sm font-semibold text-foreground line-clamp-2">{latestOfficialDoc.title}</h3>
-                      <div className="mt-1.5 flex items-center gap-2 text-xs text-muted-foreground font-mono">
-                        <span>{formatDate(latestOfficialDoc.publishedDate)}</span>
-                        <span className="text-border">·</span>
-                        <span>{officialDocs.length} total tracked</span>
-                      </div>
+                      <p className="mt-1.5 text-xs text-muted-foreground font-mono">{formatDate(latestOfficialDoc.publishedDate)}</p>
                     </div>
                   </div>
                 </button>
@@ -130,11 +126,7 @@ export default function HomePage() {
                         {upcomingEvents.length > 0 ? "Upcoming event" : "Latest event"}
                       </p>
                       <h3 className="mt-0.5 text-sm font-semibold text-foreground line-clamp-2">{latestEvent.title}</h3>
-                      <div className="mt-1.5 flex items-center gap-2 text-xs text-muted-foreground font-mono">
-                        <span>{formatDate(latestEvent.date)}</span>
-                        <span className="text-border">·</span>
-                        <span>{upcomingEvents.length + pastEvents.length} total tracked</span>
-                      </div>
+                      <p className="mt-1.5 text-xs text-muted-foreground font-mono">{formatDate(latestEvent.date)}</p>
                     </div>
                   </div>
                 </button>
@@ -152,11 +144,7 @@ export default function HomePage() {
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">Latest milestone</p>
                       <h3 className="mt-0.5 text-sm font-semibold text-foreground line-clamp-2">{latestMilestone.title}</h3>
-                      <div className="mt-1.5 flex items-center gap-2 text-xs text-muted-foreground font-mono">
-                        <span>{formatDate(latestMilestone.date)}</span>
-                        <span className="text-border">·</span>
-                        <span>{milestones.length} total tracked</span>
-                      </div>
+                      <p className="mt-1.5 text-xs text-muted-foreground font-mono">{formatDate(latestMilestone.date)}</p>
                     </div>
                   </div>
                 </Link>
