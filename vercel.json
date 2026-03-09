@@ -4,6 +4,10 @@
     {
       "path": "/api/ingest",
       "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/admin/digests/auto-send",
+      "schedule": "15 17 * * 5"
     }
   ]
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { addContact, sendEmail } from "@/lib/resend";
+import { supabase } from "@/lib/supabase";
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,6 +12,16 @@ export async function POST(request: NextRequest) {
 
     // Add to Resend audience
     await addContact(email);
+
+    // Dual-write to Supabase
+    try {
+      await supabase.from("subscribers").upsert(
+        { email, status: "active", subscribed_at: new Date().toISOString() },
+        { onConflict: "email" }
+      );
+    } catch {
+      // Supabase write failed — non-fatal, Resend is the source of truth
+    }
 
     // Send welcome email
     try {

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import * as fs from "fs";
 import * as path from "path";
+import { supabase } from "@/lib/supabase";
 
 /**
  * POST|GET /api/ingest
@@ -731,6 +732,7 @@ async function generateWeeklySummary(
           WEEKLY_SUMMARY_PATH,
           JSON.stringify(data, null, 2) + "\n"
         );
+        await upsertDigestDraft(weekStart, summary);
         return summary;
       }
     } catch {
@@ -752,7 +754,35 @@ async function generateWeeklySummary(
     WEEKLY_SUMMARY_PATH,
     JSON.stringify(data, null, 2) + "\n"
   );
+  await upsertDigestDraft(weekStart, summary);
   return summary;
+}
+
+/** Create or update a digest row in Supabase for this week's summary. */
+async function upsertDigestDraft(weekOf: string, summaryText: string) {
+  try {
+    // Calculate Friday 12pm ET as the auto-send deadline
+    const weekDate = new Date(weekOf + "T00:00:00");
+    const dayOfWeek = weekDate.getDay(); // 0=Sun, 1=Mon
+    const daysUntilFriday = (5 - dayOfWeek + 7) % 7 || 7;
+    const friday = new Date(weekDate);
+    friday.setDate(friday.getDate() + daysUntilFriday);
+    // Friday 12:00 PM ET = 17:00 UTC (EST) or 16:00 UTC (EDT)
+    // Use 17:00 UTC as a safe default (EST)
+    friday.setUTCHours(17, 0, 0, 0);
+
+    await supabase.from("digests").upsert(
+      {
+        week_of: weekOf,
+        summary_text: summaryText,
+        status: "draft",
+        auto_send_deadline: friday.toISOString(),
+      },
+      { onConflict: "week_of", ignoreDuplicates: false }
+    );
+  } catch (err) {
+    console.error("Failed to upsert digest draft:", err);
+  }
 }
 
 /** Use the Anthropic Messages API to write a natural weekly summary */

@@ -110,4 +110,51 @@ export function buildAlertSubject(items: AlertItem[]): string {
   return `🛸 ${items.length} new updates on Disclosure Watch`;
 }
 
+/** Builds the HTML for the weekly digest email. */
+export function buildDigestEmailHtml(summary: string, weekOf: string): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <body style="margin: 0; padding: 0; background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+      <div style="max-width: 560px; margin: 0 auto; padding: 24px 16px;">
+
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 24px;">
+          <span style="font-size: 28px;">🛸</span>
+          <h1 style="color: #f1f5f9; font-size: 20px; margin: 8px 0 4px;">Disclosure Watch — Weekly Digest</h1>
+          <p style="color: #64748b; font-size: 13px; margin: 0;">
+            Week of ${weekOf}
+          </p>
+        </div>
+
+        <!-- Summary -->
+        <div style="padding: 20px; background: #1e293b; border-radius: 8px; margin-bottom: 24px;">
+          <p style="color: #e2e8f0; font-size: 15px; line-height: 1.7; margin: 0;">
+            ${summary}
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <div style="text-align: center; margin: 28px 0;">
+          <a href="https://disclosurewatch.com" style="display: inline-block; background: #3b82f6; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">
+            See the full tracker →
+          </a>
+        </div>
+
+        <!-- Footer -->
+        <div style="border-top: 1px solid #1e293b; padding-top: 16px; text-align: center;">
+          <p style="color: #475569; font-size: 11px; line-height: 1.5; margin: 0;">
+            You're receiving this because you subscribed to Disclosure Watch.<br>
+            <a href="https://disclosurewatch.com/api/newsletter/unsubscribe?email={{email}}" style="color: #64748b; text-decoration: underline;">Unsubscribe</a>
+            &nbsp;·&nbsp;
+            <a href="https://ko-fi.com/studiocrux" style="color: #64748b; text-decoration: underline;">Support this project</a>
+          </p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
 export type { AlertItem };

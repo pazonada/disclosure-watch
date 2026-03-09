@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { removeContact } from "@/lib/resend";
+import { supabase } from "@/lib/supabase";
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,6 +11,16 @@ export async function POST(request: NextRequest) {
     }
 
     await removeContact(email);
+
+    // Dual-write to Supabase
+    try {
+      await supabase
+        .from("subscribers")
+        .update({ status: "unsubscribed", unsubscribed_at: new Date().toISOString() })
+        .eq("email", email);
+    } catch {
+      // Non-fatal
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {
@@ -28,6 +39,10 @@ export async function GET(request: NextRequest) {
 
   try {
     await removeContact(email);
+    await supabase
+      .from("subscribers")
+      .update({ status: "unsubscribed", unsubscribed_at: new Date().toISOString() })
+      .eq("email", email);
   } catch {
     // Non-fatal
   }
