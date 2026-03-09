@@ -219,7 +219,7 @@ export default function HomePage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {recentDocs.length > 0 ? (
               recentDocs.map((doc) => (
-                <DocumentCard key={doc.id} doc={doc} />
+                <DocumentCard key={doc.id} doc={doc} onCardClick={setActiveDoc} />
               ))
             ) : (
               <div className="col-span-full rounded-lg border border-card-subtle bg-card p-8 text-center">
@@ -255,7 +255,7 @@ export default function HomePage() {
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {eventHighlight.map((event) => (
-                <EventCard key={event.id} event={event} />
+                <EventCard key={event.id} event={event} onCardClick={setActiveEvent} />
               ))}
             </div>
           </div>
