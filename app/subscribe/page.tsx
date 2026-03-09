@@ -75,7 +75,7 @@ export default function SubscribePage() {
           rel="noopener noreferrer"
           className="inline-block rounded-lg bg-[var(--lime-10)] px-5 py-2.5 text-sm font-medium text-lime transition-colors hover:bg-[var(--lime-30)]"
         >
-          🛸 Support this project on Ko-fi
+          🛸 Support this project
         </a>
       </div>
     </div>
