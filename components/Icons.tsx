@@ -122,6 +122,22 @@ export function Video({ className = "h-5 w-5", size, strokeWidth = 1 }: IconProp
   );
 }
 
+export function ChevronLeft({ className = "h-5 w-5", size, strokeWidth = 1.5 }: IconProps) {
+  return (
+    <svg {...defaultProps} className={className} width={size} height={size} strokeWidth={strokeWidth}>
+      <path d="m15 18-6-6 6-6" />
+    </svg>
+  );
+}
+
+export function ChevronRight({ className = "h-5 w-5", size, strokeWidth = 1.5 }: IconProps) {
+  return (
+    <svg {...defaultProps} className={className} width={size} height={size} strokeWidth={strokeWidth}>
+      <path d="m9 18 6-6-6-6" />
+    </svg>
+  );
+}
+
 // Map document categories to icons
 export function CategoryIcon({ category, className = "h-5 w-5", strokeWidth = 1 }: { category: string; className?: string; strokeWidth?: number }) {
   switch (category) {

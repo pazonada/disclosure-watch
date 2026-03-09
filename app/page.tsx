@@ -327,12 +327,28 @@ export default function HomePage() {
       </section>
 
       {/* Lightbox modals */}
-      {activeDoc && (
-        <DocumentModal doc={activeDoc} onClose={() => setActiveDoc(null)} />
-      )}
-      {activeEvent && (
-        <EventModal event={activeEvent} onClose={() => setActiveEvent(null)} />
-      )}
+      {activeDoc && (() => {
+        const idx = recentDocs.findIndex((d) => d.id === activeDoc.id);
+        return (
+          <DocumentModal
+            doc={activeDoc}
+            onClose={() => setActiveDoc(null)}
+            onPrev={idx > 0 ? () => setActiveDoc(recentDocs[idx - 1]) : undefined}
+            onNext={idx < recentDocs.length - 1 ? () => setActiveDoc(recentDocs[idx + 1]) : undefined}
+          />
+        );
+      })()}
+      {activeEvent && (() => {
+        const idx = eventHighlight.findIndex((e) => e.id === activeEvent.id);
+        return (
+          <EventModal
+            event={activeEvent}
+            onClose={() => setActiveEvent(null)}
+            onPrev={idx > 0 ? () => setActiveEvent(eventHighlight[idx - 1]) : undefined}
+            onNext={idx < eventHighlight.length - 1 ? () => setActiveEvent(eventHighlight[idx + 1]) : undefined}
+          />
+        );
+      })()}
     </>
   );
 }

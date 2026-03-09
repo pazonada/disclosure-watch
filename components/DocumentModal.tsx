@@ -1,37 +1,43 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { UAPDocument } from "@/lib/types";
 import { formatDateLong } from "@/lib/utils";
 import TagPill from "./TagPill";
-import { CategoryIcon } from "./Icons";
+import { CategoryIcon, ChevronLeft, ChevronRight } from "./Icons";
 
 interface Props {
   doc: UAPDocument;
   onClose: () => void;
+  onPrev?: () => void;
+  onNext?: () => void;
 }
 
-export default function DocumentModal({ doc, onClose }: Props) {
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
+export default function DocumentModal({ doc, onClose, onPrev, onNext }: Props) {
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-    };
+      if (e.key === "ArrowLeft" && onPrev) onPrev();
+      if (e.key === "ArrowRight" && onNext) onNext();
+    },
+    [onClose, onPrev, onNext]
+  );
 
+  useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    document.addEventListener("keydown", handleEscape);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = originalOverflow;
     };
-  }, [onClose]);
+  }, [handleKeyDown]);
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) onClose();
   };
 
-  // Use expandedSummary if available, otherwise fall back to summary
   const displaySummary = doc.expandedSummary || doc.summary;
   const keyPoints = doc.keyPoints || [];
 
@@ -40,6 +46,28 @@ export default function DocumentModal({ doc, onClose }: Props) {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-200"
       onClick={handleBackdropClick}
     >
+      {/* Prev arrow */}
+      {onPrev && (
+        <button
+          onClick={onPrev}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-50 rounded-full bg-card/80 border border-card-subtle p-2 text-muted-foreground transition-all hover:bg-card hover:text-foreground hover:scale-110 sm:left-5"
+          aria-label="Previous document"
+        >
+          <ChevronLeft className="h-5 w-5" strokeWidth={2} />
+        </button>
+      )}
+
+      {/* Next arrow */}
+      {onNext && (
+        <button
+          onClick={onNext}
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-50 rounded-full bg-card/80 border border-card-subtle p-2 text-muted-foreground transition-all hover:bg-card hover:text-foreground hover:scale-110 sm:right-5"
+          aria-label="Next document"
+        >
+          <ChevronRight className="h-5 w-5" strokeWidth={2} />
+        </button>
+      )}
+
       <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-card-subtle bg-card p-8 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
         {/* Close button */}
         <button

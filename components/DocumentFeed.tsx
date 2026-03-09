@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { UAPDocument, DocumentCategory, Importance } from "@/lib/types";
 import { filterDocuments, sortByDate } from "@/lib/utils";
 import DocumentCard from "./DocumentCard";
+import DocumentModal from "./DocumentModal";
 import FilterBar from "./FilterBar";
 import SearchBar from "./SearchBar";
 
@@ -18,6 +19,7 @@ export default function DocumentFeed({ documents }: Props) {
   const [category, setCategory] = useState<DocumentCategory | undefined>();
   const [importance, setImportance] = useState<Importance | undefined>();
   const [displayed, setDisplayed] = useState(ITEMS_PER_PAGE);
+  const [activeDoc, setActiveDoc] = useState<UAPDocument | null>(null);
 
   const filtered = useMemo(() => {
     const result = filterDocuments(documents, { category, importance, search });
@@ -33,6 +35,11 @@ export default function DocumentFeed({ documents }: Props) {
     setImportance(undefined);
     setDisplayed(ITEMS_PER_PAGE);
   };
+
+  // Nav helpers — navigate within the full filtered list, not just visible
+  const activeIdx = activeDoc ? filtered.findIndex((d) => d.id === activeDoc.id) : -1;
+  const handlePrev = activeIdx > 0 ? () => setActiveDoc(filtered[activeIdx - 1]) : undefined;
+  const handleNext = activeIdx < filtered.length - 1 ? () => setActiveDoc(filtered[activeIdx + 1]) : undefined;
 
   return (
     <div>
@@ -58,7 +65,7 @@ export default function DocumentFeed({ documents }: Props) {
         <>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((doc) => (
-              <DocumentCard key={doc.id} doc={doc} />
+              <DocumentCard key={doc.id} doc={doc} onCardClick={setActiveDoc} />
             ))}
           </div>
           {hasMore && (
@@ -80,6 +87,16 @@ export default function DocumentFeed({ documents }: Props) {
             Clear all filters
           </button>
         </div>
+      )}
+
+      {/* Centralized modal with prev/next */}
+      {activeDoc && (
+        <DocumentModal
+          doc={activeDoc}
+          onClose={() => setActiveDoc(null)}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
       )}
     </div>
   );

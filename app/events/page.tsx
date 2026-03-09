@@ -1,23 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { getUpcomingEvents, getPastEvents } from "@/lib/content";
+import { UAPEvent } from "@/lib/types";
 import EventCard from "@/components/EventCard";
+import EventModal from "@/components/EventModal";
 
 const ITEMS_PER_PAGE = 10;
 
 export default function EventsPage() {
-  const upcoming = getUpcomingEvents();
-  const past = getPastEvents();
+  const upcoming = useMemo(() => getUpcomingEvents(), []);
+  const past = useMemo(() => getPastEvents(), []);
 
   const [upcomingShown, setUpcomingShown] = useState(ITEMS_PER_PAGE);
   const [pastShown, setPastShown] = useState(ITEMS_PER_PAGE);
+  const [activeEvent, setActiveEvent] = useState<UAPEvent | null>(null);
 
   const visibleUpcoming = upcoming.slice(0, upcomingShown);
   const visiblePast = past.slice(0, pastShown);
 
   const hasMoreUpcoming = upcoming.length > upcomingShown;
   const hasMorePast = past.length > pastShown;
+
+  // Combined list for prev/next navigation (upcoming first, then past)
+  const allEvents = useMemo(() => [...upcoming, ...past], [upcoming, past]);
+
+  // Nav helpers
+  const activeIdx = activeEvent
+    ? allEvents.findIndex((e) => e.id === activeEvent.id)
+    : -1;
+  const handlePrev =
+    activeIdx > 0 ? () => setActiveEvent(allEvents[activeIdx - 1]) : undefined;
+  const handleNext =
+    activeIdx < allEvents.length - 1
+      ? () => setActiveEvent(allEvents[activeIdx + 1])
+      : undefined;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
@@ -44,7 +61,7 @@ export default function EventsPage() {
           <>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {visibleUpcoming.map((event) => (
-                <EventCard key={event.id} event={event} />
+                <EventCard key={event.id} event={event} onCardClick={setActiveEvent} />
               ))}
             </div>
             {hasMoreUpcoming && (
@@ -76,7 +93,7 @@ export default function EventsPage() {
           <>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {visiblePast.map((event) => (
-                <EventCard key={event.id} event={event} />
+                <EventCard key={event.id} event={event} onCardClick={setActiveEvent} />
               ))}
             </div>
             {hasMorePast && (
@@ -95,6 +112,15 @@ export default function EventsPage() {
         )}
       </section>
 
+      {/* Centralized modal with prev/next */}
+      {activeEvent && (
+        <EventModal
+          event={activeEvent}
+          onClose={() => setActiveEvent(null)}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
+      )}
     </div>
   );
 }

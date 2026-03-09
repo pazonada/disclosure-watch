@@ -1,21 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import { UAPDocument } from "@/lib/types";
-import { formatDate, importanceBadgeColor } from "@/lib/utils";
-import DocumentModal from "./DocumentModal";
+import { formatDate } from "@/lib/utils";
 import { CategoryIcon } from "./Icons";
 
 interface Props {
   doc: UAPDocument;
+  onCardClick?: (doc: UAPDocument) => void;
 }
 
-export default function DocumentCard({ doc }: Props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleCardClick = (e: React.MouseEvent) => {
+export default function DocumentCard({ doc, onCardClick }: Props) {
+  const handleClick = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest("a")) return;
-    setIsModalOpen(true);
+    onCardClick?.(doc);
   };
 
   const importanceDot: Record<string, string> = {
@@ -25,65 +22,59 @@ export default function DocumentCard({ doc }: Props) {
   };
 
   return (
-    <>
-      <article
-        onClick={handleCardClick}
-        className="group relative cursor-pointer flex flex-col rounded-lg border border-card-subtle p-5 transition-all hover:border-[var(--lime-30)] hover:bg-[var(--muted-30)]"
-      >
-        {/* Header: category + importance */}
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="flex items-center gap-2">
-            <span className={`h-2 w-2 rounded-full ${importanceDot[doc.importance] || "bg-muted-foreground"}`} />
-            <span className="inline-flex items-center rounded border border-border bg-[var(--muted-50)] px-2 py-0.5 text-xs font-mono text-muted-foreground">
-              {doc.category}
-            </span>
-          </div>
-          <CategoryIcon category={doc.category} className="h-5 w-5 text-muted-foreground" />
+    <article
+      onClick={handleClick}
+      className="group relative cursor-pointer flex flex-col rounded-lg border border-card-subtle p-5 transition-all hover:border-[var(--lime-30)] hover:bg-[var(--muted-30)]"
+    >
+      {/* Header: category + importance */}
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="flex items-center gap-2">
+          <span className={`h-2 w-2 rounded-full ${importanceDot[doc.importance] || "bg-muted-foreground"}`} />
+          <span className="inline-flex items-center rounded border border-border bg-[var(--muted-50)] px-2 py-0.5 text-xs font-mono text-muted-foreground">
+            {doc.category}
+          </span>
         </div>
+        <CategoryIcon category={doc.category} className="h-5 w-5 text-muted-foreground" />
+      </div>
 
-        {/* Title */}
-        <h3 className="text-base font-semibold text-foreground leading-snug mb-2 line-clamp-2 group-hover:text-lime transition-colors">
-          {doc.title}
-        </h3>
+      {/* Title */}
+      <h3 className="text-base font-semibold text-foreground leading-snug mb-2 line-clamp-2 group-hover:text-lime transition-colors">
+        {doc.title}
+      </h3>
 
-        {/* Summary */}
-        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-1">
-          {doc.summary}
-        </p>
+      {/* Summary */}
+      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+        {doc.summary}
+      </p>
 
-        {/* Footer */}
-        <div className="mt-4 pt-4 border-t border-card-subtle">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-mono text-muted-foreground">{formatDate(doc.publishedDate)}</span>
-            <div className="flex items-center gap-1.5">
-              {doc.tags.slice(0, 2).map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+      {/* Footer */}
+      <div className="mt-4 pt-4 border-t border-card-subtle">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-mono text-muted-foreground">{formatDate(doc.publishedDate)}</span>
+          <div className="flex items-center gap-1.5">
+            {doc.tags.slice(0, 2).map((tag) => (
+              <span
+                key={tag}
+                className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
+      </div>
 
-        {/* Source link */}
-        <div className="mt-3">
-          <a
-            href={doc.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-lg bg-[var(--lime-10)] px-3 py-1.5 text-xs font-medium text-lime transition-colors hover:bg-[rgba(198,215,81,0.2)]"
-          >
-            View Source →
-          </a>
-        </div>
-      </article>
-
-      {isModalOpen && (
-        <DocumentModal doc={doc} onClose={() => setIsModalOpen(false)} />
-      )}
-    </>
+      {/* Source link */}
+      <div className="mt-3">
+        <a
+          href={doc.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-lg bg-[var(--lime-10)] px-3 py-1.5 text-xs font-medium text-lime transition-colors hover:bg-[rgba(198,215,81,0.2)]"
+        >
+          View Source →
+        </a>
+      </div>
+    </article>
   );
 }
