@@ -1,10 +1,19 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+let _supabase: SupabaseClient | null = null;
 
-/** Server-side Supabase client using the service role key. */
-export const supabase = createClient(supabaseUrl, supabaseServiceKey);
+/** Server-side Supabase client using the service role key (lazy-initialized). */
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(_target, prop) {
+    if (!_supabase) {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+      const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+      _supabase = createClient(supabaseUrl, supabaseServiceKey);
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (_supabase as any)[prop as string];
+  },
+});
 
 /* ------------------------------------------------------------------ */
 /*  Row types (mirrors the SQL schema)                                 */

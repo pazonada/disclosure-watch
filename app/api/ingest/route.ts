@@ -4,6 +4,8 @@ import * as path from "path";
 import { supabase } from "@/lib/supabase";
 import type { AlertItem } from "@/lib/alert-email";
 
+export const dynamic = "force-dynamic";
+
 /**
  * POST|GET /api/ingest
  *
@@ -904,7 +906,7 @@ async function dispatchAlerts(
   newDocs: UAPDocument[],
   newNews: NewsItem[],
   newEvents: UAPEvent[]
-): Promise<{ sent: boolean; error?: string }> {
+): Promise<{ dispatched: boolean; error?: string }> {
   const items: AlertItem[] = [];
 
   for (const doc of newDocs) {
@@ -937,7 +939,7 @@ async function dispatchAlerts(
     });
   }
 
-  if (items.length === 0) return { sent: false };
+  if (items.length === 0) return { dispatched: false };
 
   try {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -952,13 +954,13 @@ async function dispatchAlerts(
     if (!res.ok) {
       const text = await res.text();
       console.error("Alert dispatch failed:", res.status, text);
-      return { sent: false, error: text };
+      return { dispatched: false, error: text };
     }
 
-    return { sent: true };
+    return { dispatched: true };
   } catch (err) {
     console.error("Alert dispatch error:", err);
-    return { sent: false, error: String(err) };
+    return { dispatched: false, error: String(err) };
   }
 }
 

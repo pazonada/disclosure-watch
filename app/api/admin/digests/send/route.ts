@@ -3,6 +3,8 @@ import { supabase } from "@/lib/supabase";
 import { sendBatchEmail } from "@/lib/resend";
 import { buildDigestEmailHtml } from "@/lib/alert-email";
 
+export const dynamic = "force-dynamic";
+
 /** Manually send a digest to all active subscribers. */
 export async function POST(req: NextRequest) {
   try {

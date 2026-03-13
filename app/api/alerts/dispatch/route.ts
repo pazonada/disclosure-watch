@@ -3,6 +3,8 @@ import { supabase } from "@/lib/supabase";
 import { sendEmail } from "@/lib/resend";
 import { buildAlertEmailHtml, buildAlertSubject, AlertItem } from "@/lib/alert-email";
 
+export const dynamic = "force-dynamic";
+
 /**
  * POST /api/alerts/dispatch
  *

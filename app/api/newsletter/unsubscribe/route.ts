@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { removeContact } from "@/lib/resend";
 import { supabase } from "@/lib/supabase";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: NextRequest) {
   try {
     const { email } = await request.json();

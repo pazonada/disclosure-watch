@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { getContacts } from "@/lib/resend";
 
+export const dynamic = "force-dynamic";
+
 /** Pull all contacts from Resend and upsert into Supabase subscribers table. */
 export async function POST() {
   try {

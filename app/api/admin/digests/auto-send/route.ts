@@ -3,6 +3,8 @@ import { supabase } from "@/lib/supabase";
 import { sendBatchEmail } from "@/lib/resend";
 import { buildDigestEmailHtml } from "@/lib/alert-email";
 
+export const dynamic = "force-dynamic";
+
 /**
  * Auto-send cron: Checks for any digest past its deadline that hasn't been sent.
  * Called by Vercel Cron on Fridays at ~12:15 PM ET.

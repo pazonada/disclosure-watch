@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/stripe";
 import { supabase } from "@/lib/supabase";
 
+export const dynamic = "force-dynamic";
+
 /**
  * POST /api/stripe/webhook
  *
