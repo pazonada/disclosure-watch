@@ -1,11 +1,63 @@
 [
   {
+    "id": "hegseth-uap-disclosure-feb-2026",
+    "title": "Secretary Hegseth Doubles Down on Trump's UAP Disclosure Promise",
+    "source": "Department of Defense",
+    "sourceUrl": "https://defensescoop.com/2026/02/25/hegseth-ufo-disclosure-trump-aaro-uap-caseload/",
+    "summary": "Defense Secretary Pete Hegseth reaffirmed the Trump administration's commitment to UAP transparency as AARO's caseload officially surpassed 2,000 reports. Hegseth indicated that additional declassified materials would be forthcoming.",
+    "expandedSummary": "Defense Secretary Pete Hegseth publicly reinforced the Trump administration's strategic commitment to UAP disclosure in late February 2026, coinciding with a significant milestone in government UAP investigations. The AARO caseload reached 2,000 documented reports, representing exponential growth from the 801 reports in 2023 and demonstrating the acceleration of reporting since standardized procedures were established. Hegseth's public statement, combined with the record-breaking caseload figures, indicated that major declassification announcements would follow in the coming weeks, providing concrete momentum to the administration's transparency agenda.",
+    "keyPoints": [
+      "AARO caseload surpassed 2,000 reports as of February 2026",
+      "Growth represents dramatic increase from 801 reports in FY2023",
+      "Defense Secretary Pete Hegseth publicly reaffirmed disclosure commitment",
+      "Statement indicated additional declassified materials forthcoming",
+      "Milestone demonstrates acceleration of UAP reporting and investigation activities"
+    ],
+    "category": "Official Statement",
+    "importance": "Medium",
+    "tags": [
+      "Hegseth",
+      "Trump",
+      "AARO",
+      "Disclosure",
+      "2026"
+    ],
+    "publishedDate": "2026-02-25",
+    "addedDate": "2026-02-26"
+  },
+  {
+    "id": "trump-declassification-order-feb-2026",
+    "title": "Trump Executive Order Directs Pentagon to Declassify UFO and UAP Files",
+    "source": "White House",
+    "sourceUrl": "https://defensescoop.com/2026/02/20/trump-ufo-uap-government-files-disclosure/",
+    "summary": "President Trump signed an executive order directing the Secretary of War and relevant departments to identify and release government files related to alien life, extraterrestrial materials, and unidentified anomalous phenomena. The order signaled the beginning of a comprehensive declassification review process.",
+    "expandedSummary": "In February 2026, President Trump issued a sweeping executive order requiring the Secretary of War and multiple federal departments to conduct a comprehensive identification and declassification of all government files related to alien life, extraterrestrial materials, and unidentified anomalous phenomena. The order represents one of the most significant executive mandates on UAP disclosure to date, directing relevant agencies to accelerate their review timelines and coordinate with AARO on the release of previously restricted materials. This action marks a pivotal moment in the official government approach to transparency, signaling the highest-level commitment to fulfilling decades of public and congressional demands for disclosure.",
+    "keyPoints": [
+      "Executive order issued by President Trump directly to Secretary of War and all relevant departments",
+      "Mandates comprehensive identification and declassification of all UAP-related government files",
+      "Specifically includes alien life, extraterrestrial materials, and anomalous phenomena documentation",
+      "Signals highest-level executive commitment to accelerating UAP transparency",
+      "Initiates coordinated federal review process across multiple agencies including AARO"
+    ],
+    "category": "Executive Order",
+    "importance": "High",
+    "tags": [
+      "Trump",
+      "Executive Order",
+      "Declassification",
+      "Disclosure",
+      "2026"
+    ],
+    "publishedDate": "2026-02-20",
+    "addedDate": "2026-02-21"
+  },
+  {
     "id": "dod-ig-uap-whistleblower-reprisal-report-2026",
     "title": "DoD Inspector General UAP Whistleblower Reprisal Report",
     "source": "AARO",
     "sourceUrl": "https://www.theblackvault.com/documentarchive/dod-ig-releases-final-uap-whistleblower-reprisal-report/",
     "summary": "The Department of Defense Inspector General released a heavily redacted final report on UAP-related whistleblower reprisal investigations, centering on the revocation of classified access from individuals who reported UAP information to Congress.",
-    "expandedSummary": "In January 2026, the Department of Defense Office of Inspector General published its final report on UAP whistleblower reprisal complaints \u2014 a document that had been anticipated by the disclosure community for months. The report, while heavily redacted, addresses allegations that individuals within the defense and intelligence establishment faced retaliatory action, including revocation of security clearances and classified access, after providing UAP-related information to members of Congress as authorized under federal whistleblower protections. The redactions themselves have become a point of contention, with transparency advocates arguing that the censored sections likely contain the most consequential findings regarding institutional efforts to suppress UAP-related testimony.",
+    "expandedSummary": "In January 2026, the Department of Defense Office of Inspector General published its final report on UAP whistleblower reprisal complaints — a document that had been anticipated by the disclosure community for months. The report, while heavily redacted, addresses allegations that individuals within the defense and intelligence establishment faced retaliatory action, including revocation of security clearances and classified access, after providing UAP-related information to members of Congress as authorized under federal whistleblower protections. The redactions themselves have become a point of contention, with transparency advocates arguing that the censored sections likely contain the most consequential findings regarding institutional efforts to suppress UAP-related testimony.",
     "keyPoints": [
       "DoD Inspector General completed investigation into UAP whistleblower reprisal allegations",
       "Report heavily redacted, with key findings and names obscured",
@@ -24,6 +76,59 @@
     ],
     "publishedDate": "2026-01-07",
     "addedDate": "2026-03-07"
+  },
+  {
+    "id": "fy2026-ndaa-uap-provisions",
+    "title": "FY2026 NDAA Mandates Pentagon UAP Briefings to Congress",
+    "source": "Congress",
+    "sourceUrl": "https://defensescoop.com/2025/12/10/uap-ufo-military-intercepts-north-america-fy-2026-ndaa/",
+    "summary": "The fiscal year 2026 National Defense Authorization Act directs the AARO director to provide Congress with briefings and data on the number, location, and nature of any UAP intercepts by NORTHCOM and NORAD. It also streamlines interagency data-sharing processes for AARO investigations.",
+    "expandedSummary": "The FY2026 National Defense Authorization Act, signed in December 2025, contains significant new provisions requiring quarterly briefings from the AARO director directly to Congress on military UAP activity. The legislation mandates detailed reporting on all UAP intercepts detected or engaged by NORTHCOM and NORAD, including specific data on incident locations, frequency, and the observed characteristics of detected phenomena. Beyond reporting requirements, the NDAA streamlines information-sharing protocols between military branches, intelligence agencies, and civilian authorities, creating unified databases to support comprehensive UAP investigations. This legislative framework establishes sustained congressional oversight of military UAP encounters.",
+    "keyPoints": [
+      "NDAA mandates quarterly AARO briefings to Congress on UAP intercepts",
+      "Requires data reporting from NORTHCOM and NORAD on all detected UAP activity",
+      "Specifies reporting must include intercept locations, frequency, and characteristics",
+      "Streamlines interagency data-sharing and unified database protocols",
+      "Establishes sustained congressional oversight mechanism for military UAP encounters"
+    ],
+    "category": "Report",
+    "importance": "High",
+    "tags": [
+      "NDAA",
+      "Congress",
+      "NORTHCOM",
+      "NORAD",
+      "Legislation"
+    ],
+    "publishedDate": "2025-12-10",
+    "addedDate": "2025-12-11"
+  },
+  {
+    "id": "faa-uap-reporting-procedures-2025",
+    "title": "FAA Updates UAP Reporting Procedures and Terminology",
+    "source": "Manual",
+    "sourceUrl": "https://www.faa.gov/documentLibrary/media/Notice/2025-09-25_Notice_N7210.970_Unidentied_Anomalous_Phenomena_(UAP)_Activity_FINAL.pdf",
+    "documentUrl": "https://www.faa.gov/documentLibrary/media/Notice/2025-09-25_Notice_N7210.970_Unidentied_Anomalous_Phenomena_(UAP)_Activity_FINAL.pdf",
+    "summary": "The FAA issued updated notices formalizing UAP reporting procedures for all Air Traffic Control personnel, requiring notification to National Tactical Security Operations and adding AARO website references. Changes became effective October 26, 2025.",
+    "expandedSummary": "The Federal Aviation Administration issued comprehensive updated operational notices in September 2025 that formalize and standardize UAP reporting procedures for all Air Traffic Control facilities nationwide. The updated guidelines, formally designated Notice N7210.970, establish mandatory reporting chains requiring ATC personnel to document and forward all UAP observations to National Tactical Security Operations within specified timeframes. The procedures integrate AARO's public website resources for personnel education and reference, creating a unified civilian aviation reporting infrastructure. Implementation became mandatory across all FAA facilities effective October 26, 2025, establishing consistent data collection procedures from America's busiest airspace.",
+    "keyPoints": [
+      "FAA formalized UAP reporting procedures across all Air Traffic Control facilities",
+      "Designated Notice N7210.970 establishes binding operational requirements",
+      "Mandates real-time notification to National Tactical Security Operations",
+      "Integrates AARO resources into standard ATC training and reference materials",
+      "Procedures took effect October 26, 2025 across all FAA facilities nationwide"
+    ],
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "FAA",
+      "ATC",
+      "Reporting",
+      "Procedures",
+      "AARO"
+    ],
+    "publishedDate": "2025-10-26",
+    "addedDate": "2025-10-27"
   },
   {
     "id": "hr-5060-uap-whistleblower-protection-act",
@@ -80,213 +185,6 @@
     "addedDate": "2026-03-07"
   },
   {
-    "id": "trump-declassification-order-feb-2026",
-    "title": "Trump Executive Order Directs Pentagon to Declassify UFO and UAP Files",
-    "source": "White House",
-    "sourceUrl": "https://defensescoop.com/2026/02/20/trump-ufo-uap-government-files-disclosure/",
-    "summary": "President Trump signed an executive order directing the Secretary of War and relevant departments to identify and release government files related to alien life, extraterrestrial materials, and unidentified anomalous phenomena. The order signaled the beginning of a comprehensive declassification review process.",
-    "expandedSummary": "In February 2026, President Trump issued a sweeping executive order requiring the Secretary of War and multiple federal departments to conduct a comprehensive identification and declassification of all government files related to alien life, extraterrestrial materials, and unidentified anomalous phenomena. The order represents one of the most significant executive mandates on UAP disclosure to date, directing relevant agencies to accelerate their review timelines and coordinate with AARO on the release of previously restricted materials. This action marks a pivotal moment in the official government approach to transparency, signaling the highest-level commitment to fulfilling decades of public and congressional demands for disclosure.",
-    "keyPoints": [
-      "Executive order issued by President Trump directly to Secretary of War and all relevant departments",
-      "Mandates comprehensive identification and declassification of all UAP-related government files",
-      "Specifically includes alien life, extraterrestrial materials, and anomalous phenomena documentation",
-      "Signals highest-level executive commitment to accelerating UAP transparency",
-      "Initiates coordinated federal review process across multiple agencies including AARO"
-    ],
-    "category": "Executive Order",
-    "importance": "High",
-    "tags": [
-      "Trump",
-      "Executive Order",
-      "Declassification",
-      "Disclosure",
-      "2026"
-    ],
-    "publishedDate": "2026-02-20",
-    "addedDate": "2026-02-21"
-  },
-  {
-    "id": "hegseth-uap-disclosure-feb-2026",
-    "title": "Secretary Hegseth Doubles Down on Trump's UAP Disclosure Promise",
-    "source": "Department of Defense",
-    "sourceUrl": "https://defensescoop.com/2026/02/25/hegseth-ufo-disclosure-trump-aaro-uap-caseload/",
-    "summary": "Defense Secretary Pete Hegseth reaffirmed the Trump administration's commitment to UAP transparency as AARO's caseload officially surpassed 2,000 reports. Hegseth indicated that additional declassified materials would be forthcoming.",
-    "expandedSummary": "Defense Secretary Pete Hegseth publicly reinforced the Trump administration's strategic commitment to UAP disclosure in late February 2026, coinciding with a significant milestone in government UAP investigations. The AARO caseload reached 2,000 documented reports, representing exponential growth from the 801 reports in 2023 and demonstrating the acceleration of reporting since standardized procedures were established. Hegseth's public statement, combined with the record-breaking caseload figures, indicated that major declassification announcements would follow in the coming weeks, providing concrete momentum to the administration's transparency agenda.",
-    "keyPoints": [
-      "AARO caseload surpassed 2,000 reports as of February 2026",
-      "Growth represents dramatic increase from 801 reports in FY2023",
-      "Defense Secretary Pete Hegseth publicly reaffirmed disclosure commitment",
-      "Statement indicated additional declassified materials forthcoming",
-      "Milestone demonstrates acceleration of UAP reporting and investigation activities"
-    ],
-    "category": "Official Statement",
-    "importance": "Medium",
-    "tags": [
-      "Hegseth",
-      "Trump",
-      "AARO",
-      "Disclosure",
-      "2026"
-    ],
-    "publishedDate": "2026-02-25",
-    "addedDate": "2026-02-26"
-  },
-  {
-    "id": "fy2026-ndaa-uap-provisions",
-    "title": "FY2026 NDAA Mandates Pentagon UAP Briefings to Congress",
-    "source": "Congress",
-    "sourceUrl": "https://defensescoop.com/2025/12/10/uap-ufo-military-intercepts-north-america-fy-2026-ndaa/",
-    "summary": "The fiscal year 2026 National Defense Authorization Act directs the AARO director to provide Congress with briefings and data on the number, location, and nature of any UAP intercepts by NORTHCOM and NORAD. It also streamlines interagency data-sharing processes for AARO investigations.",
-    "expandedSummary": "The FY2026 National Defense Authorization Act, signed in December 2025, contains significant new provisions requiring quarterly briefings from the AARO director directly to Congress on military UAP activity. The legislation mandates detailed reporting on all UAP intercepts detected or engaged by NORTHCOM and NORAD, including specific data on incident locations, frequency, and the observed characteristics of detected phenomena. Beyond reporting requirements, the NDAA streamlines information-sharing protocols between military branches, intelligence agencies, and civilian authorities, creating unified databases to support comprehensive UAP investigations. This legislative framework establishes sustained congressional oversight of military UAP encounters.",
-    "keyPoints": [
-      "NDAA mandates quarterly AARO briefings to Congress on UAP intercepts",
-      "Requires data reporting from NORTHCOM and NORAD on all detected UAP activity",
-      "Specifies reporting must include intercept locations, frequency, and characteristics",
-      "Streamlines interagency data-sharing and unified database protocols",
-      "Establishes sustained congressional oversight mechanism for military UAP encounters"
-    ],
-    "category": "Report",
-    "importance": "High",
-    "tags": [
-      "NDAA",
-      "Congress",
-      "NORTHCOM",
-      "NORAD",
-      "Legislation"
-    ],
-    "publishedDate": "2025-12-10",
-    "addedDate": "2025-12-11"
-  },
-  {
-    "id": "faa-uap-reporting-procedures-2025",
-    "title": "FAA Updates UAP Reporting Procedures and Terminology",
-    "source": "Manual",
-    "sourceUrl": "https://www.faa.gov/documentLibrary/media/Notice/2025-09-25_Notice_N7210.970_Unidentied_Anomalous_Phenomena_(UAP)_Activity_FINAL.pdf",
-    "documentUrl": "https://www.faa.gov/documentLibrary/media/Notice/2025-09-25_Notice_N7210.970_Unidentied_Anomalous_Phenomena_(UAP)_Activity_FINAL.pdf",
-    "summary": "The FAA issued updated notices formalizing UAP reporting procedures for all Air Traffic Control personnel, requiring notification to National Tactical Security Operations and adding AARO website references. Changes became effective October 26, 2025.",
-    "expandedSummary": "The Federal Aviation Administration issued comprehensive updated operational notices in September 2025 that formalize and standardize UAP reporting procedures for all Air Traffic Control facilities nationwide. The updated guidelines, formally designated Notice N7210.970, establish mandatory reporting chains requiring ATC personnel to document and forward all UAP observations to National Tactical Security Operations within specified timeframes. The procedures integrate AARO's public website resources for personnel education and reference, creating a unified civilian aviation reporting infrastructure. Implementation became mandatory across all FAA facilities effective October 26, 2025, establishing consistent data collection procedures from America's busiest airspace.",
-    "keyPoints": [
-      "FAA formalized UAP reporting procedures across all Air Traffic Control facilities",
-      "Designated Notice N7210.970 establishes binding operational requirements",
-      "Mandates real-time notification to National Tactical Security Operations",
-      "Integrates AARO resources into standard ATC training and reference materials",
-      "Procedures took effect October 26, 2025 across all FAA facilities nationwide"
-    ],
-    "category": "Report",
-    "importance": "Medium",
-    "tags": [
-      "FAA",
-      "ATC",
-      "Reporting",
-      "Procedures",
-      "AARO"
-    ],
-    "publishedDate": "2025-10-26",
-    "addedDate": "2025-10-27"
-  },
-  {
-    "id": "hr-1187-uap-transparency-act-2025",
-    "title": "H.R. 1187: UAP Transparency Act (119th Congress)",
-    "source": "Congress",
-    "sourceUrl": "https://www.congress.gov/bill/119th-congress/house-bill/1187/text",
-    "summary": "Bipartisan legislation (Burchett, Moskowitz, Luna) requiring declassification and public release of all government documents relating to UAP within 270 days of enactment. Mandates quarterly progress reports to Congress on implementation.",
-    "expandedSummary": "H.R. 1187, the UAP Transparency Act, represents a bipartisan legislative effort sponsored by Representatives Tim Burchett, Jared Moskowitz, and Anna Luna in the 119th Congress. The legislation establishes binding requirements for the executive branch to identify, review, and declassify all government documents relating to unidentified anomalous phenomena within 270 days of the law's enactment. The act mandates quarterly progress reports to Congress detailing declassification timelines, the number of documents processed, and any claimed exemptions from disclosure. This statutory framework creates legal enforcement mechanisms for transparency, moving UAP disclosure from executive discretion into legislative mandate.",
-    "keyPoints": [
-      "Bipartisan H.R. 1187 sponsored by Burchett, Moskowitz, and Luna",
-      "Mandates declassification and release of all UAP documents within 270 days",
-      "Requires quarterly progress reports to Congress on implementation status",
-      "Creates statutory framework making transparency legally enforceable",
-      "Applies to all government agencies with UAP documentation and records"
-    ],
-    "category": "Report",
-    "importance": "Medium",
-    "tags": [
-      "Legislation",
-      "Transparency",
-      "Declassification",
-      "H.R.1187"
-    ],
-    "publishedDate": "2025-02-11",
-    "addedDate": "2025-02-12"
-  },
-  {
-    "id": "aaro-annual-caseload-2024",
-    "title": "AARO Chief Unveils Pentagon's Annual UAP Caseload Analysis",
-    "source": "AARO",
-    "sourceUrl": "https://defensescoop.com/2024/11/14/uap-aaro-chief-unveils-pentagon-annual-caseload-analysis-new-efforts/",
-    "summary": "New AARO director presented the Pentagon's annual analysis of UAP reports, revealing the 'truly anomalous' cases that defy conventional explanation. Detailed new methodology for case evaluation and resolution.",
-    "expandedSummary": "The AARO chief delivered the Pentagon's comprehensive annual analysis in November 2024, presenting detailed findings on the expanding caseload of UAP reports received by the military. The presentation highlighted cases classified as 'truly anomalous,' referring to incidents that resist conventional explanation despite thorough technical analysis and cross-referencing with known aircraft, weather phenomena, and sensor artifacts. The director outlined refined investigative methodologies that distinguished between prosaic explanations and genuinely unexplained observations, establishing consistent evaluation standards across interagency partners. The annual briefing underscored the growing sophistication of UAP investigation procedures and the Pentagon's commitment to rigorous, evidence-based analysis.",
-    "keyPoints": [
-      "AARO director presented comprehensive annual UAP caseload analysis",
-      "Identified cases classified as 'truly anomalous' resistant to conventional explanation",
-      "Detailed refined methodology for distinguishing prosaic from unexplained cases",
-      "Established consistent evaluation standards across military and intelligence agencies",
-      "Demonstrated Pentagon's systematic approach to UAP investigation and case resolution"
-    ],
-    "category": "Report",
-    "importance": "Medium",
-    "tags": [
-      "AARO",
-      "Caseload",
-      "Annual Report",
-      "Pentagon"
-    ],
-    "publishedDate": "2024-11-14",
-    "addedDate": "2024-11-15"
-  },
-  {
-    "id": "fy2024-consolidated-annual-report-uap",
-    "title": "FY2024 Consolidated Annual Report on Unidentified Anomalous Phenomena",
-    "source": "AARO",
-    "sourceUrl": "https://www.dni.gov/index.php/newsroom/reports-publications/reports-publications-2024/4020-uap-2024",
-    "documentUrl": "https://www.dni.gov/files/ODNI/documents/assessments/DOD-AARO-Consolidated-Annual-Report-on-UAP-Nov2024.pdf",
-    "summary": "Official ODNI/AARO annual report covering 757 UAP reports received May 2023 to June 2024. AARO resolved 118 cases to prosaic explanations including balloons, birds, and UAS; 21 remained truly unexplained with no conventional resolution. Total caseload reached 1,652 reports. Report found no evidence of extraterrestrial connections but acknowledged persistent data collection gaps.",
-    "expandedSummary": "The FY2024 Consolidated Annual Report represents the most comprehensive official accounting of unidentified anomalous phenomena investigations by the U.S. intelligence community. Covering the period from May 2023 through June 2024, the report documents 757 newly reported incidents, bringing the total investigated caseload to 1,652 reports. Of the new reports, AARO resolved 118 cases to identified causes including balloons, commercial drones, birds, and other prosaic explanations. Critically, 21 cases remained classified as truly unexplained after exhaustive analysis. The report maintained the intelligence community's position finding no evidence of extraterrestrial technology but emphasized significant data collection gaps that impede definitive conclusions. The acknowledgment of persistent analytical limitations suggests continued need for improved sensor deployment and standardized reporting.",
-    "keyPoints": [
-      "757 new UAP reports received May 2023\u2013June 2024; total caseload now 1,652",
-      "AARO resolved 118 cases to prosaic explanations (balloons, birds, drones, UAS)",
-      "21 cases remained truly unexplained with no conventional resolution identified",
-      "No evidence of extraterrestrial technology detected or recovered",
-      "Report acknowledges persistent data collection gaps limiting analytical certainty"
-    ],
-    "category": "Report",
-    "importance": "High",
-    "tags": [
-      "ODNI",
-      "AARO",
-      "Annual Report",
-      "FY2024",
-      "Statistics"
-    ],
-    "publishedDate": "2024-11-14",
-    "addedDate": "2024-11-15"
-  },
-  {
-    "id": "house-oversight-uap-hearing-nov-2024",
-    "title": "House Oversight Hearing: Unidentified Anomalous Phenomena \u2014 Exposing the Truth",
-    "source": "Congress",
-    "sourceUrl": "https://oversight.house.gov/hearing/unidentified-anomalous-phenomena-exposing-the-truth/",
-    "summary": "The House Committee on Oversight held a public hearing titled 'Exposing the Truth' featuring testimony from military witnesses and government officials on UAP encounters and alleged cover-ups. Members pressed witnesses on the existence of secret retrieval programs, inadequate congressional notification, and whether intelligence agencies have been withholding information from elected officials.",
-    "expandedSummary": "In November 2024, the House Committee on Oversight and Accountability convened a landmark public hearing titled 'Exposing the Truth' dedicated to examining the government's relationship with unidentified anomalous phenomena. Military witnesses, including serving and retired officers with direct UAP encounter experience, provided testimony under oath regarding documented incidents that have not been adequately explained through conventional analysis. Committee members conducted vigorous questioning of government witnesses regarding allegations that secret retrieval programs may have existed or continue to exist, and whether intelligence agencies have failed to provide complete information to Congress. The hearing addressed critical oversight questions about transparency, inter-agency coordination failures, and the adequacy of congressional notification procedures for UAP incidents.",
-    "keyPoints": [
-      "House Committee on Oversight convened major public UAP hearing titled 'Exposing the Truth'",
-      "Military witnesses testified under oath on documented encounters and incidents",
-      "Members questioned existence of alleged secret retrieval programs",
-      "Hearing examined intelligence agency transparency and congressional notification gaps",
-      "Addressed fundamental oversight questions about government UAP information sharing"
-    ],
-    "category": "Hearing",
-    "importance": "High",
-    "tags": [
-      "House Oversight",
-      "Hearing",
-      "Testimony",
-      "Military"
-    ],
-    "publishedDate": "2024-11-13",
-    "addedDate": "2024-11-14"
-  },
-  {
     "id": "aaro-civilian-workshop-2025",
     "title": "AARO Hosts Private Workshop with Civilian Researchers and Universities",
     "source": "AARO",
@@ -311,6 +209,65 @@
     ],
     "publishedDate": "2025-08-15",
     "addedDate": "2025-08-20"
+  },
+  {
+    "id": "pentagon-uap-briefings-ndaa",
+    "title": "Pentagon UAP Briefings Requirement Added to NDAA",
+    "source": "Congress",
+    "sourceUrl": "https://www.meritalk.com/articles/pentagon-uap-briefings-added-in-ndaa/",
+    "summary": "Congress added provisions to the defense authorization bill requiring regular Pentagon briefings on UAP activity, expanding congressional oversight of the military's UAP investigation efforts. The measures mandate that AARO share data on intercept locations, encounter frequency, and the nature of observed phenomena with both armed services and intelligence committees on a quarterly basis.",
+    "expandedSummary": "Congress incorporated substantive provisions into the National Defense Authorization Act requiring regular Pentagon briefings on military UAP activity, establishing a quarterly reporting mechanism that significantly expanded legislative oversight authority. The measures mandate that AARO director share comprehensive data on all intercept locations, frequency of encounters, and technical characterizations of observed phenomena with both the House Armed Services Committee and the Senate Armed Services Committee, as well as relevant intelligence oversight committees. The requirement ensures that current information on military UAP detections reaches the highest levels of congressional military and intelligence oversight, creating statutory obligations for transparency previously dependent on executive discretion. The quarterly schedule provides regular touchpoints for congressional inquiry and technical briefings on investigation findings.",
+    "keyPoints": [
+      "NDAA provisions establish mandatory quarterly Pentagon UAP briefings to Congress",
+      "Requires AARO sharing data on intercept locations and encounter frequency",
+      "Mandates briefings to Armed Services and Intelligence committees",
+      "Specifies reporting on technical characteristics of observed phenomena",
+      "Creates statutory obligations for transparency rather than discretionary disclosure"
+    ],
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "NDAA",
+      "Pentagon",
+      "Briefings",
+      "Oversight"
+    ],
+    "publishedDate": "2025-07-15",
+    "addedDate": "2025-07-16"
+  },
+  {
+    "id": "aaro-records-page-update",
+    "title": "AARO UAP Records Portal — Ongoing Updates",
+    "source": "AARO",
+    "sourceUrl": "https://www.aaro.mil/UAP-Records/",
+    "summary": "AARO maintains a publicly accessible records portal containing case resolutions, declassified imagery, congressional reports, and FOIA releases. The portal is updated as new information is declassified.",
+    "category": "FOIA Release",
+    "importance": "Low",
+    "tags": [
+      "AARO",
+      "Portal",
+      "Records",
+      "Ongoing"
+    ],
+    "publishedDate": "2025-06-01",
+    "addedDate": "2025-06-01"
+  },
+  {
+    "id": "noaa-uap-foia-records",
+    "title": "NOAA Releases UAP and AARO-Related FOIA Records",
+    "source": "Archives",
+    "sourceUrl": "https://www.noaa.gov/information-technology/foia-reading-room/unidentified-anomalous-phenomena-uap-and-aaro-records",
+    "summary": "NOAA published its UAP-related records in its FOIA Reading Room, including correspondence with AARO and internal documentation of anomalous atmospheric observations reported by NOAA personnel. The release was part of the broader federal agency compliance effort mandated by the 2024 NDAA requiring all agencies to identify, review, and transfer UAP records to the National Archives.",
+    "category": "FOIA Release",
+    "importance": "Low",
+    "tags": [
+      "NOAA",
+      "FOIA",
+      "AARO",
+      "Atmospheric"
+    ],
+    "publishedDate": "2025-05-01",
+    "addedDate": "2025-05-05"
   },
   {
     "id": "national-archives-uap-records-release-2025",
@@ -391,6 +348,31 @@
     "addedDate": "2025-03-05"
   },
   {
+    "id": "hr-1187-uap-transparency-act-2025",
+    "title": "H.R. 1187: UAP Transparency Act (119th Congress)",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/119th-congress/house-bill/1187/text",
+    "summary": "Bipartisan legislation (Burchett, Moskowitz, Luna) requiring declassification and public release of all government documents relating to UAP within 270 days of enactment. Mandates quarterly progress reports to Congress on implementation.",
+    "expandedSummary": "H.R. 1187, the UAP Transparency Act, represents a bipartisan legislative effort sponsored by Representatives Tim Burchett, Jared Moskowitz, and Anna Luna in the 119th Congress. The legislation establishes binding requirements for the executive branch to identify, review, and declassify all government documents relating to unidentified anomalous phenomena within 270 days of the law's enactment. The act mandates quarterly progress reports to Congress detailing declassification timelines, the number of documents processed, and any claimed exemptions from disclosure. This statutory framework creates legal enforcement mechanisms for transparency, moving UAP disclosure from executive discretion into legislative mandate.",
+    "keyPoints": [
+      "Bipartisan H.R. 1187 sponsored by Burchett, Moskowitz, and Luna",
+      "Mandates declassification and release of all UAP documents within 270 days",
+      "Requires quarterly progress reports to Congress on implementation status",
+      "Creates statutory framework making transparency legally enforceable",
+      "Applies to all government agencies with UAP documentation and records"
+    ],
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Legislation",
+      "Transparency",
+      "Declassification",
+      "H.R.1187"
+    ],
+    "publishedDate": "2025-02-11",
+    "addedDate": "2025-02-12"
+  },
+  {
     "id": "aaro-mission-brief-2025",
     "title": "AARO Mission Brief 2025",
     "source": "AARO",
@@ -407,6 +389,133 @@
     ],
     "publishedDate": "2025-01-15",
     "addedDate": "2025-01-20"
+  },
+  {
+    "id": "aaro-annual-caseload-2024",
+    "title": "AARO Chief Unveils Pentagon's Annual UAP Caseload Analysis",
+    "source": "AARO",
+    "sourceUrl": "https://defensescoop.com/2024/11/14/uap-aaro-chief-unveils-pentagon-annual-caseload-analysis-new-efforts/",
+    "summary": "New AARO director presented the Pentagon's annual analysis of UAP reports, revealing the 'truly anomalous' cases that defy conventional explanation. Detailed new methodology for case evaluation and resolution.",
+    "expandedSummary": "The AARO chief delivered the Pentagon's comprehensive annual analysis in November 2024, presenting detailed findings on the expanding caseload of UAP reports received by the military. The presentation highlighted cases classified as 'truly anomalous,' referring to incidents that resist conventional explanation despite thorough technical analysis and cross-referencing with known aircraft, weather phenomena, and sensor artifacts. The director outlined refined investigative methodologies that distinguished between prosaic explanations and genuinely unexplained observations, establishing consistent evaluation standards across interagency partners. The annual briefing underscored the growing sophistication of UAP investigation procedures and the Pentagon's commitment to rigorous, evidence-based analysis.",
+    "keyPoints": [
+      "AARO director presented comprehensive annual UAP caseload analysis",
+      "Identified cases classified as 'truly anomalous' resistant to conventional explanation",
+      "Detailed refined methodology for distinguishing prosaic from unexplained cases",
+      "Established consistent evaluation standards across military and intelligence agencies",
+      "Demonstrated Pentagon's systematic approach to UAP investigation and case resolution"
+    ],
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "AARO",
+      "Caseload",
+      "Annual Report",
+      "Pentagon"
+    ],
+    "publishedDate": "2024-11-14",
+    "addedDate": "2024-11-15"
+  },
+  {
+    "id": "fy2024-consolidated-annual-report-uap",
+    "title": "FY2024 Consolidated Annual Report on Unidentified Anomalous Phenomena",
+    "source": "AARO",
+    "sourceUrl": "https://www.dni.gov/index.php/newsroom/reports-publications/reports-publications-2024/4020-uap-2024",
+    "documentUrl": "https://www.dni.gov/files/ODNI/documents/assessments/DOD-AARO-Consolidated-Annual-Report-on-UAP-Nov2024.pdf",
+    "summary": "Official ODNI/AARO annual report covering 757 UAP reports received May 2023 to June 2024. AARO resolved 118 cases to prosaic explanations including balloons, birds, and UAS; 21 remained truly unexplained with no conventional resolution. Total caseload reached 1,652 reports. Report found no evidence of extraterrestrial connections but acknowledged persistent data collection gaps.",
+    "expandedSummary": "The FY2024 Consolidated Annual Report represents the most comprehensive official accounting of unidentified anomalous phenomena investigations by the U.S. intelligence community. Covering the period from May 2023 through June 2024, the report documents 757 newly reported incidents, bringing the total investigated caseload to 1,652 reports. Of the new reports, AARO resolved 118 cases to identified causes including balloons, commercial drones, birds, and other prosaic explanations. Critically, 21 cases remained classified as truly unexplained after exhaustive analysis. The report maintained the intelligence community's position finding no evidence of extraterrestrial technology but emphasized significant data collection gaps that impede definitive conclusions. The acknowledgment of persistent analytical limitations suggests continued need for improved sensor deployment and standardized reporting.",
+    "keyPoints": [
+      "757 new UAP reports received May 2023–June 2024; total caseload now 1,652",
+      "AARO resolved 118 cases to prosaic explanations (balloons, birds, drones, UAS)",
+      "21 cases remained truly unexplained with no conventional resolution identified",
+      "No evidence of extraterrestrial technology detected or recovered",
+      "Report acknowledges persistent data collection gaps limiting analytical certainty"
+    ],
+    "category": "Report",
+    "importance": "High",
+    "tags": [
+      "ODNI",
+      "AARO",
+      "Annual Report",
+      "FY2024",
+      "Statistics"
+    ],
+    "publishedDate": "2024-11-14",
+    "addedDate": "2024-11-15"
+  },
+  {
+    "id": "house-oversight-uap-hearing-nov-2024",
+    "title": "House Oversight Hearing: Unidentified Anomalous Phenomena — Exposing the Truth",
+    "source": "Congress",
+    "sourceUrl": "https://oversight.house.gov/hearing/unidentified-anomalous-phenomena-exposing-the-truth/",
+    "summary": "The House Committee on Oversight held a public hearing titled 'Exposing the Truth' featuring testimony from military witnesses and government officials on UAP encounters and alleged cover-ups. Members pressed witnesses on the existence of secret retrieval programs, inadequate congressional notification, and whether intelligence agencies have been withholding information from elected officials.",
+    "expandedSummary": "In November 2024, the House Committee on Oversight and Accountability convened a landmark public hearing titled 'Exposing the Truth' dedicated to examining the government's relationship with unidentified anomalous phenomena. Military witnesses, including serving and retired officers with direct UAP encounter experience, provided testimony under oath regarding documented incidents that have not been adequately explained through conventional analysis. Committee members conducted vigorous questioning of government witnesses regarding allegations that secret retrieval programs may have existed or continue to exist, and whether intelligence agencies have failed to provide complete information to Congress. The hearing addressed critical oversight questions about transparency, inter-agency coordination failures, and the adequacy of congressional notification procedures for UAP incidents.",
+    "keyPoints": [
+      "House Committee on Oversight convened major public UAP hearing titled 'Exposing the Truth'",
+      "Military witnesses testified under oath on documented encounters and incidents",
+      "Members questioned existence of alleged secret retrieval programs",
+      "Hearing examined intelligence agency transparency and congressional notification gaps",
+      "Addressed fundamental oversight questions about government UAP information sharing"
+    ],
+    "category": "Hearing",
+    "importance": "High",
+    "tags": [
+      "House Oversight",
+      "Hearing",
+      "Testimony",
+      "Military"
+    ],
+    "publishedDate": "2024-11-13",
+    "addedDate": "2024-11-14"
+  },
+  {
+    "id": "nrc-uap-records-transfer-nara",
+    "title": "Nuclear Regulatory Commission Transfers UAP Records to National Archives",
+    "source": "Archives",
+    "sourceUrl": "https://www.nrc.gov/docs/ML2417/ML24177A281.pdf",
+    "summary": "The Nuclear Regulatory Commission became one of the first federal agencies to comply with the 2024 NDAA mandate, transferring all UAP-related records to the National Archives. Documents include observations and reports related to anomalous aerial phenomena near nuclear power plants and other NRC-regulated facilities, as well as internal correspondence about reporting procedures and coordination with AARO.",
+    "expandedSummary": "The Nuclear Regulatory Commission demonstrated exemplary compliance with 2024 NDAA mandates requiring all federal agencies to identify and transfer UAP-related records to the National Archives by becoming one of the first agencies to complete the transfer. NRC documentation transferred to NARA includes incident reports detailing observations of anomalous aerial phenomena in proximity to nuclear power plants, research reactors, and other NRC-regulated nuclear facilities throughout the United States. The transferred records encompass historical observations spanning decades, internal correspondence addressing reporting procedures for NRC facilities, and documentation of coordination between NRC offices and AARO regarding standardized UAP incident documentation. The transfer demonstrates federal institutional commitment to comprehensive archival of UAP materials across all agencies with relevant records, establishing the National Archives as the centralized repository for government-wide UAP documentation.",
+    "keyPoints": [
+      "NRC became one of first federal agencies complying with 2024 NDAA transfer mandate",
+      "Transferred all UAP-related records to National Archives for public access",
+      "Documents include observations near U.S. nuclear power plants and facilities",
+      "Records span decades of historical incident observations and internal procedures",
+      "Transfer demonstrates federal commitment to comprehensive UAP record centralization"
+    ],
+    "category": "FOIA Release",
+    "importance": "Low",
+    "tags": [
+      "NRC",
+      "NARA",
+      "Nuclear",
+      "Records Transfer"
+    ],
+    "publishedDate": "2024-10-20",
+    "addedDate": "2024-10-21"
+  },
+  {
+    "id": "senate-appropriations-uap-oversight-2024",
+    "title": "Senate Appropriations Committee UAP Oversight Provisions (FY2025)",
+    "source": "Congress",
+    "sourceUrl": "https://defensescoop.com/2024/12/10/uap-ufo-military-intercepts-north-america-fy-2026-ndaa/",
+    "summary": "Senate appropriations measures require AARO briefings on UAP intercept locations, nature, and frequency. Mandates data-sharing protocols between military, intelligence, and civilian agencies for comprehensive UAP tracking.",
+    "expandedSummary": "Senate Appropriations Committee provisions incorporated into FY2025 appropriations legislation establish detailed oversight mechanisms for government UAP activities funded through the defense appropriations process. The provisions mandate regular briefings from AARO providing the Appropriations Committee with comprehensive information on UAP intercept locations detected by military sensor systems, the nature of observed phenomena, and the frequency of incident reporting. The measures establish data-sharing protocols creating integrated information exchange systems between military branches, intelligence agencies, and civilian authorities responsible for airspace security. The appropriations-based oversight mechanism creates sustained congressional control of UAP investigation funding and performance metrics, establishing the right to review progress toward investigation objectives and analytical conclusions.",
+    "keyPoints": [
+      "Senate Appropriations provisions mandate AARO briefings on UAP activity",
+      "Requires reporting on intercept locations, phenomena characteristics, and frequencies",
+      "Establishes data-sharing protocols between military, intelligence, and civilian agencies",
+      "Appropriations-based oversight creates congressional funding control",
+      "Mandates comprehensive UAP tracking and analysis across federal agencies"
+    ],
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Senate",
+      "Appropriations",
+      "Oversight",
+      "AARO"
+    ],
+    "publishedDate": "2024-09-30",
+    "addedDate": "2024-10-01"
   },
   {
     "id": "national-archives-rg615-established",
@@ -434,49 +543,58 @@
     "addedDate": "2024-09-05"
   },
   {
-    "id": "noaa-uap-foia-records",
-    "title": "NOAA Releases UAP and AARO-Related FOIA Records",
+    "id": "national-archives-uap-research-guide",
+    "title": "National Archives Guide to UAP Records and Research",
     "source": "Archives",
-    "sourceUrl": "https://www.noaa.gov/information-technology/foia-reading-room/unidentified-anomalous-phenomena-uap-and-aaro-records",
-    "summary": "NOAA published its UAP-related records in its FOIA Reading Room, including correspondence with AARO and internal documentation of anomalous atmospheric observations reported by NOAA personnel. The release was part of the broader federal agency compliance effort mandated by the 2024 NDAA requiring all agencies to identify, review, and transfer UAP records to the National Archives.",
-    "category": "FOIA Release",
+    "sourceUrl": "https://www.archives.gov/research/topics/uaps",
+    "summary": "NARA comprehensive research guide to UAP-related records held at the National Archives. Includes search tools for the online catalog, bulk download access to digitized materials, Record Group 615 collection details, and step-by-step guidance for researchers accessing declassified UAP materials both online and in person at Archives facilities in College Park, Maryland.",
+    "category": "Report",
     "importance": "Low",
     "tags": [
-      "NOAA",
-      "FOIA",
-      "AARO",
-      "Atmospheric"
+      "NARA",
+      "Research Guide",
+      "Archives",
+      "Access"
     ],
-    "publishedDate": "2025-05-01",
-    "addedDate": "2025-05-05"
+    "publishedDate": "2024-09-01",
+    "addedDate": "2024-09-05"
   },
   {
-    "id": "aaro-records-page-update",
-    "title": "AARO UAP Records Portal \u2014 Ongoing Updates",
-    "source": "AARO",
-    "sourceUrl": "https://www.aaro.mil/UAP-Records/",
-    "summary": "AARO maintains a publicly accessible records portal containing case resolutions, declassified imagery, congressional reports, and FOIA releases. The portal is updated as new information is declassified.",
+    "id": "doe-nnsa-uap-documents",
+    "title": "Department of Energy/NNSA UAP and UFO Resources and Documents",
+    "source": "Archives",
+    "sourceUrl": "https://www.energy.gov/nnsa/uapufo-resources-and-documents",
+    "summary": "DOE/NNSA collection of UAP documents including incident reports from nuclear facilities. Records include 2015 Pantex diamond-shaped object sighting and incursion documentation from Lawrence Livermore and other DOE sites.",
+    "expandedSummary": "The Department of Energy and its National Nuclear Security Administration compiled and released a significant collection of declassified UAP documentation reflecting decades of anomalous phenomena observations at federally-operated nuclear weapons facilities and laboratories. The collection documents includes incident reports from Department of Energy national laboratories, weapons production facilities including Pantex, Lawrence Livermore National Laboratory, and other DOE-controlled sites. Records detail observations of unexplained aerial activity in restricted airspace above sensitive nuclear infrastructure, including a 2015 incident involving a diamond-shaped object observed over the Pantex manufacturing facility in Texas. The DOE/NNSA documentation provides critical evidence regarding UAP activity in proximity to nuclear weapons infrastructure, raising questions about potential reconnaissance or operational capabilities. The declassified records contribute substantially to the analytical basis for government investigation of anomalous phenomena.",
+    "keyPoints": [
+      "DOE/NNSA released collection of UAP documents from nuclear facilities",
+      "Documents detail observations at weapons facilities including Pantex and Lawrence Livermore",
+      "2015 incident involved diamond-shaped object over Pantex nuclear facility",
+      "Records document UAP activity near sensitive nuclear infrastructure",
+      "Declassified collection contributes to government investigation database"
+    ],
     "category": "FOIA Release",
     "importance": "Low",
     "tags": [
-      "AARO",
-      "Portal",
-      "Records",
-      "Ongoing"
+      "DOE",
+      "NNSA",
+      "Nuclear Sites",
+      "Security",
+      "FOIA"
     ],
-    "publishedDate": "2025-06-01",
-    "addedDate": "2025-06-01"
+    "publishedDate": "2024-06-01",
+    "addedDate": "2024-06-05"
   },
   {
     "id": "aaro-historical-review-vol-1",
-    "title": "AARO Historical Record Report Volume 1 (1945\u20132023)",
+    "title": "AARO Historical Record Report Volume 1 (1945–2023)",
     "source": "AARO",
     "sourceUrl": "https://www.aaro.mil/",
     "documentUrl": "https://media.defense.gov/2024/Mar/08/2003409233/-1/-1/0/AARO-HISTORICAL-RECORD-REPORT-VOLUME-1-2024.PDF",
     "summary": "AARO's comprehensive historical review covering U.S. government involvement with UAPs from 1945 to 2023. Found no evidence of extraterrestrial technology but acknowledged gaps in record-keeping and institutional knowledge.",
     "expandedSummary": "AARO released its first comprehensive historical record report in March 2024, providing an authoritative retrospective examination of U.S. government UAP involvement spanning 1945 through 2023. The report documented the evolution of government investigation procedures, the institutional structures that managed UAP research across military and intelligence agencies, and the technical approaches employed to identify explanations for anomalous observations. The historical review examined government records, declassified documents, and institutional archives to trace continuities and discontinuities in official UAP policy across administrations. While the report found no evidence supporting recovery or possession of extraterrestrial technology, it identified significant gaps in official record-keeping practices and documented instances of institutional knowledge loss during agency transitions. The report's acknowledgment of these historical gaps has prompted improvements in archival procedures and documentation standards.",
     "keyPoints": [
-      "AARO published comprehensive historical review covering 1945\u20132023",
+      "AARO published comprehensive historical review covering 1945–2023",
       "Documented evolution of government UAP investigation procedures and structures",
       "Examined technical approaches across military and intelligence community",
       "Found no evidence of recovered extraterrestrial technology",
@@ -494,29 +612,21 @@
     "addedDate": "2024-03-09"
   },
   {
-    "id": "pentagon-uap-briefings-ndaa",
-    "title": "Pentagon UAP Briefings Requirement Added to NDAA",
-    "source": "Congress",
-    "sourceUrl": "https://www.meritalk.com/articles/pentagon-uap-briefings-added-in-ndaa/",
-    "summary": "Congress added provisions to the defense authorization bill requiring regular Pentagon briefings on UAP activity, expanding congressional oversight of the military's UAP investigation efforts. The measures mandate that AARO share data on intercept locations, encounter frequency, and the nature of observed phenomena with both armed services and intelligence committees on a quarterly basis.",
-    "expandedSummary": "Congress incorporated substantive provisions into the National Defense Authorization Act requiring regular Pentagon briefings on military UAP activity, establishing a quarterly reporting mechanism that significantly expanded legislative oversight authority. The measures mandate that AARO director share comprehensive data on all intercept locations, frequency of encounters, and technical characterizations of observed phenomena with both the House Armed Services Committee and the Senate Armed Services Committee, as well as relevant intelligence oversight committees. The requirement ensures that current information on military UAP detections reaches the highest levels of congressional military and intelligence oversight, creating statutory obligations for transparency previously dependent on executive discretion. The quarterly schedule provides regular touchpoints for congressional inquiry and technical briefings on investigation findings.",
-    "keyPoints": [
-      "NDAA provisions establish mandatory quarterly Pentagon UAP briefings to Congress",
-      "Requires AARO sharing data on intercept locations and encounter frequency",
-      "Mandates briefings to Armed Services and Intelligence committees",
-      "Specifies reporting on technical characteristics of observed phenomena",
-      "Creates statutory obligations for transparency rather than discretionary disclosure"
-    ],
+    "id": "aaro-congressional-press-products",
+    "title": "AARO Congressional and Press Products Archive",
+    "source": "AARO",
+    "sourceUrl": "https://www.aaro.mil/Congressional-Press-Products/",
+    "summary": "AARO maintains public archive of all congressional testimonies, press briefings, declassified presentations, and official statements. Updated as new information is released and congressional briefings occur.",
     "category": "Report",
-    "importance": "Medium",
+    "importance": "Low",
     "tags": [
-      "NDAA",
-      "Pentagon",
-      "Briefings",
-      "Oversight"
+      "AARO",
+      "Congress",
+      "Press",
+      "Archive"
     ],
-    "publishedDate": "2025-07-15",
-    "addedDate": "2025-07-16"
+    "publishedDate": "2024-01-01",
+    "addedDate": "2024-01-15"
   },
   {
     "id": "fy2023-consolidated-annual-report-uap",
@@ -544,6 +654,57 @@
     ],
     "publishedDate": "2023-10-17",
     "addedDate": "2023-10-18"
+  },
+  {
+    "id": "nasa-uap-independent-study-2023",
+    "title": "NASA Unidentified Anomalous Phenomena Independent Study Team Report",
+    "source": "NASA",
+    "sourceUrl": "https://science.nasa.gov/uap/",
+    "documentUrl": "https://science.nasa.gov/wp-content/uploads/2023/09/uap-independent-study-team-final-report.pdf",
+    "summary": "September 2023 NASA study commissioned to examine UAP from scientific perspective. Found no evidence of extraterrestrial life but noted limited high-quality data prevents firm conclusions. Recommended systematic data collection and AI/ML analysis approaches.",
+    "expandedSummary": "The National Aeronautics and Space Administration commissioned an independent scientific study team to examine unidentified anomalous phenomena from a systematic research perspective, releasing their findings in September 2023. The NASA study team reviewed available government and civilian UAP data, assessed the quality and quantity of observations informing current understanding, and evaluated scientific methodologies applicable to UAP investigation. The team found no evidence of extraterrestrial life within available data while emphasizing that limited high-quality observational data prevented reaching definitive conclusions regarding UAP origins or nature. The NASA study recommended systematic approaches to future data collection, emphasizing the importance of standardized instrumentation, calibrated sensors, and artificial intelligence and machine learning analytical techniques. NASA's institutional engagement with UAP research established the agency as a scientific partner in investigation efforts alongside military and intelligence community organizations.",
+    "keyPoints": [
+      "NASA convened independent scientific study team examining UAP from research perspective",
+      "Study found no evidence of extraterrestrial life in available data",
+      "Emphasized limited high-quality observational data constrains analytical conclusions",
+      "Recommended systematic data collection and AI/ML analysis methodologies",
+      "Established NASA as scientific partner in government UAP investigation"
+    ],
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "NASA",
+      "Scientific Research",
+      "Independent Study",
+      "AI/ML"
+    ],
+    "publishedDate": "2023-09-14",
+    "addedDate": "2023-09-15"
+  },
+  {
+    "id": "nasa-director-uap-research-appointed",
+    "title": "NASA Appoints Director of UAP Research and Establishes UAP Science Program",
+    "source": "NASA",
+    "sourceUrl": "https://www.nasa.gov/news-release/update-nasa-shares-uap-independent-study-report-names-director/",
+    "summary": "In response to Independent Study Team recommendations, NASA appointed a Director of UAP Research to oversee institutional scientific vision. Program focuses on data collection, AI/ML analysis, and satellite-based observation methodologies.",
+    "expandedSummary": "NASA established an institutional commitment to unidentified anomalous phenomena research by appointing a Director of UAP Research and creating a formal science program within the agency structure. The appointment reflected recommendations from NASA's independent study team and signaled the agency's intention to contribute substantive scientific capabilities to government-wide UAP investigation efforts. The Director of UAP Research position coordinates with military and intelligence agencies while advancing NASA's scientific agenda focused on systematic data collection, artificial intelligence and machine learning analytical techniques, and development of satellite-based observation methodologies. The program emphasizes scientific rigor in evaluating UAP observations, establishing methodological standards for interdisciplinary research, and training the next generation of scientists dedicated to anomalous phenomena investigation.",
+    "keyPoints": [
+      "NASA appointed Director of UAP Research in response to study recommendations",
+      "Established formal UAP Science Program within NASA institutional structure",
+      "Program focuses on systematic data collection and analysis methodologies",
+      "Emphasizes AI/ML analytical techniques and satellite observation capabilities",
+      "Coordinates with military and intelligence agencies on research agenda"
+    ],
+    "category": "Press Release",
+    "importance": "Medium",
+    "tags": [
+      "NASA",
+      "Science",
+      "Research Director",
+      "Program"
+    ],
+    "publishedDate": "2023-09-14",
+    "addedDate": "2023-09-15"
   },
   {
     "id": "house-oversight-uap-hearing-july-2023",
@@ -574,31 +735,6 @@
     "addedDate": "2023-07-27"
   },
   {
-    "id": "senate-armed-services-uap-hearing-april-2023",
-    "title": "Senate Armed Services Committee Hearing on AARO Mission and Activities",
-    "source": "Congress",
-    "sourceUrl": "https://www.armed-services.senate.gov/hearings/to-receive-testimony-on-the-mission-activities-oversight-and-budget-of-the-all-domain-anomaly-resolution-office",
-    "summary": "April 19, 2023 Senate Armed Services Subcommittee hearing examining AARO's mission, activities, oversight and budget. Featured AARO Director Dr. Sean M. Kirkpatrick testifying on office operations and case resolution methodology.",
-    "expandedSummary": "The Senate Armed Services Committee conducted a comprehensive hearing on April 19, 2023, focused on the mission, activities, operational oversight, and budgetary requirements of the newly established All-Domain Anomaly Resolution Office. AARO Director Dr. Sean M. Kirkpatrick provided extensive testimony on AARO's organizational structure, investigative methodologies for resolving UAP cases, interagency coordination mechanisms, and resource requirements. Kirkpatrick detailed AARO's approach to distinguishing prosaic explanations from genuinely unexplained observations, the office's technical analytical capabilities, and plans for enhancing data collection infrastructure. The subcommittee hearing addressed federal investment in UAP investigation capabilities, the office's coordination role with military branches and intelligence agencies, and congressional expectations for organizational performance. The hearing established detailed budgetary and operational expectations for AARO's continuing work.",
-    "keyPoints": [
-      "Senate Armed Services hearing on April 19, 2023 examined AARO mission and operations",
-      "AARO Director Dr. Sean M. Kirkpatrick testified on office structure and methodologies",
-      "Detailed investigative approaches to resolving anomalous cases",
-      "Addressed interagency coordination and data collection infrastructure",
-      "Established budgetary and operational expectations for AARO performance"
-    ],
-    "category": "Hearing",
-    "importance": "Medium",
-    "tags": [
-      "Senate Armed Services",
-      "AARO",
-      "Kirkpatrick",
-      "Oversight"
-    ],
-    "publishedDate": "2023-04-19",
-    "addedDate": "2023-04-20"
-  },
-  {
     "id": "schumer-rounds-uap-disclosure-act-2023",
     "title": "UAP Disclosure Act of 2023 (Schumer-Rounds Amendment to NDAA)",
     "source": "Congress",
@@ -625,6 +761,31 @@
     "addedDate": "2023-07-26"
   },
   {
+    "id": "senate-armed-services-uap-hearing-april-2023",
+    "title": "Senate Armed Services Committee Hearing on AARO Mission and Activities",
+    "source": "Congress",
+    "sourceUrl": "https://www.armed-services.senate.gov/hearings/to-receive-testimony-on-the-mission-activities-oversight-and-budget-of-the-all-domain-anomaly-resolution-office",
+    "summary": "April 19, 2023 Senate Armed Services Subcommittee hearing examining AARO's mission, activities, oversight and budget. Featured AARO Director Dr. Sean M. Kirkpatrick testifying on office operations and case resolution methodology.",
+    "expandedSummary": "The Senate Armed Services Committee conducted a comprehensive hearing on April 19, 2023, focused on the mission, activities, operational oversight, and budgetary requirements of the newly established All-Domain Anomaly Resolution Office. AARO Director Dr. Sean M. Kirkpatrick provided extensive testimony on AARO's organizational structure, investigative methodologies for resolving UAP cases, interagency coordination mechanisms, and resource requirements. Kirkpatrick detailed AARO's approach to distinguishing prosaic explanations from genuinely unexplained observations, the office's technical analytical capabilities, and plans for enhancing data collection infrastructure. The subcommittee hearing addressed federal investment in UAP investigation capabilities, the office's coordination role with military branches and intelligence agencies, and congressional expectations for organizational performance. The hearing established detailed budgetary and operational expectations for AARO's continuing work.",
+    "keyPoints": [
+      "Senate Armed Services hearing on April 19, 2023 examined AARO mission and operations",
+      "AARO Director Dr. Sean M. Kirkpatrick testified on office structure and methodologies",
+      "Detailed investigative approaches to resolving anomalous cases",
+      "Addressed interagency coordination and data collection infrastructure",
+      "Established budgetary and operational expectations for AARO performance"
+    ],
+    "category": "Hearing",
+    "importance": "Medium",
+    "tags": [
+      "Senate Armed Services",
+      "AARO",
+      "Kirkpatrick",
+      "Oversight"
+    ],
+    "publishedDate": "2023-04-19",
+    "addedDate": "2023-04-20"
+  },
+  {
     "id": "house-intelligence-uap-hearing-may-2022",
     "title": "House Intelligence Subcommittee Hearing on UAP (First Public Hearing in 50+ Years)",
     "source": "Congress",
@@ -633,7 +794,7 @@
     "summary": "Historic May 17, 2022 hearing before House Intelligence Subcommittee on Counterterrorism, Counterintelligence and Counterproliferation. First public congressional UAP hearing in over 50 years. Featured testimony from Pentagon officials Moultrie and Bray.",
     "expandedSummary": "The House Intelligence Subcommittee on Counterterrorism, Counterintelligence and Counterproliferation convened a historic public hearing on May 17, 2022, marking the first official congressional hearing focused on unidentified anomalous phenomena in over five decades. The hearing represented a watershed moment in elevating UAP from classified intelligence discussions to matters of public congressional scrutiny. Pentagon officials, including Deputy Director of Naval Intelligence Scott Bray and other Department of Defense representatives, testified regarding military observations of unexplained aerial phenomena and the Pentagon's investigative procedures. The public hearing transcript and subsequent congressional interest catalyzed legislative initiatives requiring sustained UAP transparency, standardized reporting procedures, and formal establishment of investigation offices. The 2022 hearing established the foundation for expanded governmental transparency mechanisms.",
     "keyPoints": [
-      "House Intelligence Subcommittee hearing on May 17, 2022 \u2014 first public UAP hearing in 50+ years",
+      "House Intelligence Subcommittee hearing on May 17, 2022 — first public UAP hearing in 50+ years",
       "Marked watershed moment elevating UAP to public congressional scrutiny",
       "Pentagon officials testified on military observations and investigation procedures",
       "Public hearing catalyzed subsequent legislative transparency initiatives",
@@ -704,6 +865,465 @@
     "addedDate": "2020-04-28"
   },
   {
+    "id": "cia-ufo-foia-collection",
+    "title": "CIA UFO Collection in FOIA Electronic Reading Room",
+    "source": "Archives",
+    "sourceUrl": "https://www.cia.gov/readingroom/collection/ufos-fact-or-fiction",
+    "summary": "CIA released approximately 2,780 pages of declassified documents on UFO sightings and investigations spanning 1940s-1990s. Documents available for download through CIA FOIA Reading Room. Includes historical analysis and government interest in UAP phenomena.",
+    "expandedSummary": "The Central Intelligence Agency compiled and declassified approximately 2,780 pages of documentation concerning UFO sightings, government investigations, and institutional analysis of anomalous aerial phenomena spanning from the 1940s through the 1990s. The CIA collection, accessible through the agency's FOIA Electronic Reading Room, provides detailed historical evidence of intelligence community monitoring and analysis of reported UFO incidents. Documents include field reports from CIA stations worldwide, analytical assessments evaluating the potential national security implications of reported sightings, and correspondence between intelligence agencies regarding UFO investigation coordination. The collection demonstrates decades of institutional intelligence interest in anomalous phenomena and provides archival evidence of CIA investigative procedures and analytical methodologies applied to UFO reports. The declassified CIA collection contributes significantly to the historical record of government responses to UAP.",
+    "keyPoints": [
+      "CIA released approximately 2,780 pages of declassified UFO documentation",
+      "Covers period from 1940s through 1990s of global sightings and analysis",
+      "Documents include field reports, analytical assessments, and inter-agency correspondence",
+      "Demonstrates decades of intelligence community monitoring and investigation",
+      "Available through CIA FOIA Reading Room for public research access"
+    ],
+    "category": "FOIA Release",
+    "importance": "Low",
+    "tags": [
+      "CIA",
+      "FOIA",
+      "Declassified",
+      "Historical"
+    ],
+    "publishedDate": "2020-01-01",
+    "addedDate": "2020-06-01"
+  },
+  {
+    "id": "fbi-vault-project-blue-book",
+    "title": "FBI Vault: Project Blue Book Records (UFO Part 01)",
+    "source": "Archives",
+    "sourceUrl": "https://vault.fbi.gov/Project%20Blue%20Book%20(UFO)%20/Project%20Blue%20Book%20(UFO)%20Part%2001%20(Final)/view",
+    "summary": "FBI's declassified Project Blue Book files made publicly accessible through the FBI Vault FOIA system. Contains the Bureau's historical UFO investigation records from the Air Force study period 1952-1969, including inter-agency communications, field office reports on sightings, and FBI assessments of specific incidents that were referred to the Bureau by Air Force investigators.",
+    "category": "FOIA Release",
+    "importance": "Low",
+    "tags": [
+      "FBI",
+      "Vault",
+      "Project Blue Book",
+      "FOIA"
+    ],
+    "publishedDate": "2020-01-01",
+    "addedDate": "2020-06-01"
+  },
+  {
+    "id": "black-vault-uap-document-archive",
+    "title": "The Black Vault: Comprehensive UAP and UFO Document Archive",
+    "source": "The Black Vault",
+    "sourceUrl": "https://www.theblackvault.com/documentarchive/",
+    "summary": "The Black Vault maintains extensive independently-maintained archive of declassified UAP/UFO documents, FOIA releases, government reports, and historical materials. Includes cross-referenced source documentation.",
+    "category": "Archive",
+    "importance": "Low",
+    "tags": [
+      "Black Vault",
+      "Archive",
+      "Research",
+      "Documents"
+    ],
+    "publishedDate": "2020-01-01",
+    "addedDate": "2020-06-01"
+  },
+  {
+    "id": "congress-110-hconres-32",
+    "title": "Honoring the members of the United States Air Force who were killed in the June 25, 1996, terrorist bombing of the Khobar Towers United States military housing compound near Dhahran, Saudi Arabia.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/32",
+    "summary": "Message on Senate action sent to the House.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2008-06-25",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-2",
+    "title": "Expressing the sense of the Congress that children in the United States should understand and appreciate the contributions of individuals from the territories of the United States and the contribut...",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/2",
+    "summary": "Received in the Senate and referred to the Committee on Energy and Natural Resources.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2008-06-24",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-60",
+    "title": "Expressing support for the goals of Veterans Educate Today's Students (VETS) Day, and for other purposes.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/60",
+    "summary": "Received in the Senate and referred to the Committee on Veterans' Affairs.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-11-06",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-25",
+    "title": "Expressing the sense of Congress that it is the goal of the United States that, not later than January 1, 2025, the agricultural, forestry, and working land of the United States should provide from...",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/25",
+    "summary": "Received in the Senate and referred to the Committee on Agriculture, Nutrition, and Forestry.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-10-16",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-21",
+    "title": "Calling on the United Nations Security Council to charge Iranian leader Mahmoud Ahmadinejad with violating the 1948 Convention on the Prevention and Punishment of the Crime of Genocide and United N...",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/21",
+    "summary": "Received in the Senate and referred to the Committee on Foreign Relations.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-06-21",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-80",
+    "title": "Calling on the Government of Uganda and the Lord's Resistance Army (LRA) to recommit to a political solution to the conflict in northern Uganda by engaging in good-faith negotiations, and urging im...",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/80",
+    "summary": "Received in the Senate and referred to the Committee on Foreign Relations.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-06-19",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-62",
+    "title": "Supporting the goals and ideals of a National Children and Families Day, in order to encourage adults in the United States to support and listen to children and to help children throughout the Nati...",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/62",
+    "summary": "Message on Senate action sent to the House.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-05-17",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-10",
+    "title": "Expressing the sense of the Congress that the tax give away since 2001 to the wealthiest 5 percent of Americans should be repealed and those monies instead invested in vital programs to relieve the...",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/10",
+    "summary": "Sponsor introductory remarks on measure. (CR H4200)",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-04-26",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-50",
+    "title": "Calling on the Government of Venezuela to uphold the human rights and civil liberties of the people of Venezuela.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/50",
+    "summary": "Referred to the Subcommittee on International Organizations, Human Rights, and Oversight.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-04-17",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-42",
+    "title": "Honoring the heroic service and sacrifice of the glider pilots of the United States Army Air Forces during World War II.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/42",
+    "summary": "Received in the Senate and referred to the Committee on Armed Services.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-03-21",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-15",
+    "title": "Expressing the sense of Congress that the Government of Iraq should not grant blanket amnesty to persons known to have attacked, killed, or wounded members of the United States Armed Forces in Iraq.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/15",
+    "summary": "Committee Hearings Held.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-03-20",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-20",
+    "title": "Calling on the Government of the United Kingdom to immediately establish a full, independent, and public judicial inquiry into the murder of Northern Ireland defense attorney Patrick Finucane, as r...",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/20",
+    "summary": "Message on Senate action sent to the House.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-03-19",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-52",
+    "title": "Supporting the goals and ideals of American Heart Month.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/52",
+    "summary": "Received in the Senate and referred to the Committee on Health, Education, Labor, and Pensions.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-03-01",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-70",
+    "title": "Supporting the goals and ideals of National Celiac Awareness Month, and for other purposes.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/70",
+    "summary": "Referred to the Subcommittee on Health.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-02-27",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-72",
+    "title": "Recognizing and honoring America's labor movement, supporting the designation of a National Labor History Month, and for other purposes.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/72",
+    "summary": "Referred to the House Committee on Education and Labor.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-02-16",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-35",
+    "title": "Supporting the goals and ideals of National Black HIV/AIDS Awareness Day.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/35",
+    "summary": "Sponsor introductory remarks on measure. (CR H1311)",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-02-07",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-30",
+    "title": "Raising awareness and encouraging prevention of stalking by establishing January 2007 as \"National Stalking Awareness Month\".",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/30",
+    "summary": "Referred to the Subcommittee on Crime, Terrorism, and Homeland Security.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-02-02",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-5",
+    "title": "Expressing support for the designation and goals of \"Hire a Veteran Week\" and encouraging the President to issue a proclamation supporting those goals.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/5",
+    "summary": "Received in the Senate and Read twice and referred to the Committee on Veterans' Affairs.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-01-31",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-41",
+    "title": "Providing for a conditional adjournment of the House of Representatives.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/41",
+    "summary": "Message on Senate action sent to the House.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-01-24",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-40",
+    "title": "Expressing the sense of Congress that the United States should not engage in the construction of a North American Free Trade Agreement (NAFTA) Superhighway System or enter into a North American Uni...",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/40",
+    "summary": "Referred to the Subcommittee on Highways and Transit.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-01-23",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-31",
+    "title": "Honoring the Mare Island Original 21ers for their efforts to remedy racial discrimination in employment at Mare Island Naval Shipyard.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/31",
+    "summary": "Received in the Senate and referred to the Committee on Health, Education, Labor, and Pensions.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-01-18",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-22",
+    "title": "Expressing the sense of Congress that the President should provide notice of withdrawal of the United States from the North American Free Trade Agreement (NAFTA).",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/22",
+    "summary": "Referred to the Subcommittee on Trade.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-01-11",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-1",
+    "title": "Regarding consent to assemble outside the seat of government.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/1",
+    "summary": "Received in the Senate and referred to the Committee on Rules and Administration.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-01-08",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-12",
+    "title": "Requiring the display of the Ten Commandments in the United States Capitol.",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/12",
+    "summary": "Sponsor introductory remarks on measure. (CR E22-23)",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-01-05",
+    "addedDate": "2026-03-13"
+  },
+  {
+    "id": "congress-110-hconres-11",
+    "title": "Entitled the \"English Plus Resolution\".",
+    "source": "Congress",
+    "sourceUrl": "https://www.congress.gov/bill/110th-congress/hconres-bill/11",
+    "summary": "Referred to the House Committee on Education and Labor.",
+    "category": "Report",
+    "importance": "Medium",
+    "tags": [
+      "Congress",
+      "Legislation",
+      "110th Congress"
+    ],
+    "publishedDate": "2007-01-04",
+    "addedDate": "2026-03-13"
+  },
+  {
     "id": "uss-nimitz-tic-tac-encounter-2004",
     "title": "USS Nimitz 'Tic Tac' UAP Encounter (November 14, 2004)",
     "source": "Archives",
@@ -730,105 +1350,21 @@
     "addedDate": "2020-04-27"
   },
   {
-    "id": "doe-nnsa-uap-documents",
-    "title": "Department of Energy/NNSA UAP and UFO Resources and Documents",
+    "id": "roswell-gao-government-records-search",
+    "title": "GAO Report: Government Records Search on Roswell Incident (1995)",
     "source": "Archives",
-    "sourceUrl": "https://www.energy.gov/nnsa/uapufo-resources-and-documents",
-    "summary": "DOE/NNSA collection of UAP documents including incident reports from nuclear facilities. Records include 2015 Pantex diamond-shaped object sighting and incursion documentation from Lawrence Livermore and other DOE sites.",
-    "expandedSummary": "The Department of Energy and its National Nuclear Security Administration compiled and released a significant collection of declassified UAP documentation reflecting decades of anomalous phenomena observations at federally-operated nuclear weapons facilities and laboratories. The collection documents includes incident reports from Department of Energy national laboratories, weapons production facilities including Pantex, Lawrence Livermore National Laboratory, and other DOE-controlled sites. Records detail observations of unexplained aerial activity in restricted airspace above sensitive nuclear infrastructure, including a 2015 incident involving a diamond-shaped object observed over the Pantex manufacturing facility in Texas. The DOE/NNSA documentation provides critical evidence regarding UAP activity in proximity to nuclear weapons infrastructure, raising questions about potential reconnaissance or operational capabilities. The declassified records contribute substantially to the analytical basis for government investigation of anomalous phenomena.",
-    "keyPoints": [
-      "DOE/NNSA released collection of UAP documents from nuclear facilities",
-      "Documents detail observations at weapons facilities including Pantex and Lawrence Livermore",
-      "2015 incident involved diamond-shaped object over Pantex nuclear facility",
-      "Records document UAP activity near sensitive nuclear infrastructure",
-      "Declassified collection contributes to government investigation database"
-    ],
-    "category": "FOIA Release",
+    "sourceUrl": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-95-187/html/GAOREPORTS-NSIAD-95-187.htm",
+    "summary": "General Accounting Office investigation into 1947 Roswell incident conducted at request of Congressman Steven Schiff. Found limited records survived; recovered materials identified as classified surveillance balloon components.",
+    "category": "Report",
     "importance": "Low",
     "tags": [
-      "DOE",
-      "NNSA",
-      "Nuclear Sites",
-      "Security",
-      "FOIA"
+      "Roswell",
+      "GAO",
+      "Investigation",
+      "Records"
     ],
-    "publishedDate": "2024-06-01",
-    "addedDate": "2024-06-05"
-  },
-  {
-    "id": "nrc-uap-records-transfer-nara",
-    "title": "Nuclear Regulatory Commission Transfers UAP Records to National Archives",
-    "source": "Archives",
-    "sourceUrl": "https://www.nrc.gov/docs/ML2417/ML24177A281.pdf",
-    "summary": "The Nuclear Regulatory Commission became one of the first federal agencies to comply with the 2024 NDAA mandate, transferring all UAP-related records to the National Archives. Documents include observations and reports related to anomalous aerial phenomena near nuclear power plants and other NRC-regulated facilities, as well as internal correspondence about reporting procedures and coordination with AARO.",
-    "expandedSummary": "The Nuclear Regulatory Commission demonstrated exemplary compliance with 2024 NDAA mandates requiring all federal agencies to identify and transfer UAP-related records to the National Archives by becoming one of the first agencies to complete the transfer. NRC documentation transferred to NARA includes incident reports detailing observations of anomalous aerial phenomena in proximity to nuclear power plants, research reactors, and other NRC-regulated nuclear facilities throughout the United States. The transferred records encompass historical observations spanning decades, internal correspondence addressing reporting procedures for NRC facilities, and documentation of coordination between NRC offices and AARO regarding standardized UAP incident documentation. The transfer demonstrates federal institutional commitment to comprehensive archival of UAP materials across all agencies with relevant records, establishing the National Archives as the centralized repository for government-wide UAP documentation.",
-    "keyPoints": [
-      "NRC became one of first federal agencies complying with 2024 NDAA transfer mandate",
-      "Transferred all UAP-related records to National Archives for public access",
-      "Documents include observations near U.S. nuclear power plants and facilities",
-      "Records span decades of historical incident observations and internal procedures",
-      "Transfer demonstrates federal commitment to comprehensive UAP record centralization"
-    ],
-    "category": "FOIA Release",
-    "importance": "Low",
-    "tags": [
-      "NRC",
-      "NARA",
-      "Nuclear",
-      "Records Transfer"
-    ],
-    "publishedDate": "2024-10-20",
-    "addedDate": "2024-10-21"
-  },
-  {
-    "id": "project-blue-book-declassified",
-    "title": "Project BLUE BOOK Declassified Files (1952-1969)",
-    "source": "Archives",
-    "sourceUrl": "https://www.archives.gov/research/military/air-force/ufos",
-    "summary": "Air Force systematic study of UFOs archived at National Archives. 12,618 total reports collected; 701 classified as unexplained. Declassified and publicly accessible under FOIA. No evidence of extraterrestrial recovery or alien materials.",
-    "expandedSummary": "Project BLUE BOOK, the U.S. Air Force's systematic investigation program for unidentified flying objects operating from 1952 through 1969, compiled extensive documentation of reported anomalous aerial phenomena now publicly accessible through the National Archives. The Air Force program collected and analyzed 12,618 separate UFO reports from military pilots, civilian observers, scientists, and other sources. Trained Air Force investigators examined each report, assessing whether observations could be explained by conventional aircraft, weather phenomena, optical illusions, or other prosaic causes. Of the 12,618 total reports, the Air Force classified 701 cases as unexplained after exhaustive investigation. The BLUE BOOK concluded without finding evidence of extraterrestrial technology recovery or alien materials. The declassified archive represents the most extensive historical systematic investigation of anomalous aerial phenomena prior to modern AARO operations.",
-    "keyPoints": [
-      "Project BLUE BOOK: Air Force UAP investigation program 1952-1969",
-      "Collected and analyzed 12,618 separate UFO reports",
-      "701 cases remained unexplained after exhaustive investigation",
-      "Found no evidence of extraterrestrial technology or materials",
-      "Declassified archive at National Archives available for public research"
-    ],
-    "category": "FOIA Release",
-    "importance": "Low",
-    "tags": [
-      "Project Blue Book",
-      "Air Force",
-      "Historical",
-      "Declassified"
-    ],
-    "publishedDate": "1969-12-17",
-    "addedDate": "2020-01-01"
-  },
-  {
-    "id": "cia-ufo-foia-collection",
-    "title": "CIA UFO Collection in FOIA Electronic Reading Room",
-    "source": "Archives",
-    "sourceUrl": "https://www.cia.gov/readingroom/collection/ufos-fact-or-fiction",
-    "summary": "CIA released approximately 2,780 pages of declassified documents on UFO sightings and investigations spanning 1940s-1990s. Documents available for download through CIA FOIA Reading Room. Includes historical analysis and government interest in UAP phenomena.",
-    "expandedSummary": "The Central Intelligence Agency compiled and declassified approximately 2,780 pages of documentation concerning UFO sightings, government investigations, and institutional analysis of anomalous aerial phenomena spanning from the 1940s through the 1990s. The CIA collection, accessible through the agency's FOIA Electronic Reading Room, provides detailed historical evidence of intelligence community monitoring and analysis of reported UFO incidents. Documents include field reports from CIA stations worldwide, analytical assessments evaluating the potential national security implications of reported sightings, and correspondence between intelligence agencies regarding UFO investigation coordination. The collection demonstrates decades of institutional intelligence interest in anomalous phenomena and provides archival evidence of CIA investigative procedures and analytical methodologies applied to UFO reports. The declassified CIA collection contributes significantly to the historical record of government responses to UAP.",
-    "keyPoints": [
-      "CIA released approximately 2,780 pages of declassified UFO documentation",
-      "Covers period from 1940s through 1990s of global sightings and analysis",
-      "Documents include field reports, analytical assessments, and inter-agency correspondence",
-      "Demonstrates decades of intelligence community monitoring and investigation",
-      "Available through CIA FOIA Reading Room for public research access"
-    ],
-    "category": "FOIA Release",
-    "importance": "Low",
-    "tags": [
-      "CIA",
-      "FOIA",
-      "Declassified",
-      "Historical"
-    ],
-    "publishedDate": "2020-01-01",
-    "addedDate": "2020-06-01"
+    "publishedDate": "1995-07-01",
+    "addedDate": "1995-07-15"
   },
   {
     "id": "roswell-incident-declassified-1994",
@@ -856,89 +1392,29 @@
     "addedDate": "1995-01-01"
   },
   {
-    "id": "roswell-gao-government-records-search",
-    "title": "GAO Report: Government Records Search on Roswell Incident (1995)",
+    "id": "project-blue-book-declassified",
+    "title": "Project BLUE BOOK Declassified Files (1952-1969)",
     "source": "Archives",
-    "sourceUrl": "https://www.govinfo.gov/content/pkg/GAOREPORTS-NSIAD-95-187/html/GAOREPORTS-NSIAD-95-187.htm",
-    "summary": "General Accounting Office investigation into 1947 Roswell incident conducted at request of Congressman Steven Schiff. Found limited records survived; recovered materials identified as classified surveillance balloon components.",
-    "category": "Report",
-    "importance": "Low",
-    "tags": [
-      "Roswell",
-      "GAO",
-      "Investigation",
-      "Records"
-    ],
-    "publishedDate": "1995-07-01",
-    "addedDate": "1995-07-15"
-  },
-  {
-    "id": "nasa-uap-independent-study-2023",
-    "title": "NASA Unidentified Anomalous Phenomena Independent Study Team Report",
-    "source": "NASA",
-    "sourceUrl": "https://science.nasa.gov/uap/",
-    "documentUrl": "https://science.nasa.gov/wp-content/uploads/2023/09/uap-independent-study-team-final-report.pdf",
-    "summary": "September 2023 NASA study commissioned to examine UAP from scientific perspective. Found no evidence of extraterrestrial life but noted limited high-quality data prevents firm conclusions. Recommended systematic data collection and AI/ML analysis approaches.",
-    "expandedSummary": "The National Aeronautics and Space Administration commissioned an independent scientific study team to examine unidentified anomalous phenomena from a systematic research perspective, releasing their findings in September 2023. The NASA study team reviewed available government and civilian UAP data, assessed the quality and quantity of observations informing current understanding, and evaluated scientific methodologies applicable to UAP investigation. The team found no evidence of extraterrestrial life within available data while emphasizing that limited high-quality observational data prevented reaching definitive conclusions regarding UAP origins or nature. The NASA study recommended systematic approaches to future data collection, emphasizing the importance of standardized instrumentation, calibrated sensors, and artificial intelligence and machine learning analytical techniques. NASA's institutional engagement with UAP research established the agency as a scientific partner in investigation efforts alongside military and intelligence community organizations.",
+    "sourceUrl": "https://www.archives.gov/research/military/air-force/ufos",
+    "summary": "Air Force systematic study of UFOs archived at National Archives. 12,618 total reports collected; 701 classified as unexplained. Declassified and publicly accessible under FOIA. No evidence of extraterrestrial recovery or alien materials.",
+    "expandedSummary": "Project BLUE BOOK, the U.S. Air Force's systematic investigation program for unidentified flying objects operating from 1952 through 1969, compiled extensive documentation of reported anomalous aerial phenomena now publicly accessible through the National Archives. The Air Force program collected and analyzed 12,618 separate UFO reports from military pilots, civilian observers, scientists, and other sources. Trained Air Force investigators examined each report, assessing whether observations could be explained by conventional aircraft, weather phenomena, optical illusions, or other prosaic causes. Of the 12,618 total reports, the Air Force classified 701 cases as unexplained after exhaustive investigation. The BLUE BOOK concluded without finding evidence of extraterrestrial technology recovery or alien materials. The declassified archive represents the most extensive historical systematic investigation of anomalous aerial phenomena prior to modern AARO operations.",
     "keyPoints": [
-      "NASA convened independent scientific study team examining UAP from research perspective",
-      "Study found no evidence of extraterrestrial life in available data",
-      "Emphasized limited high-quality observational data constrains analytical conclusions",
-      "Recommended systematic data collection and AI/ML analysis methodologies",
-      "Established NASA as scientific partner in government UAP investigation"
+      "Project BLUE BOOK: Air Force UAP investigation program 1952-1969",
+      "Collected and analyzed 12,618 separate UFO reports",
+      "701 cases remained unexplained after exhaustive investigation",
+      "Found no evidence of extraterrestrial technology or materials",
+      "Declassified archive at National Archives available for public research"
     ],
-    "category": "Report",
-    "importance": "Medium",
-    "tags": [
-      "NASA",
-      "Scientific Research",
-      "Independent Study",
-      "AI/ML"
-    ],
-    "publishedDate": "2023-09-14",
-    "addedDate": "2023-09-15"
-  },
-  {
-    "id": "nasa-director-uap-research-appointed",
-    "title": "NASA Appoints Director of UAP Research and Establishes UAP Science Program",
-    "source": "NASA",
-    "sourceUrl": "https://www.nasa.gov/news-release/update-nasa-shares-uap-independent-study-report-names-director/",
-    "summary": "In response to Independent Study Team recommendations, NASA appointed a Director of UAP Research to oversee institutional scientific vision. Program focuses on data collection, AI/ML analysis, and satellite-based observation methodologies.",
-    "expandedSummary": "NASA established an institutional commitment to unidentified anomalous phenomena research by appointing a Director of UAP Research and creating a formal science program within the agency structure. The appointment reflected recommendations from NASA's independent study team and signaled the agency's intention to contribute substantive scientific capabilities to government-wide UAP investigation efforts. The Director of UAP Research position coordinates with military and intelligence agencies while advancing NASA's scientific agenda focused on systematic data collection, artificial intelligence and machine learning analytical techniques, and development of satellite-based observation methodologies. The program emphasizes scientific rigor in evaluating UAP observations, establishing methodological standards for interdisciplinary research, and training the next generation of scientists dedicated to anomalous phenomena investigation.",
-    "keyPoints": [
-      "NASA appointed Director of UAP Research in response to study recommendations",
-      "Established formal UAP Science Program within NASA institutional structure",
-      "Program focuses on systematic data collection and analysis methodologies",
-      "Emphasizes AI/ML analytical techniques and satellite observation capabilities",
-      "Coordinates with military and intelligence agencies on research agenda"
-    ],
-    "category": "Press Release",
-    "importance": "Medium",
-    "tags": [
-      "NASA",
-      "Science",
-      "Research Director",
-      "Program"
-    ],
-    "publishedDate": "2023-09-14",
-    "addedDate": "2023-09-15"
-  },
-  {
-    "id": "fbi-vault-project-blue-book",
-    "title": "FBI Vault: Project Blue Book Records (UFO Part 01)",
-    "source": "Archives",
-    "sourceUrl": "https://vault.fbi.gov/Project%20Blue%20Book%20(UFO)%20/Project%20Blue%20Book%20(UFO)%20Part%2001%20(Final)/view",
-    "summary": "FBI's declassified Project Blue Book files made publicly accessible through the FBI Vault FOIA system. Contains the Bureau's historical UFO investigation records from the Air Force study period 1952-1969, including inter-agency communications, field office reports on sightings, and FBI assessments of specific incidents that were referred to the Bureau by Air Force investigators.",
     "category": "FOIA Release",
     "importance": "Low",
     "tags": [
-      "FBI",
-      "Vault",
       "Project Blue Book",
-      "FOIA"
+      "Air Force",
+      "Historical",
+      "Declassified"
     ],
-    "publishedDate": "2020-01-01",
-    "addedDate": "2020-06-01"
+    "publishedDate": "1969-12-17",
+    "addedDate": "2020-01-01"
   },
   {
     "id": "fbi-vault-roswell-ufo",
@@ -956,81 +1432,5 @@
     ],
     "publishedDate": "1947-07-08",
     "addedDate": "2020-01-01"
-  },
-  {
-    "id": "senate-appropriations-uap-oversight-2024",
-    "title": "Senate Appropriations Committee UAP Oversight Provisions (FY2025)",
-    "source": "Congress",
-    "sourceUrl": "https://defensescoop.com/2024/12/10/uap-ufo-military-intercepts-north-america-fy-2026-ndaa/",
-    "summary": "Senate appropriations measures require AARO briefings on UAP intercept locations, nature, and frequency. Mandates data-sharing protocols between military, intelligence, and civilian agencies for comprehensive UAP tracking.",
-    "expandedSummary": "Senate Appropriations Committee provisions incorporated into FY2025 appropriations legislation establish detailed oversight mechanisms for government UAP activities funded through the defense appropriations process. The provisions mandate regular briefings from AARO providing the Appropriations Committee with comprehensive information on UAP intercept locations detected by military sensor systems, the nature of observed phenomena, and the frequency of incident reporting. The measures establish data-sharing protocols creating integrated information exchange systems between military branches, intelligence agencies, and civilian authorities responsible for airspace security. The appropriations-based oversight mechanism creates sustained congressional control of UAP investigation funding and performance metrics, establishing the right to review progress toward investigation objectives and analytical conclusions.",
-    "keyPoints": [
-      "Senate Appropriations provisions mandate AARO briefings on UAP activity",
-      "Requires reporting on intercept locations, phenomena characteristics, and frequencies",
-      "Establishes data-sharing protocols between military, intelligence, and civilian agencies",
-      "Appropriations-based oversight creates congressional funding control",
-      "Mandates comprehensive UAP tracking and analysis across federal agencies"
-    ],
-    "category": "Report",
-    "importance": "Medium",
-    "tags": [
-      "Senate",
-      "Appropriations",
-      "Oversight",
-      "AARO"
-    ],
-    "publishedDate": "2024-09-30",
-    "addedDate": "2024-10-01"
-  },
-  {
-    "id": "aaro-congressional-press-products",
-    "title": "AARO Congressional and Press Products Archive",
-    "source": "AARO",
-    "sourceUrl": "https://www.aaro.mil/Congressional-Press-Products/",
-    "summary": "AARO maintains public archive of all congressional testimonies, press briefings, declassified presentations, and official statements. Updated as new information is released and congressional briefings occur.",
-    "category": "Report",
-    "importance": "Low",
-    "tags": [
-      "AARO",
-      "Congress",
-      "Press",
-      "Archive"
-    ],
-    "publishedDate": "2024-01-01",
-    "addedDate": "2024-01-15"
-  },
-  {
-    "id": "national-archives-uap-research-guide",
-    "title": "National Archives Guide to UAP Records and Research",
-    "source": "Archives",
-    "sourceUrl": "https://www.archives.gov/research/topics/uaps",
-    "summary": "NARA comprehensive research guide to UAP-related records held at the National Archives. Includes search tools for the online catalog, bulk download access to digitized materials, Record Group 615 collection details, and step-by-step guidance for researchers accessing declassified UAP materials both online and in person at Archives facilities in College Park, Maryland.",
-    "category": "Report",
-    "importance": "Low",
-    "tags": [
-      "NARA",
-      "Research Guide",
-      "Archives",
-      "Access"
-    ],
-    "publishedDate": "2024-09-01",
-    "addedDate": "2024-09-05"
-  },
-  {
-    "id": "black-vault-uap-document-archive",
-    "title": "The Black Vault: Comprehensive UAP and UFO Document Archive",
-    "source": "The Black Vault",
-    "sourceUrl": "https://www.theblackvault.com/documentarchive/",
-    "summary": "The Black Vault maintains extensive independently-maintained archive of declassified UAP/UFO documents, FOIA releases, government reports, and historical materials. Includes cross-referenced source documentation.",
-    "category": "Archive",
-    "importance": "Low",
-    "tags": [
-      "Black Vault",
-      "Archive",
-      "Research",
-      "Documents"
-    ],
-    "publishedDate": "2020-01-01",
-    "addedDate": "2020-06-01"
   }
 ]
