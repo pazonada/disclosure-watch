@@ -99,6 +99,39 @@ function today(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+/** Keywords that indicate genuine UAP/UFO/disclosure relevance */
+const UAP_RELEVANCE_KEYWORDS = [
+  "uap", "ufo", "unidentified anomalous", "unidentified aerial",
+  "anomalous phenomena", "flying object", "flying objects",
+  "aaro", "all-domain anomaly resolution",
+  "disclosure", "non-human intelligence", "nhi",
+  "extraterrestrial", "roswell", "area 51",
+  "grusch", "elizondo", "fravor", "graves",
+  "imminent domain", "uap disclosure act",
+  "schumer", "rounds", "gillibrand", "burchett", "luna", "gaetz", "rubio",
+];
+
+/** Check if text is genuinely about UAP/UFO disclosure */
+function isUapRelevant(text: string): boolean {
+  const lower = text.toLowerCase();
+  return UAP_RELEVANCE_KEYWORDS.some((kw) => lower.includes(kw));
+}
+
+/** Map Congress.gov bill type codes to URL-friendly slugs */
+function congressBillSlug(type: string): string {
+  const map: Record<string, string> = {
+    hr: "house-bill",
+    s: "senate-bill",
+    hres: "house-resolution",
+    sres: "senate-resolution",
+    hjres: "house-joint-resolution",
+    sjres: "senate-joint-resolution",
+    hconres: "house-concurrent-resolution",
+    sconres: "senate-concurrent-resolution",
+  };
+  return map[type.toLowerCase()] || "house-bill";
+}
+
 function stripHtml(html: string): string {
   return html
     .replace(/<[^>]*>/g, "")
@@ -177,6 +210,10 @@ async function fetchArchives(): Promise<UAPDocument[]> {
         const title = desc?.title;
         if (!title) continue;
 
+        const scopeNote = desc?.scopeAndContentNote || "";
+        // Skip results that aren't actually about UAP/UFO
+        if (!isUapRelevant(`${title} ${scopeNote}`)) continue;
+
         const naId = desc?.naId || item?.naId;
         const sourceUrl = naId
           ? `https://catalog.archives.gov/id/${naId}`
@@ -234,10 +271,17 @@ async function fetchCongress(): Promise<UAPDocument[]> {
         const title = bill?.title || bill?.shortTitle;
         if (!title) continue;
 
+        const summaryText = bill?.latestAction?.text || "";
+        // Skip bills that aren't actually about UAP/disclosure
+        if (!isUapRelevant(`${title} ${summaryText}`)) continue;
+
         const congress = bill?.congress || "";
         const number = bill?.number || "";
         const type = (bill?.type || "").toLowerCase();
-        const sourceUrl = `https://www.congress.gov/bill/${congress}th-congress/${type}-bill/${number}`;
+        const slug = congressBillSlug(type);
+        const sourceUrl = bill?.url
+          ? bill.url.replace("api.congress.gov/v3", "www.congress.gov")
+          : `https://www.congress.gov/bill/${congress}th-congress/${slug}/${number}`;
         const dateStr =
           bill?.latestAction?.actionDate || bill?.updateDate || "";
         const publishedDate = dateStr ? dateStr.slice(0, 10) : "2024-01-01";
@@ -248,7 +292,7 @@ async function fetchCongress(): Promise<UAPDocument[]> {
           source: "Congress",
           sourceUrl,
           summary:
-            bill?.latestAction?.text ||
+            summaryText ||
             `Congressional bill from the ${congress}th Congress.`,
           category: "Report",
           importance: title.toLowerCase().includes("disclosure")
@@ -291,6 +335,9 @@ async function fetchCongressHearings(): Promise<UAPEvent[]> {
       for (const hearing of hearings) {
         const title = hearing?.title;
         if (!title) continue;
+
+        // Skip hearings that aren't actually about UAP/disclosure
+        if (!isUapRelevant(title)) continue;
 
         const chamber = hearing?.chamber || "";
         const congress = hearing?.congress || "";

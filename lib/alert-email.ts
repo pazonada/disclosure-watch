@@ -12,9 +12,9 @@ interface AlertItem {
 
 function typeLabel(type: AlertItem["type"]): string {
   switch (type) {
-    case "document": return "📄 New Document";
-    case "news": return "📰 News";
-    case "event": return "📅 Event";
+    case "document": return "NEW DOCUMENT";
+    case "news": return "NEWS";
+    case "event": return "EVENT";
   }
 }
 
@@ -30,19 +30,23 @@ export function buildAlertEmailHtml(items: AlertItem[]): string {
   const itemsHtml = items
     .slice(0, 10) // Cap at 10 items per email
     .map(
-      (item) => `
+      (item) => {
+        const shortTitle = item.title.length > 80 ? item.title.slice(0, 77) + "..." : item.title;
+        const summary = item.summary.length > 240 ? item.summary.slice(0, 237) + "..." : item.summary;
+        return `
       <div style="margin-bottom: 20px; padding: 16px; background: #1e293b; border-radius: 8px; border-left: 3px solid ${typeColor(item.type)};">
         <div style="font-size: 11px; font-weight: 600; color: ${typeColor(item.type)}; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
           ${typeLabel(item.type)}
         </div>
         <a href="${item.url}" style="color: #f1f5f9; font-size: 16px; font-weight: 600; text-decoration: none; line-height: 1.3;">
-          ${item.title}
+          ${shortTitle}
         </a>
         <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 8px 0 0;">
-          ${item.summary.slice(0, 200)}${item.summary.length > 200 ? "..." : ""}
+          ${summary}
         </p>
       </div>
-    `
+    `;
+      }
     )
     .join("");
 
@@ -98,16 +102,19 @@ export function buildAlertEmailHtml(items: AlertItem[]): string {
 }
 
 export function buildAlertSubject(items: AlertItem[]): string {
-  if (items.length === 1) {
-    return `🛸 ${items[0].title}`;
-  }
-
   const docCount = items.filter((i) => i.type === "document").length;
-  if (docCount > 0) {
-    return `🛸 ${docCount} new document${docCount > 1 ? "s" : ""} + ${items.length - docCount} more updates`;
+  const otherCount = items.length - docCount;
+
+  if (items.length === 1) {
+    const label = items[0].type === "document" ? "doc" : items[0].type === "news" ? "article" : "event";
+    return `Disclosure Watch Insider: 1 new ${label}`;
   }
 
-  return `🛸 ${items.length} new updates on Disclosure Watch`;
+  const parts: string[] = [];
+  if (docCount > 0) parts.push(`${docCount} new doc${docCount > 1 ? "s" : ""}`);
+  if (otherCount > 0) parts.push(`${otherCount} new update${otherCount > 1 ? "s" : ""}`);
+
+  return `Disclosure Watch Insider: ${parts.join(" + ")}`;
 }
 
 /** Builds the HTML for the weekly digest email. */
