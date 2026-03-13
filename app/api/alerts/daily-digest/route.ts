@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { sendEmail } from "@/lib/resend";
 import {
-  buildAlertEmailHtml,
-  buildAlertSubject,
+  buildDailyDigestEmailHtml,
+  buildDailyDigestSubject,
   AlertItem,
 } from "@/lib/alert-email";
 
@@ -159,8 +159,8 @@ export async function GET(request: NextRequest) {
     try {
       await sendEmail({
         to: sub.email,
-        subject: buildAlertSubject(matchingItems),
-        html: buildAlertEmailHtml(matchingItems).replace(
+        subject: buildDailyDigestSubject(matchingItems),
+        html: buildDailyDigestEmailHtml(matchingItems).replace(
           "{{email}}",
           encodeURIComponent(sub.email)
         ),

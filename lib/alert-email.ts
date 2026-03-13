@@ -162,6 +162,95 @@ export function buildAlertSubject(items: AlertItem[]): string {
   return `Disclosure Watch Insider: ${parts.join(" + ")}`;
 }
 
+// ── Insider Daily Digest Email ───────────────────────────────────────────────
+
+export function buildDailyDigestEmailHtml(items: AlertItem[]): string {
+  const itemsHtml = items
+    .slice(0, 10)
+    .map((item) => {
+      const shortTitle =
+        item.title.length > 80 ? item.title.slice(0, 77) + "..." : item.title;
+      const summary =
+        item.summary.length > 240
+          ? item.summary.slice(0, 237) + "..."
+          : item.summary;
+      return `
+        <div style="margin-bottom: 16px; padding: 16px; background: ${CARD_BG}; border-radius: 8px; border-left: 3px solid ${typeColor(item.type)};">
+          <div style="font-size: 10px; font-weight: 700; color: ${typeColor(item.type)}; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+            ${typeLabel(item.type)}
+          </div>
+          <a href="${item.url}" style="color: ${HEADING_COLOR}; font-size: 15px; font-weight: 600; text-decoration: none; line-height: 1.4;">
+            ${shortTitle}
+          </a>
+          <p style="color: ${BODY_COLOR}; font-size: 13px; line-height: 1.5; margin: 6px 0 0;">
+            ${summary}
+          </p>
+        </div>
+      `;
+    })
+    .join("");
+
+  const docCount = items.filter((i) => i.type === "document").length;
+  const newsCount = items.filter((i) => i.type === "news").length;
+  const eventCount = items.filter((i) => i.type === "event").length;
+  const parts: string[] = [];
+  if (docCount > 0) parts.push(`${docCount} document${docCount > 1 ? "s" : ""}`);
+  if (newsCount > 0) parts.push(`${newsCount} news item${newsCount > 1 ? "s" : ""}`);
+  if (eventCount > 0) parts.push(`${eventCount} event${eventCount > 1 ? "s" : ""}`);
+  const summaryLine = parts.join(", ");
+
+  const today = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <body style="${WRAPPER_STYLE}">
+      <div style="${CONTAINER_STYLE}">
+
+        <!-- Solid color header (distinct from real-time hero banner) -->
+        <div style="background: linear-gradient(135deg, #0f766e 0%, #115e59 100%); padding: 28px 32px; text-align: center;">
+          <p style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin: 0 0 6px;">
+            Disclosure Watch Insider
+          </p>
+          <h1 style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0 0 4px;">
+            Your Daily Briefing
+          </h1>
+          <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin: 0;">
+            ${today}
+          </p>
+        </div>
+
+        <div style="${INNER_STYLE}">
+          <p style="color: ${MUTED_COLOR}; font-size: 13px; margin: 0 0 20px; text-align: center;">
+            ${summaryLine} added in the last 24 hours
+          </p>
+
+          ${itemsHtml}
+
+          <div style="text-align: center; margin: 24px 0 8px;">
+            <a href="${SITE_URL}" style="display: inline-block; background: #0f766e; color: #ffffff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">
+              View all updates &rarr;
+            </a>
+          </div>
+        </div>
+
+        ${footerHtml("You're receiving this as a Disclosure Watch Insider (daily digest).")}
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+export function buildDailyDigestSubject(items: AlertItem[]): string {
+  const total = items.length;
+  return `Disclosure Watch Daily Briefing: ${total} new update${total !== 1 ? "s" : ""}`;
+}
+
 // ── Free Weekly Digest Email ────────────────────────────────────────────────
 
 export function buildDigestEmailHtml(summary: string, weekOf: string): string {
