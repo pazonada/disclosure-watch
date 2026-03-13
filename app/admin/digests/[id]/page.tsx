@@ -16,6 +16,9 @@ export default function DigestEditorPage() {
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [previewHtml, setPreviewHtml] = useState("");
+  const [previewSubject, setPreviewSubject] = useState("");
+  const [previewLoading, setPreviewLoading] = useState(false);
 
   useEffect(() => {
     fetch("/api/admin/digests")
@@ -35,6 +38,27 @@ export default function DigestEditorPage() {
     setMessage({ type, text });
     setTimeout(() => setMessage(null), 4000);
   }, []);
+
+  // Fetch rendered email HTML when entering preview mode
+  useEffect(() => {
+    if (!showPreview || !digest) return;
+
+    setPreviewLoading(true);
+    fetch("/api/admin/digests/preview", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ summary: editedText, weekOf: digest.week_of }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.html) {
+          setPreviewHtml(data.html);
+          setPreviewSubject(data.subject || "");
+        }
+      })
+      .catch(() => showMsg("error", "Failed to load preview"))
+      .finally(() => setPreviewLoading(false));
+  }, [showPreview, editedText, digest, showMsg]);
 
   const handleSave = async () => {
     setSaving(true);
@@ -68,7 +92,7 @@ export default function DigestEditorPage() {
       if (res.ok) {
         const data = await res.json();
         setDigest(data.digest);
-        showMsg("success", "Approved — will auto-send at deadline if not sent manually");
+        showMsg("success", "Approved \u2013 will auto-send at deadline if not sent manually");
       } else {
         showMsg("error", "Failed to approve");
       }
@@ -142,7 +166,7 @@ export default function DigestEditorPage() {
             onClick={() => router.push("/admin/digests")}
             className="text-xs text-muted-foreground hover:text-foreground font-mono mb-2 block"
           >
-            ← Back to digests
+            &larr; Back to digests
           </button>
           <h1 className="text-2xl font-display tracking-wide text-foreground uppercase">
             Week of {digest.week_of}
@@ -199,27 +223,50 @@ export default function DigestEditorPage() {
             showPreview ? "bg-[var(--lime-10)] text-lime" : "text-muted-foreground hover:bg-[var(--muted-30)]"
           }`}
         >
-          Preview
+          Preview Email
         </button>
       </div>
 
       {/* Editor or preview */}
       {showPreview ? (
-        <div className="rounded-lg border border-card-subtle bg-[#0f172a] p-6 mb-6">
-          <div className="mx-auto max-w-[560px]">
-            <div className="text-center mb-6">
-              <span className="text-3xl">🛸</span>
-              <h2 className="text-lg font-semibold text-foreground mt-2">
-                Disclosure Watch — Weekly Digest
-              </h2>
-              <p className="text-xs text-muted-foreground font-mono">Week of {digest.week_of}</p>
+        <div className="mb-6">
+          {/* Subject line preview */}
+          {previewSubject && (
+            <div className="mb-3 rounded-lg border border-card-subtle bg-card px-4 py-3">
+              <span className="text-xs font-mono text-muted-foreground mr-2">Subject:</span>
+              <span className="text-sm text-foreground">{previewSubject}</span>
             </div>
-            <div className="rounded-lg bg-[#1e293b] p-5">
-              <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
-                {editedText}
-              </p>
+          )}
+
+          {/* Rendered email */}
+          {previewLoading ? (
+            <div className="flex items-center justify-center py-16 rounded-lg border border-card-subtle bg-[#f4f5f7]">
+              <p className="text-sm text-muted-foreground font-mono animate-pulse">Rendering email...</p>
             </div>
-          </div>
+          ) : (
+            <div className="rounded-lg border border-card-subtle overflow-hidden">
+              <iframe
+                srcDoc={previewHtml}
+                className="w-full border-0"
+                style={{ minHeight: 700 }}
+                title="Email preview"
+                onLoad={(e) => {
+                  // Auto-resize iframe to fit content
+                  const iframe = e.target as HTMLIFrameElement;
+                  try {
+                    const height = iframe.contentDocument?.body?.scrollHeight || 700;
+                    iframe.style.height = `${height + 40}px`;
+                  } catch {
+                    // Cross-origin safety
+                  }
+                }}
+              />
+            </div>
+          )}
+
+          <p className="mt-2 text-xs font-mono text-muted-foreground text-center">
+            This is exactly how the email will appear in subscribers&apos; inboxes
+          </p>
         </div>
       ) : (
         <textarea

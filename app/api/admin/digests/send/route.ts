@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
       year: "numeric",
     });
     const html = buildDigestEmailHtml(digest.summary_text, weekLabel);
-    const subject = `🛸 Disclosure Watch — Week of ${weekLabel}`;
+    const subject = `Disclosure Watch Weekly Briefing: Week of ${weekLabel}`;
 
     // Send to all active subscribers
     const result = await sendBatchEmail({ subject, html });

@@ -854,7 +854,17 @@ async function generateWithClaude(
     .map((e) => `- ${e.title} (${e.type}, ${e.date})`)
     .join("\n");
 
-  const prompt = `You write the weekly "State of Disclosure" blurb for Disclosure Watch, a site tracking UAP/UFO government disclosure. Write ONE paragraph (max 5 sentences) summarizing this week's activity. Be digestible, friendly, almost informal — like a smart friend catching you up. Mention specifics (names, numbers, sources) when interesting. Do NOT include any stats about total tracked items — those are shown separately on the site.
+  const prompt = `You write the weekly "State of Disclosure" blurb for Disclosure Watch, a site that tracks UAP/UFO government disclosure for a general audience.
+
+TASK: Write ONE paragraph (max 5 sentences) summarizing this week's activity. Mention specifics (names, bill numbers, agencies, dates) when they add clarity. Do NOT include any stats about total tracked items – those are shown separately on the site.
+
+VOICE & STYLE:
+- Sound like an informed adult catching a friend up on the week – not academic, not clickbait. Accessible to the average person curious about UAPs, without dumbing things down.
+- Lean heavily toward straight reporting. State what happened and what it means. Avoid personal opinion, but it's fine to briefly note concrete implications ("This is the first time Congress has…" or "The provision would require the Pentagon to…").
+- Vary sentence length naturally. Keep things moving.
+- NEVER use em dashes (—). If you need a parenthetical aside, use an en dash ( – ) sparingly, or restructure the sentence.
+- Avoid overused LLM filler: "In a significant development," "It remains to be seen," "This marks a pivotal," "It's worth noting," "Notably," etc.
+- No emojis. No exclamation marks unless quoting someone.
 
 This week's news headlines:
 ${newsDigest || "(no new news this week)"}
@@ -865,9 +875,7 @@ ${docDigest || "(no new documents this week)"}
 Events:
 ${eventDigest || "(no new events this week)"}
 
-Totals: ${totalDocs} documents, ${totalNews} news items, ${totalEvents} events tracked.
-
-Write ONLY the paragraph, no intro, no quotes around it.`;
+Write ONLY the paragraph. No intro, no sign-off, no quotes around it.`;
 
   const response = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
