@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import * as fs from "fs";
 import * as path from "path";
 import { supabase } from "@/lib/supabase";
+import { commitFiles, type FileUpdate } from "@/lib/github";
 import type { AlertItem } from "@/lib/alert-email";
 
 export const dynamic = "force-dynamic";
@@ -696,15 +697,18 @@ function summaryNeedsUpdate(weekStart: string): boolean {
  * If ANTHROPIC_API_KEY is set, uses Claude to write the summary.
  * Otherwise falls back to a template-based approach that
  * stitches together highlights from the week's content.
+ *
+ * Returns the summary data object (for GitHub commit), or null if
+ * the summary is already current.
  */
 async function generateWeeklySummary(
   docs: UAPDocument[],
   newsItems: NewsItem[],
   events: UAPEvent[]
-): Promise<string> {
+): Promise<WeeklySummaryData | null> {
   const weekStart = getCurrentWeekStart();
   if (!summaryNeedsUpdate(weekStart)) {
-    return ""; // Already up to date
+    return null; // Already up to date
   }
 
   // Gather items from the past 7 days
@@ -731,12 +735,8 @@ async function generateWeeklySummary(
       );
       if (summary) {
         const data: WeeklySummaryData = { weekOf: weekStart, summary };
-        fs.writeFileSync(
-          WEEKLY_SUMMARY_PATH,
-          JSON.stringify(data, null, 2) + "\n"
-        );
         await upsertDigestDraft(weekStart, summary);
-        return summary;
+        return data;
       }
     } catch {
       // Fall through to template
@@ -753,12 +753,8 @@ async function generateWeeklySummary(
     events.length
   );
   const data: WeeklySummaryData = { weekOf: weekStart, summary };
-  fs.writeFileSync(
-    WEEKLY_SUMMARY_PATH,
-    JSON.stringify(data, null, 2) + "\n"
-  );
   await upsertDigestDraft(weekStart, summary);
-  return summary;
+  return data;
 }
 
 /** Create or update a digest row in Supabase for this week's summary. */
@@ -974,8 +970,12 @@ async function runIngestion(): Promise<{
   events: { fetched: number; added: number; total: number };
   weeklySummary: { updated: boolean };
   alerts: { dispatched: boolean; error?: string };
+  committed: boolean;
 }> {
-  // 1. Load existing data
+  // Collect files to commit to GitHub at the end
+  const filesToCommit: FileUpdate[] = [];
+
+  // 1. Load existing data (reads from the build's bundled filesystem)
   const existingDocs = loadJson<UAPDocument>(DOCUMENTS_PATH);
   const existingNews = loadJson<NewsItem>(NEWS_PATH);
   const existingEvents = loadJson<UAPEvent>(EVENTS_PATH);
@@ -997,16 +997,21 @@ async function runIngestion(): Promise<{
   const existingDocIds = new Set(existingDocs.map((d) => d.id));
   const docResult = mergeDocuments(existingDocs, incomingDocs);
   if (docResult.added > 0) {
-    saveJson(DOCUMENTS_PATH, docResult.merged);
+    filesToCommit.push({
+      path: "content/documents.json",
+      content: JSON.stringify(docResult.merged, null, 2) + "\n",
+    });
   }
-  // Track which docs are actually new (for alert dispatch)
   const newlyAddedDocs = docResult.merged.filter((d) => !existingDocIds.has(d.id));
 
   // 5. Merge news
   const existingNewsIds = new Set(existingNews.map((n) => n.id));
   const newsResult = mergeNews(existingNews, allNewsItems);
   if (newsResult.added > 0) {
-    saveJson(NEWS_PATH, newsResult.merged);
+    filesToCommit.push({
+      path: "content/news.json",
+      content: JSON.stringify(newsResult.merged, null, 2) + "\n",
+    });
   }
   const newlyAddedNews = newsResult.merged.filter((n) => !existingNewsIds.has(n.id));
 
@@ -1015,19 +1020,28 @@ async function runIngestion(): Promise<{
   const existingEventIds = new Set(existingEvents.map((e) => e.id));
   const eventResult = mergeEvents(existingEvents, incomingEvents);
   if (eventResult.added > 0) {
-    saveJson(EVENTS_PATH, eventResult.merged);
+    filesToCommit.push({
+      path: "content/events.json",
+      content: JSON.stringify(eventResult.merged, null, 2) + "\n",
+    });
   }
   const newlyAddedEvents = eventResult.merged.filter((e) => !existingEventIds.has(e.id));
 
   // 7. Generate weekly summary (once per week, or if missing)
   let summaryUpdated = false;
   try {
-    const summary = await generateWeeklySummary(
+    const summaryData = await generateWeeklySummary(
       docResult.merged,
       newsResult.merged,
       eventResult.merged
     );
-    summaryUpdated = summary.length > 0;
+    if (summaryData) {
+      summaryUpdated = true;
+      filesToCommit.push({
+        path: "content/weekly-summary.json",
+        content: JSON.stringify(summaryData, null, 2) + "\n",
+      });
+    }
   } catch {
     // Non-fatal — summary generation shouldn't break ingestion
   }
@@ -1040,6 +1054,26 @@ async function runIngestion(): Promise<{
     } catch (err) {
       console.error("Alert dispatch failed:", err);
       alertResult = { dispatched: false, error: String(err) };
+    }
+  }
+
+  // 9. Commit all updated files to GitHub (triggers Vercel redeploy)
+  let committed = false;
+  if (filesToCommit.length > 0) {
+    try {
+      const parts: string[] = [];
+      if (docResult.added > 0) parts.push(`${docResult.added} docs`);
+      if (newsResult.added > 0) parts.push(`${newsResult.added} news`);
+      if (eventResult.added > 0) parts.push(`${eventResult.added} events`);
+      if (summaryUpdated) parts.push("weekly summary");
+      const message = `chore: auto-ingest ${parts.join(", ")}`;
+
+      await commitFiles(filesToCommit, message);
+      committed = true;
+      console.log(`Committed ${filesToCommit.length} files to GitHub: ${message}`);
+    } catch (err) {
+      console.error("GitHub commit failed:", err);
+      // Non-fatal — content was still fetched and alerts dispatched
     }
   }
 
@@ -1061,6 +1095,7 @@ async function runIngestion(): Promise<{
     },
     weeklySummary: { updated: summaryUpdated },
     alerts: alertResult,
+    committed,
   };
 }
 

@@ -52,11 +52,22 @@ async function stripeRequest(
 
 // ── Checkout ────────────────────────────────────────────────────────────────
 
-export async function createCheckoutSession(email: string): Promise<string> {
+export interface AlertPreferences {
+  trigger_documents: boolean;
+  trigger_hearings: boolean;
+  trigger_milestones: boolean;
+  trigger_news: boolean;
+  keywords: string[];
+}
+
+export async function createCheckoutSession(
+  email: string,
+  preferences?: AlertPreferences
+): Promise<string> {
   const priceId = process.env.STRIPE_PRICE_ID;
   if (!priceId) throw new Error("STRIPE_PRICE_ID not set");
 
-  const data = await stripeRequest("/checkout/sessions", "POST", {
+  const params: Record<string, string> = {
     mode: "subscription",
     "line_items[0][price]": priceId,
     "line_items[0][quantity]": "1",
@@ -64,7 +75,19 @@ export async function createCheckoutSession(email: string): Promise<string> {
     success_url: `${getSiteUrl()}/alerts?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${getSiteUrl()}/subscribe`,
     allow_promotion_codes: "true",
-  });
+  };
+
+  if (preferences) {
+    params["metadata[trigger_documents]"] = String(preferences.trigger_documents);
+    params["metadata[trigger_hearings]"] = String(preferences.trigger_hearings);
+    params["metadata[trigger_milestones]"] = String(preferences.trigger_milestones);
+    params["metadata[trigger_news]"] = String(preferences.trigger_news);
+    params["metadata[keywords]"] = JSON.stringify(
+      (preferences.keywords || []).slice(0, 10)
+    );
+  }
+
+  const data = await stripeRequest("/checkout/sessions", "POST", params);
 
   return data.url;
 }

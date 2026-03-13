@@ -1,6 +1,5 @@
 import NewsletterSignup from "@/components/NewsletterSignup";
-import SubscribeButton from "@/components/SubscribeButton";
-import AlertPreferencesPreview from "@/components/AlertPreferencesPreview";
+import InsiderSignup from "@/components/InsiderSignup";
 import { Radio } from "@/components/Icons";
 
 export const metadata = {
@@ -60,8 +59,7 @@ export default function SubscribePage() {
             or major developments break — before the weekly briefing. Filter by type and add keyword
             filters to zero in on what matters to you.
           </p>
-          <AlertPreferencesPreview />
-          <SubscribeButton />
+          <InsiderSignup />
         </div>
       </div>
 

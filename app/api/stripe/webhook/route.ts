@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
               { onConflict: "email" }
             );
 
-          // Create default alert preferences for new paid subscriber
+          // Save alert preferences from checkout metadata (or defaults)
           const { data: subscriber } = await supabase
             .from("subscribers")
             .select("id")
@@ -56,14 +56,22 @@ export async function POST(request: NextRequest) {
             .single();
 
           if (subscriber) {
+            const meta = session.metadata || {};
+            let keywords: string[] = [];
+            try {
+              keywords = meta.keywords ? JSON.parse(meta.keywords) : [];
+            } catch {
+              keywords = [];
+            }
+
             await supabase.from("alert_preferences").upsert(
               {
                 subscriber_id: subscriber.id,
-                trigger_documents: true,
-                trigger_hearings: true,
-                trigger_milestones: true,
-                trigger_news: false,
-                keywords: [],
+                trigger_documents: meta.trigger_documents === "false" ? false : true,
+                trigger_hearings: meta.trigger_hearings === "false" ? false : true,
+                trigger_milestones: meta.trigger_milestones === "false" ? false : true,
+                trigger_news: meta.trigger_news === "true" ? true : false,
+                keywords,
               },
               { onConflict: "subscriber_id" }
             );

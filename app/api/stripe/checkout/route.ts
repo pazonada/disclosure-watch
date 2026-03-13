@@ -5,13 +5,13 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    const { email, preferences } = await request.json();
 
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "Valid email required." }, { status: 400 });
     }
 
-    const checkoutUrl = await createCheckoutSession(email);
+    const checkoutUrl = await createCheckoutSession(email, preferences);
     return NextResponse.json({ url: checkoutUrl });
   } catch (err) {
     console.error("Checkout error:", err);
