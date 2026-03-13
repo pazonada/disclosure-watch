@@ -24,7 +24,7 @@ export default function SubscribePage() {
       </p>
 
       {/* Two-column tier cards */}
-      <div className="grid gap-6 lg:grid-cols-2 mb-6">
+      <div className="grid gap-6 lg:grid-cols-2 items-start mb-6">
         {/* Free weekly digest */}
         <div className="flex flex-col rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
           <div className="mb-1 flex items-center gap-2">
@@ -34,7 +34,7 @@ export default function SubscribePage() {
               Free
             </span>
           </div>
-          <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground font-light">
+          <p className="mb-6 text-sm leading-relaxed text-muted-foreground font-light">
             Every Friday, get a concise rundown of the week&apos;s UAP disclosure activity — new government
             documents, upcoming hearings, legislative updates, and what it all means. Written for
             busy people who want to stay informed without doom-scrolling.
@@ -54,7 +54,7 @@ export default function SubscribePage() {
               $5/mo
             </span>
           </div>
-          <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground font-light">
+          <p className="mb-4 text-sm leading-relaxed text-muted-foreground font-light">
             Become an Insider and get notified the moment new documents drop, hearings are announced,
             or major developments break — before the weekly briefing. Filter by type and add keyword
             filters to zero in on what matters to you.
