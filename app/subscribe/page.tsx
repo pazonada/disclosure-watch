@@ -1,4 +1,5 @@
 import NewsletterSignup from "@/components/NewsletterSignup";
+import SubscribeButton from "@/components/SubscribeButton";
 import { Radio } from "@/components/Icons";
 
 export const metadata = {
@@ -41,8 +42,8 @@ export default function SubscribePage() {
           <NewsletterSignup />
         </div>
 
-        {/* Paid alerts — coming soon */}
-        <div className="flex flex-col rounded-lg border border-card-subtle bg-card p-6 sm:p-8 opacity-75">
+        {/* Paid real-time alerts */}
+        <div className="flex flex-col rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
           <div className="mb-1 flex items-center gap-2">
             <svg className="h-5 w-5 text-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
@@ -50,17 +51,33 @@ export default function SubscribePage() {
             </svg>
             <h2 className="text-xl font-semibold text-foreground">Real-time alerts</h2>
             <span className="ml-2 rounded-full bg-[var(--blue-10)] px-3 py-0.5 text-xs font-medium text-blue">
-              Coming soon
+              $5/mo
             </span>
           </div>
           <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground font-light">
             Get notified the moment new documents drop, hearings are announced, or major developments
-            break — before the weekly briefing. Choose your cadence (instant, daily, or weekly) and
-            filter by topic: whistleblower activity, Congressional hearings, FOIA releases, and more.
+            break — before the weekly briefing. Filter by type (government documents, hearings,
+            milestones, news) and add keyword filters to zero in on what matters to you.
           </p>
-          <p className="text-sm text-muted-foreground">
-            Includes deeper analysis and context on new documents, plus priority access to new features.
-          </p>
+          <ul className="mb-6 space-y-2 text-sm text-muted-foreground font-light">
+            <li className="flex items-start gap-2">
+              <span className="mt-0.5 text-lime">✓</span>
+              Instant email alerts when new content is added
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-0.5 text-lime">✓</span>
+              Choose your trigger types: documents, hearings, milestones, news
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-0.5 text-lime">✓</span>
+              Custom keyword filters (up to 10)
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-0.5 text-lime">✓</span>
+              Manage or cancel anytime via Stripe billing portal
+            </li>
+          </ul>
+          <SubscribeButton />
         </div>
       </div>
 

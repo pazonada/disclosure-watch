@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import * as fs from "fs";
 import * as path from "path";
 import { supabase } from "@/lib/supabase";
+import type { AlertItem } from "@/lib/alert-email";
 
 /**
  * POST|GET /api/ingest
@@ -892,9 +893,74 @@ function buildTemplateSummary(
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// ALERT EMAILS (disabled — will be enabled for paid tier with Stripe)
-// See lib/alert-email.ts and lib/resend.ts for the full implementation.
+// ALERT DISPATCH (paid subscribers)
 // ══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Convert newly ingested items into AlertItem format and dispatch
+ * to paid subscribers via the /api/alerts/dispatch endpoint.
+ */
+async function dispatchAlerts(
+  newDocs: UAPDocument[],
+  newNews: NewsItem[],
+  newEvents: UAPEvent[]
+): Promise<{ sent: boolean; error?: string }> {
+  const items: AlertItem[] = [];
+
+  for (const doc of newDocs) {
+    items.push({
+      title: doc.title,
+      type: "document",
+      url: doc.sourceUrl,
+      summary: doc.summary,
+      date: doc.publishedDate,
+    });
+  }
+
+  for (const news of newNews) {
+    items.push({
+      title: news.title,
+      type: "news",
+      url: news.url,
+      summary: news.description,
+      date: news.publishedDate,
+    });
+  }
+
+  for (const event of newEvents) {
+    items.push({
+      title: event.title,
+      type: "event",
+      url: event.sourceUrl,
+      summary: event.description,
+      date: event.date,
+    });
+  }
+
+  if (items.length === 0) return { sent: false };
+
+  try {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const secret = process.env.INGEST_SECRET || "";
+
+    const res = await fetch(`${siteUrl}/api/alerts/dispatch`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items, secret }),
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("Alert dispatch failed:", res.status, text);
+      return { sent: false, error: text };
+    }
+
+    return { sent: true };
+  } catch (err) {
+    console.error("Alert dispatch error:", err);
+    return { sent: false, error: String(err) };
+  }
+}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // ROUTE HANDLER
@@ -905,6 +971,7 @@ async function runIngestion(): Promise<{
   news: { fetched: number; added: number; total: number };
   events: { fetched: number; added: number; total: number };
   weeklySummary: { updated: boolean };
+  alerts: { dispatched: boolean; error?: string };
 }> {
   // 1. Load existing data
   const existingDocs = loadJson<UAPDocument>(DOCUMENTS_PATH);
@@ -925,23 +992,30 @@ async function runIngestion(): Promise<{
 
   // 4. Merge documents
   const incomingDocs = [...archiveDocs, ...congressDocs];
+  const existingDocIds = new Set(existingDocs.map((d) => d.id));
   const docResult = mergeDocuments(existingDocs, incomingDocs);
   if (docResult.added > 0) {
     saveJson(DOCUMENTS_PATH, docResult.merged);
   }
+  // Track which docs are actually new (for alert dispatch)
+  const newlyAddedDocs = docResult.merged.filter((d) => !existingDocIds.has(d.id));
 
   // 5. Merge news
+  const existingNewsIds = new Set(existingNews.map((n) => n.id));
   const newsResult = mergeNews(existingNews, allNewsItems);
   if (newsResult.added > 0) {
     saveJson(NEWS_PATH, newsResult.merged);
   }
+  const newlyAddedNews = newsResult.merged.filter((n) => !existingNewsIds.has(n.id));
 
   // 6. Merge events (from Congress hearings API + auto-detected from news)
   const incomingEvents = [...congressHearings, ...detectedEvents];
+  const existingEventIds = new Set(existingEvents.map((e) => e.id));
   const eventResult = mergeEvents(existingEvents, incomingEvents);
   if (eventResult.added > 0) {
     saveJson(EVENTS_PATH, eventResult.merged);
   }
+  const newlyAddedEvents = eventResult.merged.filter((e) => !existingEventIds.has(e.id));
 
   // 7. Generate weekly summary (once per week, or if missing)
   let summaryUpdated = false;
@@ -954,6 +1028,17 @@ async function runIngestion(): Promise<{
     summaryUpdated = summary.length > 0;
   } catch {
     // Non-fatal — summary generation shouldn't break ingestion
+  }
+
+  // 8. Dispatch alerts to paid subscribers for newly added content
+  let alertResult: { dispatched: boolean; error?: string } = { dispatched: false };
+  if (newlyAddedDocs.length > 0 || newlyAddedNews.length > 0 || newlyAddedEvents.length > 0) {
+    try {
+      alertResult = await dispatchAlerts(newlyAddedDocs, newlyAddedNews, newlyAddedEvents);
+    } catch (err) {
+      console.error("Alert dispatch failed:", err);
+      alertResult = { dispatched: false, error: String(err) };
+    }
   }
 
   return {
@@ -973,6 +1058,7 @@ async function runIngestion(): Promise<{
       total: eventResult.merged.length,
     },
     weeklySummary: { updated: summaryUpdated },
+    alerts: alertResult,
   };
 }
 
