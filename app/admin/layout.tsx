@@ -7,6 +7,7 @@ const navItems = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/subscribers", label: "Subscribers" },
   { href: "/admin/digests", label: "Digests" },
+  { href: "/admin/qa-reports", label: "QA Reports" },
 ];
 
 export default function AdminLayout({
