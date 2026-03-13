@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createPortalSession, getCustomerByEmail } from "@/lib/stripe";
+import { getSessionEmail } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
@@ -8,13 +9,13 @@ export const dynamic = "force-dynamic";
  *
  * Creates a Stripe Customer Portal session so subscribers can
  * manage billing, update payment method, or cancel.
+ * Requires a valid dw_alerts_session cookie.
  */
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
-
+    const email = await getSessionEmail(request);
     if (!email) {
-      return NextResponse.json({ error: "Email required." }, { status: 400 });
+      return NextResponse.json({ error: "Authentication required." }, { status: 401 });
     }
 
     const customer = await getCustomerByEmail(email);

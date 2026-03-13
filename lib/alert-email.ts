@@ -66,7 +66,7 @@ export function buildAlertEmailHtml(items: AlertItem[]): string {
         <!-- Header -->
         <div style="text-align: center; margin-bottom: 24px;">
           <span style="font-size: 28px;">🛸</span>
-          <h1 style="color: #f1f5f9; font-size: 20px; margin: 8px 0 4px;">Disclosure Watch Alert</h1>
+          <h1 style="color: #f1f5f9; font-size: 20px; margin: 8px 0 4px;">Disclosure Watch — Insider Alert</h1>
           <p style="color: #64748b; font-size: 13px; margin: 0;">
             ${summaryLine} just added to the tracker
           </p>
@@ -85,7 +85,7 @@ export function buildAlertEmailHtml(items: AlertItem[]): string {
         <!-- Footer -->
         <div style="border-top: 1px solid #1e293b; padding-top: 16px; text-align: center;">
           <p style="color: #475569; font-size: 11px; line-height: 1.5; margin: 0;">
-            You're receiving this because you subscribed to Disclosure Watch alerts.<br>
+            You're receiving this as a Disclosure Watch Insider.<br>
             <a href="https://disclosurewatch.com/api/newsletter/unsubscribe?email={{email}}" style="color: #64748b; text-decoration: underline;">Unsubscribe</a>
             &nbsp;·&nbsp;
             <a href="https://ko-fi.com/studiocrux" style="color: #64748b; text-decoration: underline;">Support this project</a>
@@ -149,6 +149,40 @@ export function buildDigestEmailHtml(summary: string, weekOf: string): string {
             <a href="https://disclosurewatch.com/api/newsletter/unsubscribe?email={{email}}" style="color: #64748b; text-decoration: underline;">Unsubscribe</a>
             &nbsp;·&nbsp;
             <a href="https://ko-fi.com/studiocrux" style="color: #64748b; text-decoration: underline;">Support this project</a>
+          </p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+/** Builds the HTML for the email verification code email. */
+export function buildVerificationEmailHtml(code: string): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <body style="margin: 0; padding: 0; background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+      <div style="max-width: 560px; margin: 0 auto; padding: 24px 16px;">
+
+        <div style="text-align: center; margin-bottom: 24px;">
+          <span style="font-size: 28px;">🛸</span>
+          <h1 style="color: #f1f5f9; font-size: 20px; margin: 8px 0 4px;">Disclosure Watch</h1>
+          <p style="color: #64748b; font-size: 13px; margin: 0;">Your verification code</p>
+        </div>
+
+        <div style="padding: 24px; background: #1e293b; border-radius: 8px; text-align: center; margin-bottom: 24px;">
+          <p style="color: #94a3b8; font-size: 14px; margin: 0 0 12px;">Enter this code to access your Insider alert settings:</p>
+          <div style="font-size: 36px; font-weight: 700; letter-spacing: 0.2em; color: #f1f5f9; font-family: monospace;">
+            ${code}
+          </div>
+          <p style="color: #64748b; font-size: 12px; margin: 12px 0 0;">This code expires in 10 minutes.</p>
+        </div>
+
+        <div style="border-top: 1px solid #1e293b; padding-top: 16px; text-align: center;">
+          <p style="color: #475569; font-size: 11px; margin: 0;">
+            If you didn't request this code, you can safely ignore this email.
           </p>
         </div>
       </div>

@@ -19,9 +19,12 @@ const DEFAULT_PREFS: Preferences = {
   keywords: [],
 };
 
+type Step = "checking" | "email" | "code" | "editor";
+
 export default function AlertsPage() {
+  const [step, setStep] = useState<Step>("checking");
   const [email, setEmail] = useState("");
-  const [verified, setVerified] = useState(false);
+  const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [prefs, setPrefs] = useState<Preferences>(DEFAULT_PREFS);
@@ -34,13 +37,41 @@ export default function AlertsPage() {
     const params = new URLSearchParams(window.location.search);
     const sessionId = params.get("session_id");
     if (sessionId) {
-      setMessage("Payment successful! Enter your email below to configure your alerts.");
-      // Clean URL
+      setMessage("Payment successful! Verify your email below to start configuring your alerts.");
       window.history.replaceState({}, "", "/alerts");
     }
   }, []);
 
-  async function handleVerify(e: React.FormEvent) {
+  // On mount, check if we already have a valid session cookie
+  useEffect(() => {
+    async function checkSession() {
+      try {
+        const res = await fetch("/api/alerts/session");
+        const data = await res.json();
+        if (data.authenticated) {
+          setEmail(data.email);
+          await loadPreferences();
+          setStep("editor");
+          return;
+        }
+      } catch {
+        // ignore
+      }
+      setStep("email");
+    }
+    checkSession();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function loadPreferences() {
+    const res = await fetch("/api/alerts/preferences");
+    if (res.ok) {
+      const data = await res.json();
+      setPrefs(data);
+    }
+  }
+
+  async function handleSendCode(e: React.FormEvent) {
     e.preventDefault();
     if (!email) return;
 
@@ -48,16 +79,49 @@ export default function AlertsPage() {
     setError("");
 
     try {
-      const res = await fetch(`/api/alerts/preferences?email=${encodeURIComponent(email)}`);
+      const res = await fetch("/api/alerts/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
       if (res.ok) {
-        const data = await res.json();
-        setPrefs(data);
-        setVerified(true);
-        setMessage("");
+        setMessage("Verification code sent! Check your inbox.");
+        setStep("code");
       } else if (res.status === 403) {
-        setError("This email doesn't have an active paid subscription. Subscribe first to access alerts.");
+        setError("This email doesn't have an active Insider subscription. Become an Insider to access alerts.");
+      } else if (res.status === 429) {
+        setError("Too many verification attempts. Please try again later.");
       } else {
         setError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Network error. Please try again.");
+    }
+
+    setLoading(false);
+  }
+
+  async function handleVerifyCode(e: React.FormEvent) {
+    e.preventDefault();
+    if (!code) return;
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/alerts/verify", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code }),
+      });
+
+      if (res.ok) {
+        setMessage("");
+        await loadPreferences();
+        setStep("editor");
+      } else {
+        setError("Invalid or expired verification code. Please try again.");
       }
     } catch {
       setError("Network error. Please try again.");
@@ -75,7 +139,7 @@ export default function AlertsPage() {
       const res = await fetch("/api/alerts/preferences", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, preferences: prefs }),
+        body: JSON.stringify({ preferences: prefs }),
       });
 
       if (res.ok) {
@@ -107,7 +171,7 @@ export default function AlertsPage() {
       const res = await fetch("/api/stripe/portal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({}),
       });
       const data = await res.json();
       if (data.url) window.location.href = data.url;
@@ -128,7 +192,7 @@ export default function AlertsPage() {
         Alert settings
       </h1>
       <p className="mb-8 text-sm text-muted-foreground leading-relaxed font-light">
-        Configure what triggers an alert email. Only available to paid subscribers ($5/mo).
+        Configure what triggers an alert email. Included with your Insider subscription.
       </p>
 
       {message && (
@@ -139,21 +203,27 @@ export default function AlertsPage() {
       {error && (
         <div className="mb-6 rounded-lg bg-[var(--destructive-10)] px-4 py-3 text-sm text-[var(--destructive)]">
           {error}
-          {error.includes("Subscribe first") && (
+          {error.includes("Become an Insider") && (
             <Link href="/subscribe" className="ml-2 underline">
-              Go to subscribe →
+              Become an Insider →
             </Link>
           )}
         </div>
       )}
 
-      {!verified ? (
-        /* ── Email verification step ── */
+      {step === "checking" && (
+        <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8 text-center">
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      )}
+
+      {step === "email" && (
+        /* ── Email entry step ── */
         <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
           <p className="mb-4 text-sm text-muted-foreground">
-            Enter the email address you used to subscribe:
+            Enter your Insider email address to get a verification code:
           </p>
-          <form onSubmit={handleVerify} className="flex gap-2">
+          <form onSubmit={handleSendCode} className="flex gap-2">
             <input
               type="email"
               placeholder="you@email.com"
@@ -167,11 +237,51 @@ export default function AlertsPage() {
               disabled={loading}
               className="rounded-lg bg-lime px-5 py-2.5 text-sm font-medium text-[var(--background)] transition-colors hover:brightness-110 disabled:opacity-50"
             >
-              {loading ? "Checking..." : "Continue"}
+              {loading ? "Sending..." : "Send code"}
             </button>
           </form>
         </div>
-      ) : (
+      )}
+
+      {step === "code" && (
+        /* ── Code verification step ── */
+        <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
+          <p className="mb-1 text-sm text-muted-foreground">
+            We sent a 6-digit code to <span className="text-foreground font-medium">{email}</span>
+          </p>
+          <p className="mb-4 text-xs text-muted-foreground">
+            The code expires in 10 minutes.{" "}
+            <button
+              onClick={() => { setStep("email"); setCode(""); setMessage(""); }}
+              className="text-lime underline"
+            >
+              Use a different email
+            </button>
+          </p>
+          <form onSubmit={handleVerifyCode} className="flex gap-2">
+            <input
+              type="text"
+              placeholder="123456"
+              value={code}
+              onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+              required
+              maxLength={6}
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              className="w-36 rounded-lg border border-[var(--border)] bg-[var(--muted)] px-4 py-2.5 text-center text-lg font-mono tracking-[0.2em] text-foreground placeholder-[var(--muted-foreground)] outline-none focus:border-lime focus:ring-1 focus:ring-lime"
+            />
+            <button
+              type="submit"
+              disabled={loading || code.length < 6}
+              className="rounded-lg bg-lime px-5 py-2.5 text-sm font-medium text-[var(--background)] transition-colors hover:brightness-110 disabled:opacity-50"
+            >
+              {loading ? "Verifying..." : "Verify"}
+            </button>
+          </form>
+        </div>
+      )}
+
+      {step === "editor" && (
         /* ── Preferences editor ── */
         <div className="space-y-6">
           {/* Trigger types */}

@@ -51,7 +51,7 @@ export default function SubscribeButton() {
           disabled={loading}
           className="rounded-lg bg-blue px-5 py-2.5 text-sm font-medium text-white transition-colors hover:brightness-110 disabled:opacity-50"
         >
-          {loading ? "Redirecting..." : "Subscribe — $5/mo"}
+          {loading ? "Redirecting..." : "Become an Insider — $5/mo"}
         </button>
       </div>
       {error && (

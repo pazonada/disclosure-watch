@@ -1,22 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { getSessionEmail } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
 /**
- * GET /api/alerts/preferences?email=…
- * POST /api/alerts/preferences  { email, preferences }
+ * GET /api/alerts/preferences — Fetch alert preferences for the authenticated subscriber
+ * POST /api/alerts/preferences — Save alert preferences
  *
- * Manages alert preferences for paid subscribers.
- * Uses email as the lookup key (no auth session needed for MVP).
+ * Both require a valid dw_alerts_session cookie (set by /api/alerts/verify).
  */
 export async function GET(request: NextRequest) {
-  const email = request.nextUrl.searchParams.get("email");
+  const email = await getSessionEmail(request);
   if (!email) {
-    return NextResponse.json({ error: "Email required." }, { status: 400 });
+    return NextResponse.json({ error: "Authentication required." }, { status: 401 });
   }
 
-  // Look up subscriber + check they're paid
   const { data: subscriber } = await supabase
     .from("subscribers")
     .select("id, tier")
@@ -24,13 +23,9 @@ export async function GET(request: NextRequest) {
     .single();
 
   if (!subscriber || subscriber.tier !== "paid") {
-    return NextResponse.json(
-      { error: "Paid subscription required." },
-      { status: 403 }
-    );
+    return NextResponse.json({ error: "Insider subscription required." }, { status: 403 });
   }
 
-  // Get their preferences
   const { data: prefs } = await supabase
     .from("alert_preferences")
     .select("*")
@@ -38,7 +33,6 @@ export async function GET(request: NextRequest) {
     .single();
 
   if (!prefs) {
-    // Return defaults
     return NextResponse.json({
       trigger_documents: true,
       trigger_hearings: true,
@@ -59,13 +53,13 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, preferences } = await request.json();
-
+    const email = await getSessionEmail(request);
     if (!email) {
-      return NextResponse.json({ error: "Email required." }, { status: 400 });
+      return NextResponse.json({ error: "Authentication required." }, { status: 401 });
     }
 
-    // Look up subscriber + check they're paid
+    const { preferences } = await request.json();
+
     const { data: subscriber } = await supabase
       .from("subscribers")
       .select("id, tier")
@@ -73,13 +67,9 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (!subscriber || subscriber.tier !== "paid") {
-      return NextResponse.json(
-        { error: "Paid subscription required." },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Insider subscription required." }, { status: 403 });
     }
 
-    // Validate keywords (max 10, each max 50 chars)
     const keywords = (preferences.keywords || [])
       .slice(0, 10)
       .map((k: string) => k.trim().toLowerCase().slice(0, 50))
@@ -101,9 +91,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("Save preferences error:", err);
-    return NextResponse.json(
-      { error: "Failed to save preferences." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to save preferences." }, { status: 500 });
   }
 }

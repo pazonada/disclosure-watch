@@ -1,5 +1,6 @@
 import NewsletterSignup from "@/components/NewsletterSignup";
 import SubscribeButton from "@/components/SubscribeButton";
+import AlertPreferencesPreview from "@/components/AlertPreferencesPreview";
 import { Radio } from "@/components/Icons";
 
 export const metadata = {
@@ -42,41 +43,24 @@ export default function SubscribePage() {
           <NewsletterSignup />
         </div>
 
-        {/* Paid real-time alerts */}
+        {/* Insider tier */}
         <div className="flex flex-col rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
           <div className="mb-1 flex items-center gap-2">
             <svg className="h-5 w-5 text-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
               <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
             </svg>
-            <h2 className="text-xl font-semibold text-foreground">Real-time alerts</h2>
+            <h2 className="text-xl font-semibold text-foreground">Insider</h2>
             <span className="ml-2 rounded-full bg-[var(--blue-10)] px-3 py-0.5 text-xs font-medium text-blue">
               $5/mo
             </span>
           </div>
           <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground font-light">
-            Get notified the moment new documents drop, hearings are announced, or major developments
-            break — before the weekly briefing. Filter by type (government documents, hearings,
-            milestones, news) and add keyword filters to zero in on what matters to you.
+            Become an Insider and get notified the moment new documents drop, hearings are announced,
+            or major developments break — before the weekly briefing. Filter by type and add keyword
+            filters to zero in on what matters to you.
           </p>
-          <ul className="mb-6 space-y-2 text-sm text-muted-foreground font-light">
-            <li className="flex items-start gap-2">
-              <span className="mt-0.5 text-lime">✓</span>
-              Instant email alerts when new content is added
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="mt-0.5 text-lime">✓</span>
-              Choose your trigger types: documents, hearings, milestones, news
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="mt-0.5 text-lime">✓</span>
-              Custom keyword filters (up to 10)
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="mt-0.5 text-lime">✓</span>
-              Manage or cancel anytime via Stripe billing portal
-            </li>
-          </ul>
+          <AlertPreferencesPreview />
           <SubscribeButton />
         </div>
       </div>
