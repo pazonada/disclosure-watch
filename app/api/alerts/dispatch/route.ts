@@ -46,7 +46,8 @@ export async function POST(request: NextRequest) {
         trigger_hearings,
         trigger_milestones,
         trigger_news,
-        keywords
+        keywords,
+        frequency
       )
     `)
     .eq("tier", "paid")
@@ -61,11 +62,15 @@ export async function POST(request: NextRequest) {
   for (const sub of subscribers) {
     const prefs = (sub as any).alert_preferences?.[0] || {
       trigger_documents: true,
-      trigger_hearings: true,
-      trigger_milestones: true,
+      trigger_hearings: false,
+      trigger_milestones: false,
       trigger_news: false,
       keywords: [],
+      frequency: "realtime",
     };
+
+    // Skip daily-digest subscribers — they'll get a batched email instead
+    if (prefs.frequency === "daily") continue;
 
     // Filter items to those matching this subscriber's preferences
     const matchingItems = items.filter((item) => {

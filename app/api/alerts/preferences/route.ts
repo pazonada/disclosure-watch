@@ -35,10 +35,11 @@ export async function GET(request: NextRequest) {
   if (!prefs) {
     return NextResponse.json({
       trigger_documents: true,
-      trigger_hearings: true,
-      trigger_milestones: true,
+      trigger_hearings: false,
+      trigger_milestones: false,
       trigger_news: false,
       keywords: [],
+      frequency: "realtime",
     });
   }
 
@@ -48,6 +49,7 @@ export async function GET(request: NextRequest) {
     trigger_milestones: prefs.trigger_milestones,
     trigger_news: prefs.trigger_news,
     keywords: prefs.keywords || [],
+    frequency: prefs.frequency || "realtime",
   });
 }
 
@@ -75,6 +77,8 @@ export async function POST(request: NextRequest) {
       .map((k: string) => k.trim().toLowerCase().slice(0, 50))
       .filter((k: string) => k.length > 0);
 
+    const frequency = preferences.frequency === "daily" ? "daily" : "realtime";
+
     await supabase.from("alert_preferences").upsert(
       {
         subscriber_id: subscriber.id,
@@ -83,6 +87,7 @@ export async function POST(request: NextRequest) {
         trigger_milestones: !!preferences.trigger_milestones,
         trigger_news: !!preferences.trigger_news,
         keywords,
+        frequency,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "subscriber_id" }

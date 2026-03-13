@@ -58,6 +58,7 @@ export interface AlertPreferences {
   trigger_milestones: boolean;
   trigger_news: boolean;
   keywords: string[];
+  frequency: "realtime" | "daily";
 }
 
 export async function createCheckoutSession(
@@ -85,6 +86,7 @@ export async function createCheckoutSession(
     params["metadata[keywords]"] = JSON.stringify(
       (preferences.keywords || []).slice(0, 10)
     );
+    params["metadata[frequency]"] = preferences.frequency || "realtime";
   }
 
   const data = await stripeRequest("/checkout/sessions", "POST", params);

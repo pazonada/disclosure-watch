@@ -9,14 +9,16 @@ interface Preferences {
   trigger_milestones: boolean;
   trigger_news: boolean;
   keywords: string[];
+  frequency: "realtime" | "daily";
 }
 
 const DEFAULT_PREFS: Preferences = {
   trigger_documents: true,
-  trigger_hearings: true,
-  trigger_milestones: true,
+  trigger_hearings: false,
+  trigger_milestones: false,
   trigger_news: false,
   keywords: [],
+  frequency: "realtime",
 };
 
 type Step = "checking" | "email" | "code" | "editor";
@@ -319,11 +321,54 @@ export default function AlertsPage() {
             </div>
           </div>
 
+          {/* Alert frequency */}
+          <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
+            <h2 className="mb-4 text-lg font-semibold text-foreground">Alert frequency</h2>
+            <p className="mb-5 text-sm text-muted-foreground font-light">
+              Choose how often you want to receive alert emails:
+            </p>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setPrefs({ ...prefs, frequency: "realtime" })}
+                className={`flex-1 rounded-lg border p-4 text-left transition-colors ${
+                  prefs.frequency === "realtime"
+                    ? "border-lime bg-[var(--lime-10)]"
+                    : "border-[var(--border)] hover:border-[var(--lime-30)]"
+                }`}
+              >
+                <span className={`text-sm font-medium ${prefs.frequency === "realtime" ? "text-lime" : "text-foreground"}`}>
+                  Real-time
+                </span>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Get notified as soon as new content is published
+                </p>
+              </button>
+              <button
+                type="button"
+                onClick={() => setPrefs({ ...prefs, frequency: "daily" })}
+                className={`flex-1 rounded-lg border p-4 text-left transition-colors ${
+                  prefs.frequency === "daily"
+                    ? "border-lime bg-[var(--lime-10)]"
+                    : "border-[var(--border)] hover:border-[var(--lime-30)]"
+                }`}
+              >
+                <span className={`text-sm font-medium ${prefs.frequency === "daily" ? "text-lime" : "text-foreground"}`}>
+                  Daily digest
+                </span>
+                <p className="text-xs text-muted-foreground mt-1">
+                  One email per day with all matching updates
+                </p>
+              </button>
+            </div>
+          </div>
+
           {/* Keywords */}
           <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
             <h2 className="mb-4 text-lg font-semibold text-foreground">Keyword filters</h2>
             <p className="mb-5 text-sm text-muted-foreground font-light">
-              Optionally narrow your alerts to items matching specific keywords. Leave empty to get
+              Optionally narrow your alerts to items matching specific keywords.
+              Keywords filter across all your selected categories. Leave empty to get
               all alerts for your selected trigger types.
             </p>
 
@@ -362,13 +407,11 @@ export default function AlertsPage() {
                   </span>
                 ))}
               </div>
-            ) : (
-              <p className="text-xs text-muted-foreground italic">
-                No keyword filters — you&apos;ll receive alerts for all matching trigger types.
-              </p>
-            )}
-            <p className="mt-2 text-xs text-muted-foreground">
-              {prefs.keywords.length}/10 keywords
+            ) : null}
+            <p className="mt-2 text-xs text-muted-foreground italic">
+              {prefs.keywords.length > 0
+                ? `Keywords filter across all your selected categories. You'll only be alerted when a keyword appears in a matching document, article, or event. (${prefs.keywords.length}/10 keywords)`
+                : "No keyword filters \u2014 you'll receive all alerts for your selected categories."}
             </p>
           </div>
 

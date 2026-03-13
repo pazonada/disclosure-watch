@@ -8,14 +8,16 @@ interface Preferences {
   trigger_milestones: boolean;
   trigger_news: boolean;
   keywords: string[];
+  frequency: "realtime" | "daily";
 }
 
 const DEFAULT_PREFS: Preferences = {
   trigger_documents: true,
-  trigger_hearings: true,
-  trigger_milestones: true,
+  trigger_hearings: false,
+  trigger_milestones: false,
   trigger_news: false,
   keywords: [],
+  frequency: "realtime",
 };
 
 const TRIGGERS = [
@@ -98,6 +100,41 @@ export default function InsiderSignup() {
         </div>
       </div>
 
+      {/* Alert frequency */}
+      <div>
+        <p className="mb-2.5 text-xs font-medium text-foreground">Alert frequency</p>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setPrefs({ ...prefs, frequency: "realtime" })}
+            className={`flex-1 rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
+              prefs.frequency === "realtime"
+                ? "border-blue bg-[var(--blue-10)] text-blue"
+                : "border-[var(--border)] text-muted-foreground hover:border-[var(--blue-30)]"
+            }`}
+          >
+            Real-time
+            <p className={`mt-0.5 text-[11px] font-normal ${prefs.frequency === "realtime" ? "text-blue/70" : "text-muted-foreground"}`}>
+              As it happens
+            </p>
+          </button>
+          <button
+            type="button"
+            onClick={() => setPrefs({ ...prefs, frequency: "daily" })}
+            className={`flex-1 rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
+              prefs.frequency === "daily"
+                ? "border-blue bg-[var(--blue-10)] text-blue"
+                : "border-[var(--border)] text-muted-foreground hover:border-[var(--blue-30)]"
+            }`}
+          >
+            Daily digest
+            <p className={`mt-0.5 text-[11px] font-normal ${prefs.frequency === "daily" ? "text-blue/70" : "text-muted-foreground"}`}>
+              One email per day
+            </p>
+          </button>
+        </div>
+      </div>
+
       {/* Keyword filters */}
       <div>
         <p className="mb-2 text-xs font-medium text-foreground">Keyword filters <span className="font-normal text-muted-foreground">(optional)</span></p>
@@ -120,7 +157,7 @@ export default function InsiderSignup() {
           </button>
         </div>
         {prefs.keywords.length > 0 ? (
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1.5 mb-1.5">
             {prefs.keywords.map((kw) => (
               <span
                 key={kw}
@@ -137,11 +174,12 @@ export default function InsiderSignup() {
               </span>
             ))}
           </div>
-        ) : (
-          <p className="text-[11px] text-muted-foreground italic">
-            No keyword filters — you&apos;ll receive all alerts for your selected triggers.
-          </p>
-        )}
+        ) : null}
+        <p className="text-[11px] text-muted-foreground italic">
+          {prefs.keywords.length > 0
+            ? "Keywords filter across all your selected categories. You\u2019ll only be alerted when a keyword appears in a matching document, article, or event."
+            : "No keyword filters \u2014 you\u2019ll receive all alerts for your selected categories."}
+        </p>
       </div>
 
       {/* Email + checkout */}
@@ -160,7 +198,7 @@ export default function InsiderSignup() {
             disabled={loading}
             className="rounded-lg bg-blue px-5 py-2.5 text-sm font-medium text-white transition-colors hover:brightness-110 disabled:opacity-50"
           >
-            {loading ? "Redirecting..." : "Become an Insider — $5/mo"}
+            {loading ? "Redirecting..." : "Become an Insider \u2014 $5/mo"}
           </button>
         </div>
         {error && (

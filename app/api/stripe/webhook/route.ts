@@ -68,10 +68,11 @@ export async function POST(request: NextRequest) {
               {
                 subscriber_id: subscriber.id,
                 trigger_documents: meta.trigger_documents === "false" ? false : true,
-                trigger_hearings: meta.trigger_hearings === "false" ? false : true,
-                trigger_milestones: meta.trigger_milestones === "false" ? false : true,
+                trigger_hearings: meta.trigger_hearings === "true" ? true : false,
+                trigger_milestones: meta.trigger_milestones === "true" ? true : false,
                 trigger_news: meta.trigger_news === "true" ? true : false,
                 keywords,
+                frequency: meta.frequency === "daily" ? "daily" : "realtime",
               },
               { onConflict: "subscriber_id" }
             );
