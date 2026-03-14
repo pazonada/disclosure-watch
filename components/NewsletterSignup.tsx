@@ -1,11 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "already">("idle");
   const [message, setMessage] = useState("");
+
+  // Check if user previously subscribed
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("dw_newsletter_subscribed") === "true") {
+        setStatus("already");
+      }
+    } catch {
+      // localStorage unavailable
+    }
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,6 +35,11 @@ export default function NewsletterSignup() {
         setStatus("success");
         setMessage("You're in! Your first briefing arrives this Friday.");
         setEmail("");
+        try {
+          localStorage.setItem("dw_newsletter_subscribed", "true");
+        } catch {
+          // localStorage unavailable
+        }
       } else {
         setStatus("error");
         setMessage(data.error || "Something went wrong. Please try again.");
@@ -34,12 +50,43 @@ export default function NewsletterSignup() {
     }
   }
 
+  // Already subscribed (from localStorage)
+  if (status === "already") {
+    return (
+      <div>
+        <div className="flex items-center gap-2 rounded-lg bg-[var(--lime-10)] px-4 py-3">
+          <svg className="h-4 w-4 flex-shrink-0 text-lime" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          <p className="text-sm font-medium text-lime">You&apos;re subscribed</p>
+        </div>
+        <p className="mt-3 text-sm text-muted-foreground font-light">
+          Your weekly briefing arrives every Friday. To unsubscribe, use the link at the bottom of any briefing email.
+        </p>
+        <button
+          onClick={() => {
+            setStatus("idle");
+            try { localStorage.removeItem("dw_newsletter_subscribed"); } catch {}
+          }}
+          className="mt-2 text-xs text-muted-foreground underline hover:text-foreground"
+        >
+          Subscribe with a different email
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div>
       {status === "success" ? (
-        <p className="rounded-lg bg-[var(--lime-10)] px-4 py-3 text-sm text-lime">
-          {message}
-        </p>
+        <div>
+          <div className="flex items-center gap-2 rounded-lg bg-[var(--lime-10)] px-4 py-3">
+            <svg className="h-4 w-4 flex-shrink-0 text-lime" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            <p className="text-sm text-lime">{message}</p>
+          </div>
+        </div>
       ) : (
         <form onSubmit={handleSubmit} className="flex gap-2">
           <input

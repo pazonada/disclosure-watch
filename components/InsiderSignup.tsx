@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface Preferences {
   trigger_documents: boolean;
@@ -33,6 +34,25 @@ export default function InsiderSignup() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState<boolean | null>(null); // null = checking
+
+  // Check if user is already an Insider
+  useEffect(() => {
+    async function checkSession() {
+      try {
+        const res = await fetch("/api/alerts/session");
+        const data = await res.json();
+        if (data.authenticated) {
+          setIsSubscribed(true);
+          return;
+        }
+      } catch {
+        // ignore
+      }
+      setIsSubscribed(false);
+    }
+    checkSession();
+  }, []);
 
   function addKeyword() {
     const kw = newKeyword.trim().toLowerCase();
@@ -74,6 +94,59 @@ export default function InsiderSignup() {
     setLoading(false);
   }
 
+  // Still checking session
+  if (isSubscribed === null) {
+    return (
+      <div className="py-4 text-center">
+        <p className="text-xs text-muted-foreground animate-pulse">Loading...</p>
+      </div>
+    );
+  }
+
+  // Already subscribed — show management links
+  if (isSubscribed) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 rounded-lg bg-[var(--blue-10)] px-4 py-3">
+          <svg className="h-4 w-4 flex-shrink-0 text-blue" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          <p className="text-sm font-medium text-blue">You&apos;re an Insider</p>
+        </div>
+        <p className="text-sm text-muted-foreground font-light">
+          Your subscription is active. Manage your alert preferences or billing below.
+        </p>
+        <div className="flex gap-2">
+          <Link
+            href="/alerts"
+            className="flex-1 rounded-lg bg-blue px-4 py-2.5 text-center text-sm font-medium text-white transition-colors hover:brightness-110"
+          >
+            Manage alerts
+          </Link>
+          <button
+            onClick={async () => {
+              try {
+                const res = await fetch("/api/stripe/portal", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({}),
+                });
+                const data = await res.json();
+                if (data.url) window.location.href = data.url;
+              } catch {
+                // ignore
+              }
+            }}
+            className="flex-1 rounded-lg border border-[var(--border)] px-4 py-2.5 text-center text-sm text-muted-foreground transition-colors hover:border-[var(--blue-30)] hover:text-foreground"
+          >
+            Manage billing &rarr;
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Not subscribed — show signup flow
   return (
     <div className="space-y-5">
       {/* Alert triggers */}
