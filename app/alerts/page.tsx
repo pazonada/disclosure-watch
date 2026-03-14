@@ -41,6 +41,7 @@ export default function AlertsPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   const loadPreferences = useCallback(async () => {
     const res = await fetch("/api/alerts/preferences");
@@ -181,7 +182,14 @@ export default function AlertsPage() {
       });
 
       if (res.ok) {
-        setMessage("Preferences saved!");
+        // Go back to the confirmation screen showing updated preferences
+        setIsAuthenticated(true);
+        setSaving(false);
+        setStep("confirmed");
+        setSaveSuccess(true);
+        // Clear the success flag after a few seconds
+        setTimeout(() => setSaveSuccess(false), 5000);
+        return;
       } else {
         setError("Failed to save preferences.");
       }
@@ -352,10 +360,21 @@ export default function AlertsPage() {
             </div>
           </div>
 
+          {/* Success message after saving */}
+          {saveSuccess && (
+            <div className="mt-6 rounded-lg bg-[var(--lime-10)] px-4 py-3 text-sm text-lime flex items-center gap-2">
+              <svg className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Preferences saved!
+            </div>
+          )}
+
           {/* Actions */}
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <button
               onClick={async () => {
+                setSaveSuccess(false);
                 if (isAuthenticated) {
                   // Session cookie is set — go straight to editor
                   await loadPreferences();
