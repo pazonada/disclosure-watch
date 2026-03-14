@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 
 interface Preferences {
@@ -21,7 +21,14 @@ const DEFAULT_PREFS: Preferences = {
   frequency: "realtime",
 };
 
-type Step = "checking" | "email" | "code" | "editor";
+const TRIGGERS = [
+  { key: "trigger_documents", label: "New government documents", desc: "AARO reports, FOIA releases, congressional reports" },
+  { key: "trigger_hearings", label: "Hearings & events", desc: "Congressional hearings, Pentagon briefings, deadlines" },
+  { key: "trigger_milestones", label: "Disclosure milestones", desc: "Major legislation, landmark statements, key moments" },
+  { key: "trigger_news", label: "News articles", desc: "Curated UAP journalism from trusted sources" },
+] as const;
+
+type Step = "checking" | "confirmed" | "email" | "code" | "editor";
 
 export default function AlertsPage() {
   const [step, setStep] = useState<Step>("checking");
@@ -33,25 +40,56 @@ export default function AlertsPage() {
   const [newKeyword, setNewKeyword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check for returning Stripe checkout session
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const sessionId = params.get("session_id");
-    if (sessionId) {
-      setMessage("Payment successful! Verify your email below to start configuring your alerts.");
-      window.history.replaceState({}, "", "/alerts");
+  const loadPreferences = useCallback(async () => {
+    const res = await fetch("/api/alerts/preferences");
+    if (res.ok) {
+      const data = await res.json();
+      setPrefs(data);
     }
   }, []);
 
-  // On mount, check if we already have a valid session cookie
+  // On mount: handle post-checkout auto-auth or check existing session
   useEffect(() => {
-    async function checkSession() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id");
+
+    async function initFromCheckout(sid: string) {
+      // Clean URL immediately
+      window.history.replaceState({}, "", "/alerts");
+
+      try {
+        const res = await fetch("/api/alerts/session-from-checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionId: sid }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setEmail(data.email);
+          setPrefs(data.preferences);
+          setIsAuthenticated(!!data.authenticated);
+          setStep("confirmed");
+          return;
+        }
+      } catch {
+        // Network error
+      }
+
+      // Endpoint failed — still show confirmation with defaults
+      // (this should rarely happen since we read from Stripe, not our DB)
+      setStep("confirmed");
+    }
+
+    async function checkExistingSession() {
       try {
         const res = await fetch("/api/alerts/session");
         const data = await res.json();
         if (data.authenticated) {
           setEmail(data.email);
+          setIsAuthenticated(true);
           await loadPreferences();
           setStep("editor");
           return;
@@ -61,17 +99,13 @@ export default function AlertsPage() {
       }
       setStep("email");
     }
-    checkSession();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  async function loadPreferences() {
-    const res = await fetch("/api/alerts/preferences");
-    if (res.ok) {
-      const data = await res.json();
-      setPrefs(data);
+    if (sessionId) {
+      initFromCheckout(sessionId);
+    } else {
+      checkExistingSession();
     }
-  }
+  }, [loadPreferences]);
 
   async function handleSendCode(e: React.FormEvent) {
     e.preventDefault();
@@ -91,7 +125,9 @@ export default function AlertsPage() {
         setMessage("Verification code sent! Check your inbox.");
         setStep("code");
       } else if (res.status === 403) {
-        setError("This email doesn't have an active Insider subscription. Become an Insider to access alerts.");
+        setError(
+          "This email doesn't have an active Insider subscription. Become an Insider to access alerts."
+        );
       } else if (res.status === 429) {
         setError("Too many verification attempts. Please try again later.");
       } else {
@@ -182,41 +218,208 @@ export default function AlertsPage() {
     }
   }
 
+  // ── Shared: active trigger labels for recap ──
+  const activeTriggers = TRIGGERS.filter(
+    ({ key }) => prefs[key as keyof Preferences] as boolean
+  );
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-      <h1
-        className="mb-3 text-3xl font-display tracking-wide text-foreground sm:text-4xl uppercase"
-        style={{
-          textShadow: "0 0 1px currentColor, 0 0 1px currentColor",
-          WebkitTextStroke: "0.3px currentColor",
-        }}
-      >
-        Alert settings
-      </h1>
-      <p className="mb-8 text-sm text-muted-foreground leading-relaxed font-light">
-        Configure what triggers an alert email. Included with your Insider subscription.
-      </p>
-
-      {message && (
-        <div className="mb-6 rounded-lg bg-[var(--lime-10)] px-4 py-3 text-sm text-lime">
-          {message}
-        </div>
-      )}
-      {error && (
-        <div className="mb-6 rounded-lg bg-[var(--destructive-10)] px-4 py-3 text-sm text-[var(--destructive)]">
-          {error}
-          {error.includes("Become an Insider") && (
-            <Link href="/subscribe" className="ml-2 underline">
-              Become an Insider →
-            </Link>
-          )}
-        </div>
-      )}
-
+      {/* ── Loading ── */}
       {step === "checking" && (
-        <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8 text-center">
-          <p className="text-sm text-muted-foreground">Loading...</p>
+        <div className="flex items-center justify-center py-24">
+          <p className="text-sm text-muted-foreground font-mono animate-pulse">
+            Loading...
+          </p>
         </div>
+      )}
+
+      {/* ── Confirmation (post-checkout) ── */}
+      {step === "confirmed" && (
+        <div>
+          {/* Success header */}
+          <div className="mb-8 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[var(--lime-10)]">
+              <svg
+                className="h-8 w-8 text-lime"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.5 12.75l6 6 9-13.5"
+                />
+              </svg>
+            </div>
+            <h1
+              className="text-3xl font-display tracking-wide text-foreground sm:text-4xl uppercase"
+              style={{
+                textShadow: "0 0 1px currentColor, 0 0 1px currentColor",
+                WebkitTextStroke: "0.3px currentColor",
+              }}
+            >
+              You&apos;re all set
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground font-light">
+              Your Insider subscription is active. Here&apos;s a summary of
+              your alert preferences:
+            </p>
+          </div>
+
+          {/* Preferences recap */}
+          <div className="space-y-4">
+            {/* Triggers */}
+            <div className="rounded-lg border border-card-subtle bg-card p-5 sm:p-6">
+              <h2 className="mb-3 text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider">
+                Alert triggers
+              </h2>
+              <div className="space-y-2">
+                {TRIGGERS.map(({ key, label, desc }) => {
+                  const active = prefs[key as keyof Preferences] as boolean;
+                  return (
+                    <div
+                      key={key}
+                      className={`flex items-start gap-3 rounded-lg border px-4 py-3 ${
+                        active
+                          ? "border-[var(--lime-30)] bg-[var(--lime-10)]"
+                          : "border-[var(--border)] opacity-40"
+                      }`}
+                    >
+                      <span className={`mt-0.5 text-sm ${active ? "text-lime" : "text-muted-foreground"}`}>
+                        {active ? "\u2713" : "\u2013"}
+                      </span>
+                      <div>
+                        <span className={`text-sm font-medium ${active ? "text-foreground" : "text-muted-foreground"}`}>
+                          {label}
+                        </span>
+                        <p className="text-xs text-muted-foreground">{desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Frequency */}
+            <div className="rounded-lg border border-card-subtle bg-card p-5 sm:p-6">
+              <h2 className="mb-3 text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider">
+                Frequency
+              </h2>
+              <p className="text-sm text-foreground">
+                {prefs.frequency === "realtime" ? (
+                  <>
+                    <span className="font-medium">Real-time</span>
+                    <span className="text-muted-foreground">
+                      {" "}&ndash; you&apos;ll be notified as soon as new content is published
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="font-medium">Daily digest</span>
+                    <span className="text-muted-foreground">
+                      {" "}&ndash; one email per day with all matching updates
+                    </span>
+                  </>
+                )}
+              </p>
+            </div>
+
+            {/* Keywords */}
+            <div className="rounded-lg border border-card-subtle bg-card p-5 sm:p-6">
+              <h2 className="mb-3 text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider">
+                Keyword filters
+              </h2>
+              {prefs.keywords.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {prefs.keywords.map((kw) => (
+                    <span
+                      key={kw}
+                      className="inline-flex rounded-full bg-[var(--lime-10)] px-3 py-1 text-sm text-lime"
+                    >
+                      {kw}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground italic">
+                  No keyword filters &ndash; you&apos;ll receive all alerts for
+                  your selected categories.
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <button
+              onClick={async () => {
+                if (isAuthenticated) {
+                  // Session cookie is set — go straight to editor
+                  await loadPreferences();
+                  setStep("editor");
+                } else {
+                  // Webhook hadn't fired when we loaded — need email verification to edit
+                  setStep("email");
+                }
+              }}
+              className="rounded-lg bg-lime px-6 py-3 text-sm font-medium text-[var(--background)] transition-colors hover:brightness-110"
+            >
+              Edit preferences
+            </button>
+            <div className="flex gap-3">
+              <Link
+                href="/"
+                className="rounded-lg border border-[var(--border)] px-5 py-3 text-sm text-muted-foreground transition-colors hover:border-[var(--lime-30)] hover:text-foreground"
+              >
+                Back to site
+              </Link>
+              <button
+                onClick={openPortal}
+                className="rounded-lg border border-[var(--border)] px-5 py-3 text-sm text-muted-foreground transition-colors hover:border-[var(--lime-30)] hover:text-foreground"
+              >
+                Manage billing &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Email / Code / Editor steps ── */}
+      {(step === "email" || step === "code" || step === "editor") && (
+        <>
+          <h1
+            className="mb-3 text-3xl font-display tracking-wide text-foreground sm:text-4xl uppercase"
+            style={{
+              textShadow: "0 0 1px currentColor, 0 0 1px currentColor",
+              WebkitTextStroke: "0.3px currentColor",
+            }}
+          >
+            Alert settings
+          </h1>
+          <p className="mb-8 text-sm text-muted-foreground leading-relaxed font-light">
+            Configure what triggers an alert email. Included with your Insider
+            subscription.
+          </p>
+
+          {message && (
+            <div className="mb-6 rounded-lg bg-[var(--lime-10)] px-4 py-3 text-sm text-lime">
+              {message}
+            </div>
+          )}
+          {error && (
+            <div className="mb-6 rounded-lg bg-[var(--destructive-10)] px-4 py-3 text-sm text-[var(--destructive)]">
+              {error}
+              {error.includes("Become an Insider") && (
+                <Link href="/subscribe" className="ml-2 underline">
+                  Become an Insider &rarr;
+                </Link>
+              )}
+            </div>
+          )}
+        </>
       )}
 
       {step === "email" && (
@@ -249,12 +452,17 @@ export default function AlertsPage() {
         /* ── Code verification step ── */
         <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
           <p className="mb-1 text-sm text-muted-foreground">
-            We sent a 6-digit code to <span className="text-foreground font-medium">{email}</span>
+            We sent a 6-digit code to{" "}
+            <span className="text-foreground font-medium">{email}</span>
           </p>
           <p className="mb-4 text-xs text-muted-foreground">
             The code expires in 10 minutes.{" "}
             <button
-              onClick={() => { setStep("email"); setCode(""); setMessage(""); }}
+              onClick={() => {
+                setStep("email");
+                setCode("");
+                setMessage("");
+              }}
               className="text-lime underline"
             >
               Use a different email
@@ -265,7 +473,9 @@ export default function AlertsPage() {
               type="text"
               placeholder="123456"
               value={code}
-              onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+              onChange={(e) =>
+                setCode(e.target.value.replace(/\D/g, "").slice(0, 6))
+              }
               required
               maxLength={6}
               inputMode="numeric"
@@ -288,18 +498,15 @@ export default function AlertsPage() {
         <div className="space-y-6">
           {/* Trigger types */}
           <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
-            <h2 className="mb-4 text-lg font-semibold text-foreground">Alert triggers</h2>
+            <h2 className="mb-4 text-lg font-semibold text-foreground">
+              Alert triggers
+            </h2>
             <p className="mb-5 text-sm text-muted-foreground font-light">
               Choose which types of new content should trigger an email alert:
             </p>
 
             <div className="space-y-3">
-              {[
-                { key: "trigger_documents", label: "New government documents", desc: "AARO reports, FOIA releases, congressional reports" },
-                { key: "trigger_hearings", label: "Hearings & events", desc: "Congressional hearings, Pentagon briefings, deadlines" },
-                { key: "trigger_milestones", label: "Disclosure milestones", desc: "Major legislation, landmark statements, key moments" },
-                { key: "trigger_news", label: "News articles", desc: "Curated UAP journalism from trusted sources" },
-              ].map(({ key, label, desc }) => (
+              {TRIGGERS.map(({ key, label, desc }) => (
                 <label
                   key={key}
                   className="flex cursor-pointer items-start gap-3 rounded-lg border border-[var(--border)] p-4 transition-colors hover:border-[var(--lime-30)]"
@@ -313,7 +520,9 @@ export default function AlertsPage() {
                     className="mt-0.5 h-4 w-4 rounded border-[var(--border)] accent-lime"
                   />
                   <div>
-                    <span className="text-sm font-medium text-foreground">{label}</span>
+                    <span className="text-sm font-medium text-foreground">
+                      {label}
+                    </span>
                     <p className="text-xs text-muted-foreground">{desc}</p>
                   </div>
                 </label>
@@ -323,7 +532,9 @@ export default function AlertsPage() {
 
           {/* Alert frequency */}
           <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
-            <h2 className="mb-4 text-lg font-semibold text-foreground">Alert frequency</h2>
+            <h2 className="mb-4 text-lg font-semibold text-foreground">
+              Alert frequency
+            </h2>
             <p className="mb-5 text-sm text-muted-foreground font-light">
               Choose how often you want to receive alert emails:
             </p>
@@ -337,7 +548,9 @@ export default function AlertsPage() {
                     : "border-[var(--border)] hover:border-[var(--lime-30)]"
                 }`}
               >
-                <span className={`text-sm font-medium ${prefs.frequency === "realtime" ? "text-lime" : "text-foreground"}`}>
+                <span
+                  className={`text-sm font-medium ${prefs.frequency === "realtime" ? "text-lime" : "text-foreground"}`}
+                >
                   Real-time
                 </span>
                 <p className="text-xs text-muted-foreground mt-1">
@@ -353,7 +566,9 @@ export default function AlertsPage() {
                     : "border-[var(--border)] hover:border-[var(--lime-30)]"
                 }`}
               >
-                <span className={`text-sm font-medium ${prefs.frequency === "daily" ? "text-lime" : "text-foreground"}`}>
+                <span
+                  className={`text-sm font-medium ${prefs.frequency === "daily" ? "text-lime" : "text-foreground"}`}
+                >
                   Daily digest
                 </span>
                 <p className="text-xs text-muted-foreground mt-1">
@@ -365,11 +580,13 @@ export default function AlertsPage() {
 
           {/* Keywords */}
           <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
-            <h2 className="mb-4 text-lg font-semibold text-foreground">Keyword filters</h2>
+            <h2 className="mb-4 text-lg font-semibold text-foreground">
+              Keyword filters
+            </h2>
             <p className="mb-5 text-sm text-muted-foreground font-light">
               Optionally narrow your alerts to items matching specific keywords.
-              Keywords filter across all your selected categories. Leave empty to get
-              all alerts for your selected trigger types.
+              Keywords filter across all your selected categories. Leave empty to
+              get all alerts for your selected trigger types.
             </p>
 
             <div className="mb-3 flex gap-2">
@@ -378,7 +595,9 @@ export default function AlertsPage() {
                 placeholder="e.g. AARO, Grusch, NDAA, reverse engineering..."
                 value={newKeyword}
                 onChange={(e) => setNewKeyword(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addKeyword())}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && (e.preventDefault(), addKeyword())
+                }
                 className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--muted)] px-4 py-2.5 text-sm text-foreground placeholder-[var(--muted-foreground)] outline-none focus:border-lime"
               />
               <button
@@ -402,7 +621,7 @@ export default function AlertsPage() {
                       onClick={() => removeKeyword(kw)}
                       className="text-lime hover:text-foreground"
                     >
-                      ×
+                      &times;
                     </button>
                   </span>
                 ))}
@@ -429,7 +648,7 @@ export default function AlertsPage() {
               onClick={openPortal}
               className="rounded-lg border border-[var(--border)] px-5 py-3 text-sm text-muted-foreground transition-colors hover:border-[var(--lime-30)] hover:text-foreground"
             >
-              Manage billing →
+              Manage billing &rarr;
             </button>
           </div>
         </div>

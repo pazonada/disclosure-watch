@@ -94,6 +94,12 @@ export async function createCheckoutSession(
   return data.url;
 }
 
+// ── Retrieve checkout session ────────────────────────────────────────────────
+
+export async function getCheckoutSession(sessionId: string): Promise<any> {
+  return stripeRequest(`/checkout/sessions/${sessionId}`);
+}
+
 // ── Customer Portal ─────────────────────────────────────────────────────────
 
 export async function createPortalSession(customerId: string): Promise<string> {
