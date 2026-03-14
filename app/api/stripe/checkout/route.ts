@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createCheckoutSession } from "@/lib/stripe";
+import { supabase } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,25 @@ export async function POST(request: NextRequest) {
 
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "Valid email required." }, { status: 400 });
+    }
+
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Block duplicate subscriptions — check if this email already has an active one
+    const { data: existing } = await supabase
+      .from("subscribers")
+      .select("tier, stripe_subscription_id")
+      .eq("email", normalizedEmail)
+      .single();
+
+    if (existing?.tier === "paid" && existing?.stripe_subscription_id) {
+      return NextResponse.json(
+        {
+          error: "This email already has an active Insider subscription.",
+          alreadySubscribed: true,
+        },
+        { status: 409 }
+      );
     }
 
     const checkoutUrl = await createCheckoutSession(email, preferences);

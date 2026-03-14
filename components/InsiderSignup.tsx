@@ -82,6 +82,13 @@ export default function InsiderSignup() {
 
       const data = await res.json();
 
+      if (data.alreadySubscribed) {
+        // They already have an active subscription — switch to the subscribed view
+        setIsSubscribed(true);
+        setLoading(false);
+        return;
+      }
+
       if (data.url) {
         window.location.href = data.url;
       } else {
