@@ -1,5 +1,6 @@
 import NewsletterSignup from "@/components/NewsletterSignup";
 import InsiderSignup from "@/components/InsiderSignup";
+import UnsubscribeForm from "@/components/UnsubscribeForm";
 import { Radio } from "@/components/Icons";
 
 export const metadata = {
@@ -77,6 +78,9 @@ export default function SubscribePage() {
           🛸 Support this project
         </a>
       </div>
+
+      {/* Unsubscribe */}
+      <UnsubscribeForm />
     </div>
   );
 }

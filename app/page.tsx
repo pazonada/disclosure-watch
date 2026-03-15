@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import { getDocuments, getOfficialDocuments, getUpcomingEvents, getPastEvents, getMilestones, getNews, getWeeklySummary } from "@/lib/content";
 import { formatDate, sortByDate } from "@/lib/utils";
@@ -23,6 +23,16 @@ export default function HomePage() {
   const [activeDoc, setActiveDoc] = useState<UAPDocument | null>(null);
   const [activeEvent, setActiveEvent] = useState<UAPEvent | null>(null);
   const [newsDisplayed, setNewsDisplayed] = useState(8);
+  const [showUnsubBanner, setShowUnsubBanner] = useState(false);
+
+  // Show confirmation banner if redirected from unsubscribe
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("unsubscribed") === "true") {
+      setShowUnsubBanner(true);
+      window.history.replaceState({}, "", "/");
+    }
+  }, []);
 
   const recentDocs = useMemo(
     () => sortByDate(officialDocs).slice(0, 3),
@@ -47,6 +57,24 @@ export default function HomePage() {
 
   return (
     <>
+      {/* ── Unsubscribe confirmation banner ── */}
+      {showUnsubBanner && (
+        <div className="border-b border-card-subtle bg-card">
+          <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8 flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              You&apos;ve been unsubscribed. You won&apos;t receive any more emails from us.
+            </p>
+            <button
+              onClick={() => setShowUnsubBanner(false)}
+              className="ml-4 text-muted-foreground hover:text-foreground text-lg leading-none"
+              aria-label="Dismiss"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* ── Hero Section (v0 2-column layout) ── */}
       <section className="relative overflow-hidden border-b border-card-subtle">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--lime-5)] via-transparent to-[var(--blue-5)]" />
