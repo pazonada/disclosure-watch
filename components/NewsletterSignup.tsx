@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "already">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "already" | "unsub_form" | "unsub_loading" | "unsubscribed">("idle");
   const [message, setMessage] = useState("");
 
   // Check if user previously subscribed
@@ -50,6 +50,85 @@ export default function NewsletterSignup() {
     }
   }
 
+  async function handleUnsubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus("unsub_loading");
+    try {
+      const res = await fetch("/api/newsletter/unsubscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        setStatus("unsubscribed");
+        setEmail("");
+        try {
+          localStorage.removeItem("dw_newsletter_subscribed");
+        } catch {}
+      } else {
+        setStatus("error");
+        setMessage("Something went wrong. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      setMessage("Network error. Please try again.");
+    }
+  }
+
+  // Unsubscribed confirmation
+  if (status === "unsubscribed") {
+    return (
+      <div>
+        <p className="text-sm text-muted-foreground">
+          You&apos;ve been unsubscribed from the weekly briefing.
+        </p>
+        <button
+          onClick={() => setStatus("idle")}
+          className="mt-2 text-xs text-muted-foreground underline hover:text-foreground"
+        >
+          Changed your mind? Subscribe again
+        </button>
+      </div>
+    );
+  }
+
+  // Unsubscribe form
+  if (status === "unsub_form" || status === "unsub_loading") {
+    return (
+      <div>
+        <p className="mb-3 text-xs text-muted-foreground">
+          Enter your email to unsubscribe from the weekly briefing:
+        </p>
+        <form onSubmit={handleUnsubscribe} className="flex gap-2">
+          <input
+            type="email"
+            placeholder="you@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="flex-1 rounded-lg border border-card-subtle bg-muted px-4 py-2 text-sm text-foreground placeholder-muted-foreground outline-none focus:border-[var(--destructive)]"
+          />
+          <button
+            type="submit"
+            disabled={status === "unsub_loading"}
+            className="rounded-lg border border-[var(--border)] px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-[var(--destructive)] hover:text-[var(--destructive)] disabled:opacity-50"
+          >
+            {status === "unsub_loading" ? "..." : "Unsubscribe"}
+          </button>
+        </form>
+        <button
+          onClick={() => { setStatus("idle"); setEmail(""); }}
+          className="mt-2 text-xs text-muted-foreground underline hover:text-foreground"
+        >
+          Cancel
+        </button>
+      </div>
+    );
+  }
+
   // Already subscribed (from localStorage)
   if (status === "already") {
     return (
@@ -61,17 +140,25 @@ export default function NewsletterSignup() {
           <p className="text-sm font-medium text-lime">You&apos;re subscribed</p>
         </div>
         <p className="mt-3 text-sm text-muted-foreground font-light">
-          Your weekly briefing arrives every Friday. To unsubscribe, use the link at the bottom of any briefing email.
+          Your weekly briefing arrives every Friday.
         </p>
-        <button
-          onClick={() => {
-            setStatus("idle");
-            try { localStorage.removeItem("dw_newsletter_subscribed"); } catch {}
-          }}
-          className="mt-2 text-xs text-muted-foreground underline hover:text-foreground"
-        >
-          Subscribe with a different email
-        </button>
+        <div className="mt-2 flex gap-3">
+          <button
+            onClick={() => {
+              setStatus("idle");
+              try { localStorage.removeItem("dw_newsletter_subscribed"); } catch {}
+            }}
+            className="text-xs text-muted-foreground underline hover:text-foreground"
+          >
+            Subscribe with a different email
+          </button>
+          <button
+            onClick={() => setStatus("unsub_form")}
+            className="text-xs text-muted-foreground underline hover:text-foreground"
+          >
+            Unsubscribe
+          </button>
+        </div>
       </div>
     );
   }
@@ -88,23 +175,31 @@ export default function NewsletterSignup() {
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex gap-2">
-          <input
-            type="email"
-            placeholder="you@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="flex-1 rounded-lg border border-card-subtle bg-muted px-4 py-2 text-sm text-foreground placeholder-muted-foreground outline-none focus:border-lime"
-          />
+        <>
+          <form onSubmit={handleSubmit} className="flex gap-2">
+            <input
+              type="email"
+              placeholder="you@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="flex-1 rounded-lg border border-card-subtle bg-muted px-4 py-2 text-sm text-foreground placeholder-muted-foreground outline-none focus:border-lime"
+            />
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="rounded-lg bg-lime px-5 py-2 text-sm font-medium text-background transition-colors hover:bg-[var(--lime-30)] hover:text-foreground disabled:opacity-50"
+            >
+              {status === "loading" ? "..." : "Subscribe"}
+            </button>
+          </form>
           <button
-            type="submit"
-            disabled={status === "loading"}
-            className="rounded-lg bg-lime px-5 py-2 text-sm font-medium text-background transition-colors hover:bg-[var(--lime-30)] hover:text-foreground disabled:opacity-50"
+            onClick={() => setStatus("unsub_form")}
+            className="mt-2 text-xs text-muted-foreground underline hover:text-foreground"
           >
-            {status === "loading" ? "..." : "Subscribe"}
+            Need to unsubscribe?
           </button>
-        </form>
+        </>
       )}
 
       {status === "error" && (

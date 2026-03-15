@@ -42,6 +42,7 @@ export default function AlertsPage() {
   const [error, setError] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [showCancelPrompt, setShowCancelPrompt] = useState(false);
 
   const loadPreferences = useCallback(async () => {
     const res = await fetch("/api/alerts/preferences");
@@ -169,7 +170,19 @@ export default function AlertsPage() {
     setLoading(false);
   }
 
+  const allTriggersOff =
+    !prefs.trigger_documents &&
+    !prefs.trigger_hearings &&
+    !prefs.trigger_milestones &&
+    !prefs.trigger_news;
+
   async function handleSave() {
+    // If all triggers are deselected, prompt to cancel subscription instead
+    if (allTriggersOff) {
+      setShowCancelPrompt(true);
+      return;
+    }
+
     setSaving(true);
     setError("");
     setMessage("");
@@ -652,6 +665,33 @@ export default function AlertsPage() {
                 : "No keyword filters \u2014 you'll receive all alerts for your selected categories."}
             </p>
           </div>
+
+          {/* Cancel subscription prompt */}
+          {showCancelPrompt && (
+            <div className="rounded-lg border border-[var(--destructive)] bg-[var(--destructive-10)] p-5 sm:p-6">
+              <p className="text-sm text-foreground font-medium mb-2">
+                No alert triggers selected
+              </p>
+              <p className="text-sm text-muted-foreground mb-4">
+                You&apos;ve deselected all alert types. Would you like to cancel your
+                Insider subscription entirely? You can do this through billing management.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={openPortal}
+                  className="rounded-lg bg-[var(--destructive)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:brightness-110"
+                >
+                  Cancel subscription
+                </button>
+                <button
+                  onClick={() => setShowCancelPrompt(false)}
+                  className="rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  Go back
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Save + billing */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
