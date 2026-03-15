@@ -292,38 +292,6 @@ export default function AlertsPage() {
 
           {/* Preferences recap */}
           <div className="space-y-4">
-            {/* Triggers */}
-            <div className="rounded-lg border border-card-subtle bg-card p-5 sm:p-6">
-              <h2 className="mb-3 text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider">
-                Alert triggers
-              </h2>
-              <div className="space-y-2">
-                {TRIGGERS.map(({ key, label, desc }) => {
-                  const active = prefs[key as keyof Preferences] as boolean;
-                  return (
-                    <div
-                      key={key}
-                      className={`flex items-start gap-3 rounded-lg border px-4 py-3 ${
-                        active
-                          ? "border-[var(--lime-30)] bg-[var(--lime-10)]"
-                          : "border-[var(--border)] opacity-40"
-                      }`}
-                    >
-                      <span className={`mt-0.5 text-sm ${active ? "text-lime" : "text-muted-foreground"}`}>
-                        {active ? "\u2713" : "\u2013"}
-                      </span>
-                      <div>
-                        <span className={`text-sm font-medium ${active ? "text-foreground" : "text-muted-foreground"}`}>
-                          {label}
-                        </span>
-                        <p className="text-xs text-muted-foreground">{desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
             {/* Frequency */}
             <div className="rounded-lg border border-card-subtle bg-card p-5 sm:p-6">
               <h2 className="mb-3 text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider">
@@ -346,6 +314,46 @@ export default function AlertsPage() {
                   </>
                 )}
               </p>
+            </div>
+
+            {/* Triggers */}
+            <div className="rounded-lg border border-card-subtle bg-card p-5 sm:p-6">
+              <h2 className="mb-3 text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider">
+                Alert triggers
+              </h2>
+              {activeTriggers.length > 0 ? (
+                <ul className="space-y-1">
+                  {activeTriggers.map(({ key, label, desc }) => (
+                    <li key={key} className="flex items-start gap-2 text-sm">
+                      <svg
+                        className="mt-0.5 h-4 w-4 flex-shrink-0 text-lime"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 12.75l6 6 9-13.5"
+                        />
+                      </svg>
+                      <span>
+                        <span className="font-medium text-foreground">
+                          {label}
+                        </span>
+                        <span className="text-muted-foreground">
+                          {" "}&ndash; {desc}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-muted-foreground italic">
+                  No triggers selected.
+                </p>
+              )}
             </div>
 
             {/* Keywords */}
@@ -528,40 +536,6 @@ export default function AlertsPage() {
       {step === "editor" && (
         /* ── Preferences editor ── */
         <div className="space-y-6">
-          {/* Trigger types */}
-          <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
-            <h2 className="mb-4 text-lg font-semibold text-foreground">
-              Alert triggers
-            </h2>
-            <p className="mb-5 text-sm text-muted-foreground font-light">
-              Choose which types of new content should trigger an email alert:
-            </p>
-
-            <div className="space-y-3">
-              {TRIGGERS.map(({ key, label, desc }) => (
-                <label
-                  key={key}
-                  className="flex cursor-pointer items-start gap-3 rounded-lg border border-[var(--border)] p-4 transition-colors hover:border-[var(--lime-30)]"
-                >
-                  <input
-                    type="checkbox"
-                    checked={prefs[key as keyof Preferences] as boolean}
-                    onChange={(e) =>
-                      setPrefs({ ...prefs, [key]: e.target.checked })
-                    }
-                    className="mt-0.5 h-4 w-4 rounded border-[var(--border)] accent-lime"
-                  />
-                  <div>
-                    <span className="text-sm font-medium text-foreground">
-                      {label}
-                    </span>
-                    <p className="text-xs text-muted-foreground">{desc}</p>
-                  </div>
-                </label>
-              ))}
-            </div>
-          </div>
-
           {/* Alert frequency */}
           <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
             <h2 className="mb-4 text-lg font-semibold text-foreground">
@@ -607,6 +581,40 @@ export default function AlertsPage() {
                   One email per day with all matching updates
                 </p>
               </button>
+            </div>
+          </div>
+
+          {/* Alert triggers */}
+          <div className="rounded-lg border border-card-subtle bg-card p-6 sm:p-8">
+            <h2 className="mb-4 text-lg font-semibold text-foreground">
+              Alert triggers
+            </h2>
+            <p className="mb-5 text-sm text-muted-foreground font-light">
+              Choose which types of new content should trigger an email alert:
+            </p>
+
+            <div className="space-y-3">
+              {TRIGGERS.map(({ key, label, desc }) => (
+                <label
+                  key={key}
+                  className="flex cursor-pointer items-start gap-3 rounded-lg border border-[var(--border)] p-4 transition-colors hover:border-[var(--lime-30)]"
+                >
+                  <input
+                    type="checkbox"
+                    checked={prefs[key as keyof Preferences] as boolean}
+                    onChange={(e) =>
+                      setPrefs({ ...prefs, [key]: e.target.checked })
+                    }
+                    className="mt-0.5 h-4 w-4 rounded border-[var(--border)] accent-lime"
+                  />
+                  <div>
+                    <span className="text-sm font-medium text-foreground">
+                      {label}
+                    </span>
+                    <p className="text-xs text-muted-foreground">{desc}</p>
+                  </div>
+                </label>
+              ))}
             </div>
           </div>
 

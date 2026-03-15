@@ -156,30 +156,6 @@ export default function InsiderSignup() {
   // Not subscribed — show signup flow
   return (
     <div className="space-y-5">
-      {/* Alert triggers */}
-      <div>
-        <p className="mb-2.5 text-xs font-medium text-foreground">Configure your alerts</p>
-        <div className="space-y-1.5">
-          {TRIGGERS.map(({ key, label, desc }) => (
-            <label
-              key={key}
-              className="flex cursor-pointer items-start gap-2.5 rounded-lg border border-[var(--border)] px-3 py-2.5 transition-colors hover:border-[var(--blue-30)]"
-            >
-              <input
-                type="checkbox"
-                checked={prefs[key as keyof Preferences] as boolean}
-                onChange={(e) => setPrefs({ ...prefs, [key]: e.target.checked })}
-                className="mt-0.5 h-3.5 w-3.5 rounded border-[var(--border)] accent-blue"
-              />
-              <div>
-                <span className="text-xs font-medium text-foreground">{label}</span>
-                <p className="text-[11px] leading-snug text-muted-foreground">{desc}</p>
-              </div>
-            </label>
-          ))}
-        </div>
-      </div>
-
       {/* Alert frequency */}
       <div>
         <p className="mb-2.5 text-xs font-medium text-foreground">Alert frequency</p>
@@ -212,6 +188,30 @@ export default function InsiderSignup() {
               One email per day
             </p>
           </button>
+        </div>
+      </div>
+
+      {/* Alert triggers */}
+      <div>
+        <p className="mb-2.5 text-xs font-medium text-foreground">Configure your alerts</p>
+        <div className="space-y-1.5">
+          {TRIGGERS.map(({ key, label, desc }) => (
+            <label
+              key={key}
+              className="flex cursor-pointer items-start gap-2.5 rounded-lg border border-[var(--border)] px-3 py-2.5 transition-colors hover:border-[var(--blue-30)]"
+            >
+              <input
+                type="checkbox"
+                checked={prefs[key as keyof Preferences] as boolean}
+                onChange={(e) => setPrefs({ ...prefs, [key]: e.target.checked })}
+                className="mt-0.5 h-3.5 w-3.5 rounded border-[var(--border)] accent-blue"
+              />
+              <div>
+                <span className="text-xs font-medium text-foreground">{label}</span>
+                <p className="text-[11px] leading-snug text-muted-foreground">{desc}</p>
+              </div>
+            </label>
+          ))}
         </div>
       </div>
 
