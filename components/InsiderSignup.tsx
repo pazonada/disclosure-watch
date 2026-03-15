@@ -285,6 +285,12 @@ export default function InsiderSignup() {
           <p className="text-sm text-[var(--destructive)]">{error}</p>
         )}
       </form>
+      <Link
+        href="/alerts"
+        className="mt-3 block text-xs text-muted-foreground underline hover:text-foreground"
+      >
+        Already an Insider? Manage your alerts
+      </Link>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import NewsletterSignup from "@/components/NewsletterSignup";
 import InsiderSignup from "@/components/InsiderSignup";
 import { Radio } from "@/components/Icons";
-import Link from "next/link";
+
 
 export const metadata = {
   title: "Subscribe — Disclosure Watch",
@@ -61,12 +61,6 @@ export default function SubscribePage() {
             filters to zero in on what matters to you.
           </p>
           <InsiderSignup />
-          <Link
-            href="/alerts"
-            className="mt-3 text-xs text-muted-foreground underline hover:text-foreground"
-          >
-            Already an Insider? Manage your alerts
-          </Link>
         </div>
       </div>
 
