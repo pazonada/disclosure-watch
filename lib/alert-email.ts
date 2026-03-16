@@ -18,6 +18,9 @@ interface AlertItem {
 
 const SITE_URL = "https://disclosurewatch.com";
 const HERO_IMG = `${SITE_URL}/images/earth-hero.jpg`;
+const SITE_BG = "#0a0e14";
+const FONT_IMPORT = `<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">`;
+const H1_FONT = "'Special Elite', cursive";
 
 const WRAPPER_STYLE =
   'margin: 0; padding: 0; background: #f4f5f7; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;';
@@ -106,7 +109,7 @@ export function buildAlertEmailHtml(items: AlertItem[]): string {
   return `
     <!DOCTYPE html>
     <html>
-    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_IMPORT}</head>
     <body style="${WRAPPER_STYLE}">
       <div style="${CONTAINER_STYLE}">
 
@@ -114,7 +117,7 @@ export function buildAlertEmailHtml(items: AlertItem[]): string {
         <div style="position: relative; height: 120px; background: #0f172a url(${HERO_IMG}) center/cover no-repeat;">
           <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,23,42,0.3) 0%, rgba(15,23,42,0.85) 100%);"></div>
           <div style="position: relative; text-align: center; padding-top: 36px;">
-            <h1 style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0; letter-spacing: 0.02em;">
+            <h1 style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0; letter-spacing: 0.02em; font-family: ${H1_FONT};">
               Disclosure Watch &mdash; Insider Alert
             </h1>
           </div>
@@ -208,16 +211,16 @@ export function buildDailyDigestEmailHtml(items: AlertItem[]): string {
   return `
     <!DOCTYPE html>
     <html>
-    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_IMPORT}</head>
     <body style="${WRAPPER_STYLE}">
       <div style="${CONTAINER_STYLE}">
 
-        <!-- Solid color header (distinct from real-time hero banner) -->
-        <div style="background: linear-gradient(135deg, #0f766e 0%, #115e59 100%); padding: 28px 32px; text-align: center;">
+        <!-- Solid color header (matches site background with grid) -->
+        <div style="background-color: ${SITE_BG}; background-image: linear-gradient(to right, rgba(24,30,40,0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(24,30,40,0.5) 1px, transparent 1px); background-size: 40px 40px; padding: 28px 32px; text-align: center;">
           <p style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin: 0 0 6px;">
             Disclosure Watch Insider
           </p>
-          <h1 style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0 0 4px;">
+          <h1 style="color: #ffffff; font-size: 20px; font-weight: 700; margin: 0 0 4px; font-family: ${H1_FONT};">
             Your Daily Briefing
           </h1>
           <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin: 0;">
@@ -233,7 +236,7 @@ export function buildDailyDigestEmailHtml(items: AlertItem[]): string {
           ${itemsHtml}
 
           <div style="text-align: center; margin: 24px 0 8px;">
-            <a href="${SITE_URL}" style="display: inline-block; background: #0f766e; color: #ffffff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">
+            <a href="${SITE_URL}" style="display: inline-block; background: ${LINK_COLOR}; color: #ffffff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">
               View all updates &rarr;
             </a>
           </div>
@@ -257,7 +260,7 @@ export function buildDigestEmailHtml(summary: string, weekOf: string): string {
   return `
     <!DOCTYPE html>
     <html>
-    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_IMPORT}</head>
     <body style="${WRAPPER_STYLE}">
       <div style="${CONTAINER_STYLE}">
 
@@ -266,7 +269,7 @@ export function buildDigestEmailHtml(summary: string, weekOf: string): string {
           <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: ${MUTED_COLOR}; margin: 0 0 6px;">
             Disclosure Watch
           </p>
-          <h1 style="color: ${HEADING_COLOR}; font-size: 22px; font-weight: 700; margin: 0 0 4px;">
+          <h1 style="color: ${HEADING_COLOR}; font-size: 22px; font-weight: 700; margin: 0 0 4px; font-family: ${H1_FONT};">
             Weekly Briefing
           </h1>
           <p style="color: ${MUTED_COLOR}; font-size: 13px; margin: 0;">
@@ -307,7 +310,7 @@ export function buildVerificationEmailHtml(code: string): string {
   return `
     <!DOCTYPE html>
     <html>
-    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_IMPORT}</head>
     <body style="${WRAPPER_STYLE}">
       <div style="${CONTAINER_STYLE}">
 
@@ -315,7 +318,7 @@ export function buildVerificationEmailHtml(code: string): string {
           <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: ${MUTED_COLOR}; margin: 0 0 6px;">
             Disclosure Watch
           </p>
-          <h1 style="color: ${HEADING_COLOR}; font-size: 20px; font-weight: 700; margin: 0;">
+          <h1 style="color: ${HEADING_COLOR}; font-size: 20px; font-weight: 700; margin: 0; font-family: ${H1_FONT};">
             Verification Code
           </h1>
         </div>
