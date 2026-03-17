@@ -1,16 +1,17 @@
-import { UAPDocument, UAPEvent, TimelineMilestone, DocumentCategory, DocumentSource, Importance } from "./types";
+import { UAPDocument, UAPEvent, TimelineMilestone, NewsItem, DocumentCategory, DocumentSource, Importance } from "./types";
 
 export interface SearchResult {
-  type: "document" | "event" | "milestone";
+  type: "document" | "event" | "milestone" | "news";
   id: string;
   title: string;
-  content: UAPDocument | UAPEvent | TimelineMilestone;
+  content: UAPDocument | UAPEvent | TimelineMilestone | NewsItem;
 }
 
 export interface GroupedSearchResults {
   documents: SearchResult[];
   events: SearchResult[];
   milestones: SearchResult[];
+  news: SearchResult[];
   query: string;
 }
 
@@ -111,7 +112,8 @@ export function searchAllContent(
   query: string,
   documents: UAPDocument[],
   events: UAPEvent[],
-  milestones: TimelineMilestone[]
+  milestones: TimelineMilestone[],
+  news: NewsItem[] = []
 ): GroupedSearchResults {
   const q = query.toLowerCase().trim();
 
@@ -158,10 +160,26 @@ export function searchAllContent(
       content: milestone,
     }));
 
+  const newsResults = news
+    .filter((item) => {
+      return (
+        item.title.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q) ||
+        item.source.toLowerCase().includes(q)
+      );
+    })
+    .map((item) => ({
+      type: "news" as const,
+      id: item.id,
+      title: item.title,
+      content: item,
+    }));
+
   return {
     documents: documentResults,
     events: eventResults,
     milestones: milestoneResults,
+    news: newsResults,
     query,
   };
 }

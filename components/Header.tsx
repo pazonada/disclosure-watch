@@ -7,6 +7,7 @@ import { Radio } from "./Icons";
 const navLinks = [
   { href: "/documents", label: "Documents" },
   { href: "/events", label: "Hearings and events" },
+  { href: "/news", label: "News" },
   { href: "/timeline", label: "Disclosure timeline" },
   { href: "/subscribe", label: "Subscribe" },
 ];

@@ -285,7 +285,7 @@ export default function HomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--coral-10)]">
               <Newspaper className="h-10 w-10 text-coral" />
             </div>
-            <div>
+            <div className="flex-1">
               <h2 className="text-2xl font-display tracking-wide text-foreground uppercase">
                 News & Media
               </h2>
@@ -293,6 +293,9 @@ export default function HomePage() {
                 External coverage from trusted outlets
               </p>
             </div>
+            <Link href="/news" className="text-sm text-muted-foreground hover:text-foreground transition-colors group">
+              View all news <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+            </Link>
           </div>
 
           <div className="rounded-lg border border-card-subtle bg-card overflow-hidden">
