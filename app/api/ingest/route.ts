@@ -19,7 +19,7 @@ export const dynamic = "force-dynamic";
  *
  * Sources:
  *   Documents:
- *     1. National Archives Catalog API (no key needed)
+ *     1. National Archives Catalog API v2 (NARA_API_KEY env var)
  *     2. Congress.gov API (CONGRESS_API_KEY env var)
  *     3. AARO public reports page (scrape known URLs)
  *
@@ -39,6 +39,7 @@ export const dynamic = "force-dynamic";
  *
  * Environment variables:
  *   INGEST_SECRET    — bearer token to protect the endpoint
+ *   NARA_API_KEY     — free key from https://catalog.archives.gov/api/v2/
  *   CONGRESS_API_KEY — free key from https://api.congress.gov/sign-up/
  *
  * Trigger:
@@ -189,58 +190,87 @@ function saveJson<T>(filePath: string, data: T[]): void {
 // ══════════════════════════════════════════════════════════════════════════════
 
 async function fetchArchives(): Promise<UAPDocument[]> {
+  const naraKey = process.env.NARA_API_KEY;
+  if (!naraKey) {
+    console.log("[Archives] No NARA_API_KEY set. Skipping National Archives.");
+    return [];
+  }
+
   const results: UAPDocument[] = [];
+  const baseUrl = "https://catalog.archives.gov/api/v2/records/search";
   const queries = [
-    "UAP%20unidentified%20anomalous%20phenomena",
-    "unidentified%20flying%20objects%20UFO",
+    "q=UAP+OR+%22unidentified+anomalous+phenomena%22&recordGroupNumber=615&limit=100",
+    "q=UAP+OR+UFO+OR+%22unidentified+aerial+phenomena%22&online=true&limit=50",
   ];
 
-  for (const q of queries) {
+  for (const queryParams of queries) {
     try {
-      const url = `https://catalog.archives.gov/api/v1/?resultTypes=item&q=${q}&rows=50`;
-      const resp = await fetchWithTimeout(url);
-      if (!resp.ok) continue;
+      const url = `${baseUrl}?${queryParams}`;
+      console.log(`[Archives] Fetching: ${url.slice(0, 100)}...`);
+      const resp = await fetch(url, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": naraKey,
+        },
+        signal: AbortSignal.timeout(15000),
+      });
+      if (!resp.ok) {
+        console.log(`[Archives] API returned ${resp.status}`);
+        continue;
+      }
 
       const data = (await resp.json()) as any;
-      const items = data?.opaResponse?.results?.result || [];
+      const hits = data?.body?.hits?.hits || [];
+      console.log(`[Archives] Found ${hits.length} items`);
 
-      for (const item of items) {
-        const desc =
-          item?.description?.item || item?.description?.fileUnit || {};
-        const title = desc?.title;
+      for (const hit of hits) {
+        const record = hit?._source?.record;
+        if (!record) continue;
+
+        const title = record.title;
         if (!title) continue;
 
-        const scopeNote = desc?.scopeAndContentNote || "";
+        const scopeNote = record.scopeAndContentNote || "";
         // Skip results that aren't actually about UAP/UFO
         if (!isUapRelevant(`${title} ${scopeNote}`)) continue;
 
-        const naId = desc?.naId || item?.naId;
+        const naId = record.naId;
         const sourceUrl = naId
           ? `https://catalog.archives.gov/id/${naId}`
           : "";
-        const rawDate =
-          desc?.productionDateArray?.proposableQualifiableDate?.logicalDate ||
-          desc?.productionDate?.logicalDate ||
-          "";
-        const publishedDate = rawDate ? rawDate.slice(0, 10) : "1900-01-01";
+
+        // Extract date from v2 fields
+        const startDate = record.inclusiveStartDate;
+        let publishedDate = "1900-01-01";
+        if (startDate?.year) {
+          const y = startDate.year;
+          const m = String(startDate.month || 1).padStart(2, "0");
+          const d = String(startDate.day || 1).padStart(2, "0");
+          publishedDate = `${y}-${m}-${d}`;
+        }
+
+        // Get document download URL from digital objects if available
+        const digitalObjects = record.digitalObjects || [];
+        const documentUrl = digitalObjects[0]?.objectUrl || undefined;
 
         results.push({
           id: toKebab(`nara-${naId || title}`),
           title,
           source: "Archives",
           sourceUrl,
+          documentUrl,
           summary:
-            desc?.scopeAndContentNote ||
+            scopeNote ||
             `Record from the National Archives (NAID: ${naId}).`,
           category: "FOIA Release",
           importance: "Medium",
-          tags: ["NARA", "Archives"],
+          tags: ["NARA", "Archives", "Record Group 615"],
           publishedDate,
           addedDate: today(),
         });
       }
-    } catch {
-      // Non-fatal
+    } catch (err) {
+      console.error("[Archives] Error:", err);
     }
   }
 

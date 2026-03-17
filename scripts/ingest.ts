@@ -72,59 +72,88 @@ function today(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-// ── Source 1: National Archives Catalog API ──────────────────────────────────
-// Docs: https://github.com/usnationalarchives/Catalog-API
-// Search for Record Group 615 items
+// ── Source 1: National Archives Catalog API v2 ───────────────────────────────
+// Docs: https://catalog.archives.gov/api/v2/api-docs/
+// Search for Record Group 615 (UAP Records) and related items
 
 async function fetchNationalArchives(): Promise<UAPDocument[]> {
+  const naraKey = process.env.NARA_API_KEY;
+  if (!naraKey) {
+    console.warn("[Archives] No NARA_API_KEY set. Skipping National Archives.");
+    return [];
+  }
+
   const results: UAPDocument[] = [];
-  const baseUrl =
-    "https://catalog.archives.gov/api/v1/?resultTypes=item&q=UAP%20unidentified%20anomalous%20phenomena&rows=100";
+  const baseUrl = "https://catalog.archives.gov/api/v2/records/search";
+  const queries = [
+    "q=UAP+OR+%22unidentified+anomalous+phenomena%22&recordGroupNumber=615&limit=100",
+    "q=UAP+OR+UFO+OR+%22unidentified+aerial+phenomena%22&online=true&limit=50",
+  ];
 
-  try {
-    console.log("[Archives] Fetching National Archives Catalog API...");
-    const resp = await fetch(baseUrl);
-    if (!resp.ok) {
-      console.warn(`[Archives] API returned ${resp.status}`);
-      return results;
-    }
-
-    const data = (await resp.json()) as any;
-    const items = data?.opaResponse?.results?.result || [];
-    console.log(`[Archives] Found ${items.length} items`);
-
-    for (const item of items) {
-      const desc = item?.description?.item || item?.description?.fileUnit || {};
-      const title = desc?.title;
-      if (!title) continue;
-
-      const naId = desc?.naId || item?.naId;
-      const sourceUrl = naId
-        ? `https://catalog.archives.gov/id/${naId}`
-        : "";
-      const date =
-        desc?.productionDateArray?.proposableQualifiableDate?.logicalDate ||
-        desc?.productionDate?.logicalDate ||
-        "";
-      const publishedDate = date ? date.slice(0, 10) : "1900-01-01";
-
-      results.push({
-        id: toKebab(`nara-${naId || title}`),
-        title,
-        source: "Archives",
-        sourceUrl,
-        summary:
-          desc?.scopeAndContentNote ||
-          `Record from the National Archives UAP collection (NAID: ${naId}).`,
-        category: "FOIA Release",
-        importance: "Medium",
-        tags: ["NARA", "Archives", "Record Group 615"],
-        publishedDate,
-        addedDate: today(),
+  for (const queryParams of queries) {
+    try {
+      const url = `${baseUrl}?${queryParams}`;
+      console.log(`[Archives] Fetching: ${url.slice(0, 100)}...`);
+      const resp = await fetch(url, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": naraKey,
+        },
       });
+      if (!resp.ok) {
+        console.warn(`[Archives] API returned ${resp.status}`);
+        continue;
+      }
+
+      const data = (await resp.json()) as any;
+      const hits = data?.body?.hits?.hits || [];
+      console.log(`[Archives] Found ${hits.length} items`);
+
+      for (const hit of hits) {
+        const record = hit?._source?.record;
+        if (!record) continue;
+
+        const title = record.title;
+        if (!title) continue;
+
+        const naId = record.naId;
+        const sourceUrl = naId
+          ? `https://catalog.archives.gov/id/${naId}`
+          : "";
+
+        // Extract date from various v2 fields
+        const startDate = record.inclusiveStartDate;
+        let publishedDate = "1900-01-01";
+        if (startDate?.year) {
+          const y = startDate.year;
+          const m = String(startDate.month || 1).padStart(2, "0");
+          const d = String(startDate.day || 1).padStart(2, "0");
+          publishedDate = `${y}-${m}-${d}`;
+        }
+
+        // Get document download URL from digital objects if available
+        const digitalObjects = record.digitalObjects || [];
+        const documentUrl = digitalObjects[0]?.objectUrl || undefined;
+
+        results.push({
+          id: toKebab(`nara-${naId || title}`),
+          title,
+          source: "Archives",
+          sourceUrl,
+          documentUrl,
+          summary:
+            record.scopeAndContentNote ||
+            `Record from the National Archives (NAID: ${naId}).`,
+          category: "FOIA Release",
+          importance: "Medium",
+          tags: ["NARA", "Archives", "Record Group 615"],
+          publishedDate,
+          addedDate: today(),
+        });
+      }
+    } catch (err) {
+      console.error("[Archives] Error:", err);
     }
-  } catch (err) {
-    console.error("[Archives] Error:", err);
   }
 
   return results;
