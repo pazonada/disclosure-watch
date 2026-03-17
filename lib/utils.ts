@@ -1,4 +1,4 @@
-import { UAPDocument, UAPEvent, TimelineMilestone, DocumentCategory, Importance } from "./types";
+import { UAPDocument, UAPEvent, TimelineMilestone, DocumentCategory, DocumentSource, Importance } from "./types";
 
 export interface SearchResult {
   type: "document" | "event" | "milestone";
@@ -50,12 +50,14 @@ export function filterDocuments(
   filters: {
     category?: DocumentCategory;
     importance?: Importance;
+    source?: DocumentSource;
     search?: string;
   }
 ): UAPDocument[] {
   return docs.filter((doc) => {
     if (filters.category && doc.category !== filters.category) return false;
     if (filters.importance && doc.importance !== filters.importance) return false;
+    if (filters.source && doc.source !== filters.source) return false;
     if (filters.search) {
       const q = filters.search.toLowerCase();
       return (

@@ -1,7 +1,7 @@
 "use client";
 
 import { UAPDocument } from "@/lib/types";
-import { formatDate } from "@/lib/utils";
+import { formatDate, sourceLabel } from "@/lib/utils";
 import { CategoryIcon } from "./Icons";
 
 interface Props {
@@ -50,7 +50,12 @@ export default function DocumentCard({ doc, onCardClick }: Props) {
       {/* Footer */}
       <div className="mt-4 pt-4 border-t border-card-subtle">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-mono text-muted-foreground">{formatDate(doc.publishedDate)}</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono text-muted-foreground">{formatDate(doc.publishedDate)}</span>
+            <span className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded">
+              {sourceLabel(doc.source)}
+            </span>
+          </div>
           <div className="flex items-center gap-1.5">
             {doc.tags.slice(0, 2).map((tag) => (
               <span
