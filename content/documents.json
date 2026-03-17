@@ -57,7 +57,7 @@
     "source": "AARO",
     "sourceUrl": "https://www.theblackvault.com/documentarchive/dod-ig-releases-final-uap-whistleblower-reprisal-report/",
     "summary": "The Department of Defense Inspector General released a heavily redacted final report on UAP-related whistleblower reprisal investigations, centering on the revocation of classified access from individuals who reported UAP information to Congress.",
-    "expandedSummary": "In January 2026, the Department of Defense Office of Inspector General published its final report on UAP whistleblower reprisal complaints \u2014 a document that had been anticipated by the disclosure community for months. The report, while heavily redacted, addresses allegations that individuals within the defense and intelligence establishment faced retaliatory action, including revocation of security clearances and classified access, after providing UAP-related information to members of Congress as authorized under federal whistleblower protections. The redactions themselves have become a point of contention, with transparency advocates arguing that the censored sections likely contain the most consequential findings regarding institutional efforts to suppress UAP-related testimony.",
+    "expandedSummary": "In January 2026, the Department of Defense Office of Inspector General published its final report on UAP whistleblower reprisal complaints — a document that had been anticipated by the disclosure community for months. The report, while heavily redacted, addresses allegations that individuals within the defense and intelligence establishment faced retaliatory action, including revocation of security clearances and classified access, after providing UAP-related information to members of Congress as authorized under federal whistleblower protections. The redactions themselves have become a point of contention, with transparency advocates arguing that the censored sections likely contain the most consequential findings regarding institutional efforts to suppress UAP-related testimony.",
     "keyPoints": [
       "DoD Inspector General completed investigation into UAP whistleblower reprisal allegations",
       "Report heavily redacted, with key findings and names obscured",
@@ -237,7 +237,7 @@
   },
   {
     "id": "aaro-records-page-update",
-    "title": "AARO UAP Records Portal \u2014 Ongoing Updates",
+    "title": "AARO UAP Records Portal — Ongoing Updates",
     "source": "AARO",
     "sourceUrl": "https://www.aaro.mil/UAP-Records/",
     "summary": "AARO maintains a publicly accessible records portal containing case resolutions, declassified imagery, congressional reports, and FOIA releases. The portal is updated as new information is declassified.",
@@ -424,7 +424,7 @@
     "summary": "Official ODNI/AARO annual report covering 757 UAP reports received May 2023 to June 2024. AARO resolved 118 cases to prosaic explanations including balloons, birds, and UAS; 21 remained truly unexplained with no conventional resolution. Total caseload reached 1,652 reports. Report found no evidence of extraterrestrial connections but acknowledged persistent data collection gaps.",
     "expandedSummary": "The FY2024 Consolidated Annual Report represents the most comprehensive official accounting of unidentified anomalous phenomena investigations by the U.S. intelligence community. Covering the period from May 2023 through June 2024, the report documents 757 newly reported incidents, bringing the total investigated caseload to 1,652 reports. Of the new reports, AARO resolved 118 cases to identified causes including balloons, commercial drones, birds, and other prosaic explanations. Critically, 21 cases remained classified as truly unexplained after exhaustive analysis. The report maintained the intelligence community's position finding no evidence of extraterrestrial technology but emphasized significant data collection gaps that impede definitive conclusions. The acknowledgment of persistent analytical limitations suggests continued need for improved sensor deployment and standardized reporting.",
     "keyPoints": [
-      "757 new UAP reports received May 2023\u2013June 2024; total caseload now 1,652",
+      "757 new UAP reports received May 2023–June 2024; total caseload now 1,652",
       "AARO resolved 118 cases to prosaic explanations (balloons, birds, drones, UAS)",
       "21 cases remained truly unexplained with no conventional resolution identified",
       "No evidence of extraterrestrial technology detected or recovered",
@@ -444,7 +444,7 @@
   },
   {
     "id": "house-oversight-uap-hearing-nov-2024",
-    "title": "House Oversight Hearing: Unidentified Anomalous Phenomena \u2014 Exposing the Truth",
+    "title": "House Oversight Hearing: Unidentified Anomalous Phenomena — Exposing the Truth",
     "source": "Congress",
     "sourceUrl": "https://oversight.house.gov/hearing/unidentified-anomalous-phenomena-exposing-the-truth/",
     "summary": "The House Committee on Oversight held a public hearing titled 'Exposing the Truth' featuring testimony from military witnesses and government officials on UAP encounters and alleged cover-ups. Members pressed witnesses on the existence of secret retrieval programs, inadequate congressional notification, and whether intelligence agencies have been withholding information from elected officials.",
@@ -587,14 +587,14 @@
   },
   {
     "id": "aaro-historical-review-vol-1",
-    "title": "AARO Historical Record Report Volume 1 (1945\u20132023)",
+    "title": "AARO Historical Record Report Volume 1 (1945–2023)",
     "source": "AARO",
     "sourceUrl": "https://www.aaro.mil/",
     "documentUrl": "https://media.defense.gov/2024/Mar/08/2003409233/-1/-1/0/AARO-HISTORICAL-RECORD-REPORT-VOLUME-1-2024.PDF",
     "summary": "AARO's comprehensive historical review covering U.S. government involvement with UAPs from 1945 to 2023. Found no evidence of extraterrestrial technology but acknowledged gaps in record-keeping and institutional knowledge.",
     "expandedSummary": "AARO released its first comprehensive historical record report in March 2024, providing an authoritative retrospective examination of U.S. government UAP involvement spanning 1945 through 2023. The report documented the evolution of government investigation procedures, the institutional structures that managed UAP research across military and intelligence agencies, and the technical approaches employed to identify explanations for anomalous observations. The historical review examined government records, declassified documents, and institutional archives to trace continuities and discontinuities in official UAP policy across administrations. While the report found no evidence supporting recovery or possession of extraterrestrial technology, it identified significant gaps in official record-keeping practices and documented instances of institutional knowledge loss during agency transitions. The report's acknowledgment of these historical gaps has prompted improvements in archival procedures and documentation standards.",
     "keyPoints": [
-      "AARO published comprehensive historical review covering 1945\u20132023",
+      "AARO published comprehensive historical review covering 1945–2023",
       "Documented evolution of government UAP investigation procedures and structures",
       "Examined technical approaches across military and intelligence community",
       "Found no evidence of recovered extraterrestrial technology",
@@ -629,6 +629,40 @@
     "addedDate": "2024-01-15"
   },
   {
+    "id": "nara-580705285",
+    "title": "UAP [Unidentified Aerial Phenomena] Summary",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/580705285",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/488808322/FINAL_REDACTED_NON_PUBLIC_UAP_Summary.pdf",
+    "summary": "Record from the National Archives (NAID: 580705285).",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2023-12-04",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-580705021",
+    "title": "UAP [Unidentified Aerial Phenomena] and SID [Suspicious Incident Database] reporting requirements",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/580705021",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/488808322/FINAL_REDACTED_RE_UAP_and_SID_Reporting_Requirements.pdf",
+    "summary": "Record from the National Archives (NAID: 580705021).",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2023-11-22",
+    "addedDate": "2026-03-17"
+  },
+  {
     "id": "fy2023-consolidated-annual-report-uap",
     "title": "FY2023 Consolidated Annual Report on Unidentified Anomalous Phenomena",
     "source": "AARO",
@@ -654,6 +688,23 @@
     ],
     "publishedDate": "2023-10-17",
     "addedDate": "2023-10-18"
+  },
+  {
+    "id": "nara-493470301",
+    "title": "Fiscal Year 2023 Consolidated Annual Report on Unidentified Anomalous Phenomena October 2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/493470301",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468579/576UAP0021.pdf",
+    "summary": "This report is provided by the Department of Defense (DoD) and the Office of the Director of National Intelligence (ODNI) in response to a requirement established in the National Defense Authorization Act (NDAA) for Fiscal Year (FY) 2022, Section 1683 (h), as amended by Section 6802(k) of the FY 2023 NDAA (as codified at 50 U.S.C. § 3373).\n\nThe consolidated report covers individual reports of unidentified anomalous phenomena (UAP) from August 31, 2022 to April 30, 2023, as well as earlier UAP reports that had not already been included in another consolidated report. The All-Domain Anomaly Resolution Office (AARO) received a total of 291 UAP incident reports during this period, consisting of 274 that occurred during this period and another 17 that occurred during previous reporting periods of 2019-2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2023-10-16",
+    "addedDate": "2026-03-17"
   },
   {
     "id": "nasa-uap-independent-study-2023",
@@ -705,6 +756,40 @@
     ],
     "publishedDate": "2023-09-14",
     "addedDate": "2023-09-15"
+  },
+  {
+    "id": "nara-488808330",
+    "title": "Current and Future Flyover Reporting Guidance for SIDs [Suspicious Incident Databases]: A Proposal",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/488808330",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/488808322/ML24234A061.pdf",
+    "summary": "This item is a slideshow presentation given by Daryl Johnson that relates to Suspicious Incident Databases (SIDs).",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2023-08-23",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-580705288",
+    "title": "UAP [Unidentified Aerial Phenomena]/UFO [Unidentified Flying Object] Reporting Requirement and EWR [Enhanced Weapons Rule] Guidance - A question",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/580705288",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/488808322/FINAL_REDACTED_RE_UAP_UFO_Reporting_Requirement_and_EWR_Guidance_A_question_clean_with_no_attachment.pdf",
+    "summary": "Record from the National Archives (NAID: 580705288).",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2023-08-23",
+    "addedDate": "2026-03-17"
   },
   {
     "id": "house-oversight-uap-hearing-july-2023",
@@ -786,6 +871,23 @@
     "addedDate": "2023-04-20"
   },
   {
+    "id": "nara-580705293",
+    "title": "NSIR [Nuclear Security and Incident Response] Drones/UAP [Unidentified Aerial Phenomena] Reporting Requirement",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/580705293",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/488808322/RE_Drones_Unidentified_Aerial_Phenomena_UAP_reporting_requirements_JTK_NARA_Redacted.pdf",
+    "summary": "Record from the National Archives (NAID: 580705293).",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2022-06-17",
+    "addedDate": "2026-03-17"
+  },
+  {
     "id": "house-intelligence-uap-hearing-may-2022",
     "title": "House Intelligence Subcommittee Hearing on UAP (First Public Hearing in 50+ Years)",
     "source": "Congress",
@@ -794,7 +896,7 @@
     "summary": "Historic May 17, 2022 hearing before House Intelligence Subcommittee on Counterterrorism, Counterintelligence and Counterproliferation. First public congressional UAP hearing in over 50 years. Featured testimony from Pentagon officials Moultrie and Bray.",
     "expandedSummary": "The House Intelligence Subcommittee on Counterterrorism, Counterintelligence and Counterproliferation convened a historic public hearing on May 17, 2022, marking the first official congressional hearing focused on unidentified anomalous phenomena in over five decades. The hearing represented a watershed moment in elevating UAP from classified intelligence discussions to matters of public congressional scrutiny. Pentagon officials, including Deputy Director of Naval Intelligence Scott Bray and other Department of Defense representatives, testified regarding military observations of unexplained aerial phenomena and the Pentagon's investigative procedures. The public hearing transcript and subsequent congressional interest catalyzed legislative initiatives requiring sustained UAP transparency, standardized reporting procedures, and formal establishment of investigation offices. The 2022 hearing established the foundation for expanded governmental transparency mechanisms.",
     "keyPoints": [
-      "House Intelligence Subcommittee hearing on May 17, 2022 \u2014 first public UAP hearing in 50+ years",
+      "House Intelligence Subcommittee hearing on May 17, 2022 — first public UAP hearing in 50+ years",
       "Marked watershed moment elevating UAP to public congressional scrutiny",
       "Pentagon officials testified on military observations and investigation procedures",
       "Public hearing catalyzed subsequent legislative transparency initiatives",
@@ -810,6 +912,23 @@
     ],
     "publishedDate": "2022-05-17",
     "addedDate": "2022-05-18"
+  },
+  {
+    "id": "nara-493495782",
+    "title": "2022 Annual Report on Unidentified Aerial Phenomena",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/493495782",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468579/576UAP0007.pdf",
+    "summary": "This item is an annual report that provides an overview of unidentified anomalous phenomena (UAP) that have been reported since the March 5, 2021 information cut-off date for the Office of the Director of National Intelligence's (ODNI) \"Preliminary Assessment : Unidentified Aerial Phenomena\" (National Archives Identifier 493495781).",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2022-01-01",
+    "addedDate": "2026-03-17"
   },
   {
     "id": "odni-preliminary-assessment-uap-june-2021",
@@ -836,6 +955,23 @@
     ],
     "publishedDate": "2021-06-25",
     "addedDate": "2021-06-26"
+  },
+  {
+    "id": "nara-493495781",
+    "title": "Preliminary Assessment: Unidentified Aerial Phenomena",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/493495781",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468579/576UAP0003.pdf",
+    "summary": "This item is a preliminary report and intelligence assessment of the threat posed by unidentified aerial phenomena (UAP), and it includes information about the progress the Department of Defense Unidentified Aerial Phenomena Task Force (UAPTF) has made in understanding this threat. The report provides an overview for policymakers of challenges in assessments and the data set described in the report is limited primarily to U. S. government reporting of incidents occurring from November 2004 to March 2021.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2021-06-25",
+    "addedDate": "2026-03-17"
   },
   {
     "id": "pentagon-gimbal-gofast-flir-videos-2020",
@@ -1032,5 +1168,2385 @@
     ],
     "publishedDate": "1947-07-08",
     "addedDate": "2020-01-01"
+  },
+  {
+    "id": "nara-499915936",
+    "title": "AARO Trifold 2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915936",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/04_AARO_Trifold_2024.pdf",
+    "summary": "This item is a trifold handout explaining the All-domain Anomaly Resolution Office (AARO) from 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915953",
+    "title": "2025 AARO Trifold",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915953",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/021_AARO_Trifold_Jan2025.pdf",
+    "summary": "This item is a trifold handout explaining the All-domain Anomaly Resolution Office (AARO) from October 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915933",
+    "title": "Fiscal Year 2023 Consolidated Annual Report on Unidentified Anomalous Phenomena",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915933",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/01_2023_Annual_Report.pdf",
+    "summary": "This item is the Fiscal Year 2023 Consolidated Annual Report on Unidentified Anomalous Phenomena from the Office of the Director of National Intelligence and the Department of Defense from October, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915947",
+    "title": "2023 The U.S. Defense Department and its UAP Mission",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915947",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/015_2023_UAP_Mission_Backgrounder_Paper.pdf",
+    "summary": "This item is a backgrounder describing the All-domain Anomaly Resolution Office (AARO).",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915731",
+    "title": "UAP 10/26/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915731",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00386.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Miami, Florida (ZMA) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Fort Myers, Florida area on October 26, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915723",
+    "title": "UAP 8/22/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915723",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00377.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Headquarters Domestic Event Network (HQ DEN) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Thibodaux, Louisiana area on August 22, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915722",
+    "title": "UAP 7/27/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915722",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00376.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Wilmington, North Carolina area on July 27, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915719",
+    "title": "UAP 6/15/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915719",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00373.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Denver Terminal Radar Approach Control (TRACON, D01) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Denver, Colorado area on June 15, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915715",
+    "title": "UAP 5/16/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915715",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00369.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Palm Springs Tower (PSP) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Palm Springs, California area on May 16, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915713",
+    "title": "UAP 4/8/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915713",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00367.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Jacksonville, Florida (ZJX) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Orlando, Florida area on April 8, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915696",
+    "title": "UAP 2/4/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915696",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00350.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Denver, Colorado (ZDV) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Myton, Utah area on February 4, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915693",
+    "title": "UAP 1/27/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915693",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00346.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Cleveland, Ohio (ZOB) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Philipsburg, Pennsylvania area on January 27, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915682",
+    "title": "UAP 12/29/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915682",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00335.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Memphis, Tennessee (ZME) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Guntersville, Alabama area on December 29, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915681",
+    "title": "UAP 12/28/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915681",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00334.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Fort Worth, Texas (ZFW) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Shreveport, Louisiana area on December 28, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915671",
+    "title": "UAP 11/28/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915671",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00324.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Indianapolis, Indiana (ZID) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Charleston, West Virginia area on November 28, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915662",
+    "title": "UAP 11/15/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915662",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00315.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Boston Center, New Hampshire (ZBW) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Long Island, New York area on November 15, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915646",
+    "title": "UAP 9/19/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915646",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00299.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Indianapolis, Indiana (ZID) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Louisville, Kentucky area on September 19, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915639",
+    "title": "UAP 8/25/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915639",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00292.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Memphis, Tennessee (ZME) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Little Rock, Arkansas area on August 25, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915637",
+    "title": "UAP 8/21/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915637",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00290.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Houston, Texas (ZHU) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Picayune, Mississippi area on August 21, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915631",
+    "title": "UAP 8/5/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915631",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00284.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Jacksonville, Florida (ZJX) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Jacksonville, Florida area on August 5, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915618",
+    "title": "UAP 6/27/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915618",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00271.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Miami, Florida (ZMA) to the Domestic Event Network (DEN), and it relates to an event that was reported on June 27, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915617",
+    "title": "UAP 6/14/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915617",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00270.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Hagerstown, Maryland area on June 14, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915613",
+    "title": "UAP 5/29/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915613",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00266.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from New York, New York (ZNY) to the Domestic Event Network (DEN), and it relates to an event that was reported in the New York, New York area on May 29, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915609",
+    "title": "UAP 5/3/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915609",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00262.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Fayetteville, North Carolina area on May 3, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915602",
+    "title": "UAP 4/18/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915602",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00255.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Houston, Texas (ZHU) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Lufkin, Texas area on April 18, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915601",
+    "title": "UAP 4/17/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915601",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00254.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Southern Pines, North Carolina area on April 17, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915595",
+    "title": "UAP 4/10/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915595",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00248.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Anchorage, Alaska (ZAN) to the Domestic Event Network (DEN), and it relates to an event that was reported in the St. Paul Island, Alaska area on April 10, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915583",
+    "title": "UAP 3/5/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915583",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00234.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Dallas-Fort Worth International Tower (DFW) to the Domestic Event Network (DEN), and it relates to an event that was reported on March 5, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915567",
+    "title": "UAP 2/13/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915567",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00217.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Oakland, California (ZOA) to the Domestic Event Network (DEN), and it relates to an event that was reported in the South Kauai, Hawaii area on February 13, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915565",
+    "title": "UAP 2/12/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915565",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00215.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Boston Center, New Hampshire (ZBW) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Burlington, Vermont area on February 12, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915550",
+    "title": "UAP 2/5/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915550",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00200.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Memphis, Tennessee (ZME) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Jackson, Mississippi area on February 5, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915513",
+    "title": "UAP 2/3/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915513",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00163.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City, Kansas (ZKC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Braymer, Missouri area on February 3, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915512",
+    "title": "UAP 2/3/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915512",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00162.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City, Kansas (ZKC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Braymer, Missouri area on February 3, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915495",
+    "title": "UAP 1/26/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915495",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00144.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Lynchburg, Virginia area on January 26, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915487",
+    "title": "UAP 12/17/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915487",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00136.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City, Kansas (ZKC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Kansas City, Missouri area on December 17, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915482",
+    "title": "UAP 11/18/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915482",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00131.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Boston Center, New Hampshire (ZBW) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Hancock, New York area on November 18, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915480",
+    "title": "UAP 11/11/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915480",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00129.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Salt Lake City, Utah (ZLC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Ely, Nevada area on November 11, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915478",
+    "title": "UAP 10/24/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915478",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00127.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Chicago, Illinois (ZAU) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Chicago, Illinois area on October 24, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915465",
+    "title": "UAP 9/21/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915465",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00114.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Los Angeles, California (ZLA) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Page, Arizona area on September 21, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915461",
+    "title": "UAP 9/12/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915461",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00110.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Memphis, Tennessee (ZME) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Memphis, Tennessee area on September 12, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915448",
+    "title": "UAP 8/6/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915448",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00097.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Miami, Florida (ZMA) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Nassau, Bahamas area on August 6, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915443",
+    "title": "UAP 5/23/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915443",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00092.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Southern Pines, North Carolina area on May 23, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915440",
+    "title": "UAP 4/26/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915440",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00089.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City, Kansas (ZKC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Liberal, Kansas area on April 26, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915439",
+    "title": "UAP 4/22/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915439",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00088.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Kessel, West Virginia area on April 22, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915437",
+    "title": "UAP 4/8/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915437",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00086.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Memphis, Tennessee (ZME) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Louisville, Kentucky area on April 8, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915424",
+    "title": "UAP 11/20/2021",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915424",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00072.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Memphis, Tennessee (ZME) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Memphis, Tennessee area on November 20, 2021.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915417",
+    "title": "UAP 8/29/2021",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915417",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00065.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Northern California Terminal Radar Approach Control (TRACON, NCT) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Oakland, California area on August 29, 2021.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915415",
+    "title": "UAP 8/22/2021",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915415",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00063.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Kinston, North Carolina area on August 22, 2021.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915412",
+    "title": "UAP 7/24/2021",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915412",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00060.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from New York, New York (ZNY) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Schooley's Mountain, New Jersey area on July 24, 2021.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915408",
+    "title": "UAP 6/12/2021",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915408",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00056.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Miami, Florida (ZMA) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Palm Beach, Florida area on June 12, 2021.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915403",
+    "title": "UAP 5/20/2021",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915403",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00051.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Richmond, Virginia area on May 20, 2021.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915401",
+    "title": "UAP 4/26/2021",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915401",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00049.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported on April 26, 2021.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915395",
+    "title": "UAP 11/14/2020",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915395",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00043.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Atlanta, Georgia (ZTL) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Greensboro, North Carolina area on November 14, 2020.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915392",
+    "title": "UAP 3/4/2019",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915392",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00039.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Memphis, Tennessee (ZME) to the Domestic Event Network (DEN), and it relates to an event that was reported on March 4, 2019.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915389",
+    "title": "UAP 2/8/2019",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915389",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00036.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Salt Lake City, Utah (ZLC) to the Domestic Event Network (DEN), and it relates to an event that was reported on February 8, 2019.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915387",
+    "title": "UAP 6/15/2018",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915387",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00034.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Washington Center, Virginia (ZDC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Patuxent River, Maryland area on June 15, 2018.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915374",
+    "title": "UAP 8/19/2012",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915374",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00017.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Potomac Terminal Radar Approach Control (TRACON, PCT) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Gaithersburg, Maryland area on August 19, 2012.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915367",
+    "title": "UAP 10/16/2009",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915367",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00010.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Denver, Colorado (ZDV) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Denver, Colorado area on October 16, 2009.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915365",
+    "title": "UAP 4/23/2009",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915365",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00008.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Houston, Texas (ZHU) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Houston, Texas area on April 23, 2009.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915721",
+    "title": "UAP 7/14/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915721",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00375.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Salt Lake City, Utah (ZLC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Pocatello, Idaho area on July 14, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915712",
+    "title": "UAP 3/29/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915712",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00366.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Houston, Texas (ZHU) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Victoria, Texas area on March 29, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915706",
+    "title": "UAP 2/24/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915706",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00360.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Jacksonville, Florida (ZJX) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Wilmington, North Carolina area on February 24, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915702",
+    "title": "UAP 2/18/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915702",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00356.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Denver, Colorado (ZDV) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Pueblo, Colorado area on February 18, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915699",
+    "title": "UAP 2/14/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915699",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00353.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Memphis, Tennessee (ZME) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Huntsville, Alabama area on February 14, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915694",
+    "title": "UAP 1/27/2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915694",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00347.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Oakland, California (ZOA) to the Domestic Event Network (DEN), and it relates to an event that was reported in the San Francisco, California area on January 27, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915679",
+    "title": "UAP 12/23/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915679",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00332.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City, Kansas (ZKC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Springfield, Illinois area on December 23, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915673",
+    "title": "UAP 12/3/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915673",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00326.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Denver, Colorado (ZDV) to the Domestic Event Network (DEN), and it relates to an event that was reported in the O'Neill, Nebraska area on December 3, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915672",
+    "title": "UAP 12/2/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915672",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00325.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Great Falls Tower/Terminal Radar Approach Control (TRACON, GTF) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Great Falls, Montana area on December 2, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915666",
+    "title": "UAP 11/22/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915666",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00319.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Miami, Florida (ZMA) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Fort Myers, Florida area on November 22, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915665",
+    "title": "UAP 11/19/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915665",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00318.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Jacksonville, Florida (ZJX) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Tampa, Florida area on November 19, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915656",
+    "title": "UAP 10/28/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915656",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00309.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Cleveland, Ohio (ZOB) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Buffalo, New York area on October 28, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915651",
+    "title": "UAP 10/5/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915651",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00304.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Boston Center, New Hampshire (ZBW) to the Domestic Event Network (DEN), and it relates to an event that was reported on October 5, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915649",
+    "title": "UAP 10/4/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915649",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00302.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Denver, Colorado (ZDV) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Scottsbluff, Nebraska area on October 4, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915640",
+    "title": "UAP 8/27/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915640",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00293.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Albuquerque, New Mexico (ZAB) to the Domestic Event Network (DEN), and it relates to an event that was reported in the El Paso, Texas area on August 27, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915636",
+    "title": "UAP 8/17/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915636",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00289.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Memphis, Tennessee (ZME) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Birmingham, Alabama area on August 17, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915624",
+    "title": "UAP 7/21/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915624",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00277.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Los Angeles, California (ZLA) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Los Angeles, California area on July 21, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915612",
+    "title": "UAP 5/25/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915612",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00265.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Northern California Terminal Radar Approach Control (TRACON, NCT) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Truckee, California area on May 25, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915607",
+    "title": "UAP 5/1/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915607",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00260.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Los Angeles, California (ZLA) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Santa Catalina, California area on May 1, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915606",
+    "title": "UAP 4/27/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915606",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00259.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Albuquerque, New Mexico (ZAB) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Gila Bend, Arizona area on April 27, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915590",
+    "title": "UAP 3/21/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915590",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00243.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Colorado Springs Tower/Terminal Radar Approach Control (TRACON, COS) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Colorado Springs, Colorado area on March 21, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915587",
+    "title": "UAP 3/10/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915587",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00239.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Boston Center, New Hampshire (ZBW) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Nantucket, Massachusetts area on March 10, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915586",
+    "title": "UAP 3/10/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915586",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00238.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Minneapolis, Minnesota (ZMP) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Fort Dodge, Iowa area on March 10, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915573",
+    "title": "UAP 2/19/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915573",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00224.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Atlanta, Georgia (ZTL) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Snowbird, Tennessee area on February 19, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915555",
+    "title": "UAP 2/10/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915555",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00205.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from New York, New York (ZNY) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Dushore, Pennsylvania area on February 10, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915554",
+    "title": "UAP 2/7/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915554",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00204.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Boston Center, New Hampshire (ZBW) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Kennebunk, ME area on February 7, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915551",
+    "title": "UAP 2/6/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915551",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00201.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Anchorage, Alaska (ZAN) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Kotzebue, Alaska area on February 6, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915548",
+    "title": "UAP 2/4/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915548",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00198.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Salt Lake City, Utah (ZLC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Billings, Montana area on February 4, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915542",
+    "title": "UAP 2/3/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915542",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00192.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Denver, Colorado (ZDV) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Robinson, Kansas area on February 3, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915539",
+    "title": "UAP 2/3/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915539",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00189.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Denver, Colorado (ZDV) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Robinson, Kansas area on February 3, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915530",
+    "title": "UAP 2/3/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915530",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00180.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City, Kansas (ZKC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the St. Joseph, Missouri area on February 3, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915522",
+    "title": "UAP 2/3/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915522",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00172.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City Tower/Terminal Radar Approach Control (TRACON, MCI) to the Domestic Event Network (DEN), and it relates to an event that was reported in the St. Joseph, Missouri area on February 3, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915500",
+    "title": "UAP 2/1/2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915500",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00149.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Salt Lake City, Utah (ZLC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Kalispell, Montana area on February 1, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915491",
+    "title": "UAP 12/17/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915491",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00140.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City, Kansas (ZKC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Kansas City, Missouri area on December 17, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915488",
+    "title": "UAP 12/17/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915488",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00137.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City, Kansas (ZKC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Kansas City, Missouri area on December 17, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915485",
+    "title": "UAP 12/14/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915485",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00134.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Kansas City, Kansas (ZKC) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Bradford, Illinois area on December 14, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915484",
+    "title": "UAP 12/11/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915484",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00133.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Minneapolis, Minnesota (ZMP) to the Domestic Event Network (DEN), and it relates to an event that was reported in the Des Moines, Iowa area on December 11, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915473",
+    "title": "UAP 10/9/2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915473",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00122.pdf",
+    "summary": "This item is a Skywatch Incident Report created by the Federal Aviation Administration's (FAA) Air Traffic Organization's (ATO) Office of System Operations Security (AJR-2). This report is from Denver, Colorado (ZDV) to the Domestic Event Network (DEN), and it relates to an event that was reported on October 9, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915867",
+    "title": "N2166L UFO-UAP ACTIVITY 11-15-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915867",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00571.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the New York, New York (SWF) area on November 15, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915937",
+    "title": "AARO Historical Record Report Volume 1",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915937",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/05_AARO_Historical_Record_Report.pdf",
+    "summary": "This item is the \"Report on the Historical Record of U.S. Government Involvement with Unidentified Anomalous Phenomena (UAP) Volume 1,\" dated February 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915957",
+    "title": "Public UAP Sightings and The Environment:  An Analysis for Sky View Potential",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915957",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/25_Sky_View_Final_Draft.pdf",
+    "summary": "This item is a proposed journal article by Richard M. Medina, Simon Brewer, and Sean M. Kirkpatrick titled \"Public UAP Sightings and the Environment: An Analysis of Sky View Potential\" dated February 17, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915938",
+    "title": "SAPCO CAPCO MFR",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915938",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/06_SAPCO_CAPCO_MFR.pdf",
+    "summary": "This item is the memorandum for record on the Authorization to Provide Information to Personnel Representing the All-domain Anomaly Resolution Office (AARO), Office of the Under Secretary of Defense for Intelligence and Security (OUSD(I&S)), from March 8, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915954",
+    "title": "Senate Armed Services Committee (SASC) on Emerging Threats and Capabilities Briefing 2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915954",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/022_SASC_Transcript_2023.pdf",
+    "summary": "This item is a stenographic transcript of the Senate Subcommittee on Emerging Threats and Capabilities' Hearing to Receive Testimony on the Mission, Activities, Oversight, and Budget of the All-domain Anomaly Resolution Office (AARO).",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915934",
+    "title": "Physical Constraints on Unidentified Aerial Phenomena",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915934",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/02_Physical_Constraints_Paper.pdf",
+    "summary": "This item is a the draft version of the Physical Constraints on Unidentified Aerial Phenomena informational paper from March 1, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915749",
+    "title": "AAL2547  UFO-UAP 01-29-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915749",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00446.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Walnut Ridge, Arkansas (ARG) area on January 29, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915747",
+    "title": "N926FM UFO-UAP 01-26-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915747",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00444.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Lynchburg, Virginia (LYH) area on January 26, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915753",
+    "title": "UAL1046 UFO-UAP 02-02-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915753",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00450.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Sioux City, Iowa (SUX) area on February 2, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915748",
+    "title": "N541Z UFO-UAP 01-26-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915748",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00445.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Lynchburg, Virginia (LYH) area on January 26, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915746",
+    "title": "DAL8934 UFO-UAP 01-23-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915746",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00443.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the St. Petersburg-Clearwater, Florida (PIE) area on January 23, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915750",
+    "title": "AAL2399 UFO-UAP 02-01-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915750",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00447.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Nashville, Tennessee (BNA) area on February 1, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915926",
+    "title": "AAL1913 UFO-UAP ACTIVITY 07-05-2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915926",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00632.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Topeka, Kansas (FOE) area on July 5, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915907",
+    "title": "AAL2054 UFO-UAP ACTIVITY 02-20-2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915907",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00613.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Crestview, Florida (CEW) area on February 20, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915893",
+    "title": "MXY505 UFO-UAP ACTIVITY 01-20-2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915893",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00599.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Orangeburg, South Carolina area on January 20, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915883",
+    "title": "SWA111 UFO-UAP ACTIVITY 12-22-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915883",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00589.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Pocatello, Idaho (PIH) area on December 22, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915864",
+    "title": "AAL2928 UFO-UAP ACTIVITY 10-28-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915864",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00567.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Lynchburg, Virginia (LYH) area on October 28, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915862",
+    "title": "ASA1233 UFO-UAP ACTIVITY 10-28-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915862",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00565.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Ukiah, California area on October 27, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915857",
+    "title": "DAL2779 UFO-UAP ACTIVITY 10-04-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915857",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00560.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Scottsbluff, Nebraska (BFF) area on October 4, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915828",
+    "title": "N1446C UFO-UAP ACTIVITY 07-26-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915828",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00530.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Cleveland, Ohio (BKL) area on July 26, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915827",
+    "title": "AAL821 UFO-UAP ACTIVITY 07-23-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915827",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00529.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Dallas-Fort Worth, Texas area on July 23, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915818",
+    "title": "EJA828 UFO-UAP ACTIVITY 07-08-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915818",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00520.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Albany, New York (ALB) area on July 8, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915813",
+    "title": "FDX64 UFO-UAP ACTIVITY 05-29-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915813",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00515.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Miami, Florida area on May 29, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915807",
+    "title": "N781CW UFO-UAP ACTIVITY 04-22-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915807",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00508.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Fort Stockton, Texas (FST) area on April 22, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915802",
+    "title": "SWG615 UFO-UAP ACTIVITY 04-15-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915802",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00503.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Savannah, Georgia (SAV) area on April 15, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915796",
+    "title": "SWA1307 UFO-UAP ACTIVITY 03-22-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915796",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00497.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Lawrenceville, Virginia (LVL) area on March 22, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915766",
+    "title": "UAL2059 UFO-UAP ACTIVITY 02-11-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915766",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00463.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Sioux Falls, South Dakota (FSD) area on February 11, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915761",
+    "title": "UPS1052 UFO-UAP ACTIVITY 02-10-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915761",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00458.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Wilkes-Barre, Pennsylvania (WBW) area on February 10, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915757",
+    "title": "DAL395 UFO-UAP ACTIVITY 02-05-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915757",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00454.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Jackson, Mississippi (JAN) area on February 5, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915737",
+    "title": "N499PA UFO-UAP ACTIVITY 03-09-2022",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915737",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00399.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Lynchburg, Virginia (LYH) area on March 9, 2022.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915909",
+    "title": "NKS1777 UFO-UAP ACTIVITY 02-23-2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915909",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00615.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Wilmington, North Carolina (ILM) area on February 23, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915895",
+    "title": "ASA440 UFO-UAP ACTIVITY 01-24-2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915895",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00601.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Cherokee, Wyoming (DEN) area on January 24, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915890",
+    "title": "EJA466 UFO-UAP ACTIVITY 01-19-2024",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915890",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00596.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Thayer, Missouri (42M) area on January 19, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915888",
+    "title": "N268CA UFO-UAP ACTIVITY 12-28-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915888",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00594.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Hartselle, Alabama (5M0) area on December 28, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915886",
+    "title": "SWA1508 UFO-UAP ACTIVITY 12-27-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915886",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00592.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Shreveport, Louisiana (SHV) area on December 27, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915882",
+    "title": "DAL2665 UFO-UAP ACTIVITY 12-22-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915882",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00588.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Pocatello, Idaho (PIH) area on December 22, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915879",
+    "title": "N90CW UFO-UAP ACTIVITY 12-14-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915879",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00585.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Muscle Shoals, Alabama area on December 14, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915878",
+    "title": "SWA498 UFO-UAP ACTIVITY 12-07-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915878",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00584.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Meridian, Mississippi (MEI) area on December 7, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915859",
+    "title": "CONUS UFO-UAP ACTIVITY 10-12-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915859",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00562.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Cape Canaveral, Florida area on October 13, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915853",
+    "title": "JBU811 UFO-UAP ACTIVITY 09-25-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915853",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00556.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Rome, New York area on September 25, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915852",
+    "title": "ATN3443 UFO-UAP ACTIVITY 09-19-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915852",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00555.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Louisville, Kentucky (SDF) area on September 19, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915847",
+    "title": "UAL1560 UFO-UAP ACTIVITY 08-28-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915847",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00550.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the Philadelphia, Pennsylvania (PNE) area on August 28, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
+  },
+  {
+    "id": "nara-499915842",
+    "title": "UAL1491 UFO-UAP ACTIVITY 08-26-2023",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915842",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468575/237UAP00545.pdf",
+    "summary": "This item is a report created by the Federal Aviation Administration's (FAA) Washington Operation Center (WOC). The report is from the WOC to Leslie Shea, and it relates to an event that was reported in the El Paso, Texas (ELP) area on August 26, 2023.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "1900-01-01",
+    "addedDate": "2026-03-17"
   }
 ]
