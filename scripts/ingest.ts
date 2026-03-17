@@ -121,10 +121,15 @@ async function fetchNationalArchives(): Promise<UAPDocument[]> {
           ? `https://catalog.archives.gov/id/${naId}`
           : "";
 
-        // Extract date from various v2 fields
-        const startDate = record.inclusiveStartDate;
+        // Extract date from v2 fields — try multiple date sources
+        const startDate =
+          record.coverageStartDate ||
+          record.inclusiveStartDate ||
+          record.productionDates?.[0];
         let publishedDate = "1900-01-01";
-        if (startDate?.year) {
+        if (startDate?.logicalDate) {
+          publishedDate = startDate.logicalDate.slice(0, 10);
+        } else if (startDate?.year) {
           const y = startDate.year;
           const m = String(startDate.month || 1).padStart(2, "0");
           const d = String(startDate.day || 1).padStart(2, "0");
