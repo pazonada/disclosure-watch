@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { sendEmail } from "@/lib/resend";
 import { buildAlertEmailHtml, buildAlertSubject, AlertItem } from "@/lib/alert-email";
+import { generateAlertSummary } from "@/lib/ai";
 
 export const dynamic = "force-dynamic";
 
@@ -57,6 +58,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ sent: 0, reason: "No paid subscribers." });
   }
 
+  // Generate a high-level summary for the batch (once, shared across all emails)
+  const summary = await generateAlertSummary(items);
+
   let sent = 0;
 
   for (const sub of subscribers) {
@@ -99,7 +103,7 @@ export async function POST(request: NextRequest) {
       await sendEmail({
         to: sub.email,
         subject: buildAlertSubject(matchingItems),
-        html: buildAlertEmailHtml(matchingItems).replace(
+        html: buildAlertEmailHtml(matchingItems, summary).replace(
           "{{email}}",
           encodeURIComponent(sub.email)
         ),

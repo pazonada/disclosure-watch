@@ -6,6 +6,7 @@ import {
   buildDailyDigestSubject,
   AlertItem,
 } from "@/lib/alert-email";
+import { generateAlertSummary } from "@/lib/ai";
 
 export const dynamic = "force-dynamic";
 
@@ -121,6 +122,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ sent: 0, reason: "No paid subscribers." });
   }
 
+  // Generate a high-level summary for the day's items (once, shared across all emails)
+  const summary = await generateAlertSummary(items);
+
   let sent = 0;
 
   for (const sub of subscribers) {
@@ -160,7 +164,7 @@ export async function GET(request: NextRequest) {
       await sendEmail({
         to: sub.email,
         subject: buildDailyDigestSubject(matchingItems),
-        html: buildDailyDigestEmailHtml(matchingItems).replace(
+        html: buildDailyDigestEmailHtml(matchingItems, summary).replace(
           "{{email}}",
           encodeURIComponent(sub.email)
         ),

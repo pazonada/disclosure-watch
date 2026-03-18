@@ -35,7 +35,10 @@ export default function HomePage() {
   }, []);
 
   const recentDocs = useMemo(
-    () => sortByDate(officialDocs).slice(0, 3),
+    () =>
+      [...officialDocs]
+        .sort((a, b) => (b.addedDate || "").localeCompare(a.addedDate || ""))
+        .slice(0, 3),
     [officialDocs]
   );
 

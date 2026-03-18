@@ -19,8 +19,14 @@ interface AlertItem {
 const SITE_URL = "https://disclosurewatch.com";
 const HERO_IMG = `${SITE_URL}/images/earth-hero.jpg`;
 const SITE_BG = "#0a0e14";
-const FONT_IMPORT = `<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">`;
-const H1_FONT = "'Special Elite', cursive";
+// Web fonts in email: @import inside <style> works in Apple Mail, iOS Mail,
+// Thunderbird, and some Android clients. Gmail/Outlook strip it — they'll use
+// the fallback stack (Georgia → serif).
+const FONT_STYLE = `
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+</style>`;
+const H1_FONT = "'Special Elite', Georgia, 'Times New Roman', serif";
 
 const WRAPPER_STYLE =
   'margin: 0; padding: 0; background: #f4f5f7; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;';
@@ -71,7 +77,7 @@ function footerHtml(footerNote: string): string {
 
 // ── Insider Alert Email ─────────────────────────────────────────────────────
 
-export function buildAlertEmailHtml(items: AlertItem[]): string {
+export function buildAlertEmailHtml(items: AlertItem[], summary = ""): string {
   const itemsHtml = items
     .slice(0, 10)
     .map((item) => {
@@ -109,7 +115,7 @@ export function buildAlertEmailHtml(items: AlertItem[]): string {
   return `
     <!DOCTYPE html>
     <html>
-    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_IMPORT}</head>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_STYLE}</head>
     <body style="${WRAPPER_STYLE}">
       <div style="${CONTAINER_STYLE}">
 
@@ -127,6 +133,14 @@ export function buildAlertEmailHtml(items: AlertItem[]): string {
           <p style="color: ${MUTED_COLOR}; font-size: 13px; margin: 0 0 20px; text-align: center;">
             ${summaryLine} just added to the tracker
           </p>
+
+          ${summary ? `
+          <div style="padding: 16px 20px; background: ${CARD_BG}; border-radius: 8px; margin-bottom: 20px; border-left: 3px solid ${LINK_COLOR};">
+            <p style="color: ${BODY_COLOR}; font-size: 14px; line-height: 1.6; margin: 0;">
+              ${summary}
+            </p>
+          </div>
+          ` : ""}
 
           ${itemsHtml}
 
@@ -167,7 +181,7 @@ export function buildAlertSubject(items: AlertItem[]): string {
 
 // ── Insider Daily Digest Email ───────────────────────────────────────────────
 
-export function buildDailyDigestEmailHtml(items: AlertItem[]): string {
+export function buildDailyDigestEmailHtml(items: AlertItem[], summary = ""): string {
   const itemsHtml = items
     .slice(0, 10)
     .map((item) => {
@@ -211,7 +225,7 @@ export function buildDailyDigestEmailHtml(items: AlertItem[]): string {
   return `
     <!DOCTYPE html>
     <html>
-    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_IMPORT}</head>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_STYLE}</head>
     <body style="${WRAPPER_STYLE}">
       <div style="${CONTAINER_STYLE}">
 
@@ -232,6 +246,14 @@ export function buildDailyDigestEmailHtml(items: AlertItem[]): string {
           <p style="color: ${MUTED_COLOR}; font-size: 13px; margin: 0 0 20px; text-align: center;">
             ${summaryLine} added in the last 24 hours
           </p>
+
+          ${summary ? `
+          <div style="padding: 16px 20px; background: ${CARD_BG}; border-radius: 8px; margin-bottom: 20px; border-left: 3px solid ${LINK_COLOR};">
+            <p style="color: ${BODY_COLOR}; font-size: 14px; line-height: 1.6; margin: 0;">
+              ${summary}
+            </p>
+          </div>
+          ` : ""}
 
           ${itemsHtml}
 
@@ -260,7 +282,7 @@ export function buildDigestEmailHtml(summary: string, weekOf: string): string {
   return `
     <!DOCTYPE html>
     <html>
-    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_IMPORT}</head>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_STYLE}</head>
     <body style="${WRAPPER_STYLE}">
       <div style="${CONTAINER_STYLE}">
 
@@ -310,7 +332,7 @@ export function buildVerificationEmailHtml(code: string): string {
   return `
     <!DOCTYPE html>
     <html>
-    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_IMPORT}</head>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${FONT_STYLE}</head>
     <body style="${WRAPPER_STYLE}">
       <div style="${CONTAINER_STYLE}">
 
