@@ -8,10 +8,27 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
-  // Read the hero image and convert to base64 data URL
-  const imgPath = join(process.cwd(), "public", "images", "earth-hero.jpg");
-  const imgData = await readFile(imgPath);
+  // Load hero image, favicon SVG, and Special Elite font in parallel
+  const cwd = process.cwd();
+  const [imgData, svgData, fontData] = await Promise.all([
+    readFile(join(cwd, "public", "images", "earth-hero.jpg")),
+    readFile(join(cwd, "app", "icon.svg"), "utf-8"),
+    // Use an older user-agent so Google Fonts serves TTF (not WOFF2)
+    // — @vercel/og only supports TTF/OTF
+    fetch(
+      "https://fonts.googleapis.com/css2?family=Special+Elite&display=swap",
+      { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:27.0) Gecko/20100101 Firefox/27.0" } }
+    )
+      .then((r) => r.text())
+      .then((css) => {
+        const url = css.match(/src:\s*url\(([^)]+)\)/)?.[1];
+        return url ? fetch(url).then((r) => r.arrayBuffer()) : null;
+      })
+      .catch(() => null),
+  ]);
+
   const imgBase64 = `data:image/jpeg;base64,${imgData.toString("base64")}`;
+  const svgBase64 = `data:image/svg+xml;base64,${Buffer.from(svgData).toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -28,8 +45,7 @@ export default async function Image() {
           overflow: "hidden",
         }}
       >
-        {/* Hero image as background */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+        {/* Hero image — visible as background */}
         <img
           src={imgBase64}
           alt=""
@@ -44,7 +60,7 @@ export default async function Image() {
           }}
         />
 
-        {/* Dark overlay for text legibility */}
+        {/* Subtle overlay — light enough to see the earth */}
         <div
           style={{
             position: "absolute",
@@ -52,7 +68,8 @@ export default async function Image() {
             left: 0,
             right: 0,
             bottom: 0,
-            background: "linear-gradient(180deg, rgba(10,14,20,0.55) 0%, rgba(10,14,20,0.85) 100%)",
+            background:
+              "linear-gradient(180deg, rgba(10,14,20,0.35) 0%, rgba(10,14,20,0.7) 100%)",
             display: "flex",
           }}
         />
@@ -68,27 +85,26 @@ export default async function Image() {
             position: "relative",
           }}
         >
-          {/* Icon */}
-          <div
-            style={{
-              fontSize: "48px",
-              marginBottom: "24px",
-              display: "flex",
-            }}
-          >
-            🛸
-          </div>
+          {/* Favicon */}
+          <img
+            src={svgBase64}
+            alt=""
+            width={56}
+            height={56}
+            style={{ marginBottom: "20px" }}
+          />
 
-          {/* Site name */}
+          {/* Site name — Special Elite */}
           <div
             style={{
               fontSize: "64px",
-              fontWeight: 700,
+              fontFamily: fontData ? "'Special Elite'" : "Georgia, serif",
               color: "#ffffff",
               letterSpacing: "0.02em",
               textAlign: "center",
               lineHeight: 1.1,
               display: "flex",
+              textShadow: "0 2px 12px rgba(0,0,0,0.5)",
             }}
           >
             Disclosure Watch
@@ -109,27 +125,29 @@ export default async function Image() {
           {/* Tagline */}
           <div
             style={{
-              fontSize: "24px",
-              color: "rgba(255,255,255,0.8)",
+              fontSize: "22px",
+              color: "rgba(255,255,255,0.85)",
               textAlign: "center",
               lineHeight: 1.5,
               maxWidth: "700px",
               display: "flex",
+              textShadow: "0 1px 8px rgba(0,0,0,0.4)",
             }}
           >
-            Track U.S. government UAP disclosure activity. AARO records, hearings, FOIA releases, and milestones.
+            Track U.S. government UAP disclosure activity. AARO records,
+            hearings, FOIA releases, and milestones.
           </div>
 
           {/* URL */}
           <div
             style={{
-              fontSize: "16px",
-              color: "rgba(255,255,255,0.4)",
-              marginTop: "32px",
+              fontSize: "15px",
+              color: "rgba(255,255,255,0.45)",
+              marginTop: "28px",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              fontFamily: "monospace",
               display: "flex",
+              textShadow: "0 1px 4px rgba(0,0,0,0.3)",
             }}
           >
             disclosurewatch.com
@@ -139,6 +157,16 @@ export default async function Image() {
     ),
     {
       ...size,
+      fonts: fontData
+        ? [
+            {
+              name: "Special Elite",
+              data: fontData,
+              style: "normal" as const,
+              weight: 400 as const,
+            },
+          ]
+        : [],
     }
   );
 }
