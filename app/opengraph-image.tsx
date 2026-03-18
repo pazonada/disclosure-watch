@@ -8,13 +8,12 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
-  // Load hero image, favicon SVG, and Special Elite font in parallel
   const cwd = process.cwd();
   const [imgData, svgData, fontData] = await Promise.all([
     readFile(join(cwd, "public", "images", "earth-hero.jpg")),
     readFile(join(cwd, "app", "icon.svg"), "utf-8"),
-    // Use an older user-agent so Google Fonts serves TTF (not WOFF2)
-    // — @vercel/og only supports TTF/OTF
+    // Older user-agent → Google Fonts serves TTF (not WOFF2).
+    // @vercel/og only supports TTF/OTF.
     fetch(
       "https://fonts.googleapis.com/css2?family=Special+Elite&display=swap",
       { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:27.0) Gecko/20100101 Firefox/27.0" } }
@@ -45,7 +44,7 @@ export default async function Image() {
           overflow: "hidden",
         }}
       >
-        {/* Hero image — visible as background */}
+        {/* Hero image */}
         <img
           src={imgBase64}
           alt=""
@@ -60,7 +59,7 @@ export default async function Image() {
           }}
         />
 
-        {/* Subtle overlay — light enough to see the earth */}
+        {/* Overlay — dark enough for text but earth still visible */}
         <div
           style={{
             position: "absolute",
@@ -69,7 +68,7 @@ export default async function Image() {
             right: 0,
             bottom: 0,
             background:
-              "linear-gradient(180deg, rgba(10,14,20,0.35) 0%, rgba(10,14,20,0.7) 100%)",
+              "linear-gradient(180deg, rgba(10,14,20,0.4) 0%, rgba(10,14,20,0.75) 100%)",
             display: "flex",
           }}
         />
@@ -94,7 +93,7 @@ export default async function Image() {
             style={{ marginBottom: "20px" }}
           />
 
-          {/* Site name — Special Elite */}
+          {/* Site name */}
           <div
             style={{
               fontSize: "64px",
@@ -104,7 +103,6 @@ export default async function Image() {
               textAlign: "center",
               lineHeight: 1.1,
               display: "flex",
-              textShadow: "0 2px 12px rgba(0,0,0,0.5)",
             }}
           >
             Disclosure Watch
@@ -125,16 +123,15 @@ export default async function Image() {
           {/* Tagline */}
           <div
             style={{
-              fontSize: "22px",
-              color: "rgba(255,255,255,0.85)",
+              fontSize: "24px",
+              color: "#ffffff",
               textAlign: "center",
               lineHeight: 1.5,
-              maxWidth: "700px",
+              maxWidth: "740px",
               display: "flex",
-              textShadow: "0 1px 8px rgba(0,0,0,0.4)",
             }}
           >
-            Track U.S. government UAP disclosure activity. Congressional
+            Track U.S. government UAP disclosure activity: congressional
             hearings, FOIA releases, National Archives records, and milestones.
           </div>
 
@@ -147,7 +144,6 @@ export default async function Image() {
               letterSpacing: "0.08em",
               textTransform: "uppercase",
               display: "flex",
-              textShadow: "0 1px 6px rgba(0,0,0,0.4)",
             }}
           >
             disclosurewatch.com
