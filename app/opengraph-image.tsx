@@ -141,13 +141,13 @@ export default async function Image() {
           {/* URL */}
           <div
             style={{
-              fontSize: "15px",
-              color: "rgba(255,255,255,0.45)",
+              fontSize: "22px",
+              color: "#c6d751",
               marginTop: "28px",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
               display: "flex",
-              textShadow: "0 1px 4px rgba(0,0,0,0.3)",
+              textShadow: "0 1px 6px rgba(0,0,0,0.4)",
             }}
           >
             disclosurewatch.com
