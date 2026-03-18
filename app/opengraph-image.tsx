@@ -134,8 +134,8 @@ export default async function Image() {
               textShadow: "0 1px 8px rgba(0,0,0,0.4)",
             }}
           >
-            Track U.S. government UAP disclosure activity. AARO records,
-            hearings, FOIA releases, and milestones.
+            Track U.S. government UAP disclosure activity. Congressional
+            hearings, FOIA releases, National Archives records, and milestones.
           </div>
 
           {/* URL */}

@@ -18,7 +18,7 @@ const specialElite = Special_Elite({
 export const metadata: Metadata = {
   title: "Disclosure Watch — UAP government disclosure dashboard",
   description:
-    "Track U.S. government UAP disclosure activity in one place. AARO records, congressional hearings, FOIA releases, and key milestones — summarized in plain English.",
+    "Track U.S. government UAP disclosure activity in one place. Congressional hearings, FOIA releases, National Archives records, and key milestones — summarized in plain English.",
   keywords: ["UAP", "UFO", "AARO", "disclosure", "government", "unidentified anomalous phenomena", "disclosure watch"],
   other: {
     "image-credit": "Hero photo by Javier Miranda on Unsplash",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Disclosure Watch — UAP government disclosure dashboard",
     description:
-      "Track U.S. government UAP disclosure activity. AARO records, hearings, FOIA releases, and milestones.",
+      "Track U.S. government UAP disclosure activity. Congressional hearings, FOIA releases, National Archives records, and milestones.",
     type: "website",
     url: "https://disclosurewatch.com",
     locale: "en_US",
