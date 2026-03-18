@@ -1,11 +1,18 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const alt = "Disclosure Watch — UAP government disclosure dashboard";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
+  // Read the hero image and convert to base64 data URL
+  const imgPath = join(process.cwd(), "public", "images", "earth-hero.jpg");
+  const imgData = await readFile(imgPath);
+  const imgBase64 = `data:image/jpeg;base64,${imgData.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -16,44 +23,36 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #0a0e14 0%, #141c28 50%, #0a0e14 100%)",
+          background: "#0a0e14",
           position: "relative",
+          overflow: "hidden",
         }}
       >
-        {/* Grid overlay */}
-        <div
+        {/* Hero image as background */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={imgBase64}
+          alt=""
           style={{
             position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "linear-gradient(to right, rgba(24,30,40,0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(24,30,40,0.5) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-            display: "flex",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center top",
           }}
         />
 
-        {/* Lime glow accent */}
+        {/* Dark overlay for text legibility */}
         <div
           style={{
             position: "absolute",
-            top: "-120px",
-            left: "-120px",
-            width: "400px",
-            height: "400px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(198,215,81,0.12) 0%, transparent 70%)",
-            display: "flex",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-80px",
-            right: "-80px",
-            width: "350px",
-            height: "350px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "linear-gradient(180deg, rgba(10,14,20,0.55) 0%, rgba(10,14,20,0.85) 100%)",
             display: "flex",
           }}
         />
@@ -69,7 +68,7 @@ export default async function Image() {
             position: "relative",
           }}
         >
-          {/* Satellite icon */}
+          {/* Icon */}
           <div
             style={{
               fontSize: "48px",
@@ -95,7 +94,7 @@ export default async function Image() {
             Disclosure Watch
           </div>
 
-          {/* Divider */}
+          {/* Lime divider */}
           <div
             style={{
               width: "80px",
@@ -111,7 +110,7 @@ export default async function Image() {
           <div
             style={{
               fontSize: "24px",
-              color: "rgba(148,163,184,0.9)",
+              color: "rgba(255,255,255,0.8)",
               textAlign: "center",
               lineHeight: 1.5,
               maxWidth: "700px",
@@ -125,7 +124,7 @@ export default async function Image() {
           <div
             style={{
               fontSize: "16px",
-              color: "rgba(148,163,184,0.5)",
+              color: "rgba(255,255,255,0.4)",
               marginTop: "32px",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
