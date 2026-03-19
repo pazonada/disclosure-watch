@@ -244,7 +244,7 @@ async function fetchArchives(): Promise<UAPDocument[]> {
           record.coverageStartDate ||
           record.inclusiveStartDate ||
           record.productionDates?.[0];
-        let publishedDate = "1900-01-01";
+        let publishedDate = "unknown";
         if (startDate?.logicalDate) {
           publishedDate = startDate.logicalDate.slice(0, 10);
         } else if (startDate?.year) {
@@ -252,6 +252,17 @@ async function fetchArchives(): Promise<UAPDocument[]> {
           const m = String(startDate.month || 1).padStart(2, "0");
           const d = String(startDate.day || 1).padStart(2, "0");
           publishedDate = `${y}-${m}-${d}`;
+        }
+        // Fallback: extract date from title (e.g. "UAP 11/11/2022")
+        if (publishedDate === "unknown") {
+          const titleDateMatch = title.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+          if (titleDateMatch) {
+            const [, mm, dd, yyyy] = titleDateMatch;
+            publishedDate = `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
+          } else {
+            const yearMatch = title.match(/\b(20\d{2})\b/);
+            if (yearMatch) publishedDate = `${yearMatch[1]}-01-01`;
+          }
         }
 
         // Get document download URL from digital objects if available

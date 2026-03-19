@@ -45,7 +45,7 @@ export default function DocumentFeed({ documents }: Props) {
       if (dateRange === "30d") cutoff.setDate(now.getDate() - 30);
       else if (dateRange === "1y") cutoff.setFullYear(now.getFullYear() - 1);
       const cutoffStr = cutoff.toISOString().slice(0, 10);
-      result = result.filter((doc) => doc.publishedDate >= cutoffStr);
+      result = result.filter((doc) => doc.publishedDate !== "unknown" && doc.publishedDate >= cutoffStr);
     }
 
     // Apply sort
@@ -60,7 +60,7 @@ export default function DocumentFeed({ documents }: Props) {
       return [...result].sort((a, b) => {
         const weightDiff = (IMPORTANCE_WEIGHT[a.importance] ?? 2) - (IMPORTANCE_WEIGHT[b.importance] ?? 2);
         if (weightDiff !== 0) return weightDiff;
-        return new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime();
+        return (b.publishedDate || "").localeCompare(a.publishedDate || "");
       });
     }
   }, [documents, category, importance, source, search, dateRange, sort]);

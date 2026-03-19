@@ -15,8 +15,15 @@ export interface GroupedSearchResults {
   query: string;
 }
 
+/** Parse "YYYY-MM-DD" as a local date (avoids UTC-offset shifting the day). */
+function parseLocalDate(dateStr: string): Date {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
 export function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-US", {
+  if (!dateStr || dateStr === "unknown") return "Date unknown";
+  return parseLocalDate(dateStr).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -24,7 +31,8 @@ export function formatDate(dateStr: string): string {
 }
 
 export function formatDateLong(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-US", {
+  if (!dateStr || dateStr === "unknown") return "Date unknown";
+  return parseLocalDate(dateStr).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -40,9 +48,12 @@ export function sortByDate<T extends { date?: string; publishedDate?: string }>(
   direction: "asc" | "desc" = "desc"
 ): T[] {
   return [...items].sort((a, b) => {
-    const dateA = new Date(a.publishedDate || a.date || "").getTime();
-    const dateB = new Date(b.publishedDate || b.date || "").getTime();
-    return direction === "desc" ? dateB - dateA : dateA - dateB;
+    const strA = a.publishedDate || a.date || "";
+    const strB = b.publishedDate || b.date || "";
+    // Push "unknown" dates to the end regardless of sort direction
+    if (strA === "unknown" && strB !== "unknown") return 1;
+    if (strB === "unknown" && strA !== "unknown") return -1;
+    return direction === "desc" ? strB.localeCompare(strA) : strA.localeCompare(strB);
   });
 }
 
