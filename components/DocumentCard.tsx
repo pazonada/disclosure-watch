@@ -48,24 +48,25 @@ export default function DocumentCard({ doc, onCardClick }: Props) {
       </p>
 
       {/* Footer */}
-      <div className="mt-4 pt-4 border-t border-card-subtle">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-muted-foreground">{formatDate(doc.publishedDate)}</span>
-            <span className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded">
-              {sourceLabel(doc.source)}
+      <div className="mt-4 pt-4 border-t border-card-subtle space-y-2">
+        <div className="flex items-center gap-3 text-xs font-mono text-muted-foreground">
+          <span>Published {formatDate(doc.publishedDate)}</span>
+          {doc.addedDate && doc.addedDate !== doc.publishedDate && (
+            <span className="text-muted-foreground/60">· Released {formatDate(doc.addedDate)}</span>
+          )}
+        </div>
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded">
+            {sourceLabel(doc.source)}
+          </span>
+          {doc.tags.slice(0, 2).map((tag) => (
+            <span
+              key={tag}
+              className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded"
+            >
+              {tag}
             </span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            {doc.tags.slice(0, 2).map((tag) => (
-              <span
-                key={tag}
-                className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
 
