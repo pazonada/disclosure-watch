@@ -135,9 +135,9 @@ export default function HomePage() {
                       <FileText className="h-4 w-4 text-lime" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">Latest document</p>
+                      <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">Recently released</p>
                       <h3 className="mt-0.5 text-sm font-semibold text-foreground line-clamp-2">{latestOfficialDoc.title}</h3>
-                      <p className="mt-1.5 text-xs text-muted-foreground font-mono">{formatDate(latestOfficialDoc.publishedDate)}</p>
+                      <p className="mt-1.5 text-xs text-muted-foreground font-mono">Added {formatDate(latestOfficialDoc.addedDate || latestOfficialDoc.publishedDate)}</p>
                     </div>
                   </div>
                 </button>
