@@ -59,7 +59,7 @@ export default function DocumentCard({ doc, onCardClick }: Props) {
           <span className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded">
             {sourceLabel(doc.source)}
           </span>
-          {doc.tags.slice(0, 2).map((tag) => (
+          {doc.tags.filter((t) => t.toLowerCase() !== sourceLabel(doc.source).toLowerCase()).slice(0, 2).map((tag) => (
             <span
               key={tag}
               className="text-xs font-mono text-muted-foreground bg-[var(--muted-50)] px-2 py-0.5 rounded"
