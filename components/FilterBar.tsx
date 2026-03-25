@@ -2,7 +2,7 @@ import { DocumentCategory, DocumentSource, Importance } from "@/lib/types";
 import { sourceLabel } from "@/lib/utils";
 
 export type DateRange = "30d" | "1y" | "all";
-export type SortOption = "newest" | "oldest" | "importance" | "recently-added";
+export type SortOption = "newest" | "oldest" | "importance";
 
 interface Props {
   category?: DocumentCategory;
@@ -93,7 +93,6 @@ export default function FilterBar({
       >
         <option value="newest">Newest First</option>
         <option value="oldest">Oldest First</option>
-        <option value="recently-added">Recently Added</option>
         <option value="importance">By Importance</option>
       </select>
     </div>

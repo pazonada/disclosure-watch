@@ -48,13 +48,11 @@ export default function DocumentFeed({ documents }: Props) {
       result = result.filter((doc) => doc.publishedDate !== "unknown" && doc.publishedDate >= cutoffStr);
     }
 
-    // Apply sort
+    // Apply sort — newest/oldest use addedDate (release date), not publishedDate
     if (sort === "newest") {
-      return sortByDate(result, "desc");
-    } else if (sort === "oldest") {
-      return sortByDate(result, "asc");
-    } else if (sort === "recently-added") {
       return [...result].sort((a, b) => (b.addedDate || "").localeCompare(a.addedDate || ""));
+    } else if (sort === "oldest") {
+      return [...result].sort((a, b) => (a.addedDate || "").localeCompare(b.addedDate || ""));
     } else {
       // Sort by importance (High first), then by date desc as tiebreaker
       return [...result].sort((a, b) => {
