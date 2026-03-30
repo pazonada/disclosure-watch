@@ -21,6 +21,26 @@ function parseLocalDate(dateStr: string): Date {
   return new Date(y, m - 1, d);
 }
 
+/**
+ * Get the current date/time in US Eastern (America/New_York).
+ * Vercel serverless functions run in UTC; this ensures all date logic
+ * (weekly summaries, freshness checks, digest scheduling) uses ET.
+ */
+export function nowET(): Date {
+  return new Date(
+    new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
+  );
+}
+
+/** Today's date as "YYYY-MM-DD" in Eastern time. */
+export function todayET(): string {
+  const d = nowET();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 export function formatDate(dateStr: string): string {
   if (!dateStr || dateStr === "unknown") return "Date unknown";
   return parseLocalDate(dateStr).toLocaleDateString("en-US", {

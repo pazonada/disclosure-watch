@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { supabase } from "@/lib/supabase";
 import { commitFiles, type FileUpdate } from "@/lib/github";
+import { nowET, todayET } from "@/lib/utils";
 import type { AlertItem } from "@/lib/alert-email";
 
 export const dynamic = "force-dynamic";
@@ -97,7 +98,7 @@ function toKebab(s: string): string {
 }
 
 function today(): string {
-  return new Date().toISOString().slice(0, 10);
+  return todayET();
 }
 
 /** Keywords that indicate genuine UAP/UFO/disclosure relevance */
@@ -776,12 +777,15 @@ interface WeeklySummaryData {
 
 /** Get the Monday of the current week as YYYY-MM-DD */
 function getCurrentWeekStart(): string {
-  const now = new Date();
+  const now = nowET();
   const day = now.getDay();
   const diff = now.getDate() - day + (day === 0 ? -6 : 1); // Monday
   const monday = new Date(now);
   monday.setDate(diff);
-  return monday.toISOString().slice(0, 10);
+  const y = monday.getFullYear();
+  const m = String(monday.getMonth() + 1).padStart(2, "0");
+  const d = String(monday.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }
 
 /** Check if an existing summary is still current (same week) */
