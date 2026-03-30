@@ -205,85 +205,97 @@ async function fetchArchives(): Promise<UAPDocument[]> {
 
   for (const { params: queryParams, isRG615 } of queries) {
     try {
-      const url = `${baseUrl}?${queryParams}`;
-      console.log(`[Archives] Fetching: ${url.slice(0, 100)}...`);
-      const resp = await fetch(url, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": naraKey,
-        },
-        signal: AbortSignal.timeout(30000),
-      });
-      if (!resp.ok) {
-        console.log(`[Archives] API returned ${resp.status}`);
-        continue;
-      }
+      // Paginate through all results (NARA v2 uses `from` offset)
+      const PAGE_SIZE = isRG615 ? 100 : 50;
+      let from = 0;
+      let totalFetched = 0;
 
-      const data = (await resp.json()) as any;
-      const hits = data?.body?.hits?.hits || [];
-      console.log(`[Archives] Found ${hits.length} items`);
-
-      for (const hit of hits) {
-        const record = hit?._source?.record;
-        if (!record) continue;
-
-        const title = record.title;
-        if (!title) continue;
-
-        const scopeNote = record.scopeAndContentNote || "";
-        // RG615 records are all UAP-related; only filter the broader query
-        if (!isRG615 && !isUapRelevant(`${title} ${scopeNote}`)) continue;
-
-        const naId = record.naId;
-        const sourceUrl = naId
-          ? `https://catalog.archives.gov/id/${naId}`
-          : "";
-
-        // Extract date from v2 fields — try multiple date sources
-        const startDate =
-          record.coverageStartDate ||
-          record.inclusiveStartDate ||
-          record.productionDates?.[0];
-        let publishedDate = "unknown";
-        if (startDate?.logicalDate) {
-          publishedDate = startDate.logicalDate.slice(0, 10);
-        } else if (startDate?.year) {
-          const y = startDate.year;
-          const m = String(startDate.month || 1).padStart(2, "0");
-          const d = String(startDate.day || 1).padStart(2, "0");
-          publishedDate = `${y}-${m}-${d}`;
-        }
-        // Fallback: extract date from title (e.g. "UAP 11/11/2022")
-        if (publishedDate === "unknown") {
-          const titleDateMatch = title.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-          if (titleDateMatch) {
-            const [, mm, dd, yyyy] = titleDateMatch;
-            publishedDate = `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
-          } else {
-            const yearMatch = title.match(/\b(20\d{2})\b/);
-            if (yearMatch) publishedDate = `${yearMatch[1]}-01-01`;
-          }
-        }
-
-        // Get document download URL from digital objects if available
-        const digitalObjects = record.digitalObjects || [];
-        const documentUrl = digitalObjects[0]?.objectUrl || undefined;
-
-        results.push({
-          id: toKebab(`nara-${naId || title}`),
-          title,
-          source: "Archives",
-          sourceUrl,
-          documentUrl,
-          summary:
-            scopeNote ||
-            `Record from the National Archives (NAID: ${naId}).`,
-          category: "FOIA Release",
-          importance: "Medium",
-          tags: ["NARA", "Archives", "Record Group 615"],
-          publishedDate,
-          addedDate: today(),
+      while (true) {
+        const url = `${baseUrl}?${queryParams}&from=${from}`;
+        console.log(`[Archives] Fetching: ${url.slice(0, 120)}...`);
+        const resp = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": naraKey,
+          },
+          signal: AbortSignal.timeout(30000),
         });
+        if (!resp.ok) {
+          console.log(`[Archives] API returned ${resp.status}`);
+          break;
+        }
+
+        const data = (await resp.json()) as any;
+        const hits = data?.body?.hits?.hits || [];
+        totalFetched += hits.length;
+        console.log(`[Archives] Page at offset ${from}: ${hits.length} items (${totalFetched} total)`);
+
+        for (const hit of hits) {
+          const record = hit?._source?.record;
+          if (!record) continue;
+
+          const title = record.title;
+          if (!title) continue;
+
+          const scopeNote = record.scopeAndContentNote || "";
+          // RG615 records are all UAP-related; only filter the broader query
+          if (!isRG615 && !isUapRelevant(`${title} ${scopeNote}`)) continue;
+
+          const naId = record.naId;
+          const sourceUrl = naId
+            ? `https://catalog.archives.gov/id/${naId}`
+            : "";
+
+          // Extract date from v2 fields — try multiple date sources
+          const startDate =
+            record.coverageStartDate ||
+            record.inclusiveStartDate ||
+            record.productionDates?.[0];
+          let publishedDate = "unknown";
+          if (startDate?.logicalDate) {
+            publishedDate = startDate.logicalDate.slice(0, 10);
+          } else if (startDate?.year) {
+            const y = startDate.year;
+            const m = String(startDate.month || 1).padStart(2, "0");
+            const d = String(startDate.day || 1).padStart(2, "0");
+            publishedDate = `${y}-${m}-${d}`;
+          }
+          // Fallback: extract date from title (e.g. "UAP 11/11/2022")
+          if (publishedDate === "unknown") {
+            const titleDateMatch = title.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+            if (titleDateMatch) {
+              const [, mm, dd, yyyy] = titleDateMatch;
+              publishedDate = `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
+            } else {
+              const yearMatch = title.match(/\b(20\d{2})\b/);
+              if (yearMatch) publishedDate = `${yearMatch[1]}-01-01`;
+            }
+          }
+
+          // Get document download URL from digital objects if available
+          const digitalObjects = record.digitalObjects || [];
+          const documentUrl = digitalObjects[0]?.objectUrl || undefined;
+
+          results.push({
+            id: toKebab(`nara-${naId || title}`),
+            title,
+            source: "Archives",
+            sourceUrl,
+            documentUrl,
+            summary:
+              scopeNote ||
+              `Record from the National Archives (NAID: ${naId}).`,
+            category: "FOIA Release",
+            importance: "Medium",
+            tags: isRG615 ? ["NARA", "Archives", "Record Group 615"] : ["NARA", "Archives"],
+            publishedDate,
+            addedDate: today(),
+          });
+        }
+
+        // Stop if we got fewer results than the page size (last page)
+        if (hits.length < PAGE_SIZE) break;
+        from += PAGE_SIZE;
       }
     } catch (err) {
       console.error("[Archives] Error:", err);
