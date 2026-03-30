@@ -820,13 +820,16 @@ async function generateWeeklySummary(
     return null; // Already up to date
   }
 
-  // Gather items from the past 7 days
-  const cutoff = new Date();
+  // Gather items from the past 7 days (Eastern time)
+  const cutoff = nowET();
   cutoff.setDate(cutoff.getDate() - 7);
-  const cutoffStr = cutoff.toISOString().slice(0, 10);
+  const y = cutoff.getFullYear();
+  const m = String(cutoff.getMonth() + 1).padStart(2, "0");
+  const d = String(cutoff.getDate()).padStart(2, "0");
+  const cutoffStr = `${y}-${m}-${d}`;
 
   const recentNews = newsItems.filter((n) => n.publishedDate >= cutoffStr);
-  const recentDocs = docs.filter((d) => d.publishedDate >= cutoffStr);
+  const recentDocs = docs.filter((d) => (d.addedDate || d.publishedDate) >= cutoffStr);
   const recentEvents = events.filter((e) => e.date >= cutoffStr);
 
   // Try Claude API first
