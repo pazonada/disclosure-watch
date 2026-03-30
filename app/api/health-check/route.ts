@@ -269,18 +269,18 @@ async function checkWeeklySummary(): Promise<CheckResult> {
       (Date.now() - new Date(data.weekOf).getTime()) / (1000 * 60 * 60 * 24)
     );
 
-    if (daysSince > 14) {
-      return {
-        name: "Weekly summary",
-        status: "error",
-        message: `Summary is ${daysSince} days old (weekOf: ${data.weekOf}). Hasn't updated in 2+ weeks.`,
-      };
-    }
     if (daysSince > 9) {
       return {
         name: "Weekly summary",
+        status: "error",
+        message: `Summary is ${daysSince} days old (weekOf: ${data.weekOf}). Should regenerate every Monday.`,
+      };
+    }
+    if (daysSince > 7) {
+      return {
+        name: "Weekly summary",
         status: "warn",
-        message: `Summary is ${daysSince} days old (weekOf: ${data.weekOf}).`,
+        message: `Summary is ${daysSince} days old (weekOf: ${data.weekOf}). Expected refresh on Monday.`,
       };
     }
 
