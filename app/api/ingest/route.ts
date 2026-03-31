@@ -788,13 +788,16 @@ function getCurrentWeekStart(): string {
   return `${y}-${m}-${d}`;
 }
 
-/** Check if an existing summary is still current (same week) */
+/** Check if an existing summary is still current (same week) and non-empty */
 function summaryNeedsUpdate(weekStart: string): boolean {
   try {
     const existing = JSON.parse(
       fs.readFileSync(WEEKLY_SUMMARY_PATH, "utf-8")
     ) as WeeklySummaryData;
-    return existing.weekOf !== weekStart;
+    // Regenerate if week changed OR if existing summary is empty
+    if (existing.weekOf !== weekStart) return true;
+    if (!existing.summary || existing.summary.trim().length < 20) return true;
+    return false;
   } catch {
     return true; // File missing or corrupt → needs update
   }
@@ -820,23 +823,25 @@ async function generateWeeklySummary(
     return null; // Already up to date
   }
 
-  // Gather items from the past 7 days (Eastern time)
+  // Gather items from the past 14 days so we always have content for the summary.
+  // Use a generous window: items from the last two weeks by either publish or add date.
   const cutoff = nowET();
-  cutoff.setDate(cutoff.getDate() - 7);
-  const y = cutoff.getFullYear();
-  const m = String(cutoff.getMonth() + 1).padStart(2, "0");
-  const d = String(cutoff.getDate()).padStart(2, "0");
-  const cutoffStr = `${y}-${m}-${d}`;
+  cutoff.setDate(cutoff.getDate() - 14);
+  const cy = cutoff.getFullYear();
+  const cm = String(cutoff.getMonth() + 1).padStart(2, "0");
+  const cd = String(cutoff.getDate()).padStart(2, "0");
+  const cutoffStr = `${cy}-${cm}-${cd}`;
 
   const recentNews = newsItems.filter((n) => n.publishedDate >= cutoffStr);
   const recentDocs = docs.filter((d) => (d.addedDate || d.publishedDate) >= cutoffStr);
   const recentEvents = events.filter((e) => e.date >= cutoffStr);
 
   // Try Claude API first
+  let summary = "";
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (apiKey) {
     try {
-      const summary = await generateWithClaude(
+      summary = await generateWithClaude(
         apiKey,
         recentNews,
         recentDocs,
@@ -845,25 +850,29 @@ async function generateWeeklySummary(
         newsItems.length,
         events.length
       );
-      if (summary) {
-        const data: WeeklySummaryData = { weekOf: weekStart, summary };
-        await upsertDigestDraft(weekStart, summary);
-        return data;
-      }
-    } catch {
-      // Fall through to template
+    } catch (err) {
+      console.error("[WeeklySummary] Claude API failed:", err);
     }
   }
 
   // Fallback: template-based summary
-  const summary = buildTemplateSummary(
-    recentNews,
-    recentDocs,
-    recentEvents,
-    docs.length,
-    newsItems.length,
-    events.length
-  );
+  if (!summary) {
+    summary = buildTemplateSummary(
+      recentNews,
+      recentDocs,
+      recentEvents,
+      docs.length,
+      newsItems.length,
+      events.length
+    );
+  }
+
+  // Last resort: never commit an empty summary
+  if (!summary || summary.trim().length < 20) {
+    console.warn("[WeeklySummary] No content for summary — skipping (will retry next run)");
+    return null;
+  }
+
   const data: WeeklySummaryData = { weekOf: weekStart, summary };
   await upsertDigestDraft(weekStart, summary);
   return data;
@@ -1162,7 +1171,8 @@ async function runIngestion(): Promise<{
         content: JSON.stringify(summaryData, null, 2) + "\n",
       });
     }
-  } catch {
+  } catch (err) {
+    console.error("[WeeklySummary] Generation failed:", err);
     // Non-fatal — summary generation shouldn't break ingestion
   }
 
@@ -1179,6 +1189,10 @@ async function runIngestion(): Promise<{
 
   // 9. Commit all updated files to GitHub (triggers Vercel redeploy)
   let committed = false;
+  console.log(`[Ingest] Results: ${incomingDocs.length} docs fetched (${docResult.added} new), ${allNewsItems.length} news fetched (${newsResult.added} new), ${incomingEvents.length} events fetched (${eventResult.added} new), summary updated: ${summaryUpdated}`);
+  if (filesToCommit.length === 0) {
+    console.log("[Ingest] Nothing to commit — all content is up to date.");
+  }
   if (filesToCommit.length > 0) {
     try {
       const parts: string[] = [];
