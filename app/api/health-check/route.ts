@@ -376,15 +376,12 @@ export async function GET(request: Request) {
   }
 
   // Run all checks in parallel
-  const results = await Promise.all([
+  let results: CheckResult[] = await Promise.all([
     checkContentFreshness(),
     checkIngestEndpoint(),
     checkGitHubCommits(),
     checkWeeklySummary(),
   ]);
-
-  const hasErrors = results.some((r) => r.status === "error");
-  const hasWarnings = results.some((r) => r.status === "warn");
 
   // Auto-retry: if content freshness or weekly summary has issues, re-trigger ingest
   let retryResult = "";
@@ -398,15 +395,12 @@ export async function GET(request: Request) {
 
     // Re-run checks after retry to see if things improved
     if (retryResult.startsWith("success")) {
-      const updatedResults = await Promise.all([
+      results = await Promise.all([
         checkContentFreshness(),
         checkIngestEndpoint(),
         checkGitHubCommits(),
         checkWeeklySummary(),
       ]);
-      // Replace results with updated ones
-      results.length = 0;
-      results.push(...updatedResults);
     }
   }
 
