@@ -1,5 +1,10 @@
 {
   "framework": "nextjs",
+  "functions": {
+    "app/api/ingest/route.ts": {
+      "maxDuration": 120
+    }
+  },
   "crons": [
     {
       "path": "/api/ingest",

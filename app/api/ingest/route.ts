@@ -206,12 +206,14 @@ async function fetchArchives(): Promise<UAPDocument[]> {
 
   for (const { params: queryParams, isRG615 } of queries) {
     try {
-      // Paginate through all results (NARA v2 uses `from` offset)
+      // Paginate with a cap to stay within Vercel's function timeout.
+      // RG615 has ~700 records; the broader query can return 10,000+.
       const PAGE_SIZE = isRG615 ? 100 : 50;
+      const MAX_RECORDS = isRG615 ? 1000 : 200;
       let from = 0;
       let totalFetched = 0;
 
-      while (true) {
+      while (totalFetched < MAX_RECORDS) {
         const url = `${baseUrl}?${queryParams}&from=${from}`;
         console.log(`[Archives] Fetching: ${url.slice(0, 120)}...`);
         const resp = await fetch(url, {
@@ -297,6 +299,9 @@ async function fetchArchives(): Promise<UAPDocument[]> {
         // Stop if we got fewer results than the page size (last page)
         if (hits.length < PAGE_SIZE) break;
         from += PAGE_SIZE;
+        if (totalFetched >= MAX_RECORDS) {
+          console.log(`[Archives] Hit ${MAX_RECORDS}-record cap for query. Stopping pagination.`);
+        }
       }
     } catch (err) {
       console.error("[Archives] Error:", err);
