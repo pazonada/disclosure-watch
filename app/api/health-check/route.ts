@@ -298,6 +298,36 @@ async function checkWeeklySummary(): Promise<CheckResult> {
   }
 }
 
+// ── Auto-retry ingest ─────────────────────────────────────────────────────
+
+/**
+ * If any check suggests the ingest is stale, automatically re-trigger it.
+ * This acts as a self-healing mechanism so a single failed cron run
+ * doesn't leave the site stale until someone manually intervenes.
+ */
+async function autoRetryIngest(): Promise<string> {
+  const secret = process.env.INGEST_SECRET;
+  if (!secret) return "skipped (no INGEST_SECRET)";
+
+  try {
+    const resp = await fetch(`${SITE_URL}/api/ingest`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${secret}` },
+      signal: AbortSignal.timeout(110_000), // just under the 120s maxDuration
+    });
+
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => "");
+      return `failed (${resp.status}): ${text.slice(0, 100)}`;
+    }
+
+    const data = (await resp.json()) as Record<string, unknown>;
+    return `success — ${JSON.stringify(data).slice(0, 200)}`;
+  } catch (err) {
+    return `error: ${err}`;
+  }
+}
+
 // ── Alert email ────────────────────────────────────────────────────────────
 
 function buildHealthAlertHtml(results: CheckResult[]): string {
@@ -356,17 +386,47 @@ export async function GET(request: Request) {
   const hasErrors = results.some((r) => r.status === "error");
   const hasWarnings = results.some((r) => r.status === "warn");
 
-  // Send alert email if there are errors or warnings
+  // Auto-retry: if content freshness or weekly summary has issues, re-trigger ingest
+  let retryResult = "";
+  const contentStale = results.some(
+    (r) => (r.name === "Content freshness" || r.name === "Weekly summary") && r.status !== "ok"
+  );
+  if (contentStale) {
+    console.log("[HealthCheck] Stale content detected — auto-retrying ingest...");
+    retryResult = await autoRetryIngest();
+    console.log("[HealthCheck] Auto-retry result:", retryResult);
+
+    // Re-run checks after retry to see if things improved
+    if (retryResult.startsWith("success")) {
+      const updatedResults = await Promise.all([
+        checkContentFreshness(),
+        checkIngestEndpoint(),
+        checkGitHubCommits(),
+        checkWeeklySummary(),
+      ]);
+      // Replace results with updated ones
+      results.length = 0;
+      results.push(...updatedResults);
+    }
+  }
+
+  const finalHasErrors = results.some((r) => r.status === "error");
+  const finalHasWarnings = results.some((r) => r.status === "warn");
+
+  // Send alert email only if issues persist AFTER auto-retry
   let emailed = false;
-  if (hasErrors || hasWarnings) {
+  if (finalHasErrors || finalHasWarnings) {
     const alertEmail = process.env.ALERT_EMAIL;
     if (alertEmail) {
       try {
-        const severity = hasErrors ? "errors" : "warnings";
+        const severity = finalHasErrors ? "errors" : "warnings";
+        const retryNote = retryResult
+          ? `\n<p style="color:#9090a0;font-size:13px;margin:8px 0 0;">Auto-retry was attempted: ${retryResult.slice(0, 100)}</p>`
+          : "";
         await sendEmail({
           to: alertEmail,
           subject: `[Disclosure Watch] Health check: ${severity} detected`,
-          html: buildHealthAlertHtml(results),
+          html: buildHealthAlertHtml(results) + retryNote,
         });
         emailed = true;
       } catch (err) {
@@ -376,8 +436,10 @@ export async function GET(request: Request) {
   }
 
   return NextResponse.json({
-    ok: !hasErrors,
+    ok: !finalHasErrors,
     checks: results,
+    retried: contentStale,
+    retryResult: retryResult || undefined,
     emailed,
     timestamp: new Date().toISOString(),
   });
