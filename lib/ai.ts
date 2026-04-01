@@ -84,3 +84,79 @@ Write ONLY the 2–3 sentence summary. No intro, no sign-off, no quotes around i
 
   return callClaude(prompt, 200);
 }
+
+/**
+ * Generate concise, informative one-line summaries for alert items.
+ *
+ * Many NARA/archive records have generic boilerplate descriptions like
+ * "This item is a Skywatch Incident Report created by the FAA..."
+ * This function extracts the key details (location, date, significance)
+ * and produces a brief, readable summary for each item.
+ *
+ * Processes items in a single batch call to minimize API usage.
+ * Returns a map of item index → improved summary.
+ */
+export async function improveItemSummaries(
+  items: AlertItem[]
+): Promise<Map<number, string>> {
+  const results = new Map<number, string>();
+  if (items.length === 0) return results;
+
+  // Only improve items with generic/boilerplate summaries
+  const boilerplatePatterns = [
+    "this item is a skywatch incident report",
+    "record from the national archives",
+    "this item is a",
+  ];
+
+  const itemsToImprove: { index: number; item: AlertItem }[] = [];
+  for (let i = 0; i < items.length; i++) {
+    const lower = items[i].summary.toLowerCase();
+    if (boilerplatePatterns.some((p) => lower.startsWith(p))) {
+      itemsToImprove.push({ index: i, item: items[i] });
+    }
+  }
+
+  if (itemsToImprove.length === 0) return results;
+
+  const itemList = itemsToImprove
+    .slice(0, 15)
+    .map(
+      ({ index, item }) =>
+        `[${index}] Title: "${item.title}" | Original: "${item.summary.slice(0, 300)}"`
+    )
+    .join("\n");
+
+  const prompt = `You rewrite boilerplate document descriptions for Disclosure Watch, a UAP tracking site.
+
+TASK: For each item below, write a single sentence (max 30 words) that extracts the KEY details: what type of report, location, date referenced in the title, and what agency filed it. Make it informative and scannable.
+
+RULES:
+- One sentence per item, max 30 words each
+- Extract specific details: city/state, date, agency, type of incident
+- Format: [index] Your improved summary
+- Do NOT repeat the title
+- No filler language
+
+Items:
+${itemList}
+
+Write ONLY the numbered summaries, one per line.`;
+
+  const response = await callClaude(prompt, 500);
+  if (!response) return results;
+
+  // Parse "[index] summary" lines
+  for (const line of response.split("\n")) {
+    const match = line.match(/^\[(\d+)\]\s*(.+)/);
+    if (match) {
+      const idx = parseInt(match[1], 10);
+      const summary = match[2].trim();
+      if (summary.length > 10) {
+        results.set(idx, summary);
+      }
+    }
+  }
+
+  return results;
+}

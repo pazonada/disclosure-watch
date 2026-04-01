@@ -6,7 +6,7 @@ import {
   buildDailyDigestSubject,
   AlertItem,
 } from "@/lib/alert-email";
-import { generateAlertSummary } from "@/lib/ai";
+import { generateAlertSummary, improveItemSummaries } from "@/lib/ai";
 
 export const dynamic = "force-dynamic";
 
@@ -122,8 +122,18 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ sent: 0, reason: "No paid subscribers." });
   }
 
-  // Generate a high-level summary for the day's items (once, shared across all emails)
-  const summary = await generateAlertSummary(items);
+  // Generate a high-level summary and improve boilerplate item descriptions
+  const [summary, improvedSummaries] = await Promise.all([
+    generateAlertSummary(items),
+    improveItemSummaries(items),
+  ]);
+
+  // Apply improved summaries to items with generic boilerplate descriptions
+  improvedSummaries.forEach((betterSummary, idx) => {
+    if (idx >= 0 && idx < items.length) {
+      items[idx].summary = betterSummary;
+    }
+  });
 
   let sent = 0;
 

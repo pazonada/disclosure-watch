@@ -135,11 +135,10 @@ export function buildAlertEmailHtml(items: AlertItem[], summary = ""): string {
           </p>
 
           ${summary ? `
-          <div style="padding: 16px 20px; background: ${CARD_BG}; border-radius: 8px; margin-bottom: 20px; border-left: 3px solid ${LINK_COLOR};">
-            <p style="color: ${BODY_COLOR}; font-size: 14px; line-height: 1.6; margin: 0;">
-              ${summary}
-            </p>
-          </div>
+          <p style="color: ${BODY_COLOR}; font-size: 15px; line-height: 1.7; margin: 0 0 24px;">
+            ${summary}
+          </p>
+          <div style="border-bottom: 1px solid ${DIVIDER_COLOR}; margin-bottom: 20px;"></div>
           ` : ""}
 
           ${itemsHtml}
@@ -248,11 +247,10 @@ export function buildDailyDigestEmailHtml(items: AlertItem[], summary = ""): str
           </p>
 
           ${summary ? `
-          <div style="padding: 16px 20px; background: ${CARD_BG}; border-radius: 8px; margin-bottom: 20px; border-left: 3px solid ${LINK_COLOR};">
-            <p style="color: ${BODY_COLOR}; font-size: 14px; line-height: 1.6; margin: 0;">
-              ${summary}
-            </p>
-          </div>
+          <p style="color: ${BODY_COLOR}; font-size: 15px; line-height: 1.7; margin: 0 0 24px;">
+            ${summary}
+          </p>
+          <div style="border-bottom: 1px solid ${DIVIDER_COLOR}; margin-bottom: 20px;"></div>
           ` : ""}
 
           ${itemsHtml}
