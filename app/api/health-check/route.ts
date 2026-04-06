@@ -27,67 +27,86 @@ interface CheckResult {
   message: string;
 }
 
-/** Check that the most recent document was added within the last N days */
+/**
+ * Check that SOMETHING (docs, news, or events) has been added recently.
+ * Government UAP releases are sporadic, so we don't expect new docs daily.
+ * News from RSS feeds updates more frequently and is the best signal that
+ * the ingest pipeline is actually working.
+ */
 async function checkContentFreshness(): Promise<CheckResult> {
   try {
-    const resp = await fetch(`${SITE_URL}/api/documents`, {
-      signal: AbortSignal.timeout(10_000),
-    });
-    if (!resp.ok) {
+    const [docsResp, newsResp] = await Promise.all([
+      fetch(`${SITE_URL}/api/documents`, { signal: AbortSignal.timeout(10_000) }),
+      fetch(`${SITE_URL}/api/news`, { signal: AbortSignal.timeout(10_000) }).catch(
+        () => null
+      ),
+    ]);
+
+    if (!docsResp.ok) {
       return {
         name: "Content freshness",
         status: "error",
-        message: `Documents API returned ${resp.status}`,
-      };
-    }
-    const docs = (await resp.json()) as Array<{
-      addedDate?: string;
-      publishedDate?: string;
-    }>;
-    if (!docs || docs.length === 0) {
-      return {
-        name: "Content freshness",
-        status: "error",
-        message: "No documents found",
+        message: `Documents API returned ${docsResp.status}`,
       };
     }
 
-    // Find the most recently added document
-    const latestAdded = docs.reduce((latest, doc) => {
+    const docs = (await docsResp.json()) as Array<{
+      addedDate?: string;
+      publishedDate?: string;
+    }>;
+
+    const latestDocDate = docs.reduce((latest, doc) => {
       const d = doc.addedDate || doc.publishedDate || "";
       return d > latest ? d : latest;
     }, "");
 
-    if (!latestAdded) {
+    let latestNewsDate = "";
+    if (newsResp && newsResp.ok) {
+      const news = (await newsResp.json()) as Array<{
+        addedDate?: string;
+        publishedDate?: string;
+      }>;
+      latestNewsDate = news.reduce((latest, item) => {
+        const d = item.addedDate || item.publishedDate || "";
+        return d > latest ? d : latest;
+      }, "");
+    }
+
+    // Use whichever is most recent — news is the better signal for "ingest is alive"
+    const latestAny = latestNewsDate > latestDocDate ? latestNewsDate : latestDocDate;
+
+    if (!latestAny) {
       return {
         name: "Content freshness",
         status: "warn",
-        message: "No dates found on any documents",
+        message: "No content dates found",
       };
     }
 
     const daysSinceUpdate = Math.floor(
-      (Date.now() - new Date(latestAdded).getTime()) / (1000 * 60 * 60 * 24)
+      (Date.now() - new Date(latestAny).getTime()) / (1000 * 60 * 60 * 24)
     );
 
-    if (daysSinceUpdate > 7) {
-      return {
-        name: "Content freshness",
-        status: "error",
-        message: `Last document added ${daysSinceUpdate} days ago (${latestAdded}). Ingest may be broken.`,
-      };
-    }
+    // News from RSS feeds should update every 1-2 days. If even news is
+    // stale for more than 3 days, the ingest is genuinely broken.
     if (daysSinceUpdate > 3) {
       return {
         name: "Content freshness",
+        status: "error",
+        message: `No new content in ${daysSinceUpdate} days (latest: ${latestAny}). Ingest may be broken.`,
+      };
+    }
+    if (daysSinceUpdate > 1) {
+      return {
+        name: "Content freshness",
         status: "warn",
-        message: `Last document added ${daysSinceUpdate} days ago (${latestAdded}).`,
+        message: `Latest content is ${daysSinceUpdate} days old (${latestAny}).`,
       };
     }
     return {
       name: "Content freshness",
       status: "ok",
-      message: `Last document added ${daysSinceUpdate} day(s) ago (${latestAdded}).`,
+      message: `Latest content added ${daysSinceUpdate} day(s) ago (${latestAny}).`,
     };
   } catch (err) {
     return {
