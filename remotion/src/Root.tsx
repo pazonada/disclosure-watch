@@ -93,7 +93,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="DeepDiveReel"
         component={DeepDiveReel}
-        durationInFrames={30 * 35}
+        durationInFrames={30 * 37}
         fps={30}
         width={1080}
         height={1920}

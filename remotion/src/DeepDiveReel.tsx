@@ -134,21 +134,36 @@ const HookScene: React.FC<{ hook: string }> = ({ hook }) => {
   );
 };
 
-// ── Scene 2: Document title card ───────────────────────────────────────────
+// ── Combined Scene: Document title → "What it is" description ─────────────
+// Shows the document title/category first, then animates in the "what it is"
+// description below it on the same screen.
 
-const DocumentScene: React.FC<{
+const DocumentDetailsScene: React.FC<{
   documentTitle: string;
   source: string;
   publishedDate: string;
   category: string;
-}> = ({ documentTitle, source, publishedDate, category }) => {
+  whatItIs: string;
+}> = ({ documentTitle, source, publishedDate, category, whatItIs }) => {
   const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [0, 18], [0, 1], { extrapolateRight: "clamp" });
-  const slideUp = interpolate(frame, [0, 25], [40, 0], { extrapolateRight: "clamp" });
+
+  // Title animates in immediately
+  const titleOpacity = interpolate(frame, [0, 18], [0, 1], { extrapolateRight: "clamp" });
+  const titleSlide = interpolate(frame, [0, 25], [40, 0], { extrapolateRight: "clamp" });
+
+  // "What it is" animates in after the title settles (around frame 90 = 3s)
+  const descStart = 90;
+  const descOpacity = interpolate(frame, [descStart, descStart + 20], [0, 1], {
+    extrapolateRight: "clamp",
+  });
+  const descSlide = interpolate(frame, [descStart, descStart + 28], [30, 0], {
+    extrapolateRight: "clamp",
+  });
 
   return (
     <AbsoluteFill style={{ padding: 90, justifyContent: "center" }}>
-      <div style={{ opacity, transform: `translateY(${slideUp}px)` }}>
+      {/* Title block */}
+      <div style={{ opacity: titleOpacity, transform: `translateY(${titleSlide}px)` }}>
         <div
           style={{
             display: "inline-block",
@@ -160,7 +175,7 @@ const DocumentScene: React.FC<{
             letterSpacing: "0.15em",
             padding: "10px 22px",
             borderRadius: 4,
-            marginBottom: 36,
+            marginBottom: 32,
           }}
         >
           {category.toUpperCase()}
@@ -168,11 +183,11 @@ const DocumentScene: React.FC<{
         <div
           style={{
             fontFamily: FONTS.body,
-            fontSize: 60,
+            fontSize: 52,
             color: COLORS.white,
             lineHeight: 1.2,
             fontWeight: 700,
-            marginBottom: 48,
+            marginBottom: 24,
           }}
         >
           {documentTitle}
@@ -180,35 +195,32 @@ const DocumentScene: React.FC<{
         <div
           style={{
             fontFamily: FONTS.mono,
-            fontSize: 26,
+            fontSize: 24,
             color: COLORS.muted,
             letterSpacing: "0.05em",
+            marginBottom: 56,
           }}
         >
           {source} · {publishedDate}
         </div>
       </div>
-    </AbsoluteFill>
-  );
-};
 
-// ── Scene 3: What it is ────────────────────────────────────────────────────
-
-const WhatItIsScene: React.FC<{ whatItIs: string }> = ({ whatItIs }) => {
-  const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [0, 18], [0, 1], { extrapolateRight: "clamp" });
-  const slideUp = interpolate(frame, [0, 25], [40, 0], { extrapolateRight: "clamp" });
-
-  return (
-    <AbsoluteFill style={{ padding: 90, justifyContent: "center" }}>
-      <div style={{ opacity, transform: `translateY(${slideUp}px)` }}>
+      {/* "What it is" block — animates in after title */}
+      <div
+        style={{
+          opacity: descOpacity,
+          transform: `translateY(${descSlide}px)`,
+          borderTop: `2px solid ${COLORS.lime}`,
+          paddingTop: 36,
+        }}
+      >
         <div
           style={{
             fontFamily: FONTS.mono,
-            fontSize: 26,
+            fontSize: 22,
             color: COLORS.lime,
             letterSpacing: "0.2em",
-            marginBottom: 40,
+            marginBottom: 24,
           }}
         >
           WHAT IT IS
@@ -216,7 +228,7 @@ const WhatItIsScene: React.FC<{ whatItIs: string }> = ({ whatItIs }) => {
         <div
           style={{
             fontFamily: FONTS.body,
-            fontSize: 44,
+            fontSize: 36,
             color: COLORS.white,
             lineHeight: 1.4,
             fontWeight: 500,
@@ -381,7 +393,7 @@ const NewsContextScene: React.FC<{ newsContext: string }> = ({ newsContext }) =>
   );
 };
 
-// ── Scene 7: Closing wordmark (no fake button) ─────────────────────────────
+// ── Scene 7: Closing wordmark ──────────────────────────────────────────────
 
 const ClosingScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -394,7 +406,7 @@ const ClosingScene: React.FC = () => {
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", padding: 80 }}>
       <div style={{ opacity, transform: `scale(${scale})`, textAlign: "center" }}>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 40 }}>
-          <RadioIcon size={120} />
+          <RadioIcon size={140} />
         </div>
         <div
           style={{
@@ -415,32 +427,9 @@ const ClosingScene: React.FC = () => {
             color: COLORS.muted,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            marginBottom: 80,
           }}
         >
           UAP Intelligence Dashboard
-        </div>
-        <div
-          style={{
-            fontFamily: FONTS.body,
-            fontSize: 48,
-            color: COLORS.white,
-            fontWeight: 700,
-            marginBottom: 24,
-            lineHeight: 1.25,
-          }}
-        >
-          The full story is online.
-        </div>
-        <div
-          style={{
-            fontFamily: FONTS.mono,
-            fontSize: 26,
-            color: COLORS.lime,
-            letterSpacing: "0.1em",
-          }}
-        >
-          disclosurewatch.com
         </div>
       </div>
     </AbsoluteFill>
@@ -468,15 +457,14 @@ export const DeepDiveReel: React.FC<DeepDiveProps> = ({
       .catch(() => continueRender(handle));
   }, [handle]);
 
-  // 35 seconds total at 30fps = 1050 frames
+  // 37 seconds total at 30fps = 1110 frames
   // Scene durations:
   //  - Hook:           120 frames (4s)
-  //  - Document:       150 frames (5s)
-  //  - What it is:     150 frames (5s)
+  //  - Doc + WhatItIs: 300 frames (10s, combined — title appears, then desc fades in)
   //  - Key points:     180 frames (6s)
-  //  - News coverage:  150 frames (5s)
-  //  - Why it matters: 150 frames (5s)
-  //  - Closing:        150 frames (5s)
+  //  - News coverage:  210 frames (7s) — extended for read time
+  //  - Why it matters: 210 frames (7s) — extended for read time
+  //  - Closing:         90 frames (3s) — shortened, just a quick logo flash
   return (
     <AbsoluteFill style={{ background: COLORS.bg }}>
       <GridBackground />
@@ -484,27 +472,25 @@ export const DeepDiveReel: React.FC<DeepDiveProps> = ({
       <Sequence from={0} durationInFrames={120}>
         <HookScene hook={hook} />
       </Sequence>
-      <Sequence from={120} durationInFrames={150}>
-        <DocumentScene
+      <Sequence from={120} durationInFrames={300}>
+        <DocumentDetailsScene
           documentTitle={documentTitle}
           source={source}
           publishedDate={publishedDate}
           category={category}
+          whatItIs={whatItIs}
         />
-      </Sequence>
-      <Sequence from={270} durationInFrames={150}>
-        <WhatItIsScene whatItIs={whatItIs} />
       </Sequence>
       <Sequence from={420} durationInFrames={180}>
         <KeyPointsScene keyPoints={keyPoints} />
       </Sequence>
-      <Sequence from={600} durationInFrames={150}>
+      <Sequence from={600} durationInFrames={210}>
         <NewsContextScene newsContext={newsContext} />
       </Sequence>
-      <Sequence from={750} durationInFrames={150}>
+      <Sequence from={810} durationInFrames={210}>
         <WhyItMattersScene whyItMatters={whyItMatters} />
       </Sequence>
-      <Sequence from={900} durationInFrames={150}>
+      <Sequence from={1020} durationInFrames={90}>
         <ClosingScene />
       </Sequence>
     </AbsoluteFill>
