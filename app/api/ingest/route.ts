@@ -137,12 +137,26 @@ function congressBillSlug(type: string): string {
 function stripHtml(html: string): string {
   return html
     .replace(/<[^>]*>/g, "")
+    // Decode numeric entities (e.g. &#8220; → ", &#8217; → ')
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(parseInt(code, 10)))
+    // Decode hex entities (e.g. &#x2019; → ')
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, code) =>
+      String.fromCodePoint(parseInt(code, 16))
+    )
+    // Common named entities
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
-    .replace(/&#039;/g, "'")
+    .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, " ")
+    .replace(/&ldquo;/g, "\u201C")
+    .replace(/&rdquo;/g, "\u201D")
+    .replace(/&lsquo;/g, "\u2018")
+    .replace(/&rsquo;/g, "\u2019")
+    .replace(/&mdash;/g, "\u2014")
+    .replace(/&ndash;/g, "\u2013")
+    .replace(/&hellip;/g, "\u2026")
     .replace(/\s+/g, " ")
     .trim();
 }
