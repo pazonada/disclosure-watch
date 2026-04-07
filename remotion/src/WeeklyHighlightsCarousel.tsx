@@ -249,10 +249,10 @@ const StatsSlide: React.FC<{
       BY THE NUMBERS
     </div>
     <div style={{ display: "flex", flexDirection: "column", gap: 56 }}>
-      <StatRow value={newDocs} label="new documents added to the tracker" />
-      <StatRow value={newNews} label="news stories indexed this week" />
+      <StatRow value={newDocs} label="new documents added in the last 7 days" />
+      <StatRow value={newNews} label="news stories indexed in the last 7 days" />
       {newEvents > 0 && (
-        <StatRow value={newEvents} label="upcoming hearings or events logged" />
+        <StatRow value={newEvents} label="hearings or events logged in the last 7 days" />
       )}
     </div>
     <SlideFooter pageLabel="swipe →" />

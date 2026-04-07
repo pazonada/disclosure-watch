@@ -52,14 +52,16 @@ const parseClaudeJson = (response) => {
   return JSON.parse(cleaned);
 };
 
-// ── Compute weekly stats ───────────────────────────────────────────────────
+// ── Compute weekly stats (rolling 7-day window) ───────────────────────────
 
-const computeStats = (docs, news, events, weekStartIso) => {
-  const cutoff = weekStartIso;
+const computeStats = (docs, news, events) => {
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 7);
+  const cutoffStr = cutoff.toISOString().slice(0, 10);
   return {
-    newDocs: docs.filter((d) => (d.addedDate || d.publishedDate) >= cutoff).length,
-    newNews: news.filter((n) => (n.addedDate || n.publishedDate) >= cutoff).length,
-    newEvents: events.filter((e) => (e.addedDate || e.date) >= cutoff).length,
+    newDocs: docs.filter((d) => (d.addedDate || d.publishedDate) >= cutoffStr).length,
+    newNews: news.filter((n) => (n.addedDate || n.publishedDate) >= cutoffStr).length,
+    newEvents: events.filter((e) => (e.addedDate || e.date) >= cutoffStr).length,
   };
 };
 
@@ -149,9 +151,9 @@ const main = async () => {
     year: "numeric",
   });
 
-  // Compute stats from the start of this week (use weekOf as cutoff)
-  const stats = computeStats(docs, news, [], summaryData.weekOf);
-  console.log("[Carousel] Stats:", stats);
+  // Compute stats from a rolling 7-day window
+  const stats = computeStats(docs, news, []);
+  console.log("[Carousel] Stats (rolling 7 days):", stats);
 
   // Filter to docs/news added this week (or last 7 days as fallback)
   const recentCutoff = new Date(weekDate);
