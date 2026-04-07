@@ -1,0 +1,46 @@
+name: Render Weekly Carousel
+
+# Runs every Monday at 1:07 PM UTC (~9:07 AM ET)
+# Also runnable manually from the Actions tab via "Run workflow"
+on:
+  schedule:
+    - cron: "7 13 * * 1"
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chrome for Remotion
+        run: npx remotion browser ensure
+
+      - name: Render carousel slides
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NEXT_PUBLIC_SITE_URL: https://disclosurewatch.com
+        run: npm run carousel:render
+
+      - name: Upload slides as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-carousel-${{ github.run_number }}
+          path: out/carousel-*/
+          retention-days: 30
+
+      - name: Show output location
+        run: |
+          echo "::notice title=Carousel rendered::Download the slides from the Actions run page (artifacts section). They expire in 30 days."

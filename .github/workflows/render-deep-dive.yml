@@ -1,0 +1,46 @@
+name: Render Mid-Week Deep Dive Reel
+
+# Runs every Wednesday at 1:13 PM UTC (~9:13 AM ET)
+# Also runnable manually from the Actions tab via "Run workflow"
+on:
+  schedule:
+    - cron: "13 13 * * 3"
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chrome for Remotion
+        run: npx remotion browser ensure
+
+      - name: Render deep-dive reel
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NEXT_PUBLIC_SITE_URL: https://disclosurewatch.com
+        run: npm run deepdive:render
+
+      - name: Upload reel as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deep-dive-reel-${{ github.run_number }}
+          path: out/deep-dive-*.mp4
+          retention-days: 30
+
+      - name: Show output location
+        run: |
+          echo "::notice title=Deep dive reel rendered::Download the MP4 from the Actions run page (artifacts section). It expires in 30 days."
