@@ -72,6 +72,7 @@ interface NewsItem {
   url: string;
   description: string;
   publishedDate: string;
+  addedDate?: string;
   type: "article" | "video";
 }
 
@@ -731,11 +732,12 @@ function mergeNews(
     existing.map((n) => n.url.replace(/\/$/, "").toLowerCase())
   );
 
+  const now = today();
   const newItems: NewsItem[] = [];
   for (const item of incoming) {
     const normalUrl = item.url.replace(/\/$/, "").toLowerCase();
     if (!seenIds.has(item.id) && !seenUrls.has(normalUrl)) {
-      newItems.push(item);
+      newItems.push({ ...item, addedDate: now });
       seenIds.add(item.id);
       seenUrls.add(normalUrl);
     }

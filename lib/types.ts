@@ -61,6 +61,8 @@ export interface NewsItem {
   url: string;
   description: string;
   publishedDate: string;
+  /** Date the item was ingested (ISO date string, e.g. "2026-04-11"). */
+  addedDate?: string;
   type: NewsType;
   /** YouTube embed URL (e.g., https://www.youtube.com/embed/XXXXX). Only for type: "video". */
   embedUrl?: string;
