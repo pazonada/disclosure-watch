@@ -28,7 +28,7 @@ export const dynamic = "force-dynamic";
  *     - DefenseScoop (defensescoop.com/feed)
  *     - The Debrief (thedebrief.org/category/uap/feed/)
  *     - NewsNation UFO (newsnationnow.com/space/ufo/feed/)
- *     - Liberation Times (liberationtimes.com/feed)
+ *     - Liberation Times (liberationtimes.com/?format=rss)
  *     - The Hill defense (thehill.com/policy/defense/feed/)
  *     - UK Defence Journal (ukdefencejournal.org.uk/feed/)
  *     - NBC News UFO (nbcnews.com/science/ufos-aerial-phenomena — parsed)
@@ -477,7 +477,7 @@ const RSS_FEEDS: RssFeedConfig[] = [
   },
   {
     name: "Liberation Times",
-    url: "https://www.liberationtimes.com/feed",
+    url: "https://www.liberationtimes.com/?format=rss",
   },
   // ── Broader U.S. political / defense ──
   {
