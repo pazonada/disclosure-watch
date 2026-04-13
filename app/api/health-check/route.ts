@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendEmail } from "@/lib/resend";
+import { supabase } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -317,6 +318,36 @@ async function checkWeeklySummary(): Promise<CheckResult> {
   }
 }
 
+// ── Supabase keep-alive ───────────────────────────────────────────────────
+
+/**
+ * Ping Supabase with a trivial query so the free-tier project
+ * doesn't get auto-paused for inactivity (7-day threshold).
+ */
+async function pingSupabase(): Promise<CheckResult> {
+  try {
+    const { error } = await supabase.from("subscribers").select("id").limit(1);
+    if (error) {
+      return {
+        name: "Supabase",
+        status: "warn",
+        message: `Keep-alive ping failed: ${error.message}`,
+      };
+    }
+    return {
+      name: "Supabase",
+      status: "ok",
+      message: "Keep-alive ping succeeded.",
+    };
+  } catch (err) {
+    return {
+      name: "Supabase",
+      status: "warn",
+      message: `Keep-alive ping error: ${err}`,
+    };
+  }
+}
+
 // ── Auto-retry ingest ─────────────────────────────────────────────────────
 
 /**
@@ -394,12 +425,13 @@ export async function GET(request: Request) {
     }
   }
 
-  // Run all checks in parallel
+  // Run all checks in parallel (pingSupabase doubles as a free-tier keep-alive)
   let results: CheckResult[] = await Promise.all([
     checkContentFreshness(),
     checkIngestEndpoint(),
     checkGitHubCommits(),
     checkWeeklySummary(),
+    pingSupabase(),
   ]);
 
   // Auto-retry: if content freshness or weekly summary has issues, re-trigger ingest
@@ -419,6 +451,7 @@ export async function GET(request: Request) {
         checkIngestEndpoint(),
         checkGitHubCommits(),
         checkWeeklySummary(),
+        pingSupabase(),
       ]);
     }
   }
