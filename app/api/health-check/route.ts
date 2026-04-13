@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { sendEmail } from "@/lib/resend";
 import { supabase } from "@/lib/supabase";
+import * as fs from "fs";
+import * as path from "path";
 
 export const dynamic = "force-dynamic";
 
@@ -29,85 +31,76 @@ interface CheckResult {
 }
 
 /**
- * Check that SOMETHING (docs, news, or events) has been added recently.
- * Government UAP releases are sporadic, so we don't expect new docs daily.
- * News from RSS feeds updates more frequently and is the best signal that
- * the ingest pipeline is actually working.
+ * Check that the ingest pipeline has run recently by reading the
+ * ingest-meta.json file committed after every successful run.
+ * This is more reliable than checking content dates, because the
+ * pipeline can run successfully but find no new items (quiet news cycle).
  */
 async function checkContentFreshness(): Promise<CheckResult> {
   try {
-    const [docsResp, newsResp] = await Promise.all([
-      fetch(`${SITE_URL}/api/documents`, { signal: AbortSignal.timeout(10_000) }),
-      fetch(`${SITE_URL}/api/news`, { signal: AbortSignal.timeout(10_000) }).catch(
-        () => null
-      ),
-    ]);
+    const metaPath = path.join(process.cwd(), "content", "ingest-meta.json");
+    const metaExists = fs.existsSync(metaPath);
 
-    if (!docsResp.ok) {
-      return {
-        name: "Content freshness",
-        status: "error",
-        message: `Documents API returned ${docsResp.status}`,
-      };
+    if (metaExists) {
+      const meta = JSON.parse(fs.readFileSync(metaPath, "utf-8")) as { lastSuccessfulRun?: string };
+      if (meta.lastSuccessfulRun) {
+        const hoursSinceRun = Math.floor(
+          (Date.now() - new Date(meta.lastSuccessfulRun).getTime()) / (1000 * 60 * 60)
+        );
+
+        if (hoursSinceRun > 48) {
+          return {
+            name: "Content freshness",
+            status: "error",
+            message: `Ingest last ran ${Math.floor(hoursSinceRun / 24)} days ago. Pipeline may be broken.`,
+          };
+        }
+        if (hoursSinceRun > 26) {
+          return {
+            name: "Content freshness",
+            status: "warn",
+            message: `Ingest last ran ${hoursSinceRun} hours ago (expected every 24h).`,
+          };
+        }
+        return {
+          name: "Content freshness",
+          status: "ok",
+          message: `Ingest last ran ${hoursSinceRun} hour(s) ago.`,
+        };
+      }
     }
 
-    const docs = (await docsResp.json()) as Array<{
-      addedDate?: string;
-      publishedDate?: string;
-    }>;
+    // Fallback: if ingest-meta.json doesn't exist yet, check content dates
+    const newsResp = await fetch(`${SITE_URL}/api/news`, {
+      signal: AbortSignal.timeout(10_000),
+    }).catch(() => null);
 
-    const latestDocDate = docs.reduce((latest, doc) => {
-      const d = doc.addedDate || doc.publishedDate || "";
-      return d > latest ? d : latest;
-    }, "");
-
-    let latestNewsDate = "";
     if (newsResp && newsResp.ok) {
       const news = (await newsResp.json()) as Array<{
         addedDate?: string;
         publishedDate?: string;
       }>;
-      latestNewsDate = news.reduce((latest, item) => {
+      const latestDate = news.reduce((latest, item) => {
         const d = item.addedDate || item.publishedDate || "";
         return d > latest ? d : latest;
       }, "");
+
+      if (latestDate) {
+        const daysSince = Math.floor(
+          (Date.now() - new Date(latestDate).getTime()) / (1000 * 60 * 60 * 24)
+        );
+        return {
+          name: "Content freshness",
+          status: daysSince > 7 ? "error" : daysSince > 3 ? "warn" : "ok",
+          message: `Latest content: ${latestDate} (${daysSince} day(s) ago). Upgrade pending — ingest-meta.json not yet available.`,
+        };
+      }
     }
 
-    // Use whichever is most recent — news is the better signal for "ingest is alive"
-    const latestAny = latestNewsDate > latestDocDate ? latestNewsDate : latestDocDate;
-
-    if (!latestAny) {
-      return {
-        name: "Content freshness",
-        status: "warn",
-        message: "No content dates found",
-      };
-    }
-
-    const daysSinceUpdate = Math.floor(
-      (Date.now() - new Date(latestAny).getTime()) / (1000 * 60 * 60 * 24)
-    );
-
-    // News from RSS feeds should update every 1-2 days. If even news is
-    // stale for more than 3 days, the ingest is genuinely broken.
-    if (daysSinceUpdate > 3) {
-      return {
-        name: "Content freshness",
-        status: "error",
-        message: `No new content in ${daysSinceUpdate} days (latest: ${latestAny}). Ingest may be broken.`,
-      };
-    }
-    if (daysSinceUpdate > 1) {
-      return {
-        name: "Content freshness",
-        status: "warn",
-        message: `Latest content is ${daysSinceUpdate} days old (${latestAny}).`,
-      };
-    }
     return {
       name: "Content freshness",
-      status: "ok",
-      message: `Latest content added ${daysSinceUpdate} day(s) ago (${latestAny}).`,
+      status: "warn",
+      message: "Could not determine content freshness.",
     };
   } catch (err) {
     return {
@@ -434,10 +427,10 @@ export async function GET(request: Request) {
     pingSupabase(),
   ]);
 
-  // Auto-retry: if content freshness or weekly summary has issues, re-trigger ingest
+  // Auto-retry: only if the pipeline itself hasn't run (error status, not warn)
   let retryResult = "";
   const contentStale = results.some(
-    (r) => (r.name === "Content freshness" || r.name === "Weekly summary") && r.status !== "ok"
+    (r) => r.name === "Content freshness" && r.status === "error"
   );
   if (contentStale) {
     console.log("[HealthCheck] Stale content detected — auto-retrying ingest...");

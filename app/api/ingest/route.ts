@@ -1208,12 +1208,21 @@ async function runIngestion(): Promise<{
     }
   }
 
-  // 9. Commit all updated files to GitHub (triggers Vercel redeploy)
+  // 9. Always update ingest metadata so the health check knows the pipeline ran
+  filesToCommit.push({
+    path: "content/ingest-meta.json",
+    content: JSON.stringify({
+      lastSuccessfulRun: new Date().toISOString(),
+      documentsFetched: incomingDocs.length,
+      newsAdded: newsResult.added,
+      docsAdded: docResult.added,
+      eventsAdded: eventResult.added,
+    }, null, 2) + "\n",
+  });
+
+  // 10. Commit all updated files to GitHub (triggers Vercel redeploy)
   let committed = false;
   console.log(`[Ingest] Results: ${incomingDocs.length} docs fetched (${docResult.added} new), ${allNewsItems.length} news fetched (${newsResult.added} new), ${incomingEvents.length} events fetched (${eventResult.added} new), summary updated: ${summaryUpdated}`);
-  if (filesToCommit.length === 0) {
-    console.log("[Ingest] Nothing to commit — all content is up to date.");
-  }
   if (filesToCommit.length > 0) {
     try {
       const parts: string[] = [];
