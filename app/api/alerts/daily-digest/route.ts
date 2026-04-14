@@ -7,6 +7,17 @@ import {
   AlertItem,
 } from "@/lib/alert-email";
 import { generateAlertSummary, improveItemSummaries } from "@/lib/ai";
+import * as fs from "fs";
+import * as path from "path";
+
+function readContentJson<T>(filename: string): T[] {
+  try {
+    const filePath = path.join(process.cwd(), "content", filename);
+    return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T[];
+  } catch {
+    return [];
+  }
+}
 
 export const dynamic = "force-dynamic";
 
@@ -38,61 +49,49 @@ export async function GET(request: NextRequest) {
 
   const items: AlertItem[] = [];
 
-  try {
-    // Load documents added today
-    const docsModule = await import("@/content/documents.json");
-    const docs = (docsModule.default || []) as any[];
-    for (const doc of docs) {
-      if (doc.addedDate >= cutoffStr) {
-        items.push({
-          title: doc.title,
-          type: "document",
-          url: doc.sourceUrl,
-          summary: doc.summary || "",
-          date: doc.publishedDate || doc.addedDate,
-        });
-      }
+  // Read content files fresh from disk so we see items from the most recent
+  // ingest run (ES6 imports would bundle at build time and miss fresh content).
+  const docs = readContentJson<any>("documents.json");
+  for (const doc of docs) {
+    if (doc.addedDate && doc.addedDate >= cutoffStr) {
+      items.push({
+        title: doc.title,
+        type: "document",
+        url: doc.sourceUrl,
+        summary: doc.summary || "",
+        date: doc.publishedDate || doc.addedDate,
+      });
     }
-  } catch {
-    // content file may not exist
   }
 
-  try {
-    // Load news added today
-    const newsModule = await import("@/content/news.json");
-    const news = (newsModule.default || []) as any[];
-    for (const n of news) {
-      if (n.publishedDate >= cutoffStr) {
-        items.push({
-          title: n.title,
-          type: "news",
-          url: n.url,
-          summary: n.description || "",
-          date: n.publishedDate,
-        });
-      }
+  const news = readContentJson<any>("news.json");
+  for (const n of news) {
+    // Use addedDate (when we ingested it), falling back to publishedDate for
+    // legacy items without addedDate. A news article published last week but
+    // ingested today should be treated as new.
+    const relevantDate = n.addedDate || n.publishedDate;
+    if (relevantDate && relevantDate >= cutoffStr) {
+      items.push({
+        title: n.title,
+        type: "news",
+        url: n.url,
+        summary: n.description || "",
+        date: n.publishedDate,
+      });
     }
-  } catch {
-    // content file may not exist
   }
 
-  try {
-    // Load events added today
-    const eventsModule = await import("@/content/events.json");
-    const events = (eventsModule.default || []) as any[];
-    for (const e of events) {
-      if (e.date >= cutoffStr) {
-        items.push({
-          title: e.title,
-          type: "event",
-          url: e.sourceUrl,
-          summary: e.description || "",
-          date: e.date,
-        });
-      }
+  const events = readContentJson<any>("events.json");
+  for (const e of events) {
+    if (e.date && e.date >= cutoffStr) {
+      items.push({
+        title: e.title,
+        type: "event",
+        url: e.sourceUrl,
+        summary: e.description || "",
+        date: e.date,
+      });
     }
-  } catch {
-    // content file may not exist
   }
 
   if (items.length === 0) {

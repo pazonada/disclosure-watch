@@ -2,8 +2,30 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { sendBatchEmail } from "@/lib/resend";
 import { buildDigestEmailHtml } from "@/lib/alert-email";
+import * as fs from "fs";
+import * as path from "path";
 
 export const dynamic = "force-dynamic";
+
+/**
+ * Fallback: if no draft digest exists in Supabase (e.g. Supabase was paused
+ * when Monday's ingest tried to write the draft), read the current weekly
+ * summary from disk and send it. This ensures subscribers get a weekly email
+ * even if the upstream digest-creation step silently failed.
+ */
+async function readCurrentWeeklySummary(): Promise<{ weekOf: string; summary: string } | null> {
+  try {
+    const filePath = path.join(process.cwd(), "content", "weekly-summary.json");
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const data = JSON.parse(raw) as { weekOf?: string; summary?: string };
+    if (data.weekOf && data.summary && data.summary.trim().length > 20) {
+      return { weekOf: data.weekOf, summary: data.summary };
+    }
+  } catch {
+    // file missing or unreadable
+  }
+  return null;
+}
 
 /**
  * Auto-send cron: Checks for any digest past its deadline that hasn't been sent.
@@ -41,6 +63,62 @@ export async function GET(req: NextRequest) {
     if (error) throw error;
 
     if (!pendingDigests || pendingDigests.length === 0) {
+      // Fallback: check whether we have a current weekly summary on disk that
+      // should have been queued but wasn't. Check Supabase first to see if it
+      // was already sent (prevents duplicate sends).
+      const currentSummary = await readCurrentWeeklySummary();
+      if (currentSummary) {
+        const { data: existing } = await supabase
+          .from("digests")
+          .select("id, status")
+          .eq("week_of", currentSummary.weekOf)
+          .limit(1)
+          .single();
+
+        if (!existing) {
+          // No row exists for this week — create one and send it now
+          const { data: inserted, error: insertErr } = await supabase
+            .from("digests")
+            .insert({
+              week_of: currentSummary.weekOf,
+              summary_text: currentSummary.summary,
+              status: "draft",
+              auto_send_deadline: new Date().toISOString(),
+            })
+            .select()
+            .single();
+
+          if (insertErr || !inserted) {
+            return NextResponse.json({
+              message: "No digests to auto-send (fallback insert failed)",
+              error: insertErr?.message,
+              sent: 0,
+            });
+          }
+
+          const weekLabel = new Date(inserted.week_of).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          });
+          const html = buildDigestEmailHtml(inserted.summary_text, weekLabel);
+          const result = await sendBatchEmail({
+            subject: `Disclosure Watch Weekly Briefing: Week of ${weekLabel}`,
+            html,
+          });
+          await supabase
+            .from("digests")
+            .update({ status: "sent", sent_at: new Date().toISOString() })
+            .eq("id", inserted.id);
+
+          return NextResponse.json({
+            message: `Auto-sent recovered digest for week of ${currentSummary.weekOf}`,
+            sent: result.sent,
+            recovered: true,
+          });
+        }
+      }
+
       return NextResponse.json({ message: "No digests to auto-send", sent: 0 });
     }
 
