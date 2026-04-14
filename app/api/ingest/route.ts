@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { commitFiles, type FileUpdate } from "@/lib/github";
 import { nowET, todayET } from "@/lib/utils";
 import type { AlertItem } from "@/lib/alert-email";
+import { dispatchAlertsToSubscribers } from "@/lib/alert-dispatcher";
 
 export const dynamic = "force-dynamic";
 
@@ -1088,22 +1089,15 @@ async function dispatchAlerts(
   if (items.length === 0) return { dispatched: false };
 
   try {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-    const secret = process.env.INGEST_SECRET || "";
-
-    const res = await fetch(`${siteUrl}/api/alerts/dispatch`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items, secret }),
-    });
-
-    if (!res.ok) {
-      const text = await res.text();
-      console.error("Alert dispatch failed:", res.status, text);
-      return { dispatched: false, error: text };
+    // Call the dispatcher directly in-process. This avoids an HTTP
+    // round-trip through the public domain (which was failing silently
+    // when NEXT_PUBLIC_SITE_URL wasn't set or the public URL returned 401).
+    const result = await dispatchAlertsToSubscribers(items);
+    console.log(`[Ingest] Dispatched alerts: sent=${result.sent}, skipped=${result.skipped}, subs=${result.totalSubscribers}${result.reason ? ` (${result.reason})` : ""}`);
+    if (result.error) {
+      return { dispatched: false, error: result.error };
     }
-
-    return { dispatched: true };
+    return { dispatched: result.sent > 0 };
   } catch (err) {
     console.error("Alert dispatch error:", err);
     return { dispatched: false, error: String(err) };
