@@ -20,28 +20,50 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://disclosurewatch.com";
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 const callClaude = async (prompt, maxTokens = 800) => {
   if (!ANTHROPIC_KEY) {
     throw new Error("ANTHROPIC_API_KEY not set in environment");
   }
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-api-key": ANTHROPIC_KEY,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: maxTokens,
-      messages: [{ role: "user", content: prompt }],
-    }),
-  });
-  if (!res.ok) {
-    throw new Error(`Claude API failed: ${res.status} ${await res.text()}`);
+
+  // Retry on transient 5xx / 429 with exponential backoff. Anthropic's API
+  // occasionally returns 500 — those shouldn't fail the whole render.
+  const maxAttempts = 4;
+  let lastError = "";
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-api-key": ANTHROPIC_KEY,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: maxTokens,
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      return data.content?.[0]?.text || "";
+    }
+
+    const body = await res.text();
+    lastError = `${res.status} ${body}`;
+
+    const shouldRetry = res.status === 429 || res.status >= 500;
+    if (!shouldRetry || attempt === maxAttempts) {
+      throw new Error(`Claude API failed: ${lastError}`);
+    }
+
+    const backoffMs = 1000 * Math.pow(2, attempt - 1);
+    console.warn(`[Carousel] Claude API ${res.status} (attempt ${attempt}/${maxAttempts}) — retrying in ${backoffMs}ms`);
+    await sleep(backoffMs);
   }
-  const data = await res.json();
-  return data.content?.[0]?.text || "";
+  throw new Error(`Claude API failed after ${maxAttempts} attempts: ${lastError}`);
 };
 
 const parseClaudeJson = (response) => {
