@@ -418,12 +418,16 @@ export async function GET(request: Request) {
     }
   }
 
-  // Run all checks in parallel (pingSupabase doubles as a free-tier keep-alive)
+  // Run checks in parallel. We intentionally dropped the GitHub-commits and
+  // weekly-summary HTTP checks — they were giving false positives (the GitHub
+  // API sometimes returned stale commit lists, and the weekly-summary check
+  // hit a live endpoint that was ISR-cached). Content freshness via
+  // ingest-meta.json is the authoritative signal: the ingest writes that file
+  // every run, so if it's fresh, the pipeline is alive. pingSupabase doubles
+  // as the free-tier keep-alive.
   let results: CheckResult[] = await Promise.all([
     checkContentFreshness(),
     checkIngestEndpoint(),
-    checkGitHubCommits(),
-    checkWeeklySummary(),
     pingSupabase(),
   ]);
 
@@ -442,8 +446,6 @@ export async function GET(request: Request) {
       results = await Promise.all([
         checkContentFreshness(),
         checkIngestEndpoint(),
-        checkGitHubCommits(),
-        checkWeeklySummary(),
         pingSupabase(),
       ]);
     }
