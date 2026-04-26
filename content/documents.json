@@ -4840,5 +4840,22 @@
     ],
     "publishedDate": "1947-07-08",
     "addedDate": "2020-01-01"
+  },
+  {
+    "id": "nara-499915935",
+    "title": "Mission Brief AARO - DGI Conference",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915935",
+    "documentUrl": "https://s3.dualstack.us-east-1.amazonaws.com/NARAprodstorage/lz/electronic-records/rg-615/493468580/03_2024_DGI_Mission_Brief.pdf",
+    "summary": "This item is a slideshow presentation titled \"The U.S. Defense Department and the UAP Mission\" by the All-domain Anomaly Resolution Office, last updated in February 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "unknown",
+    "addedDate": "2026-04-26"
   }
 ]
