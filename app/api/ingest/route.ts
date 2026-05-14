@@ -108,6 +108,8 @@ const UAP_RELEVANCE_KEYWORDS = [
   "uap", "ufo", "unidentified anomalous", "unidentified aerial",
   "anomalous phenomena", "flying object", "flying objects",
   "aaro", "all-domain anomaly resolution",
+  "aatip", "aawsap", "advanced aerospace threat",
+  "immaculate constellation", "yankee blue", "tic tac",
   "disclosure", "non-human intelligence", "nhi",
   "extraterrestrial", "roswell", "area 51",
   "grusch", "elizondo", "fravor", "graves",
@@ -119,6 +121,22 @@ const UAP_RELEVANCE_KEYWORDS = [
 function isUapRelevant(text: string): boolean {
   const lower = text.toLowerCase();
   return UAP_RELEVANCE_KEYWORDS.some((kw) => lower.includes(kw));
+}
+
+/**
+ * Stricter UAP match for sources where false positives are common (e.g. Federal
+ * Register, where "UAP" can collide with unrelated acronyms). Requires an
+ * unambiguous UAP/UFO/AARO reference, with word boundaries for short acronyms.
+ */
+function isStrongUapDocMatch(text: string): boolean {
+  const lower = text.toLowerCase();
+  if (lower.includes("unidentified anomalous phenomena")) return true;
+  if (lower.includes("unidentified aerial phenomena")) return true;
+  if (lower.includes("all-domain anomaly resolution")) return true;
+  if (/\baaro\b/i.test(text)) return true;
+  if (/\buap\b/i.test(text) && /\b(phenomena|disclosure|object|sighting|report|review|office|incident)\b/i.test(text)) return true;
+  if (/\bufo\b/i.test(text) && /\b(disclosure|file|release|sighting|incident|report)\b/i.test(text)) return true;
+  return false;
 }
 
 /** Map Congress.gov bill type codes to URL-friendly slugs */
@@ -447,6 +465,185 @@ async function fetchCongressHearings(): Promise<UAPEvent[]> {
   }
 
   return results;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// PRIMARY-SOURCE DOCUMENTS: The Black Vault + Federal Register
+// ══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * The Black Vault is a 25-year-old FOIA archive run by John Greenewald. Its
+ * documentarchive feed is the most reliable public aggregator of primary-source
+ * UAP/UFO releases from AARO, DoD, NASA, ODNI, and federal FOIA responses —
+ * which we cannot scrape directly because all .mil/.gov domains are gated by
+ * Akamai WAF. TBV typically posts releases within hours of public availability
+ * and links the original documents.
+ */
+async function fetchBlackVault(): Promise<UAPDocument[]> {
+  const FEED_URL = "https://www.theblackvault.com/documentarchive/feed/";
+  const results: UAPDocument[] = [];
+
+  try {
+    const resp = await fetchWithTimeout(FEED_URL, 12000);
+    if (!resp.ok) {
+      console.log(`[BlackVault] Feed returned ${resp.status}`);
+      return results;
+    }
+
+    const xml = await resp.text();
+    const items = parseRssItems(xml);
+
+    for (const item of items) {
+      const cleanTitle = stripHtml(item.title);
+      const cleanDescription = stripHtml(item.description);
+      const haystack = `${cleanTitle} ${cleanDescription}`;
+
+      // TBV publishes JFK files, MKULTRA, etc. too — filter to UAP-relevant.
+      if (!isUapRelevant(haystack)) continue;
+
+      // Strip RSS tracking params so URLs dedupe cleanly against any prior
+      // entry that was captured elsewhere.
+      const cleanUrl = item.link.split("?")[0];
+
+      // Heuristic importance: high-signal keywords bump it up.
+      const lower = haystack.toLowerCase();
+      let importance: "High" | "Medium" | "Low" = "Medium";
+      if (
+        lower.includes("aaro") ||
+        lower.includes("pentagon") ||
+        lower.includes("congress") ||
+        lower.includes("executive order")
+      ) {
+        importance = "High";
+      }
+
+      results.push({
+        id: toKebab(`tbv-${cleanTitle}`.slice(0, 80)),
+        title: cleanTitle.slice(0, 200),
+        source: "The Black Vault",
+        sourceUrl: cleanUrl,
+        summary: cleanDescription.slice(0, 400) || "FOIA document release archived by The Black Vault.",
+        category: "FOIA Release",
+        importance,
+        tags: ["FOIA", "The Black Vault", "Primary Source"],
+        publishedDate: parseRssDate(item.pubDate),
+        addedDate: today(),
+      });
+    }
+
+    console.log(`[BlackVault] Fetched ${results.length} UAP-relevant items`);
+  } catch (err) {
+    console.error("[BlackVault] Error:", err);
+  }
+
+  return results;
+}
+
+/**
+ * Federal Register API — for executive orders, agency rules, and official
+ * notices that mention UAP/AARO. Low volume but catches authoritative actions
+ * that bypass news coverage (e.g. DoD Privacy Act notices for AARO systems
+ * of records).
+ *
+ * The API's "term" search is loose, so we post-filter with isStrongUapDocMatch.
+ */
+async function fetchFederalRegister(): Promise<UAPDocument[]> {
+  const results: UAPDocument[] = [];
+
+  // 365-day window — FR publishes infrequently enough that anything older has
+  // already been seen by previous ingest runs.
+  const fromDate = new Date();
+  fromDate.setFullYear(fromDate.getFullYear() - 1);
+  const fromStr = fromDate.toISOString().slice(0, 10);
+
+  const queries = [
+    "unidentified anomalous phenomena",
+    "all-domain anomaly resolution",
+  ];
+
+  for (const term of queries) {
+    try {
+      const url =
+        "https://www.federalregister.gov/api/v1/documents.json" +
+        `?per_page=50&order=newest` +
+        `&conditions%5Bterm%5D=${encodeURIComponent(term)}` +
+        `&conditions%5Bpublication_date%5D%5Bgte%5D=${fromStr}`;
+
+      const resp = await fetchWithTimeout(url, 15000);
+      if (!resp.ok) {
+        console.log(`[FedReg] API returned ${resp.status} for "${term}"`);
+        continue;
+      }
+
+      const data = (await resp.json()) as {
+        results?: Array<{
+          document_number?: string;
+          title?: string;
+          abstract?: string;
+          publication_date?: string;
+          html_url?: string;
+          pdf_url?: string;
+          type?: string;
+          agencies?: Array<{ raw_name?: string; name?: string }>;
+        }>;
+      };
+
+      for (const r of data.results || []) {
+        const title = r.title || "";
+        const abstract = r.abstract || "";
+        const haystack = `${title} ${abstract}`;
+
+        if (!isStrongUapDocMatch(haystack)) continue;
+
+        const agencyNames =
+          r.agencies?.map((a) => a.name || a.raw_name).filter(Boolean) || [];
+        const isDoDOrODNI = agencyNames.some(
+          (n) =>
+            /defense/i.test(n!) ||
+            /national intelligence/i.test(n!) ||
+            /executive office/i.test(n!)
+        );
+        // Skip anything that isn't a defense/intel-adjacent agency — collateral
+        // mentions in unrelated agency rules don't belong as primary docs.
+        if (!isDoDOrODNI) continue;
+
+        const category = mapFederalRegisterType(r.type);
+
+        results.push({
+          id: toKebab(`fr-${r.document_number || title}`.slice(0, 80)),
+          title: title.slice(0, 200),
+          source: "Department of Defense",
+          sourceUrl: r.html_url || "",
+          documentUrl: r.pdf_url || undefined,
+          summary: abstract.slice(0, 400) || "Federal Register entry.",
+          category,
+          importance: r.type === "Presidential Document" ? "High" : "Medium",
+          tags: ["Federal Register", ...agencyNames.slice(0, 2).filter(Boolean) as string[]],
+          publishedDate: r.publication_date || today(),
+          addedDate: today(),
+        });
+      }
+    } catch (err) {
+      console.error(`[FedReg] Error for "${term}":`, err);
+    }
+  }
+
+  console.log(`[FedReg] Fetched ${results.length} UAP-relevant entries`);
+  return results;
+}
+
+function mapFederalRegisterType(t?: string): string {
+  switch (t) {
+    case "Presidential Document":
+      return "Executive Order";
+    case "Rule":
+    case "Proposed Rule":
+      return "Official Statement";
+    case "Notice":
+      return "Press Release";
+    default:
+      return "Official Statement";
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1125,19 +1322,32 @@ async function runIngestion(): Promise<{
   const existingEvents = loadJson<UAPEvent>(EVENTS_PATH);
 
   // 2. Fetch all sources in parallel
-  const [archiveDocs, congressDocs, congressHearings, allNewsItems] =
-    await Promise.all([
-      fetchArchives(),
-      fetchCongress(),
-      fetchCongressHearings(),
-      fetchAllNews(),
-    ]);
+  const [
+    archiveDocs,
+    congressDocs,
+    blackVaultDocs,
+    fedRegDocs,
+    congressHearings,
+    allNewsItems,
+  ] = await Promise.all([
+    fetchArchives(),
+    fetchCongress(),
+    fetchBlackVault(),
+    fetchFederalRegister(),
+    fetchCongressHearings(),
+    fetchAllNews(),
+  ]);
 
   // 3. Detect events from news items
   const detectedEvents = detectEventsFromNews(allNewsItems);
 
   // 4. Merge documents
-  const incomingDocs = [...archiveDocs, ...congressDocs];
+  const incomingDocs = [
+    ...archiveDocs,
+    ...congressDocs,
+    ...blackVaultDocs,
+    ...fedRegDocs,
+  ];
   const existingDocIds = new Set(existingDocs.map((d) => d.id));
   const docResult = mergeDocuments(existingDocs, incomingDocs);
   if (docResult.added > 0) {
