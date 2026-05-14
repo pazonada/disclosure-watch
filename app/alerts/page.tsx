@@ -21,10 +21,11 @@ const DEFAULT_PREFS: Preferences = {
   frequency: "realtime",
 };
 
+// `trigger_milestones` hidden — not wired through ingest/dispatcher today.
+// See components/InsiderSignup.tsx for the matching note.
 const TRIGGERS = [
   { key: "trigger_documents", label: "New government documents", desc: "AARO reports, FOIA releases, congressional reports" },
   { key: "trigger_hearings", label: "Hearings & events", desc: "Congressional hearings, Pentagon briefings, deadlines" },
-  { key: "trigger_milestones", label: "Disclosure milestones", desc: "Major legislation, landmark statements, key moments" },
   { key: "trigger_news", label: "News articles", desc: "Curated UAP journalism from trusted sources" },
 ] as const;
 
@@ -170,10 +171,12 @@ export default function AlertsPage() {
     setLoading(false);
   }
 
+  // Note: trigger_milestones is intentionally not part of this check — it
+  // isn't surfaced in the UI today, so its value should never gate the
+  // "no triggers selected" cancellation prompt.
   const allTriggersOff =
     !prefs.trigger_documents &&
     !prefs.trigger_hearings &&
-    !prefs.trigger_milestones &&
     !prefs.trigger_news;
 
   async function handleSave() {

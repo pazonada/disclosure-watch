@@ -21,10 +21,13 @@ const DEFAULT_PREFS: Preferences = {
   frequency: "realtime",
 };
 
+// `trigger_milestones` is intentionally not exposed here: milestones aren't
+// ingested by /api/ingest and the alert dispatcher's typeMatch ignores
+// `milestone` items, so toggling it has no effect. Re-add once milestones
+// flow end-to-end through the alert pipeline.
 const TRIGGERS = [
   { key: "trigger_documents", label: "Government documents", desc: "AARO reports, FOIA releases, congressional reports" },
   { key: "trigger_hearings", label: "Hearings & events", desc: "Congressional hearings, Pentagon briefings, deadlines" },
-  { key: "trigger_milestones", label: "Disclosure milestones", desc: "Major legislation, landmark statements, key moments" },
   { key: "trigger_news", label: "News articles", desc: "Curated UAP journalism from trusted sources" },
 ] as const;
 
