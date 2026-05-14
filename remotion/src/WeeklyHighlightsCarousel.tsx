@@ -1,33 +1,25 @@
-import { AbsoluteFill, continueRender, delayRender } from "remotion";
+import { AbsoluteFill, Img, continueRender, delayRender } from "remotion";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 
 // ── Schema ─────────────────────────────────────────────────────────────────
 
-const noteworthyDocSchema = z.object({
-  title: z.string(),
-  source: z.string(),
-  category: z.string(),
-  whyItMatters: z.string(),
-});
-
-const watchItemSchema = z.object({
-  headline: z.string(),
-  source: z.string(),
-  whyItMatters: z.string(),
-});
-
 export const carouselSchema = z.object({
   slideIndex: z.number(),
   weekOf: z.string(),
-  insights: z.array(z.string()), // 3 punchy single-sentence takeaways
-  stats: z.object({
-    newDocs: z.number(),
-    newNews: z.number(),
-    newEvents: z.number(),
+  anchor: z.object({
+    kind: z.enum(["doc", "news"]),
+    tag: z.string(),                   // "THE DOC DROP" or "THE STORY"
+    title: z.string(),                 // full headline / doc title
+    source: z.string(),
+    date: z.string(),                  // formatted, e.g. "Apr 18, 2026"
+    teaser: z.string(),                // short cover hook, <= 14 words
+    whatHappened: z.string(),          // 2-3 sentence setup
+    details: z.array(z.string()),      // 3 specific takeaways / quotes / facts
+    whyItMatters: z.string(),          // 2-3 sentences of implications
+    whatNext: z.string(),              // 1-2 sentences or open question
+    imageUrl: z.string().optional(),   // OG image for news anchors
   }),
-  noteworthyDoc: noteworthyDocSchema,
-  watchList: z.array(watchItemSchema), // 2 key news items
 });
 
 type CarouselProps = z.infer<typeof carouselSchema>;
@@ -79,8 +71,6 @@ const GridBackground: React.FC = () => (
   </AbsoluteFill>
 );
 
-// ── Logo ───────────────────────────────────────────────────────────────────
-
 const RadioIcon: React.FC<{ size?: number }> = ({ size = 80 }) => (
   <svg width={size} height={size} viewBox="0 0 32 32">
     <rect width="32" height="32" rx="6" fill="#1a2030" />
@@ -101,7 +91,6 @@ const RadioIcon: React.FC<{ size?: number }> = ({ size = 80 }) => (
   </svg>
 );
 
-// Standard footer for content slides
 const SlideFooter: React.FC<{ pageLabel?: string }> = ({ pageLabel }) => (
   <div
     style={{
@@ -125,117 +114,188 @@ const SlideFooter: React.FC<{ pageLabel?: string }> = ({ pageLabel }) => (
   </div>
 );
 
+const AnchorTag: React.FC<{ tag: string }> = ({ tag }) => (
+  <div
+    style={{
+      display: "inline-block",
+      background: COLORS.lime,
+      color: COLORS.bg,
+      fontFamily: FONTS.mono,
+      fontSize: 20,
+      fontWeight: 700,
+      letterSpacing: "0.2em",
+      padding: "10px 20px",
+      borderRadius: 4,
+      alignSelf: "flex-start",
+    }}
+  >
+    {tag}
+  </div>
+);
+
 // ── Slide 1: Cover ─────────────────────────────────────────────────────────
 
-const CoverSlide: React.FC<{ weekOf: string }> = ({ weekOf }) => (
-  <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", padding: 80 }}>
-    <RadioIcon size={140} />
+const CoverSlide: React.FC<{
+  weekOf: string;
+  tag: string;
+  teaser: string;
+  imageUrl?: string;
+}> = ({ weekOf, tag, teaser, imageUrl }) => (
+  <AbsoluteFill>
+    {imageUrl && (
+      <AbsoluteFill>
+        <Img
+          src={imageUrl}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: 0.35,
+            filter: "grayscale(30%) contrast(1.1)",
+          }}
+        />
+        <AbsoluteFill
+          style={{
+            background: `linear-gradient(180deg, rgba(10,14,20,0.4) 0%, rgba(10,14,20,0.92) 70%, ${COLORS.bg} 100%)`,
+          }}
+        />
+      </AbsoluteFill>
+    )}
+
+    <AbsoluteFill style={{ padding: 90, justifyContent: "space-between" }}>
+      {/* Top: brand strip */}
+      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <RadioIcon size={48} />
+        <div
+          style={{
+            fontFamily: FONTS.logo,
+            fontSize: 28,
+            color: COLORS.white,
+            letterSpacing: "0.05em",
+          }}
+        >
+          DISCLOSURE WATCH
+        </div>
+      </div>
+
+      {/* Middle: teaser */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+        <div
+          style={{
+            display: "inline-block",
+            background: COLORS.lime,
+            color: COLORS.bg,
+            fontFamily: FONTS.mono,
+            fontSize: 22,
+            fontWeight: 700,
+            letterSpacing: "0.2em",
+            padding: "12px 22px",
+            borderRadius: 4,
+            alignSelf: "flex-start",
+          }}
+        >
+          {tag}
+        </div>
+        <div
+          style={{
+            fontFamily: FONTS.body,
+            fontSize: 76,
+            color: COLORS.white,
+            lineHeight: 1.12,
+            fontWeight: 800,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          {teaser}
+        </div>
+        <div
+          style={{
+            fontFamily: FONTS.mono,
+            fontSize: 22,
+            color: COLORS.lime,
+            letterSpacing: "0.2em",
+          }}
+        >
+          WEEK OF {weekOf.toUpperCase()}
+        </div>
+      </div>
+
+      {/* Bottom: swipe */}
+      <div
+        style={{
+          fontFamily: FONTS.mono,
+          fontSize: 22,
+          color: COLORS.lime,
+          letterSpacing: "0.1em",
+          alignSelf: "flex-end",
+        }}
+      >
+        swipe →
+      </div>
+    </AbsoluteFill>
+  </AbsoluteFill>
+);
+
+// ── Slide 2: The anchor card (title + source) ─────────────────────────────
+
+const AnchorCardSlide: React.FC<{
+  tag: string;
+  title: string;
+  source: string;
+  date: string;
+  imageUrl?: string;
+  kind: "doc" | "news";
+}> = ({ tag, title, source, date, imageUrl, kind }) => (
+  <AbsoluteFill style={{ padding: 90, justifyContent: "center", gap: 36 }}>
+    <AnchorTag tag={tag} />
+
+    {imageUrl && kind === "news" && (
+      <div
+        style={{
+          width: "100%",
+          height: 420,
+          borderRadius: 12,
+          overflow: "hidden",
+          border: `1px solid rgba(255,255,255,0.08)`,
+        }}
+      >
+        <Img
+          src={imageUrl}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
+    )}
+
     <div
       style={{
-        fontFamily: FONTS.logo,
-        fontSize: 56,
+        fontFamily: FONTS.body,
+        fontSize: 54,
         color: COLORS.white,
-        letterSpacing: "0.04em",
-        lineHeight: 1.1,
-        marginTop: 32,
+        lineHeight: 1.22,
+        fontWeight: 800,
       }}
     >
-      DISCLOSURE WATCH
+      {title}
     </div>
+
     <div
       style={{
         fontFamily: FONTS.mono,
         fontSize: 22,
         color: COLORS.muted,
-        letterSpacing: "0.2em",
-        textTransform: "uppercase",
-        marginTop: 12,
+        letterSpacing: "0.08em",
       }}
     >
-      UAP Intelligence Dashboard
+      {source} · {date}
     </div>
-    <div style={{ width: 100, height: 3, background: COLORS.lime, margin: "60px 0 40px" }} />
-    <div
-      style={{
-        fontFamily: FONTS.mono,
-        fontSize: 28,
-        color: COLORS.lime,
-        letterSpacing: "0.2em",
-        marginBottom: 24,
-      }}
-    >
-      THIS WEEK IN UAP
-    </div>
-    <div
-      style={{
-        fontFamily: FONTS.body,
-        fontSize: 56,
-        color: COLORS.white,
-        fontWeight: 700,
-        textAlign: "center",
-        lineHeight: 1.15,
-      }}
-    >
-      Week of
-      <br />
-      {weekOf}
-    </div>
-    <div
-      style={{
-        position: "absolute",
-        bottom: 60,
-        fontFamily: FONTS.mono,
-        fontSize: 22,
-        color: COLORS.lime,
-        letterSpacing: "0.1em",
-      }}
-    >
-      swipe →
-    </div>
-  </AbsoluteFill>
-);
 
-// ── Slide 2-4: Insight slides ──────────────────────────────────────────────
-
-const InsightSlide: React.FC<{
-  insight: string;
-  number: number;
-  total: number;
-}> = ({ insight, number, total }) => (
-  <AbsoluteFill style={{ padding: 90, justifyContent: "center" }}>
-    <div
-      style={{
-        fontFamily: FONTS.mono,
-        fontSize: 26,
-        color: COLORS.lime,
-        letterSpacing: "0.2em",
-        marginBottom: 48,
-      }}
-    >
-      KEY INSIGHT {number}/{total}
-    </div>
-    <div
-      style={{
-        fontFamily: FONTS.body,
-        fontSize: 52,
-        color: COLORS.white,
-        lineHeight: 1.3,
-        fontWeight: 600,
-      }}
-    >
-      {insight}
-    </div>
     <SlideFooter pageLabel="swipe →" />
   </AbsoluteFill>
 );
 
-// ── Slide 5: Stats / By the Numbers ────────────────────────────────────────
+// ── Slide 3: What happened ────────────────────────────────────────────────
 
-const StatsSlide: React.FC<{
-  newDocs: number;
-  newNews: number;
-  newEvents: number;
-}> = ({ newDocs, newNews, newEvents }) => (
+const WhatHappenedSlide: React.FC<{ text: string }> = ({ text }) => (
   <AbsoluteFill style={{ padding: 90, justifyContent: "center" }}>
     <div
       style={{
@@ -243,138 +303,33 @@ const StatsSlide: React.FC<{
         fontSize: 26,
         color: COLORS.lime,
         letterSpacing: "0.2em",
-        marginBottom: 60,
+        marginBottom: 44,
       }}
     >
-      BY THE NUMBERS
-    </div>
-    <div style={{ display: "flex", flexDirection: "column", gap: 56 }}>
-      <StatRow value={newDocs} label="new documents added in the last 7 days" />
-      <StatRow value={newNews} label="news stories indexed in the last 7 days" />
-      {newEvents > 0 && (
-        <StatRow value={newEvents} label="hearings or events logged in the last 7 days" />
-      )}
-    </div>
-    <SlideFooter pageLabel="swipe →" />
-  </AbsoluteFill>
-);
-
-const StatRow: React.FC<{ value: number; label: string }> = ({ value, label }) => (
-  <div style={{ display: "flex", alignItems: "baseline", gap: 28 }}>
-    <div
-      style={{
-        fontFamily: FONTS.body,
-        fontSize: 140,
-        fontWeight: 800,
-        color: COLORS.lime,
-        lineHeight: 0.9,
-        minWidth: 200,
-      }}
-    >
-      {value}
-    </div>
-    <div
-      style={{
-        fontFamily: FONTS.body,
-        fontSize: 32,
-        color: COLORS.white,
-        fontWeight: 500,
-        lineHeight: 1.3,
-        flex: 1,
-      }}
-    >
-      {label}
-    </div>
-  </div>
-);
-
-// ── Slide 6: Most Noteworthy Document ─────────────────────────────────────
-
-const NoteworthyDocSlide: React.FC<{
-  title: string;
-  source: string;
-  category: string;
-  whyItMatters: string;
-}> = ({ title, source, category, whyItMatters }) => (
-  <AbsoluteFill style={{ padding: 90, justifyContent: "center" }}>
-    <div
-      style={{
-        fontFamily: FONTS.mono,
-        fontSize: 26,
-        color: COLORS.lime,
-        letterSpacing: "0.2em",
-        marginBottom: 32,
-      }}
-    >
-      MOST NOTEWORTHY
-    </div>
-    <div
-      style={{
-        display: "inline-block",
-        background: COLORS.lime,
-        color: COLORS.bg,
-        fontFamily: FONTS.mono,
-        fontSize: 18,
-        fontWeight: 700,
-        letterSpacing: "0.15em",
-        padding: "8px 16px",
-        borderRadius: 4,
-        marginBottom: 24,
-        alignSelf: "flex-start",
-      }}
-    >
-      {category.toUpperCase()}
+      WHAT HAPPENED
     </div>
     <div
       style={{
         fontFamily: FONTS.body,
         fontSize: 44,
         color: COLORS.white,
-        lineHeight: 1.25,
-        fontWeight: 700,
-        marginBottom: 28,
-      }}
-    >
-      {title}
-    </div>
-    <div
-      style={{
-        fontFamily: FONTS.mono,
-        fontSize: 20,
-        color: COLORS.muted,
-        letterSpacing: "0.05em",
-        marginBottom: 40,
-      }}
-    >
-      via {source}
-    </div>
-    <div
-      style={{
-        borderLeft: `4px solid ${COLORS.lime}`,
-        paddingLeft: 28,
-        fontFamily: FONTS.body,
-        fontSize: 30,
-        color: COLORS.mutedBright,
-        lineHeight: 1.45,
+        lineHeight: 1.35,
         fontWeight: 500,
-        fontStyle: "italic",
       }}
     >
-      {whyItMatters}
+      {text}
     </div>
     <SlideFooter pageLabel="swipe →" />
   </AbsoluteFill>
 );
 
-// ── Slide 7-8: Worth Watching news items ───────────────────────────────────
+// ── Slides 4-6: Detail slides (one detail each) ────────────────────────────
 
-const WatchSlide: React.FC<{
-  headline: string;
-  source: string;
-  whyItMatters: string;
+const DetailSlide: React.FC<{
+  text: string;
   number: number;
   total: number;
-}> = ({ headline, source, whyItMatters, number, total }) => (
+}> = ({ text, number, total }) => (
   <AbsoluteFill style={{ padding: 90, justifyContent: "center" }}>
     <div
       style={{
@@ -382,53 +337,102 @@ const WatchSlide: React.FC<{
         fontSize: 26,
         color: COLORS.lime,
         letterSpacing: "0.2em",
-        marginBottom: 32,
+        marginBottom: 44,
       }}
     >
-      WORTH WATCHING {number}/{total}
+      THE DETAILS · {number} / {total}
+    </div>
+    <div
+      style={{
+        fontFamily: FONTS.body,
+        fontSize: 80,
+        color: COLORS.lime,
+        fontWeight: 800,
+        lineHeight: 1,
+        marginBottom: 40,
+      }}
+    >
+      {number.toString().padStart(2, "0")}
     </div>
     <div
       style={{
         fontFamily: FONTS.body,
         fontSize: 46,
         color: COLORS.white,
-        lineHeight: 1.25,
-        fontWeight: 700,
-        marginBottom: 28,
-      }}
-    >
-      {headline}
-    </div>
-    <div
-      style={{
-        fontFamily: FONTS.mono,
-        fontSize: 20,
-        color: COLORS.muted,
-        letterSpacing: "0.05em",
-        marginBottom: 40,
-      }}
-    >
-      via {source}
-    </div>
-    <div
-      style={{
-        borderLeft: `4px solid ${COLORS.lime}`,
-        paddingLeft: 28,
-        fontFamily: FONTS.body,
-        fontSize: 28,
-        color: COLORS.mutedBright,
-        lineHeight: 1.45,
+        lineHeight: 1.32,
         fontWeight: 500,
-        fontStyle: "italic",
       }}
     >
-      {whyItMatters}
+      {text}
     </div>
     <SlideFooter pageLabel="swipe →" />
   </AbsoluteFill>
 );
 
-// ── Final slide: CTA closing ───────────────────────────────────────────────
+// ── Slide 7: Why it matters ────────────────────────────────────────────────
+
+const WhyItMattersSlide: React.FC<{ text: string }> = ({ text }) => (
+  <AbsoluteFill style={{ padding: 90, justifyContent: "center" }}>
+    <div
+      style={{
+        fontFamily: FONTS.mono,
+        fontSize: 26,
+        color: COLORS.lime,
+        letterSpacing: "0.2em",
+        marginBottom: 44,
+      }}
+    >
+      WHY IT MATTERS
+    </div>
+    <div
+      style={{
+        borderLeft: `4px solid ${COLORS.lime}`,
+        paddingLeft: 32,
+        fontFamily: FONTS.body,
+        fontSize: 44,
+        color: COLORS.mutedBright,
+        lineHeight: 1.38,
+        fontWeight: 500,
+        fontStyle: "italic",
+      }}
+    >
+      {text}
+    </div>
+    <SlideFooter pageLabel="swipe →" />
+  </AbsoluteFill>
+);
+
+// ── Slide 8: What's next ───────────────────────────────────────────────────
+
+const WhatNextSlide: React.FC<{ text: string }> = ({ text }) => (
+  <AbsoluteFill style={{ padding: 90, justifyContent: "center" }}>
+    <div
+      style={{
+        fontFamily: FONTS.mono,
+        fontSize: 26,
+        color: COLORS.lime,
+        letterSpacing: "0.2em",
+        marginBottom: 44,
+      }}
+    >
+      WHAT TO WATCH NEXT
+    </div>
+    <div
+      style={{
+        fontFamily: FONTS.body,
+        fontSize: 44,
+        color: COLORS.white,
+        lineHeight: 1.32,
+        fontWeight: 500,
+      }}
+    >
+      {text}
+    </div>
+    <SlideFooter pageLabel="swipe →" />
+  </AbsoluteFill>
+);
+
+// ── Slide 9: CTA closing ───────────────────────────────────────────────────
 
 const CTASlide: React.FC = () => (
   <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", padding: 80 }}>
@@ -457,29 +461,57 @@ const CTASlide: React.FC = () => (
     >
       UAP Intelligence Dashboard
     </div>
+    <div style={{ width: 100, height: 3, background: COLORS.lime, margin: "48px 0" }} />
+    <div
+      style={{
+        fontFamily: FONTS.body,
+        fontSize: 40,
+        color: COLORS.white,
+        fontWeight: 700,
+        textAlign: "center",
+        maxWidth: 800,
+        lineHeight: 1.3,
+        marginBottom: 20,
+      }}
+    >
+      More context on every doc drop and headline.
+    </div>
+    <div
+      style={{
+        marginTop: 32,
+        display: "inline-block",
+        background: COLORS.lime,
+        color: COLORS.bg,
+        fontFamily: FONTS.mono,
+        fontSize: 24,
+        fontWeight: 700,
+        padding: "18px 36px",
+        borderRadius: 8,
+        letterSpacing: "0.05em",
+      }}
+    >
+      disclosurewatch.com
+    </div>
   </AbsoluteFill>
 );
 
 // ── Main carousel slide router ─────────────────────────────────────────────
 //
-// Slide order:
-//  0: Cover
-//  1: Insight 1
-//  2: Insight 2
-//  3: Insight 3
-//  4: By the Numbers
-//  5: Most Noteworthy Doc
-//  6: Worth Watching 1
-//  7: Worth Watching 2 (only if watchList has 2+ items)
-//  8 (or 7): CTA closing
+// Slide order (9 slides, always):
+//  0: Cover (tag + teaser + OG image if news)
+//  1: Anchor card (title + source, OG image if news)
+//  2: What happened
+//  3: Detail 1
+//  4: Detail 2
+//  5: Detail 3
+//  6: Why it matters
+//  7: What to watch next
+//  8: CTA
 
 export const WeeklyHighlightsCarousel: React.FC<CarouselProps> = ({
   slideIndex,
   weekOf,
-  insights,
-  stats,
-  noteworthyDoc,
-  watchList,
+  anchor,
 }) => {
   const [handle] = useState(() => delayRender("Loading Special Elite font"));
 
@@ -489,37 +521,33 @@ export const WeeklyHighlightsCarousel: React.FC<CarouselProps> = ({
       .catch(() => continueRender(handle));
   }, [handle]);
 
-  // Build slide list dynamically
+  const details = anchor.details.slice(0, 3);
+
   const slides: React.ReactNode[] = [
-    <CoverSlide key="cover" weekOf={weekOf} />,
+    <CoverSlide
+      key="cover"
+      weekOf={weekOf}
+      tag={anchor.tag}
+      teaser={anchor.teaser}
+      imageUrl={anchor.kind === "news" ? anchor.imageUrl : undefined}
+    />,
+    <AnchorCardSlide
+      key="anchor"
+      tag={anchor.tag}
+      title={anchor.title}
+      source={anchor.source}
+      date={anchor.date}
+      imageUrl={anchor.imageUrl}
+      kind={anchor.kind}
+    />,
+    <WhatHappenedSlide key="what" text={anchor.whatHappened} />,
+    ...details.map((d, i) => (
+      <DetailSlide key={`d-${i}`} text={d} number={i + 1} total={details.length} />
+    )),
+    <WhyItMattersSlide key="why" text={anchor.whyItMatters} />,
+    <WhatNextSlide key="next" text={anchor.whatNext} />,
+    <CTASlide key="cta" />,
   ];
-
-  insights.slice(0, 3).forEach((insight, i) => {
-    slides.push(
-      <InsightSlide
-        key={`insight-${i}`}
-        insight={insight}
-        number={i + 1}
-        total={Math.min(insights.length, 3)}
-      />
-    );
-  });
-
-  slides.push(<StatsSlide key="stats" {...stats} />);
-  slides.push(<NoteworthyDocSlide key="noteworthy" {...noteworthyDoc} />);
-
-  watchList.slice(0, 2).forEach((item, i) => {
-    slides.push(
-      <WatchSlide
-        key={`watch-${i}`}
-        {...item}
-        number={i + 1}
-        total={Math.min(watchList.length, 2)}
-      />
-    );
-  });
-
-  slides.push(<CTASlide key="cta" />);
 
   return (
     <AbsoluteFill style={{ background: COLORS.bg }}>

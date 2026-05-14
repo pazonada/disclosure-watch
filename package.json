@@ -8,9 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "remotion:studio": "remotion studio remotion/src/index.ts",
-    "reel:render": "node remotion/render-reel.mjs",
-    "carousel:render": "node remotion/render-carousel.mjs",
-    "deepdive:render": "node remotion/render-deep-dive.mjs"
+    "reel:render": "node --env-file=.env.local remotion/render-reel.mjs",
+    "carousel:render": "node --env-file=.env.local remotion/render-carousel.mjs",
+    "special:fetch": "node scripts/fetch-uap-release-2026-05-08.mjs",
+    "special:render": "node --env-file=.env.local remotion/render-special-event.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.98.0",

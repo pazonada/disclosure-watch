@@ -8,3 +8,7 @@ out/
 *.tsbuildinfo
 *.rtf
 next-env.d.ts
+/logs/
+remotion/uap-assets/
+.claude/
+promo content/

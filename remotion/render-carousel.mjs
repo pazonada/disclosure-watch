@@ -1,34 +1,46 @@
-// Render the Disclosure Watch weekly highlights carousel.
+// Render the Disclosure Watch weekly carousel.
 //
-// Uses Claude to generate substantive content:
-//  - 3 chunked key insights (rewriting the weekly summary as punchy takeaways)
-//  - Stats on this week's additions
-//  - The most noteworthy new document with a "why it matters" explanation
-//  - 2 key news stories with "why it matters" context
+// Picks ONE anchor topic for the week (either the most substantive new
+// document or the most significant news story) and builds a 9-slide
+// deep dive around it:
 //
-// Outputs N PNG slides at 1080x1350 (Instagram carousel format).
+//   1. Cover        — big teaser with OG image (news) or typography (doc)
+//   2. Anchor card  — full title + source + hero image (news)
+//   3. What happened
+//   4. Detail 1
+//   5. Detail 2
+//   6. Detail 3
+//   7. Why it matters
+//   8. What to watch next
+//   9. CTA
+//
+// For news anchors, fetches the article's OpenGraph image and passes it
+// through to Remotion so it can be used as the cover/hero visual.
 //
 // Usage: node remotion/render-carousel.mjs
 
+import "./load-env.mjs";
 import { bundle } from "@remotion/bundler";
 import { renderStill, selectComposition } from "@remotion/renderer";
 import path from "node:path";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
+import { fetchOgImage, searchDvidsRecent } from "./lib/multimedia.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://disclosurewatch.com";
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
+const TOTAL_SLIDES = 9;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const callClaude = async (prompt, maxTokens = 800) => {
+// ── Claude helper ──────────────────────────────────────────────────────────
+
+const callClaude = async (prompt, maxTokens = 1500) => {
   if (!ANTHROPIC_KEY) {
     throw new Error("ANTHROPIC_API_KEY not set in environment");
   }
 
-  // Retry on transient 5xx / 429 with exponential backoff. Anthropic's API
-  // occasionally returns 500 — those shouldn't fail the whole render.
   const maxAttempts = 4;
   let lastError = "";
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -53,14 +65,14 @@ const callClaude = async (prompt, maxTokens = 800) => {
 
     const body = await res.text();
     lastError = `${res.status} ${body}`;
-
     const shouldRetry = res.status === 429 || res.status >= 500;
     if (!shouldRetry || attempt === maxAttempts) {
       throw new Error(`Claude API failed: ${lastError}`);
     }
-
     const backoffMs = 1000 * Math.pow(2, attempt - 1);
-    console.warn(`[Carousel] Claude API ${res.status} (attempt ${attempt}/${maxAttempts}) — retrying in ${backoffMs}ms`);
+    console.warn(
+      `[Carousel] Claude API ${res.status} (attempt ${attempt}/${maxAttempts}) — retrying in ${backoffMs}ms`
+    );
     await sleep(backoffMs);
   }
   throw new Error(`Claude API failed after ${maxAttempts} attempts: ${lastError}`);
@@ -74,82 +86,153 @@ const parseClaudeJson = (response) => {
   return JSON.parse(cleaned);
 };
 
-// ── Compute weekly stats (rolling 7-day window) ───────────────────────────
+const formatShortDate = (isoDate) =>
+  new Date(isoDate + "T00:00:00").toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 
-const computeStats = (docs, news, events) => {
-  const cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - 7);
-  const cutoffStr = cutoff.toISOString().slice(0, 10);
-  return {
-    newDocs: docs.filter((d) => (d.addedDate || d.publishedDate) >= cutoffStr).length,
-    newNews: news.filter((n) => (n.addedDate || n.publishedDate) >= cutoffStr).length,
-    newEvents: events.filter((e) => (e.addedDate || e.date) >= cutoffStr).length,
-  };
+// ── Anchor media: OG image for news anchors, DVIDS image for doc anchors ─
+
+const findAnchorImage = async (anchor) => {
+  if (anchor.kind === "news" && anchor.pageUrl) {
+    console.log(`[Carousel] Trying OG image: ${anchor.pageUrl}`);
+    const og = await fetchOgImage(anchor.pageUrl);
+    if (og) return og;
+  }
+
+  // Doc anchors and news fallback: search DVIDS for related stills.
+  // Only attempt this if the anchor's title looks UAP-specific so we
+  // don't pull random military photos.
+  const title = anchor.title || "";
+  if (/(uap|ufo|aaro|whistleblower|disclosure|anomalous)/i.test(title)) {
+    console.log(`[Carousel] Trying DVIDS image search for "${title}"`);
+    const dvids = await searchDvidsRecent({
+      keywords: title.split(/\s+/).slice(0, 6).join(" "),
+      type: "image",
+      limit: 1,
+    });
+    if (dvids.length > 0) return dvids[0].mediaUrl;
+  }
+
+  return undefined;
 };
 
-// ── Generate carousel content via Claude ──────────────────────────────────
+// ── Pick anchor (doc vs news) and generate deep content ──────────────────
 
-const generateCarouselContent = async ({
+const generateAnchorContent = async ({
   weekOf,
-  weeklySummary,
   recentDocs,
   recentNews,
-  stats,
+  fallbackDocs,
+  fallbackNews,
 }) => {
-  const docList = recentDocs
-    .slice(0, 20)
+  // Prefer recent items but fall back to broader pool if there's nothing fresh.
+  const docsForPick = recentDocs.length > 0 ? recentDocs : fallbackDocs.slice(0, 20);
+  const newsForPick = recentNews.length > 0 ? recentNews : fallbackNews.slice(0, 20);
+
+  const docList = docsForPick
+    .slice(0, 15)
     .map(
       (d, i) =>
-        `[${i}] ${d.category} | ${d.source} | ${d.publishedDate} | "${d.title}" — ${d.summary?.slice(0, 200) || ""}`
+        `DOC[${i}] ${d.category || "?"} | ${d.source} | ${d.publishedDate} | "${d.title}"\n    ${d.expandedSummary || d.summary || ""}${d.keyPoints?.length ? `\n    Key points: ${d.keyPoints.join(" / ")}` : ""}`
     )
-    .join("\n");
+    .join("\n\n");
 
-  const newsList = recentNews
+  const newsList = newsForPick
     .slice(0, 15)
     .map(
       (n, i) =>
-        `[${i}] ${n.source} | ${n.publishedDate} | "${n.title}" — ${n.description?.slice(0, 200) || ""}`
+        `NEWS[${i}] ${n.source} | ${n.publishedDate} | "${n.title}"\n    ${n.description || ""}`
     )
-    .join("\n");
+    .join("\n\n");
 
-  const prompt = `You curate a weekly Instagram carousel for Disclosure Watch, a UAP/UFO disclosure tracking site. The audience is a curious adult, not a UFO obsessive.
+  const prompt = `You produce a weekly Instagram carousel for Disclosure Watch, which tracks U.S. government UAP / anomalous-phenomena disclosure activity. The audience is a curious, well-informed adult who is NOT a UFO obsessive.
 
-CONTEXT:
-Week of: ${weekOf}
-Stats this week: ${stats.newDocs} new documents, ${stats.newNews} news stories, ${stats.newEvents} events.
+This week, you will pick ONE anchor topic — either a notable document release OR a major news story — and build a 9-slide deep dive on it. Depth beats breadth: we are NOT doing a weekly recap, we are teaching the viewer one thing in detail.
 
-WEEKLY SUMMARY (raw, too long for one slide):
-${weeklySummary}
+WEEK OF: ${weekOf}
 
-RECENT DOCUMENTS (${recentDocs.length} total):
-${docList || "(none)"}
+RECENT DOCUMENTS:
+${docList || "(none recent)"}
 
-RECENT NEWS (${recentNews.length} total):
-${newsList || "(none)"}
+RECENT NEWS:
+${newsList || "(none recent)"}
 
-TASK: Generate substantive carousel content as JSON with these fields:
+TASK:
+Step 1 — Pick the single most substantive, specific, teachable anchor. Criteria:
+- Has concrete details (named officials, specific legislation, dated events, real quotes or evidence)
+- Is actually news-worthy to someone who does not follow UFO culture
+- Favor documents (doc drops) when they have specific provisions / findings
+- Favor news stories when they reveal a named action, statement, or development
+- AVOID: vague speculation, opinion essays, anything without named sources or concrete facts
 
-1. "insights" — An array of EXACTLY 3 standalone single-sentence takeaways from the weekly summary. Each one is a complete punchy thought (max 25 words). Together they cover the 3 most important angles. Each insight should feel like a teaser that makes the reader want to know more. Do NOT just chop the summary into thirds — rewrite each as a sharp insight.
+Step 2 — Write a full deep-dive payload.
 
-2. "noteworthyDoc" — Pick the SINGLE most interesting/significant document from the list above. Return:
-   { "title": "...", "source": "...", "category": "...", "whyItMatters": "..." }
-   The whyItMatters field should be 1-2 sentences (max 40 words) explaining specifically why this doc matters more than the others. Be concrete (named individuals, specific provisions, historical context). DO NOT just rephrase the title. Use the index to pick from the list.
-
-3. "watchList" — Pick the 2 most significant news stories. Return an array of objects:
-   [{ "headline": "...", "source": "...", "whyItMatters": "..." }, ...]
-   Each whyItMatters should be 1 sentence (max 30 words) explaining why this story matters in the bigger picture. Be specific.
+Return JSON with this exact shape:
+{
+  "kind": "doc" | "news",
+  "pickIndex": <the [N] index of your pick, e.g. 3 for DOC[3] or NEWS[3]>,
+  "tag": "THE DOC DROP" | "THE STORY" | "THE BILL" | "THE REPORT" | "THE HEARING"   (pick whichever fits best, ALL CAPS, 2-4 words)
+  "teaser": "<cover teaser, 6-12 words, punchy, self-contained, NOT a restatement of the title. Something like 'The Pentagon just named its first UAP whistleblower.'>",
+  "whatHappened": "<2-3 sentences (40-65 words) explaining what actually happened in plain English. Who did what, when, to whom. No jargon.>",
+  "details": [
+    "<Detail 1: a concrete, specific fact, provision, finding, or quote. 20-35 words. Lead with the most striking one.>",
+    "<Detail 2: another concrete specific. Not a rephrase of detail 1. 20-35 words.>",
+    "<Detail 3: another concrete specific. 20-35 words.>"
+  ],
+  "whyItMatters": "<2-3 sentences (40-70 words) on implications. Why does this matter beyond the headline? What does it change? Who is affected? Avoid generic 'it remains to be seen' filler.>",
+  "whatNext": "<1-2 sentences (20-40 words) on what a viewer should watch for next. A specific upcoming vote, deadline, hearing, or open question. If no specific upcoming event, pose the sharpest unanswered question.>"
+}
 
 VOICE:
 - Informed, accessible, slightly cinematic
 - NEVER use em dashes (—). Use commas or restructure.
-- No filler ("It remains to be seen", "Notably", "In a significant development")
-- Be specific (names, dates, numbers, concrete details) over abstract
-- Each "whyItMatters" should add information the headline doesn't already convey
+- No filler phrases ("It remains to be seen", "Notably", "In a significant development", "In an unprecedented move").
+- Concrete over abstract. Always prefer names, dates, numbers, specific mechanisms.
 
-Reply with ONLY a valid JSON object with keys "insights", "noteworthyDoc", "watchList". No code fences, no extra text.`;
+Reply with ONLY a valid JSON object. No code fences, no commentary.`;
 
-  const response = await callClaude(prompt, 1500);
-  return parseClaudeJson(response);
+  const response = await callClaude(prompt, 2500);
+  const payload = parseClaudeJson(response);
+
+  // Look up the picked item to get its canonical title / source / date / url.
+  const pool = payload.kind === "doc" ? docsForPick : newsForPick;
+  const picked = pool[payload.pickIndex];
+  if (!picked) {
+    throw new Error(
+      `Claude returned pickIndex=${payload.pickIndex} for kind=${payload.kind} but the pool only has ${pool.length} items`
+    );
+  }
+
+  const title =
+    payload.kind === "doc" ? picked.title : picked.title;
+  const source = picked.source;
+  const date = picked.publishedDate
+    ? formatShortDate(picked.publishedDate)
+    : "";
+  const pageUrl =
+    payload.kind === "news"
+      ? picked.url
+      : picked.sourceUrl || picked.documentUrl;
+
+  return {
+    anchor: {
+      kind: payload.kind,
+      tag: payload.tag,
+      title,
+      source,
+      date,
+      teaser: payload.teaser,
+      whatHappened: payload.whatHappened,
+      details: payload.details,
+      whyItMatters: payload.whyItMatters,
+      whatNext: payload.whatNext,
+      pageUrl,
+    },
+    pickedItem: picked,
+  };
 };
 
 // ── Main ───────────────────────────────────────────────────────────────────
@@ -165,7 +248,6 @@ const main = async () => {
   const docs = await docsRes.json();
   const news = await newsRes.json();
 
-  // Format the week date
   const weekDate = new Date(summaryData.weekOf + "T00:00:00");
   const weekOf = weekDate.toLocaleDateString("en-US", {
     month: "long",
@@ -173,14 +255,11 @@ const main = async () => {
     year: "numeric",
   });
 
-  // Compute stats from a rolling 7-day window
-  const stats = computeStats(docs, news, []);
-  console.log("[Carousel] Stats (rolling 7 days):", stats);
+  // Rolling 7-day window for "recent"
+  const cutoff = new Date(weekDate);
+  cutoff.setDate(cutoff.getDate() - 7);
+  const cutoffStr = cutoff.toISOString().slice(0, 10);
 
-  // Filter to docs/news added this week (or last 7 days as fallback)
-  const recentCutoff = new Date(weekDate);
-  recentCutoff.setDate(recentCutoff.getDate() - 7);
-  const cutoffStr = recentCutoff.toISOString().slice(0, 10);
   const recentDocs = docs.filter(
     (d) => (d.addedDate || d.publishedDate) >= cutoffStr
   );
@@ -189,34 +268,43 @@ const main = async () => {
   );
 
   console.log(
-    `[Carousel] Working with ${recentDocs.length} recent docs, ${recentNews.length} recent news items`
+    `[Carousel] Recent window (last 7 days): ${recentDocs.length} docs, ${recentNews.length} news items`
   );
 
-  console.log("[Carousel] Generating substantive content with Claude...");
-  const content = await generateCarouselContent({
+  console.log("[Carousel] Picking anchor and generating deep-dive content via Claude...");
+  const { anchor } = await generateAnchorContent({
     weekOf,
-    weeklySummary: summaryData.summary,
     recentDocs,
     recentNews,
-    stats,
+    fallbackDocs: docs,
+    fallbackNews: news,
   });
 
-  console.log("[Carousel] Content generated:");
-  console.log("  Insights:", content.insights.length);
-  console.log("  Noteworthy doc:", content.noteworthyDoc.title);
-  console.log("  Watch list:", content.watchList.length, "items");
+  console.log(`[Carousel] Anchor: ${anchor.kind.toUpperCase()} — "${anchor.title}"`);
 
-  const baseProps = {
-    weekOf,
-    insights: content.insights,
-    stats,
-    noteworthyDoc: content.noteworthyDoc,
-    watchList: content.watchList,
+  // Find a hero image — OG for news anchors, DVIDS image for UAP-specific docs
+  const imageUrl = await findAnchorImage(anchor);
+  if (imageUrl) {
+    console.log(`[Carousel] Hero image: ${imageUrl}`);
+  } else {
+    console.log(`[Carousel] No hero image found — typography only`);
+  }
+
+  const finalAnchor = {
+    kind: anchor.kind,
+    tag: anchor.tag,
+    title: anchor.title,
+    source: anchor.source,
+    date: anchor.date,
+    teaser: anchor.teaser,
+    whatHappened: anchor.whatHappened,
+    details: anchor.details,
+    whyItMatters: anchor.whyItMatters,
+    whatNext: anchor.whatNext,
+    imageUrl,
   };
 
-  // Calculate total slide count: cover + 3 insights + stats + noteworthy + watchList + cta
-  const totalSlides = 1 + 3 + 1 + 1 + Math.min(content.watchList.length, 2) + 1;
-  console.log(`[Carousel] Total slides: ${totalSlides}`);
+  const baseProps = { weekOf, anchor: finalAnchor };
 
   console.log("[Carousel] Bundling Remotion project...");
   const bundleLocation = await bundle({
@@ -227,14 +315,13 @@ const main = async () => {
   const outDir = path.join(__dirname, `../out/carousel-${safeDate}`);
   fs.mkdirSync(outDir, { recursive: true });
 
-  // Clear any old slides from previous runs
   for (const f of fs.readdirSync(outDir)) {
     if (f.startsWith("slide-")) fs.unlinkSync(path.join(outDir, f));
   }
 
-  console.log(`[Carousel] Rendering ${totalSlides} slides to ${outDir}`);
+  console.log(`[Carousel] Rendering ${TOTAL_SLIDES} slides to ${outDir}`);
 
-  for (let slideIndex = 0; slideIndex < totalSlides; slideIndex++) {
+  for (let slideIndex = 0; slideIndex < TOTAL_SLIDES; slideIndex++) {
     const inputProps = { ...baseProps, slideIndex };
 
     const composition = await selectComposition({
@@ -255,7 +342,7 @@ const main = async () => {
       inputProps,
     });
 
-    console.log(`[Carousel] Rendered slide ${slideIndex + 1}/${totalSlides}`);
+    console.log(`[Carousel] Rendered slide ${slideIndex + 1}/${TOTAL_SLIDES}`);
   }
 
   console.log("[Carousel] Done! Output:", outDir);

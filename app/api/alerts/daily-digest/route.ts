@@ -7,6 +7,7 @@ import {
   AlertItem,
 } from "@/lib/alert-email";
 import { generateAlertSummary, improveItemSummaries } from "@/lib/ai";
+import { groupAlertItems } from "@/lib/alert-grouping";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -170,10 +171,11 @@ export async function GET(request: NextRequest) {
     if (matchingItems.length === 0) continue;
 
     try {
+      const entries = await groupAlertItems(matchingItems);
       await sendEmail({
         to: sub.email,
         subject: buildDailyDigestSubject(matchingItems),
-        html: buildDailyDigestEmailHtml(matchingItems, summary).replace(
+        html: buildDailyDigestEmailHtml(entries, summary).replace(
           "{{email}}",
           encodeURIComponent(sub.email)
         ),

@@ -6,12 +6,18 @@
  * the free weekly briefing.
  */
 
-interface AlertItem {
+export interface AlertItem {
   title: string;
   type: "document" | "news" | "event";
   url: string;
   summary: string;
   date: string;
+}
+
+import type { AlertEntry, DocumentGroup } from "./alert-grouping";
+
+function isGroup(entry: AlertEntry): entry is DocumentGroup {
+  return entry.type === "group";
 }
 
 // ── Shared styles ───────────────────────────────────────────────────────────
@@ -75,37 +81,100 @@ function footerHtml(footerNote: string): string {
   `;
 }
 
-// ── Insider Alert Email ─────────────────────────────────────────────────────
+// ── Card renderers ──────────────────────────────────────────────────────────
 
-export function buildAlertEmailHtml(items: AlertItem[], summary = ""): string {
-  const itemsHtml = items
-    .slice(0, 10)
-    .map((item) => {
-      const shortTitle =
-        item.title.length > 80 ? item.title.slice(0, 77) + "..." : item.title;
-      const summary =
-        item.summary.length > 240
-          ? item.summary.slice(0, 237) + "..."
-          : item.summary;
+function renderItemCard(item: AlertItem): string {
+  const shortTitle =
+    item.title.length > 80 ? item.title.slice(0, 77) + "..." : item.title;
+  const summary =
+    item.summary.length > 240
+      ? item.summary.slice(0, 237) + "..."
+      : item.summary;
+  return `
+    <div style="margin-bottom: 16px; padding: 16px; background: ${CARD_BG}; border-radius: 8px; border-left: 3px solid ${typeColor(item.type)};">
+      <div style="font-size: 10px; font-weight: 700; color: ${typeColor(item.type)}; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+        ${typeLabel(item.type)}
+      </div>
+      <a href="${item.url}" style="color: ${HEADING_COLOR}; font-size: 15px; font-weight: 600; text-decoration: none; line-height: 1.4;">
+        ${shortTitle}
+      </a>
+      <p style="color: ${BODY_COLOR}; font-size: 13px; line-height: 1.5; margin: 6px 0 0;">
+        ${summary}
+      </p>
+    </div>
+  `;
+}
+
+function renderGroupCard(group: DocumentGroup): string {
+  const docColor = typeColor("document");
+  const docRows = group.docs
+    .map((d) => {
+      const meta = [d.incidentDate, d.callsign, d.location]
+        .filter(Boolean)
+        .join("  ·  ");
       return `
-        <div style="margin-bottom: 16px; padding: 16px; background: ${CARD_BG}; border-radius: 8px; border-left: 3px solid ${typeColor(item.type)};">
-          <div style="font-size: 10px; font-weight: 700; color: ${typeColor(item.type)}; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
-            ${typeLabel(item.type)}
-          </div>
-          <a href="${item.url}" style="color: ${HEADING_COLOR}; font-size: 15px; font-weight: 600; text-decoration: none; line-height: 1.4;">
-            ${shortTitle}
-          </a>
-          <p style="color: ${BODY_COLOR}; font-size: 13px; line-height: 1.5; margin: 6px 0 0;">
-            ${summary}
-          </p>
-        </div>
+        <tr>
+          <td style="padding: 8px 0; border-bottom: 1px solid ${DIVIDER_COLOR}; vertical-align: top;">
+            <div style="color: ${HEADING_COLOR}; font-size: 13px; font-weight: 600; line-height: 1.4;">
+              ${meta}
+            </div>
+            <div style="margin-top: 2px;">
+              <a href="${d.url}" style="color: ${LINK_COLOR}; font-size: 12px; text-decoration: none;">
+                View doc &rarr;
+              </a>
+            </div>
+          </td>
+        </tr>
       `;
     })
     .join("");
 
-  const docCount = items.filter((i) => i.type === "document").length;
-  const newsCount = items.filter((i) => i.type === "news").length;
-  const eventCount = items.filter((i) => i.type === "event").length;
+  return `
+    <div style="margin-bottom: 16px; padding: 16px; background: ${CARD_BG}; border-radius: 8px; border-left: 3px solid ${docColor};">
+      <div style="font-size: 10px; font-weight: 700; color: ${docColor}; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+        DOCUMENT GROUP
+      </div>
+      <div style="color: ${HEADING_COLOR}; font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 8px;">
+        ${group.title}
+      </div>
+      <p style="color: ${BODY_COLOR}; font-size: 13px; line-height: 1.55; margin: 0 0 12px;">
+        ${group.explainer}
+      </p>
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="width: 100%; border-collapse: collapse; margin-top: 4px;">
+        ${docRows}
+      </table>
+    </div>
+  `;
+}
+
+function renderEntryHtml(entry: AlertEntry): string {
+  return isGroup(entry) ? renderGroupCard(entry) : renderItemCard(entry);
+}
+
+function entryCounts(entries: AlertEntry[]): { docCount: number; newsCount: number; eventCount: number } {
+  let docCount = 0,
+    newsCount = 0,
+    eventCount = 0;
+  for (const e of entries) {
+    if (isGroup(e)) {
+      docCount += e.docs.length;
+    } else if (e.type === "document") {
+      docCount++;
+    } else if (e.type === "news") {
+      newsCount++;
+    } else if (e.type === "event") {
+      eventCount++;
+    }
+  }
+  return { docCount, newsCount, eventCount };
+}
+
+// ── Insider Alert Email ─────────────────────────────────────────────────────
+
+export function buildAlertEmailHtml(entries: AlertEntry[], summary = ""): string {
+  const itemsHtml = entries.slice(0, 10).map(renderEntryHtml).join("");
+
+  const { docCount, newsCount, eventCount } = entryCounts(entries);
   const parts: string[] = [];
   if (docCount > 0) parts.push(`${docCount} document${docCount > 1 ? "s" : ""}`);
   if (newsCount > 0) parts.push(`${newsCount} news item${newsCount > 1 ? "s" : ""}`);
@@ -180,35 +249,10 @@ export function buildAlertSubject(items: AlertItem[]): string {
 
 // ── Insider Daily Digest Email ───────────────────────────────────────────────
 
-export function buildDailyDigestEmailHtml(items: AlertItem[], summary = ""): string {
-  const itemsHtml = items
-    .slice(0, 10)
-    .map((item) => {
-      const shortTitle =
-        item.title.length > 80 ? item.title.slice(0, 77) + "..." : item.title;
-      const summary =
-        item.summary.length > 240
-          ? item.summary.slice(0, 237) + "..."
-          : item.summary;
-      return `
-        <div style="margin-bottom: 16px; padding: 16px; background: ${CARD_BG}; border-radius: 8px; border-left: 3px solid ${typeColor(item.type)};">
-          <div style="font-size: 10px; font-weight: 700; color: ${typeColor(item.type)}; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
-            ${typeLabel(item.type)}
-          </div>
-          <a href="${item.url}" style="color: ${HEADING_COLOR}; font-size: 15px; font-weight: 600; text-decoration: none; line-height: 1.4;">
-            ${shortTitle}
-          </a>
-          <p style="color: ${BODY_COLOR}; font-size: 13px; line-height: 1.5; margin: 6px 0 0;">
-            ${summary}
-          </p>
-        </div>
-      `;
-    })
-    .join("");
+export function buildDailyDigestEmailHtml(entries: AlertEntry[], summary = ""): string {
+  const itemsHtml = entries.slice(0, 10).map(renderEntryHtml).join("");
 
-  const docCount = items.filter((i) => i.type === "document").length;
-  const newsCount = items.filter((i) => i.type === "news").length;
-  const eventCount = items.filter((i) => i.type === "event").length;
+  const { docCount, newsCount, eventCount } = entryCounts(entries);
   const parts: string[] = [];
   if (docCount > 0) parts.push(`${docCount} document${docCount > 1 ? "s" : ""}`);
   if (newsCount > 0) parts.push(`${newsCount} news item${newsCount > 1 ? "s" : ""}`);
@@ -368,4 +412,4 @@ export function buildVerificationEmailHtml(code: string): string {
   `;
 }
 
-export type { AlertItem };
+export type { AlertEntry, DocumentGroup } from "./alert-grouping";

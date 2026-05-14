@@ -14,6 +14,7 @@ import { supabase } from "@/lib/supabase";
 import { sendEmail } from "@/lib/resend";
 import { buildAlertEmailHtml, buildAlertSubject, AlertItem } from "@/lib/alert-email";
 import { generateAlertSummary, improveItemSummaries } from "@/lib/ai";
+import { groupAlertItems } from "@/lib/alert-grouping";
 
 export interface DispatchResult {
   sent: number;
@@ -112,10 +113,11 @@ export async function dispatchAlertsToSubscribers(
     }
 
     try {
+      const entries = await groupAlertItems(matchingItems);
       await sendEmail({
         to: sub.email,
         subject: buildAlertSubject(matchingItems),
-        html: buildAlertEmailHtml(matchingItems, summary).replace(
+        html: buildAlertEmailHtml(entries, summary).replace(
           "{{email}}",
           encodeURIComponent(sub.email)
         ),
