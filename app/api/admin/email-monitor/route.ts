@@ -130,7 +130,14 @@ export async function GET(req: NextRequest) {
 }
 
 function buildIssueBody(status: EmailHealthStatus): string {
+  // Mention the repo owner so notifications fire regardless of watch
+  // settings. GitHub treats @mentions as participation events, which route
+  // through the user's "Participating" notification preferences instead of
+  // the "Watching" ones.
+  const mention = process.env.MONITOR_MENTION || "@pazonada";
   const lines: string[] = [];
+  lines.push(`${mention} — the email-pipeline monitor opened or updated this issue.`);
+  lines.push("");
   lines.push(`> Auto-managed by \`/api/admin/email-monitor\`. Do not edit the body manually — it gets overwritten on every check.`);
   lines.push("");
   lines.push(`**Last checked:** \`${status.timestamp}\``);
