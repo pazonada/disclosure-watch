@@ -99,7 +99,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ sent: 0, reason: "No new items in the last 24 hours." });
   }
 
-  // Fetch daily-digest subscribers
+  // Daily digest = batched-frequency variant of the Insider realtime alert.
+  // Same paid-tier gate: free signups only get the Friday weekly digest, not
+  // any daily/realtime stream.
   const { data: subscribers } = await supabase
     .from("subscribers")
     .select(`

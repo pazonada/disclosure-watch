@@ -8,41 +8,71 @@ when we want first-party coverage with no third-party lag.
 
 Every federal `.gov` and `.mil` domain we care about — `aaro.mil`,
 `dni.gov`, `defense.gov` — sits behind Akamai's WAF and returns `403
-AkamaiGHost` to any programmatic fetch, regardless of User-Agent or headers.
-This is DoD-wide policy. Verified 2026-05-14.
+AkamaiGHost` to programmatic fetches. Verified 2026-05-14 with `curl`
+using realistic browser User-Agent from both Vercel and a residential
+macOS machine: both blocked.
 
-Vercel serverless functions (where `app/api/ingest/route.ts` runs) cannot
-get past it. Wayback Machine's CDX API is unreliable for these targets.
+The block is **TLS fingerprint + JS challenge**, not source IP — a real
+Chrome browser from a home connection opens these sites fine. So any
+solution needs to (a) execute JavaScript, and (b) present a browser-grade
+TLS fingerprint. Headless Chromium via Playwright with the
+`playwright-extra` stealth plugin satisfies both.
 
-## Three viable paths
+Vercel serverless functions can't do (a) or (b). Wayback Machine's CDX
+API is reliable but lagging (snapshots arrive hours-to-days late) and
+incomplete for these targets.
 
-### Path A — Playwright worker on Render / Fly.io (recommended)
-- Tiny Node service running headless Chromium with a residential or
-  cloud-resident IP and proper TLS fingerprint.
-- Polls AARO pages on a 6h cron, diffs against a state file, and posts new
-  cases/reports to a webhook on our Vercel app.
-- Cost: ~$5–7/mo for a Render web service or Fly.io machine.
-- Effort: ~4–6 hrs.
-- Risk: Akamai bot detection may still flag headless Chromium. Mitigate
-  with `playwright-extra` + stealth plugin, and slow polling.
+## Free paths (preferred)
 
-### Path B — Paid scraping API
-- ScrapingBee, Browserless, or Bright Data — pay-per-request services
-  designed to defeat Akamai.
-- Drop-in `fetch()` replacement inside the existing fetcher.
-- Cost: ~$30–50/mo for our volume (a few hundred requests).
+### Path 1 — GitHub Actions + Playwright (recommended)
+- Repo already runs GitHub Actions for auto-ingest commits, so the
+  infra is in place. Add a new workflow that boots headless Chromium,
+  scrapes AARO Cases/Reports/News, diffs against a state file in the
+  repo, and commits any new `UAPDocument` entries to `content/`.
+- Runs on Azure-hosted runners, which Akamai usually allows through.
+- Cost: **$0**. Free for public repos; 2,000 minutes/month free for
+  private repos (a 6h-cadence scrape needs ~30 min/month).
+- Effort: ~2 hrs.
+- Risk: Akamai sometimes blocks GitHub-runner IPs in bursts. Mitigate
+  by running fewer times per day and adding `playwright-extra` stealth.
+
+### Path 2 — Local launchd + Playwright
+- The same Mac that already runs `scripts/weekly-render.sh` every
+  Monday via launchd can also run an AARO scraper from its home IP —
+  which we know reaches AARO because a regular browser opens those
+  pages fine.
+- Add `scripts/aaro-scrape.mjs` that uses Playwright, runs daily via a
+  new launchd plist, and `git push`es new doc entries.
+- Cost: **$0**.
 - Effort: ~1 hr.
-- Risk: bills go up if pages change frequently; vendor lock-in.
+- Risk: requires the Mac to be awake when the cron fires. If the
+  primary user goes offline for a week, scraping pauses (acceptable —
+  this is an enrichment source, not critical path).
 
-### Path C — Email subscription → IMAP → parser
-- AARO/DoD/ODNI all offer "subscribe to updates" email lists.
-- Set up a dedicated inbox, IMAP it from a cron, parse update emails into
-  doc entries.
-- Cost: $0.
-- Effort: ~3 hrs.
-- Risk: depends on each agency actually sending email updates promptly;
-  format changes break the parser; subject-line-only emails won't have
-  enough detail.
+### Path 3 — Wayback Machine CDX
+- Use `web.archive.org/cdx/search/cdx` to enumerate AARO Cases/Reports
+  snapshots, fetch via `web.archive.org/web/<timestamp>/<url>`.
+- Cost: **$0**. No browser needed; plain `fetch()` from Vercel works.
+- Effort: ~2 hrs.
+- Risk: Wayback Machine snapshots lag the real site by hours to days,
+  and the CDX API is slow + occasionally times out. Acceptable as a
+  fallback when Paths 1/2 fail; not great as primary.
+
+## Paid fallbacks (only if free paths fail)
+
+### Path 4 — Render free-tier or Fly.io free-tier Playwright service
+- Render has a free web service tier (256MB RAM, sleeps after 15min
+  idle). Fly.io includes 3 small machines free.
+- Same Playwright code as Path 1, but as a persistent service that
+  Vercel hits via webhook.
+- Cost: **$0** on free tiers; **~$5/mo** if the free tier proves too
+  slow or limited.
+- Use when: Paths 1 + 2 both fail to defeat Akamai's bot detection.
+
+### Path 5 — Paid scraping API
+- ScrapingBee, Browserless, Bright Data.
+- Cost: ~$30/mo at our volume.
+- Use when: only one we'll pay for if all four free paths fail.
 
 ## Targets and parse shape (when we build it)
 

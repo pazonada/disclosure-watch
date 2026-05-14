@@ -51,7 +51,11 @@ export async function POST(req: NextRequest) {
       .update({ status: "sent", sent_at: new Date().toISOString() })
       .eq("id", digestId);
 
-    return NextResponse.json({ sent: result.sent });
+    return NextResponse.json({
+      sent: result.sent,
+      failed: result.failed,
+      errors: result.errors,
+    });
   } catch (err) {
     console.error("Digest send error:", err);
     return NextResponse.json({ error: "Failed to send digest" }, { status: 500 });

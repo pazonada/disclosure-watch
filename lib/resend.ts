@@ -121,11 +121,14 @@ export async function sendBatchEmail(options: {
   subject: string;
   html: string;
   from?: string;
-}): Promise<{ sent: number }> {
+}): Promise<{ sent: number; failed: number; errors: string[] }> {
   const contacts = await getContacts();
   const active = contacts.filter((c) => !c.unsubscribed);
 
-  if (active.length === 0) return { sent: 0 };
+  if (active.length === 0) {
+    console.log("[Resend] sendBatchEmail: no active contacts in audience");
+    return { sent: 0, failed: 0, errors: [] };
+  }
 
   // Resend batch API supports up to 100 emails per call
   const from = options.from || "Disclosure Watch <alerts@disclosurewatch.com>";
@@ -142,7 +145,11 @@ export async function sendBatchEmail(options: {
   }
 
   let sent = 0;
-  for (const batch of batches) {
+  let failed = 0;
+  const errors: string[] = [];
+
+  for (let batchIdx = 0; batchIdx < batches.length; batchIdx++) {
+    const batch = batches[batchIdx];
     const resp = await fetch(`${RESEND_BASE}/emails/batch`, {
       method: "POST",
       headers: {
@@ -154,8 +161,18 @@ export async function sendBatchEmail(options: {
 
     if (resp.ok) {
       sent += batch.length;
+    } else {
+      failed += batch.length;
+      const body = await resp.text().catch(() => "<no body>");
+      const msg = `batch ${batchIdx + 1}/${batches.length} HTTP ${resp.status}: ${body.slice(0, 200)}`;
+      errors.push(msg);
+      console.error(`[Resend] sendBatchEmail ${msg}`);
     }
   }
 
-  return { sent };
+  console.log(
+    `[Resend] sendBatchEmail done: ${sent} sent, ${failed} failed across ${batches.length} batch(es)`
+  );
+
+  return { sent, failed, errors };
 }

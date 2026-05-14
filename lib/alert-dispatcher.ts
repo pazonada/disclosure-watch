@@ -31,6 +31,10 @@ export async function dispatchAlertsToSubscribers(
     return { sent: 0, skipped: 0, totalSubscribers: 0, reason: "No items to alert on." };
   }
 
+  // Realtime alerts are a paid ("Insider") feature — free signups only get the
+  // Friday weekly digest, which is dispatched via the Resend audience, not
+  // this code path. Keep this filter restricted to paying subscribers; free
+  // subscribers who got here would receive alerts they didn't pay for.
   const { data: subscribers, error: subError } = await supabase
     .from("subscribers")
     .select(`

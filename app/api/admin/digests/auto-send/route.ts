@@ -114,6 +114,8 @@ export async function GET(req: NextRequest) {
           return NextResponse.json({
             message: `Auto-sent recovered digest for week of ${currentSummary.weekOf}`,
             sent: result.sent,
+            failed: result.failed,
+            errors: result.errors,
             recovered: true,
           });
         }
@@ -123,6 +125,8 @@ export async function GET(req: NextRequest) {
     }
 
     let totalSent = 0;
+    let totalFailed = 0;
+    const allErrors: string[] = [];
 
     for (const digest of pendingDigests) {
       if (!digest.summary_text.trim()) continue;
@@ -138,17 +142,25 @@ export async function GET(req: NextRequest) {
 
       const result = await sendBatchEmail({ subject, html });
 
-      await supabase
-        .from("digests")
-        .update({ status: "sent", sent_at: new Date().toISOString() })
-        .eq("id", digest.id);
+      // Only mark sent if at least one batch succeeded. If all batches failed,
+      // leave the digest as draft/approved so the next cron retries it.
+      if (result.sent > 0) {
+        await supabase
+          .from("digests")
+          .update({ status: "sent", sent_at: new Date().toISOString() })
+          .eq("id", digest.id);
+      }
 
       totalSent += result.sent;
+      totalFailed += result.failed;
+      allErrors.push(...result.errors);
     }
 
     return NextResponse.json({
       message: `Auto-sent ${pendingDigests.length} digest(s)`,
       sent: totalSent,
+      failed: totalFailed,
+      errors: allErrors,
     });
   } catch (err) {
     console.error("Auto-send error:", err);
