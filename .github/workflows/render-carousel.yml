@@ -7,6 +7,11 @@ on:
     - cron: "7 13 * * 1"
   workflow_dispatch:
 
+env:
+  # Opt into Node.js 24 for JS actions ahead of the 2026-06-02 forced cutover.
+  # GitHub deprecated Node 20 on 2025-09-19; full removal is 2026-09-16.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -19,7 +24,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies
