@@ -26,6 +26,7 @@ import path from "node:path";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { fetchOgImage, searchDvidsRecent } from "./lib/multimedia.mjs";
+import { fetchWithRetry } from "./lib/fetch-retry.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://disclosurewatch.com";
@@ -41,10 +42,11 @@ const callClaude = async (prompt, maxTokens = 1500) => {
     throw new Error("ANTHROPIC_API_KEY not set in environment");
   }
 
-  const maxAttempts = 4;
-  let lastError = "";
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+  // fetchWithRetry handles HTTP 429/5xx and network-level errors
+  // (ECONNRESET, DNS, etc.) with exponential backoff up to 4 attempts.
+  const res = await fetchWithRetry(
+    "https://api.anthropic.com/v1/messages",
+    {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -56,26 +58,17 @@ const callClaude = async (prompt, maxTokens = 1500) => {
         max_tokens: maxTokens,
         messages: [{ role: "user", content: prompt }],
       }),
-    });
+    },
+    { logPrefix: "Carousel/Claude" }
+  );
 
-    if (res.ok) {
-      const data = await res.json();
-      return data.content?.[0]?.text || "";
-    }
-
-    const body = await res.text();
-    lastError = `${res.status} ${body}`;
-    const shouldRetry = res.status === 429 || res.status >= 500;
-    if (!shouldRetry || attempt === maxAttempts) {
-      throw new Error(`Claude API failed: ${lastError}`);
-    }
-    const backoffMs = 1000 * Math.pow(2, attempt - 1);
-    console.warn(
-      `[Carousel] Claude API ${res.status} (attempt ${attempt}/${maxAttempts}) — retrying in ${backoffMs}ms`
-    );
-    await sleep(backoffMs);
+  if (res.ok) {
+    const data = await res.json();
+    return data.content?.[0]?.text || "";
   }
-  throw new Error(`Claude API failed after ${maxAttempts} attempts: ${lastError}`);
+
+  const body = await res.text();
+  throw new Error(`Claude API failed: ${res.status} ${body}`);
 };
 
 const parseClaudeJson = (response) => {
@@ -240,9 +233,9 @@ Reply with ONLY a valid JSON object. No code fences, no commentary.`;
 const main = async () => {
   console.log("[Carousel] Fetching live content from", SITE_URL);
   const [summaryRes, docsRes, newsRes] = await Promise.all([
-    fetch(`${SITE_URL}/api/weekly-summary`),
-    fetch(`${SITE_URL}/api/documents`),
-    fetch(`${SITE_URL}/api/news`),
+    fetchWithRetry(`${SITE_URL}/api/weekly-summary`, {}, { logPrefix: "Carousel/site" }),
+    fetchWithRetry(`${SITE_URL}/api/documents`, {}, { logPrefix: "Carousel/site" }),
+    fetchWithRetry(`${SITE_URL}/api/news`, {}, { logPrefix: "Carousel/site" }),
   ]);
   const summaryData = await summaryRes.json();
   const docs = await docsRes.json();

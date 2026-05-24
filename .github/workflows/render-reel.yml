@@ -1,0 +1,54 @@
+name: Render Weekly Reel
+
+# Runs every Monday at 1:05 PM UTC (~9:05 AM ET, slightly before the carousel
+# so they don't both fight the Anthropic API at the same moment).
+# Also runnable manually from the Actions tab via "Run workflow".
+on:
+  schedule:
+    - cron: "5 13 * * 1"
+  workflow_dispatch:
+
+env:
+  # Opt into Node.js 24 for JS actions ahead of the 2026-06-02 forced cutover.
+  # GitHub deprecated Node 20 on 2025-09-19; full removal is 2026-09-16.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    # Reel is heavier than the carousel (video composition with media
+    # download). Give it a generous timeout.
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chrome for Remotion
+        run: npx remotion browser ensure
+
+      - name: Render weekly reel
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NEXT_PUBLIC_SITE_URL: https://disclosurewatch.com
+        run: npm run reel:render
+
+      - name: Upload reel as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-reel-${{ github.run_number }}
+          path: out/weekly-reel-*.mp4
+          retention-days: 30
+
+      - name: Show output location
+        run: |
+          echo "::notice title=Reel rendered::Download the MP4 from the Actions run page (artifacts section). It expires in 30 days."

@@ -24,6 +24,7 @@ import {
   findMediaForNewsArticle,
   downloadToLocal,
 } from "./lib/multimedia.mjs";
+import { fetchWithRetry } from "./lib/fetch-retry.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
@@ -39,10 +40,11 @@ const callClaude = async (prompt, maxTokens = 1500) => {
   if (!ANTHROPIC_KEY) {
     throw new Error("ANTHROPIC_API_KEY not set in environment");
   }
-  const maxAttempts = 4;
-  let lastError = "";
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+  // fetchWithRetry handles both HTTP 429/5xx and network-level errors
+  // (ECONNRESET, DNS, etc.) — the latter is what killed the May 18 run.
+  const res = await fetchWithRetry(
+    "https://api.anthropic.com/v1/messages",
+    {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -54,24 +56,15 @@ const callClaude = async (prompt, maxTokens = 1500) => {
         max_tokens: maxTokens,
         messages: [{ role: "user", content: prompt }],
       }),
-    });
-    if (res.ok) {
-      const data = await res.json();
-      return data.content?.[0]?.text || "";
-    }
-    const body = await res.text();
-    lastError = `${res.status} ${body}`;
-    const shouldRetry = res.status === 429 || res.status >= 500;
-    if (!shouldRetry || attempt === maxAttempts) {
-      throw new Error(`Claude API failed: ${lastError}`);
-    }
-    const backoffMs = 1000 * Math.pow(2, attempt - 1);
-    console.warn(
-      `[Reel] Claude API ${res.status} (attempt ${attempt}/${maxAttempts}) — retrying in ${backoffMs}ms`
-    );
-    await sleep(backoffMs);
+    },
+    { logPrefix: "Reel/Claude" }
+  );
+  if (res.ok) {
+    const data = await res.json();
+    return data.content?.[0]?.text || "";
   }
-  throw new Error(`Claude API failed after ${maxAttempts} attempts: ${lastError}`);
+  const body = await res.text();
+  throw new Error(`Claude API failed: ${res.status} ${body}`);
 };
 
 const parseClaudeJson = (response) => {
@@ -222,8 +215,8 @@ const fetchAllMedia = async (cards, assetDir) => {
 const main = async () => {
   console.log("[Reel] Fetching live content from", SITE_URL);
   const [summaryRes, newsRes] = await Promise.all([
-    fetch(`${SITE_URL}/api/weekly-summary`),
-    fetch(`${SITE_URL}/api/news`),
+    fetchWithRetry(`${SITE_URL}/api/weekly-summary`, {}, { logPrefix: "Reel/site" }),
+    fetchWithRetry(`${SITE_URL}/api/news`, {}, { logPrefix: "Reel/site" }),
   ]);
   const summaryData = await summaryRes.json();
   const news = await newsRes.json();
