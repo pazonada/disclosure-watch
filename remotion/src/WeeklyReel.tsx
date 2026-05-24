@@ -316,11 +316,18 @@ const NewsCardScene: React.FC<{
   const summaryOpacity = interpolate(frame, [40, 60], [0, 1], { extrapolateRight: "clamp" });
   const summarySlide = interpolate(frame, [40, 60], [16, 0], { extrapolateRight: "clamp" });
 
+  // When no hero image/video was found for the card, switch to a text-led
+  // layout: drop the giant empty media box and let the headline + summary
+  // fill the visual space with editorial typography. The old behaviour was
+  // an 860px black rectangle with tiny SOURCE/TAG floating in it — that read
+  // as "media failed to load," not as a designed slide.
+  const hasMedia = Boolean(card.mediaFile && card.mediaKind);
+
   return (
     <AbsoluteFill style={{ background: COLORS.bgDark }}>
       <BrandStrip />
 
-      {/* Tag pill + counter */}
+      {/* Tag pill + counter — always at the top */}
       <div
         style={{
           position: "absolute",
@@ -360,92 +367,177 @@ const NewsCardScene: React.FC<{
         </div>
       </div>
 
-      {/* Media frame — centered horizontally, sits between top tag and bottom text */}
-      <div
-        style={{
-          position: "absolute",
-          top: 240,
-          left: 80,
-          right: 80,
-          height: 860,
-          borderRadius: 16,
-          overflow: "hidden",
-          border: `1px solid rgba(255,255,255,0.1)`,
-          boxShadow: "0 8px 60px rgba(0,0,0,0.5)",
-          background: "#000",
-          opacity: mediaOpacity,
-        }}
-      >
-        <MediaFrame card={card} assetFolder={assetFolder} />
-      </div>
+      {hasMedia ? (
+        // ── With-media layout: media block on top, text below ──
+        <>
+          <div
+            style={{
+              position: "absolute",
+              top: 240,
+              left: 80,
+              right: 80,
+              height: 860,
+              borderRadius: 16,
+              overflow: "hidden",
+              border: `1px solid rgba(255,255,255,0.1)`,
+              boxShadow: "0 8px 60px rgba(0,0,0,0.5)",
+              background: "#000",
+              opacity: mediaOpacity,
+            }}
+          >
+            <MediaFrame card={card} assetFolder={assetFolder} />
+          </div>
 
-      {/* Attribution under the media frame */}
-      {card.mediaAttribution && (
-        <div
-          style={{
-            position: "absolute",
-            top: 1110,
-            left: 80,
-            right: 80,
-            opacity: mediaOpacity,
-            fontFamily: FONTS.mono,
-            fontSize: 16,
-            color: COLORS.muted,
-            letterSpacing: "0.05em",
-          }}
-        >
-          {card.mediaAttribution}
-        </div>
+          {card.mediaAttribution && (
+            <div
+              style={{
+                position: "absolute",
+                top: 1110,
+                left: 80,
+                right: 80,
+                opacity: mediaOpacity,
+                fontFamily: FONTS.mono,
+                fontSize: 16,
+                color: COLORS.muted,
+                letterSpacing: "0.05em",
+              }}
+            >
+              {card.mediaAttribution}
+            </div>
+          )}
+
+          <div
+            style={{
+              position: "absolute",
+              top: 1170,
+              left: 80,
+              right: 80,
+              opacity: headlineOpacity,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: 46,
+                fontWeight: 800,
+                color: COLORS.white,
+                lineHeight: 1.18,
+              }}
+            >
+              {card.headline}
+            </div>
+          </div>
+
+          <div
+            style={{
+              position: "absolute",
+              top: 1390,
+              left: 80,
+              right: 80,
+              opacity: summaryOpacity,
+              transform: `translateY(${summarySlide}px)`,
+            }}
+          >
+            <div
+              style={{
+                borderLeft: `3px solid ${COLORS.lime}`,
+                paddingLeft: 20,
+                fontFamily: FONTS.body,
+                fontSize: 26,
+                color: COLORS.mutedBright,
+                lineHeight: 1.4,
+                fontWeight: 500,
+              }}
+            >
+              {card.summary}
+            </div>
+          </div>
+        </>
+      ) : (
+        // ── Text-led layout: no empty media box, headline fills the slide ──
+        <>
+          {/* Source/date stamp where the media would have been */}
+          <div
+            style={{
+              position: "absolute",
+              top: 270,
+              left: 80,
+              right: 80,
+              opacity: mediaOpacity,
+              fontFamily: FONTS.mono,
+              fontSize: 22,
+              color: COLORS.muted,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+            }}
+          >
+            {card.source}
+          </div>
+
+          {/* Big editorial headline — scales up to use the space the media
+              block would have occupied. Roughly 5x larger than the
+              with-media headline size. */}
+          <div
+            style={{
+              position: "absolute",
+              top: 340,
+              left: 80,
+              right: 80,
+              opacity: headlineOpacity,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: 96,
+                fontWeight: 800,
+                color: COLORS.white,
+                lineHeight: 1.06,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {card.headline}
+            </div>
+          </div>
+
+          {/* Thick lime accent rule separating headline from summary */}
+          <div
+            style={{
+              position: "absolute",
+              top: 1180,
+              left: 80,
+              width: 120,
+              height: 6,
+              background: COLORS.lime,
+              opacity: summaryOpacity,
+            }}
+          />
+
+          {/* Summary, also scaled up since the slide has room */}
+          <div
+            style={{
+              position: "absolute",
+              top: 1230,
+              left: 80,
+              right: 80,
+              opacity: summaryOpacity,
+              transform: `translateY(${summarySlide}px)`,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: 38,
+                color: COLORS.mutedBright,
+                lineHeight: 1.32,
+                fontWeight: 500,
+              }}
+            >
+              {card.summary}
+            </div>
+          </div>
+        </>
       )}
-
-      {/* Headline — bottom-of-content, above the IG safe zone */}
-      <div
-        style={{
-          position: "absolute",
-          top: 1170,
-          left: 80,
-          right: 80,
-          opacity: headlineOpacity,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: FONTS.body,
-            fontSize: 46,
-            fontWeight: 800,
-            color: COLORS.white,
-            lineHeight: 1.18,
-          }}
-        >
-          {card.headline}
-        </div>
-      </div>
-
-      {/* One-sentence summary — slightly muted, above safe zone */}
-      <div
-        style={{
-          position: "absolute",
-          top: 1390,
-          left: 80,
-          right: 80,
-          opacity: summaryOpacity,
-          transform: `translateY(${summarySlide}px)`,
-        }}
-      >
-        <div
-          style={{
-            borderLeft: `3px solid ${COLORS.lime}`,
-            paddingLeft: 20,
-            fontFamily: FONTS.body,
-            fontSize: 26,
-            color: COLORS.mutedBright,
-            lineHeight: 1.4,
-            fontWeight: 500,
-          }}
-        >
-          {card.summary}
-        </div>
-      </div>
     </AbsoluteFill>
   );
 };
