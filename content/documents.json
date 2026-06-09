@@ -485,6 +485,23 @@
     "addedDate": "2024-11-14"
   },
   {
+    "id": "nara-493470289",
+    "title": "Fiscal Year 2024 Consolidated Annual Report on Unidentified Anomalous Phenomena",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/493470289",
+    "documentUrl": "https://catalog.archives.gov/medialz/electronic-records/rg-615/493468579/576UAP0026.pdf",
+    "summary": "This item is a consolidated annual report that contains information about unidentified anomalous phenomena (UAP) incidents reported from May 1, 2023 to June 1, 2024. It also contains information about individual UAP reports from any previous time periods that had not been included in other, earlier consolidated reports. The 2024 Consolidated Annual Report was created by the Department of Defense (DOD) All-domain Anomaly Resolution Office (AARO). It documents reports of 757 UAP incidents, 485 of which occurred during the reporting period. The remaining 272 individual reports featured UAP incidents that occurred between 2021 and 2022 but were not reported to AARO until this reporting period and, consequently, had not been included in previous annual UAP reports.\n\nAlthough the information cut-off date for of this annual report is  June 1, 2024, the report itself was created on November 13, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2024-11-13",
+    "addedDate": "2026-06-09"
+  },
+  {
     "id": "nara-499915731",
     "title": "UAP 10/26/2024",
     "source": "Archives",
@@ -6600,5 +6617,22 @@
     ],
     "publishedDate": "2007-02-20",
     "addedDate": "2026-06-05"
+  },
+  {
+    "id": "nara-499915939",
+    "title": "FY24-CONSOLIDATED-ANNUAL-REPORT-ON-UAP-508",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915939",
+    "documentUrl": "https://catalog.archives.gov/medialz/electronic-records/rg-615/493468580/07_2024_Annual_Report.pdf",
+    "summary": "This item is the Fiscal Year 2024 Consolidated Annual Report on Unidentified Anomalous Phenomena from the Department of Defense, All-domain Anomaly Resolution Office from June 1, 2024.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "unknown",
+    "addedDate": "2026-06-09"
   }
 ]
