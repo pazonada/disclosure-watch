@@ -1,5 +1,21 @@
 [
   {
+    "id": "tbv-department-of-war-cites-national-security-to-hide-core-uap-evaluation-detail",
+    "title": "Department of War Cites National Security to Hide Core UAP Evaluation Details",
+    "source": "The Black Vault",
+    "sourceUrl": "https://www.theblackvault.com/documentarchive/department-of-war-cites-national-security-to-hide-core-uap-evaluation-details/",
+    "summary": "The Department of War Office of Inspector General (DoW OIG), formerly known as the Department of Defense Inspector General, has issued the fourth interim release of documents regarding its evaluation of the military’s handling of Unidentified Aerial Phenomena (UAP). The release is part of an ongoing Freedom of Information Act (FOIA) case, designated as case [...] The post Department of War Cites N",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "FOIA",
+      "The Black Vault",
+      "Primary Source"
+    ],
+    "publishedDate": "2026-06-16",
+    "addedDate": "2026-06-21"
+  },
+  {
     "id": "hegseth-uap-disclosure-feb-2026",
     "title": "Secretary Hegseth Doubles Down on Trump's UAP Disclosure Promise",
     "source": "Department of Defense",
@@ -6634,5 +6650,22 @@
     ],
     "publishedDate": "unknown",
     "addedDate": "2026-06-09"
+  },
+  {
+    "id": "nara-499915958",
+    "title": "DGI Presentation 2025",
+    "source": "Archives",
+    "sourceUrl": "https://catalog.archives.gov/id/499915958",
+    "documentUrl": "https://catalog.archives.gov/medialz/electronic-records/rg-615/493468580/026_DGI_Briefing.pdf",
+    "summary": "This item is a slideshow presentation to the Defense Space, Geospatial & Intelligence Leadership Conference by Tim Phillips, Deputy Director of the All-domain Anomaly Resolution Office (AARO), titled \"Leveraging Data, Analysis, and AI to Identify UAP.\"",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "NARA",
+      "Archives",
+      "Record Group 615"
+    ],
+    "publishedDate": "2025-01-01",
+    "addedDate": "2026-06-21"
   }
 ]

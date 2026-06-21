@@ -1,5 +1,255 @@
 [
   {
+    "id": "newsnation-skeptic-on-uap-panel-that-s-fine-up-to-a-point-ross-coulthart-says",
+    "title": "Skeptic on UAP panel? That's fine, up to a point, Ross Coulthart says",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/skeptic-uap-panel-ross-coulthart/",
+    "description": "Michael Shermer has been named to the newly created UAP Science Advisory Council.",
+    "publishedDate": "2026-06-21",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-new-uap-panel-to-advise-feds-a-completely-different-mindset",
+    "title": "New UAP panel to advise feds: ‘A completely different mindset’",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/avi-loeb-uap-advisory-panel/",
+    "description": "The UAP Science Advisory Council, a scientific research team, will assist the feds in “figuring out the nature of UAPs.”",
+    "publishedDate": "2026-06-20",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-are-majestic-12-papers-legitimate",
+    "title": "Are Majestic 12 papers legitimate?",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/are-majestic-12-papers-legitimate/",
+    "description": "The Majestic 12 papers detail information about UFOs and government programs.",
+    "publishedDate": "2026-06-18",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "defensescoop-new-science-advisory-council-forms-to-help-us-government-resolve-t",
+    "title": "New science advisory council forms to help US government ‘resolve the UAP mystery’",
+    "source": "DefenseScoop",
+    "url": "https://defensescoop.com/2026/06/17/new-science-advisory-council-forms-to-help-us-government-resolve-the-uap-mystery/",
+    "description": "Theoretical physicist and Harvard University Professor Avi Loeb shared early details about the new UAP Science Advisory Council. The post New science advisory council forms to help US government ‘resolve the UAP mystery’ appeared first on DefenseScoop.",
+    "publishedDate": "2026-06-17",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-uap-encounter-led-to-psychic-messages-former-uk-sailor",
+    "title": "UAP encounter led to psychic messages: Former UK sailor",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/uap-encounter-psychic-messages-former-sailor/",
+    "description": "John Seer describes messages he has been receiving from what he believes are nonhuman entities.",
+    "publishedDate": "2026-06-17",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "liberation-times-the-architecture-of-secrecy-mj-12-recovered-craft-and-the-ori",
+    "title": "The Architecture of Secrecy: MJ-12, Recovered Craft and the Origins of a UFO Legacy Program",
+    "source": "Liberation Times",
+    "url": "https://www.liberationtimes.com/home/the-architecture-of-secrecy-mj-12-recovered-craft-and-the-origins-of-a-ufo-legacy-program",
+    "description": "If you believe the documents, the architecture of the greatest secret alive today can be seen being built. It begins in the late 1940s, in the shadow of World War Two.",
+    "publishedDate": "2026-06-17",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "liberation-times-u-s-government-establishes-new-interagency-uap-governance-boar",
+    "title": "U.S. Government Establishes New Interagency UAP Governance Board to Coordinate Investigations and Declassification",
+    "source": "Liberation Times",
+    "url": "https://www.liberationtimes.com/home/us-establishes-new-interagency-uap-governance-board-to-coordinate-investigations-and-declassification",
+    "description": "The U.S. government has established a new interagency body to coordinate UAP investigations, improve the collection and analysis of relevant data, and assist with the declassification of UAP-related information, according to an official from the Office of the Director of National Intelligence (ODNI).",
+    "publishedDate": "2026-06-16",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-no-ufo-records-in-vatican-archives-despite-whistleblower-claim-sourc",
+    "title": "No UFO records in Vatican archives despite whistleblower claim: Source",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/religion/ufo-crash-records-vatican-archives-david-grusch-whistleblower/",
+    "description": "The story gained renewed attention after a NewsNation interview with UFO whistleblower David Grusch.",
+    "publishedDate": "2026-06-15",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-new-uap-files-reveal-china-russia-may-have-retrieved-objects",
+    "title": "New UAP files reveal China, Russia may have retrieved objects",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/ufo-experts-latest-uap-file-release/",
+    "description": "\"It's like a detective story. And the best is yet to come,\" says Loeb. \"I'm hopeful that we will get to the bottom of it with better data.\"",
+    "publishedDate": "2026-06-15",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "the-debrief-the-pentagon-just-released-its-third-batch-of-uap-files-what-have-we",
+    "title": "The Pentagon Just Released Its Third Batch of UAP Files—What Have We Learned from the PURSUE Releases So Far?",
+    "source": "The Debrief",
+    "url": "https://thedebrief.org/the-pentagon-just-released-its-third-batch-of-uap-files-what-have-we-learned-from-the-pursue-releases-so-far/",
+    "description": "What do the Pentagon's latest releases of UAP records reveal? The Debrief takes a look at what's in the new files, what's missing, and how it relates to public attitudes toward the UAP issue.",
+    "publishedDate": "2026-06-14",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-who-is-the-newsnation-reporter-with-a-cameo-in-spielberg-s-disclosur",
+    "title": "Who is the NewsNation reporter with a cameo in Spielberg’s ‘Disclosure Day'?",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/newsnation/newsnation-cameo-disclosure-day/",
+    "description": "Emmy Award-winning journalist said David Koepp and Steven Spielberg were a dream to work with.",
+    "publishedDate": "2026-06-14",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-behind-the-scenes-of-infamous-interview-with-ufo-whistleblower-david",
+    "title": "Behind the scenes of infamous interview with UFO whistleblower David Grusch",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/newsnation/newsnation-special-footage-ufo-whistleblowe/",
+    "description": "In 2023, David Grusch was thrust into the spotlight as an advocate for government transparency on UFOs. Now in 2026, “Road to Disclosure\" includes new footage of the whistleblower’s iconic statements.",
+    "publishedDate": "2026-06-14",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-ross-coulthart-s-review-of-steven-spielberg-s-disclosure-day",
+    "title": "Ross Coulthart's review of Steven Spielberg's 'Disclosure Day'",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/entertainment-news/disclosure-day-ross-coultharts-review/",
+    "description": "Coulthart says he loved the ending of the movie, but no spoilers here.",
+    "publishedDate": "2026-06-14",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "liberation-times-disclosure-day-what-happens-the-day-after",
+    "title": "Disclosure Day: What Happens the Day After?",
+    "source": "Liberation Times",
+    "url": "https://www.liberationtimes.com/home/disclosure-day-what-happens-the-day-after",
+    "description": "Steven Spielberg's new film Disclosure Day ends at the moment when the real story would begin. The world has just learned that it is not alone.",
+    "publishedDate": "2026-06-14",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-missing-air-force-retiree-seen-in-last-known-photograph-day-before-di",
+    "title": "Missing Air Force retiree seen in last known photograph day before disappearance",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/missing/missing-air-force-mccasland-last-photograph/",
+    "description": "A new article scrapes information from a variety of police reports and documents obtained through a public records request.",
+    "publishedDate": "2026-06-13",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-christianity-compatible-with-concept-of-ufos-aliens-theologian",
+    "title": "Christianity compatible with concept of UFOs, aliens: Theologian",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/religion/christianity-ufos-aliens-compatible/",
+    "description": "Dr. Christopher Baglow writes about the intersection of religion and science.",
+    "publishedDate": "2026-06-13",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-ufo-files-plasma-orbs-a-focus-in-third-tranche-of-documents",
+    "title": "UFO files: Plasma orbs a focus in third tranche of documents",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/ufo-files-orbs-plasma-northeast/",
+    "description": "“What are they exactly? Who knows? They could be scouts or something like that,” one UAP whistleblower says.",
+    "publishedDate": "2026-06-13",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-pentagon-ufo-files-include-video-recreations-of-ufo-sightings",
+    "title": "Pentagon UFO files include video recreations of UFO sightings",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/pentagon-ufo-video-recreations-sightings/",
+    "description": "The latest batch of UFO files from the Pentagon includes artistic renderings by credible witnesses.",
+    "publishedDate": "2026-06-12",
+    "type": "video",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-pentagon-releases-third-tranche-of-ufo-files",
+    "title": "Pentagon releases third tranche of UFO files",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/pentagon-ufo-files-third-tranche/",
+    "description": "Four of the videos were shot in the United States and show orbs moving through the sky.",
+    "publishedDate": "2026-06-12",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-ai-helps-screen-overwhelming-amount-of-data-in-search-for-ufos-avi-l",
+    "title": "AI helps screen overwhelming amount of data in search for UFOs: Avi Loeb",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/ai-ufo-data-avi-loeb/",
+    "description": "AI can analyze large datasets and use older data to recognize objects such as airplanes, balloons, drones and satellites, Loeb says.",
+    "publishedDate": "2026-06-12",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-investor-sniffs-out-uap-opportunities-in-financial-markets",
+    "title": "Investor sniffs out UAP opportunities in financial markets",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/investor-uap-markets-zpe/",
+    "description": "Matthew Tuttle says it’s likely the U.S. and rival nations have been developing ways to harness energy from the quantum field.",
+    "publishedDate": "2026-06-12",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "the-debrief-disclosure-day-in-real-life-scientists-and-mental-health-advocate",
+    "title": "“Disclosure Day” in Real Life? Scientists and Mental Health Advocates Update Rules for Alien Contact as “Disclosure” Debate Grows",
+    "source": "The Debrief",
+    "url": "https://thedebrief.org/disclosure-day-in-real-life-scientists-and-mental-health-advocates-update-rules-for-alien-contact-as-disclosure-debate-grows/",
+    "description": "Scientists and public health advocates are urging for preparedness in advance of confirmation of the discovery of extraterrestrial life.",
+    "publishedDate": "2026-06-11",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-ross-coulthart-examines-how-real-life-ufo-disclosure-ties-to-disclos",
+    "title": "Ross Coulthart examines how real-life UFO disclosure ties to 'Disclosure Day'",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/reality-check-road-to-disclosure/",
+    "description": "Ross Coulthart unpacks the road to disclosure, paved by brave people coming forward to tell their truth.",
+    "publishedDate": "2026-06-11",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-did-the-1996-varginha-incident-lead-to-the-recovery-of-extraterrestri",
+    "title": "Did the 1996 Varginha incident lead to the recovery of extraterrestrials?",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/1996-varginha-incident-recovery-extraterrestrials/",
+    "description": "UFO investigators are pushing the U.S. government to release files related to the 1996 Varginha UFO incident.",
+    "publishedDate": "2026-06-11",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
+    "id": "newsnation-majority-of-americans-believe-aliens-exist-poll",
+    "title": "Majority of Americans believe aliens exist: Poll",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/majority-americans-believe-aliens-exist/",
+    "description": "84% of Americans say the U.S. government knows more about UFOs than it is sharing.",
+    "publishedDate": "2026-06-11",
+    "type": "article",
+    "addedDate": "2026-06-21"
+  },
+  {
     "id": "newsnation-ufo-push-for-disclosure-shattering-greatest-cover-up-in-us-history-e",
     "title": "UFO push for disclosure shattering greatest cover-up in US history: Expert",
     "source": "NewsNation",
