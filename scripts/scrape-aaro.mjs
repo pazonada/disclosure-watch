@@ -19,10 +19,19 @@
 //   node scripts/scrape-aaro.mjs           # write changes
 //   node scripts/scrape-aaro.mjs --dry-run # report only, no write
 
-import { chromium } from "playwright";
+// playwright-extra wraps playwright with a plugin system; the stealth plugin
+// patches the headless-Chrome fingerprints Akamai uses to detect bots
+// (navigator.webdriver, missing Chrome runtime features, WebGL quirks, etc).
+// Without this, aaro.mil returns an "Access Denied" page even when the
+// HTTP request succeeds.
+import { chromium as chromiumExtra } from "playwright-extra";
+import stealth from "puppeteer-extra-plugin-stealth";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
+chromiumExtra.use(stealth());
+const chromium = chromiumExtra;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
