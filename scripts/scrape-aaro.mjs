@@ -223,7 +223,26 @@ async function main() {
     console.warn(`[AARO] ${dropped} entries failed validation; dropped.`);
   }
 
-  const newEntries = valid.filter((e) => {
+  // Intra-run dedup: AARO lists some items in both Cases and Reports
+  // navigation, so the same URL may surface twice. Keep the first
+  // occurrence (cases are typically scraped first; their categorization
+  // tends to be more specific).
+  const seenInRun = new Set();
+  const deduped = [];
+  for (const e of valid) {
+    const url = e.sourceUrl.replace(/\/$/, "").toLowerCase();
+    if (seenInRun.has(url)) continue;
+    seenInRun.add(url);
+    deduped.push(e);
+  }
+  const intraRunDuplicates = valid.length - deduped.length;
+  if (intraRunDuplicates > 0) {
+    console.log(
+      `[AARO] Removed ${intraRunDuplicates} intra-run duplicate URLs.`
+    );
+  }
+
+  const newEntries = deduped.filter((e) => {
     const url = e.sourceUrl.replace(/\/$/, "").toLowerCase();
     return !existingUrls.has(url) && !existingIds.has(e.id);
   });
@@ -250,6 +269,7 @@ async function main() {
       console.log(
         `  ${e.publishedDate} · ${e.source} · ${e.title.slice(0, 90)}`
       );
+      console.log(`     URL: ${e.sourceUrl}`);
     }
     return;
   }
