@@ -27,9 +27,21 @@ interface GitHubIssue {
 function getRepo(): { owner: string; repo: string; token: string } {
   const token = process.env.GITHUB_TOKEN;
   if (!token) throw new Error("GITHUB_TOKEN not set");
+  // GITHUB_REPO may be set as "owner/repo" (the common Vercel convention) or
+  // as just "repo" with GITHUB_OWNER providing the owner separately. Support
+  // both — if it has a slash, split it; otherwise treat it as just the repo
+  // name.
+  const repoEnv = process.env.GITHUB_REPO || "disclosure-watch";
+  let owner = process.env.GITHUB_OWNER || "pazonada";
+  let repo = repoEnv;
+  if (repoEnv.includes("/")) {
+    const parts = repoEnv.split("/");
+    owner = parts[0];
+    repo = parts.slice(1).join("/");
+  }
   return {
-    owner: process.env.GITHUB_OWNER || "pazonada",
-    repo: process.env.GITHUB_REPO || "disclosure-watch",
+    owner,
+    repo,
     token,
   };
 }
