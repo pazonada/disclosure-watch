@@ -53,12 +53,45 @@ export async function GET(req: NextRequest) {
   try {
     const now = new Date().toISOString();
 
-    // Find unsent digests past their deadline
+    // Safety brake — never send more than this many digests in one cron
+    // firing. This prevents the "backlog drain" scenario where a route that
+    // hasn't fired for weeks finds N pending digests and tries to send N ×
+    // (audience size) emails all at once — which is how we accidentally
+    // blasted subscribers with stale content after fixing a long-standing
+    // middleware bug. If older drafts pile up, the cancel-backlog endpoint
+    // exists for explicit cleanup; auto-send refuses to drain silently.
+    const MAX_DIGESTS_PER_RUN = 1;
+
+    // First, count how many digests are pending. If more than the safety
+    // cap, log loudly so the operator notices via Vercel logs and the
+    // email-monitor's stale-digest flag.
+    const { data: allPending, error: countErr } = await supabase
+      .from("digests")
+      .select("id, week_of")
+      .in("status", ["draft", "approved"])
+      .lt("auto_send_deadline", now)
+      .order("week_of", { ascending: false });
+
+    if (countErr) throw countErr;
+
+    const pendingTotal = allPending?.length || 0;
+    if (pendingTotal > MAX_DIGESTS_PER_RUN) {
+      console.warn(
+        `[auto-send] SAFETY: ${pendingTotal} pending digests but max-per-run is ${MAX_DIGESTS_PER_RUN}. ` +
+        `Sending only the most recent (week of ${allPending?.[0]?.week_of}). ` +
+        `Older drafts: ${allPending?.slice(1).map((d) => d.week_of).join(", ")}. ` +
+        `Use POST /api/admin/digests/cancel-backlog if those should be retired.`
+      );
+    }
+
+    // Fetch only the most recent N digests (newest first by week_of)
     const { data: pendingDigests, error } = await supabase
       .from("digests")
       .select("*")
       .in("status", ["draft", "approved"])
-      .lt("auto_send_deadline", now);
+      .lt("auto_send_deadline", now)
+      .order("week_of", { ascending: false })
+      .limit(MAX_DIGESTS_PER_RUN);
 
     if (error) throw error;
 
