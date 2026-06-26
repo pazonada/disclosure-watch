@@ -56,11 +56,10 @@ export async function POST(req: NextRequest) {
   const [keep, ...toCancel] = pendingList;
   const idsToCancel = toCancel.map((d) => d.id);
 
-  const { error: updateErr, count } = await supabase
+  const { error: updateErr } = await supabase
     .from("digests")
     .update({ status: "sent", sent_at: new Date().toISOString() })
-    .in("id", idsToCancel)
-    .select("*", { count: "exact", head: true });
+    .in("id", idsToCancel);
 
   if (updateErr) {
     return NextResponse.json(
@@ -70,8 +69,8 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({
-    message: `Cancelled ${count ?? idsToCancel.length} backlogged digests, kept the latest.`,
-    cancelled: count ?? idsToCancel.length,
+    message: `Cancelled ${idsToCancel.length} backlogged digests, kept the latest.`,
+    cancelled: idsToCancel.length,
     kept: keep,
     cancelledIds: idsToCancel,
   });
