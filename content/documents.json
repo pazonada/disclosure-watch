@@ -1,5 +1,22 @@
 [
   {
+    "id": "aaro-dod-and-intelligence-community-authorization-to-provide-information-to-aaro",
+    "title": "AARO Case: DoD and Intelligence Community Authorization to Provide Information to AARO",
+    "source": "AARO",
+    "sourceUrl": "https://www.aaro.mil/Portals/136/PDFs/AARO_SAPCO_CAPCO_Memos_on_AARO_Authorities.pdf",
+    "documentUrl": "https://www.aaro.mil/Portals/136/PDFs/AARO_SAPCO_CAPCO_Memos_on_AARO_Authorities.pdf",
+    "summary": "AARO Case listed on AARO's public resources page. See linked document for full content.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "AARO",
+      "Case Resolution",
+      "Primary Source"
+    ],
+    "publishedDate": "2026-06-26",
+    "addedDate": "2026-06-26"
+  },
+  {
     "id": "tbv-what-timothy-gallaudet-s-noaa-emails-reveal-about-his-interest-in-uaps",
     "title": "What Timothy Gallaudet’s NOAA Emails Reveal About His Interest in UAPs",
     "source": "The Black Vault",
@@ -6666,6 +6683,57 @@
     ],
     "publishedDate": "unknown",
     "addedDate": "2026-06-09"
+  },
+  {
+    "id": "aaro-effect-of-forced-perspective-and-parallax-view-on-uap-observations",
+    "title": "AARO Case: Effect of Forced Perspective and Parallax View on UAP Observations",
+    "source": "AARO",
+    "sourceUrl": "https://www.aaro.mil/Portals/136/PDFs/Information%20Papers/AARO_Effect_of_Forced_Perspective_and_Parallax_View_on_UAP_Observations_2024.pdf",
+    "documentUrl": "https://www.aaro.mil/Portals/136/PDFs/Information%20Papers/AARO_Effect_of_Forced_Perspective_and_Parallax_View_on_UAP_Observations_2024.pdf",
+    "summary": "AARO Case listed on AARO's public resources page. See linked document for full content.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "AARO",
+      "Case Resolution",
+      "Primary Source"
+    ],
+    "publishedDate": "2026-06-26",
+    "addedDate": "2026-06-26"
+  },
+  {
+    "id": "aaro-correlations-of-starlink-satellite-flaring-with-uap-observations",
+    "title": "AARO Case: Correlations of Starlink Satellite Flaring with UAP Observations",
+    "source": "AARO",
+    "sourceUrl": "https://www.aaro.mil/Portals/136/PDFs/Information%20Papers/AARO_Satellite_Flaring_Paper_508_FINAL_04222025.pdf",
+    "documentUrl": "https://www.aaro.mil/Portals/136/PDFs/Information%20Papers/AARO_Satellite_Flaring_Paper_508_FINAL_04222025.pdf",
+    "summary": "AARO Case listed on AARO's public resources page. See linked document for full content.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "AARO",
+      "Case Resolution",
+      "Primary Source"
+    ],
+    "publishedDate": "2026-06-26",
+    "addedDate": "2026-06-26"
+  },
+  {
+    "id": "aaro-privacy-impact-assessment-pia",
+    "title": "AARO Case: Privacy Impact Assessment (PIA)",
+    "source": "AARO",
+    "sourceUrl": "https://www.aaro.mil/Portals/136/PDFs/AARO_PIA_Section_1.pdf",
+    "documentUrl": "https://www.aaro.mil/Portals/136/PDFs/AARO_PIA_Section_1.pdf",
+    "summary": "AARO Case listed on AARO's public resources page. See linked document for full content.",
+    "category": "FOIA Release",
+    "importance": "Medium",
+    "tags": [
+      "AARO",
+      "Case Resolution",
+      "Primary Source"
+    ],
+    "publishedDate": "2026-06-26",
+    "addedDate": "2026-06-26"
   },
   {
     "id": "nara-499915958",
