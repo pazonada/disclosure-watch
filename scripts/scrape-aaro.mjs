@@ -80,6 +80,28 @@ async function scrapeTarget(page, target) {
   // Wait an extra moment for any deferred JS-rendered content.
   await page.waitForTimeout(2_000);
 
+  const diagnostic = await page.evaluate(() => {
+    const main = document.querySelector("main") || document.body;
+    const allAnchors = Array.from(document.querySelectorAll("a[href]"));
+    const mainAnchors = Array.from(main.querySelectorAll("a[href]"));
+    return {
+      totalAnchorsOnPage: allAnchors.length,
+      anchorsInMain: mainAnchors.length,
+      pageTitle: document.title,
+      h1: document.querySelector("h1")?.textContent?.trim() || null,
+      firstSixMainHrefs: mainAnchors.slice(0, 6).map((a) => ({
+        href: /** @type {HTMLAnchorElement} */ (a).href,
+        text: (a.textContent || "").trim().slice(0, 80),
+      })),
+    };
+  });
+  console.log(
+    `[AARO] DIAGNOSTIC: title="${diagnostic.pageTitle}" h1="${diagnostic.h1}" anchors total=${diagnostic.totalAnchorsOnPage} in-main=${diagnostic.anchorsInMain}`
+  );
+  for (const a of diagnostic.firstSixMainHrefs) {
+    console.log(`  [AARO]   sample: ${a.href} | ${a.text}`);
+  }
+
   const rawLinks = await page.evaluate(() => {
     const main = document.querySelector("main") || document.body;
     const anchors = Array.from(main.querySelectorAll("a[href]"));
