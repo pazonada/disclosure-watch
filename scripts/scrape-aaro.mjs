@@ -170,17 +170,19 @@ function extractTitleFromUrl(url) {
 
 function extractDateFromUrlOrTitle(url, title) {
   const hay = `${url} ${title}`;
-  // MMDDYYYY in a filename (e.g. AARO_Satellite_Flaring_..._04222025.pdf)
-  const mmddyyyy = hay.match(/\b(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(20\d{2})\b/);
+  // MMDDYYYY in a filename (e.g. AARO_..._FINAL_04222025.pdf).
+  // Underscores around digits break \b boundaries since _ is a word char,
+  // so anchor with non-digit lookaround instead.
+  const mmddyyyy = hay.match(/(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(20\d{2})(?=\D|$)/);
   if (mmddyyyy) {
     const [, m, d, y] = mmddyyyy;
     return `${y}-${m}-${d}`;
   }
   // YYYY-MM or YYYY/MM
-  const ymSep = hay.match(/\b(20\d{2})[-/](\d{1,2})\b/);
+  const ymSep = hay.match(/(20\d{2})[-/](\d{1,2})(?=\D|$)/);
   if (ymSep) return `${ymSep[1]}-${ymSep[2].padStart(2, "0")}-01`;
-  // Year only
-  const y = hay.match(/\b(20\d{2})\b/);
+  // 4-digit year only (e.g. _2024 in a filename)
+  const y = hay.match(/(20\d{2})/);
   if (y) return `${y[1]}-01-01`;
   return null;
 }
