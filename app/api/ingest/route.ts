@@ -646,6 +646,81 @@ function mapFederalRegisterType(t?: string): string {
   }
 }
 
+/**
+ * NASA UAP page scraper. science.nasa.gov/uap is plain HTML (no Akamai
+ * block, unlike .mil/aaro.mil) so we can fetch it directly from Vercel.
+ * The page lists PDFs: the 2023 Independent Study Team report + related
+ * meeting materials. New NASA UAP documents are rare but high-importance
+ * when they drop. Dedup-by-URL in mergeDocuments handles re-runs without
+ * a separate state file.
+ */
+async function fetchNasaUap(): Promise<UAPDocument[]> {
+  const PAGE_URL = "https://science.nasa.gov/uap";
+  const results: UAPDocument[] = [];
+
+  try {
+    const resp = await fetchWithTimeout(PAGE_URL, 15000);
+    if (!resp.ok) {
+      console.log(`[NASA] science.nasa.gov/uap returned ${resp.status}`);
+      return results;
+    }
+    const html = await resp.text();
+
+    // Pull every PDF link on the page that NASA hosts. We don't try to
+    // categorise here — we just capture them, and the existing dedup
+    // ensures we only add new ones on subsequent runs.
+    const pdfLinks = new Set<string>();
+    const linkRe = /href="(https:\/\/(?:science|www)\.nasa\.gov\/[^"]+\.pdf)"/gi;
+    let m: RegExpExecArray | null;
+    while ((m = linkRe.exec(html)) !== null) {
+      pdfLinks.add(m[1]);
+    }
+
+    for (const url of Array.from(pdfLinks)) {
+      // Derive a human-readable title from the filename.
+      const filename = url.split("/").pop() || "nasa-uap-document.pdf";
+      const baseName = filename
+        .replace(/\.pdf$/i, "")
+        .replace(/[_-]+/g, " ")
+        .replace(/\btagged\b/gi, "")
+        .replace(/\b(\d{1,2})\s*(\d{4})\b/, "$1/$2")
+        .trim();
+      const title = `NASA · ${baseName.charAt(0).toUpperCase()}${baseName.slice(1)}`;
+
+      // Try to extract a year from the URL path (NASA puts uploads in
+      // /YYYY/MM/ folders) to use as the publishedDate.
+      const yearMonthMatch = url.match(/\/(\d{4})\/(\d{1,2})\//);
+      let publishedDate: string;
+      if (yearMonthMatch) {
+        const [, y, mo] = yearMonthMatch;
+        publishedDate = `${y}-${mo.padStart(2, "0")}-01`;
+      } else {
+        publishedDate = today();
+      }
+
+      results.push({
+        id: toKebab(`nasa-${baseName}`.slice(0, 80)),
+        title: title.slice(0, 200),
+        source: "NASA",
+        sourceUrl: PAGE_URL,
+        documentUrl: url,
+        summary: `NASA-published UAP document linked from science.nasa.gov/uap.`,
+        category: filename.toLowerCase().includes("report") ? "Report" : "Official Statement",
+        importance: filename.toLowerCase().includes("final-report") ? "High" : "Medium",
+        tags: ["NASA", "UAP", "Primary Source"],
+        publishedDate,
+        addedDate: today(),
+      });
+    }
+
+    console.log(`[NASA] Fetched ${results.length} NASA UAP documents`);
+  } catch (err) {
+    console.error("[NASA] Error:", err);
+  }
+
+  return results;
+}
+
 // ══════════════════════════════════════════════════════════════════════════════
 // NEWS SOURCES (RSS)
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1327,6 +1402,7 @@ async function runIngestion(): Promise<{
     congressDocs,
     blackVaultDocs,
     fedRegDocs,
+    nasaDocs,
     congressHearings,
     allNewsItems,
   ] = await Promise.all([
@@ -1334,6 +1410,7 @@ async function runIngestion(): Promise<{
     fetchCongress(),
     fetchBlackVault(),
     fetchFederalRegister(),
+    fetchNasaUap(),
     fetchCongressHearings(),
     fetchAllNews(),
   ]);
@@ -1347,6 +1424,7 @@ async function runIngestion(): Promise<{
     ...congressDocs,
     ...blackVaultDocs,
     ...fedRegDocs,
+    ...nasaDocs,
   ];
   const existingDocIds = new Set(existingDocs.map((d) => d.id));
   const docResult = mergeDocuments(existingDocs, incomingDocs);
