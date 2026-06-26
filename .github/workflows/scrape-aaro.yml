@@ -1,0 +1,70 @@
+name: Scrape AARO
+
+# Runs daily at 12:30 PM UTC. Also runnable manually from the Actions tab
+# via "Run workflow" (workflow_dispatch) — use the manual trigger first to
+# confirm the scraper works before relying on the cron schedule.
+on:
+  schedule:
+    - cron: "30 12 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — print what would change, don't commit."
+        required: false
+        default: "false"
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+permissions:
+  contents: write  # required to commit & push the documents.json diff
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright + Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run scraper
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node scripts/scrape-aaro.mjs --dry-run
+          else
+            node scripts/scrape-aaro.mjs
+          fi
+
+      - name: Commit & push if documents.json changed
+        if: github.event.inputs.dry_run != 'true'
+        run: |
+          if git diff --quiet content/documents.json; then
+            echo "::notice::No new AARO entries — nothing to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          NEW_COUNT=$(git diff --numstat content/documents.json | awk '{print $1}')
+          git add content/documents.json
+          git commit -m "chore: scrape-aaro — +${NEW_COUNT} new entries"
+          git push origin main
+
+      - name: Show summary on failure
+        if: failure()
+        run: |
+          echo "::warning::AARO scraper failed. Check job logs above. Likely causes: Akamai blocked the runner IP, AARO's DOM changed, or Playwright crashed."
