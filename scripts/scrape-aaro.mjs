@@ -170,8 +170,16 @@ function extractTitleFromUrl(url) {
 
 function extractDateFromUrlOrTitle(url, title) {
   const hay = `${url} ${title}`;
-  const ym = hay.match(/\b(20\d{2})[-/](\d{1,2})\b/);
-  if (ym) return `${ym[1]}-${ym[2].padStart(2, "0")}-01`;
+  // MMDDYYYY in a filename (e.g. AARO_Satellite_Flaring_..._04222025.pdf)
+  const mmddyyyy = hay.match(/\b(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(20\d{2})\b/);
+  if (mmddyyyy) {
+    const [, m, d, y] = mmddyyyy;
+    return `${y}-${m}-${d}`;
+  }
+  // YYYY-MM or YYYY/MM
+  const ymSep = hay.match(/\b(20\d{2})[-/](\d{1,2})\b/);
+  if (ymSep) return `${ymSep[1]}-${ymSep[2].padStart(2, "0")}-01`;
+  // Year only
   const y = hay.match(/\b(20\d{2})\b/);
   if (y) return `${y[1]}-01-01`;
   return null;
