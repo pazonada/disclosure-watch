@@ -17,12 +17,27 @@ import fs from "node:fs";
 import path from "node:path";
 
 const UA =
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
+// Full browser-like header set. NewsNation (and probably other publishers
+// behind a basic WAF) return 403 to requests missing the `sec-fetch-*`
+// and `sec-ch-ua-*` headers that real Chrome always sends, even on a
+// plain GET. Adding the full set turns the 403 into a 200 in most cases.
 const SAFE_HEADERS = {
   "user-agent": UA,
-  accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  accept:
+    "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
   "accept-language": "en-US,en;q=0.9",
+  "accept-encoding": "gzip, deflate, br",
+  "upgrade-insecure-requests": "1",
+  "sec-fetch-dest": "document",
+  "sec-fetch-mode": "navigate",
+  "sec-fetch-site": "none",
+  "sec-fetch-user": "?1",
+  "sec-ch-ua":
+    '"Chromium";v="124", "Not-A.Brand";v="99", "Google Chrome";v="124"',
+  "sec-ch-ua-mobile": "?0",
+  "sec-ch-ua-platform": '"macOS"',
 };
 
 // ── 1. OpenGraph image scrape ────────────────────────────────────────────
