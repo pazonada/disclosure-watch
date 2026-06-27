@@ -36,6 +36,9 @@ jobs:
       - name: Install Chrome for Remotion
         run: npx remotion browser ensure
 
+      - name: Install Playwright Chromium for OG-image fallback
+        run: npx playwright install --with-deps chromium
+
       - name: Render weekly reel
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

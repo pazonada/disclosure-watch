@@ -25,7 +25,7 @@ import { renderStill, selectComposition } from "@remotion/renderer";
 import path from "node:path";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
-import { fetchOgImage, searchDvidsRecent } from "./lib/multimedia.mjs";
+import { fetchOgImage, searchDvidsRecent, closeStealthBrowser } from "./lib/multimedia.mjs";
 import { fetchWithRetry } from "./lib/fetch-retry.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -341,7 +341,12 @@ const main = async () => {
   console.log("[Carousel] Done! Output:", outDir);
 };
 
-main().catch((err) => {
-  console.error("[Carousel] Render failed:", err);
-  process.exit(1);
-});
+main()
+  .then(async () => {
+    await closeStealthBrowser();
+  })
+  .catch(async (err) => {
+    console.error("[Carousel] Render failed:", err);
+    await closeStealthBrowser();
+    process.exit(1);
+  });

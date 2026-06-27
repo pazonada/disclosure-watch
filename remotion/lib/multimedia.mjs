@@ -49,6 +49,67 @@ const OG_PATTERNS = [
   /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i,
 ];
 
+function extractOgFromHtml(html, pageUrl) {
+  for (const p of OG_PATTERNS) {
+    const m = html.match(p);
+    if (m && m[1]) {
+      try {
+        return new URL(m[1], pageUrl).toString();
+      } catch {
+        return m[1];
+      }
+    }
+  }
+  return null;
+}
+
+// Lazy-initialised stealth Chromium, shared across all OG-image fetches in
+// one process so we only pay the browser launch cost once per render run.
+let _stealthBrowser = null;
+async function getStealthBrowser() {
+  if (_stealthBrowser) return _stealthBrowser;
+  const { chromium } = await import("playwright-extra");
+  const { default: stealth } = await import("puppeteer-extra-plugin-stealth");
+  chromium.use(stealth());
+  _stealthBrowser = await chromium.launch({ args: ["--no-sandbox"] });
+  return _stealthBrowser;
+}
+
+export async function closeStealthBrowser() {
+  if (_stealthBrowser) {
+    try { await _stealthBrowser.close(); } catch {}
+    _stealthBrowser = null;
+  }
+}
+
+async function fetchOgImageViaPlaywright(pageUrl) {
+  try {
+    const browser = await getStealthBrowser();
+    const context = await browser.newContext({
+      userAgent: UA,
+      locale: "en-US",
+      viewport: { width: 1280, height: 800 },
+    });
+    const page = await context.newPage();
+    try {
+      await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 30_000 });
+      const og = await page.evaluate(() => {
+        const sel =
+          'meta[property="og:image"], meta[name="og:image"], meta[name="twitter:image"], meta[property="twitter:image"]';
+        const el = document.querySelector(sel);
+        return el?.getAttribute("content") || null;
+      });
+      if (!og) return null;
+      try { return new URL(og, pageUrl).toString(); } catch { return og; }
+    } finally {
+      await context.close();
+    }
+  } catch (err) {
+    console.warn(`[og/playwright] error ${pageUrl}: ${err.message}`);
+    return null;
+  }
+}
+
 export async function fetchOgImage(pageUrl) {
   if (!pageUrl) return null;
   try {
@@ -56,26 +117,22 @@ export async function fetchOgImage(pageUrl) {
       headers: SAFE_HEADERS,
       redirect: "follow",
     });
-    if (!res.ok) {
-      console.warn(`[og] ${res.status} ${pageUrl}`);
-      return null;
+    if (res.ok) {
+      const html = await res.text();
+      const og = extractOgFromHtml(html, pageUrl);
+      if (og) return og;
+    } else {
+      // 403/406/429 → publisher has bot detection that defeats plain fetch.
+      // Fall through to Playwright + stealth.
+      console.warn(`[og] ${res.status} ${pageUrl} — trying Playwright fallback`);
     }
-    const html = await res.text();
-    for (const p of OG_PATTERNS) {
-      const m = html.match(p);
-      if (m && m[1]) {
-        try {
-          return new URL(m[1], pageUrl).toString();
-        } catch {
-          return m[1];
-        }
-      }
-    }
-    return null;
   } catch (err) {
-    console.warn(`[og] error ${pageUrl}: ${err.message}`);
-    return null;
+    console.warn(`[og] error ${pageUrl}: ${err.message} — trying Playwright fallback`);
   }
+
+  // Playwright fallback — only reached on plain-fetch failure. Uses a shared
+  // stealth Chromium so the per-call cost after the first one is small.
+  return await fetchOgImageViaPlaywright(pageUrl);
 }
 
 // ── 2. DVIDS search ──────────────────────────────────────────────────────

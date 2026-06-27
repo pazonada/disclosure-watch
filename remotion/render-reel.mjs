@@ -23,6 +23,7 @@ import { fileURLToPath } from "node:url";
 import {
   findMediaForNewsArticle,
   downloadToLocal,
+  closeStealthBrowser,
 } from "./lib/multimedia.mjs";
 import { fetchWithRetry } from "./lib/fetch-retry.mjs";
 
@@ -288,7 +289,12 @@ const main = async () => {
   console.log("[Reel] Done! Output:", outputLocation);
 };
 
-main().catch((err) => {
-  console.error("[Reel] Render failed:", err);
-  process.exit(1);
-});
+main()
+  .then(async () => {
+    await closeStealthBrowser();
+  })
+  .catch(async (err) => {
+    console.error("[Reel] Render failed:", err);
+    await closeStealthBrowser();
+    process.exit(1);
+  });
