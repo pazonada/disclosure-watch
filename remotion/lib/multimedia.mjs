@@ -92,14 +92,24 @@ async function fetchOgImageViaPlaywright(pageUrl) {
     });
     const page = await context.newPage();
     try {
-      await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 30_000 });
+      const resp = await page.goto(pageUrl, {
+        waitUntil: "domcontentloaded",
+        timeout: 30_000,
+      });
+      const status = resp?.status() || 0;
+      const title = await page.title();
       const og = await page.evaluate(() => {
         const sel =
           'meta[property="og:image"], meta[name="og:image"], meta[name="twitter:image"], meta[property="twitter:image"]';
         const el = document.querySelector(sel);
         return el?.getAttribute("content") || null;
       });
-      if (!og) return null;
+      if (!og) {
+        console.warn(
+          `[og/playwright] no og:image on ${pageUrl} (status=${status}, title="${title.slice(0, 60)}")`
+        );
+        return null;
+      }
       try { return new URL(og, pageUrl).toString(); } catch { return og; }
     } finally {
       await context.close();
