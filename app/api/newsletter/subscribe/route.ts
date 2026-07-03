@@ -6,10 +6,29 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    const body = await request.json();
+    const email = body?.email;
+    const honeypot = body?.hp_website;
+    const elapsedMs = Number(body?.elapsedMs || 0);
 
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "Valid email required." }, { status: 400 });
+    }
+
+    // Anti-bot checks. Real users don't fill the aria-hidden honeypot field,
+    // and they take at least ~1.5s to type an email + click submit.
+    // We return a fake "success" so bots don't learn what triggered the
+    // block — no signal that could help them tune their fill patterns.
+    const failedHoneypot = honeypot && honeypot.trim().length > 0;
+    const suspiciouslyFast = elapsedMs > 0 && elapsedMs < 1500;
+    if (failedHoneypot || suspiciouslyFast) {
+      console.warn("[Subscribe] Bot-signup rejected", {
+        email,
+        failedHoneypot,
+        suspiciouslyFast,
+        elapsedMs,
+      });
+      return NextResponse.json({ success: true });
     }
 
     // Add to Resend audience

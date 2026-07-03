@@ -1,14 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "already" | "unsub_form" | "unsub_loading" | "unsubscribed">("idle");
   const [message, setMessage] = useState("");
 
+  // Anti-bot: honeypot text input value + timestamp when form mounted.
+  // Real users don't fill the honeypot (it's aria-hidden and off-screen).
+  // Bots typically submit forms in under a second; we require ≥1.5s.
+  const [honeypot, setHoneypot] = useState("");
+  const mountedAt = useRef<number>(0);
+
   // Check if user previously subscribed
   useEffect(() => {
+    mountedAt.current = Date.now();
     try {
       if (localStorage.getItem("dw_newsletter_subscribed") === "true") {
         setStatus("already");
@@ -22,12 +29,13 @@ export default function NewsletterSignup() {
     e.preventDefault();
     if (!email) return;
 
+    const elapsedMs = Date.now() - mountedAt.current;
     setStatus("loading");
     try {
       const res = await fetch("/api/newsletter/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, hp_website: honeypot, elapsedMs }),
       });
       const data = await res.json();
 
@@ -177,6 +185,24 @@ export default function NewsletterSignup() {
       ) : (
         <>
           <form onSubmit={handleSubmit} className="flex gap-2">
+            {/* Honeypot — invisible to real users, filled by naive form-fill bots */}
+            <input
+              type="text"
+              name="hp_website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              style={{
+                position: "absolute",
+                left: "-9999px",
+                width: "1px",
+                height: "1px",
+                opacity: 0,
+                pointerEvents: "none",
+              }}
+            />
             <input
               type="email"
               placeholder="you@email.com"
