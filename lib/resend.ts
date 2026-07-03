@@ -121,21 +121,34 @@ export async function sendBatchEmail(options: {
   subject: string;
   html: string;
   from?: string;
+  /**
+   * Optional explicit recipient list. If provided, sends to exactly these
+   * addresses instead of pulling the full Resend audience. Used by the
+   * multi-day digest batching in /api/admin/digests/auto-send.
+   */
+  recipients?: string[];
 }): Promise<{ sent: number; failed: number; errors: string[] }> {
-  const contacts = await getContacts();
-  const active = contacts.filter((c) => !c.unsubscribed);
+  let recipientEmails: string[];
+  if (options.recipients) {
+    recipientEmails = options.recipients;
+  } else {
+    const contacts = await getContacts();
+    recipientEmails = contacts
+      .filter((c) => !c.unsubscribed)
+      .map((c) => c.email);
+  }
 
-  if (active.length === 0) {
-    console.log("[Resend] sendBatchEmail: no active contacts in audience");
+  if (recipientEmails.length === 0) {
+    console.log("[Resend] sendBatchEmail: no recipients");
     return { sent: 0, failed: 0, errors: [] };
   }
 
   // Resend batch API supports up to 100 emails per call
   const from = options.from || "Disclosure Watch <alerts@disclosurewatch.com>";
   const batches: Array<Array<{ from: string; to: string; subject: string; html: string }>> = [];
-  const emails = active.map((c) => ({
+  const emails = recipientEmails.map((email) => ({
     from,
-    to: c.email,
+    to: email,
     subject: options.subject,
     html: options.html,
   }));

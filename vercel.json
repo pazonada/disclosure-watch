@@ -18,6 +18,14 @@
       "schedule": "15 17 * * 5"
     },
     {
+      "path": "/api/admin/digests/auto-send",
+      "schedule": "15 17 * * 6"
+    },
+    {
+      "path": "/api/admin/digests/auto-send",
+      "schedule": "15 17 * * 0"
+    },
+    {
       "path": "/api/alerts/daily-digest",
       "schedule": "0 18 * * *"
     },

@@ -1,9 +1,67 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
-import { sendBatchEmail } from "@/lib/resend";
+import { getContacts, sendBatchEmail } from "@/lib/resend";
 import { buildDigestEmailHtml } from "@/lib/alert-email";
 import * as fs from "fs";
 import * as path from "path";
+
+// Multi-day digest batching: Resend Free tier is 100 emails/day, and once
+// the audience exceeds that we can't send the weekly digest in one shot on
+// Friday without hitting quota. The auto-send cron now fires Fri + Sat +
+// Sun; each day sends up to DAILY_CAP recipients (leaving a buffer under
+// 100), covering audiences up to 3×DAILY_CAP before we'd need Resend Pro.
+//
+// Slicing is deterministic by audience index — subscriber N gets the
+// digest on the same day of the week each week (as long as their position
+// in the audience doesn't shift much). Simple, no schema changes, no
+// per-recipient tracking needed.
+const DAILY_CAP = 90;
+
+/**
+ * For today's UTC weekday, returns which recipients (by index into the
+ * active audience) to send to, and whether this is the FINAL day for the
+ * current weekly digest. Returns null if today isn't a scheduled digest
+ * send day OR the audience fits in a single Friday send.
+ */
+function computeTodaysSlice(audienceSize: number): {
+  sliceStart: number;
+  sliceEnd: number;
+  isFinalDay: boolean;
+} | null {
+  const day = new Date().getUTCDay(); // 0 = Sun, 5 = Fri, 6 = Sat
+  const isFri = day === 5;
+  const isSat = day === 6;
+  const isSun = day === 0;
+  if (!isFri && !isSat && !isSun) return null;
+
+  // Audience fits Friday — only send Friday, ignore Sat/Sun.
+  if (audienceSize <= DAILY_CAP) {
+    if (!isFri) return null;
+    return { sliceStart: 0, sliceEnd: audienceSize, isFinalDay: true };
+  }
+
+  // Split across Fri (0..90), Sat (90..180), Sun (180..270).
+  if (isFri) {
+    return {
+      sliceStart: 0,
+      sliceEnd: Math.min(DAILY_CAP, audienceSize),
+      isFinalDay: DAILY_CAP >= audienceSize,
+    };
+  }
+  if (isSat) {
+    return {
+      sliceStart: DAILY_CAP,
+      sliceEnd: Math.min(2 * DAILY_CAP, audienceSize),
+      isFinalDay: 2 * DAILY_CAP >= audienceSize,
+    };
+  }
+  // Sunday — last slice, always final.
+  return {
+    sliceStart: 2 * DAILY_CAP,
+    sliceEnd: Math.min(3 * DAILY_CAP, audienceSize),
+    isFinalDay: true,
+  };
+}
 
 export const dynamic = "force-dynamic";
 
@@ -157,6 +215,20 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ message: "No digests to auto-send", sent: 0 });
     }
 
+    // Snapshot the current audience once for slicing.
+    const audience = (await getContacts())
+      .filter((c) => !c.unsubscribed)
+      .map((c) => c.email);
+
+    const slice = computeTodaysSlice(audience.length);
+    if (!slice) {
+      return NextResponse.json({
+        message: `Skipped — today is not a scheduled send day, or audience (${audience.length}) fits Friday only.`,
+        sent: 0,
+        audienceSize: audience.length,
+      });
+    }
+
     let totalSent = 0;
     let totalFailed = 0;
     const allErrors: string[] = [];
@@ -173,11 +245,17 @@ export async function GET(req: NextRequest) {
       const html = buildDigestEmailHtml(digest.summary_text, weekLabel);
       const subject = `Disclosure Watch Weekly Briefing: Week of ${weekLabel}`;
 
-      const result = await sendBatchEmail({ subject, html });
+      const recipients = audience.slice(slice.sliceStart, slice.sliceEnd);
+      console.log(
+        `[auto-send] day-slice ${slice.sliceStart}..${slice.sliceEnd} of ${audience.length} audience, isFinal=${slice.isFinalDay}, recipients=${recipients.length}`
+      );
 
-      // Only mark sent if at least one batch succeeded. If all batches failed,
-      // leave the digest as draft/approved so the next cron retries it.
-      if (result.sent > 0) {
+      const result = await sendBatchEmail({ subject, html, recipients });
+
+      // Only mark digest sent on the FINAL day of the multi-day send AND at
+      // least one batch succeeded. Intermediate days leave the digest as
+      // draft so the next scheduled day still finds it.
+      if (slice.isFinalDay && result.sent > 0) {
         await supabase
           .from("digests")
           .update({ status: "sent", sent_at: new Date().toISOString() })
@@ -190,10 +268,14 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json({
-      message: `Auto-sent ${pendingDigests.length} digest(s)`,
+      message: `Auto-sent day-slice ${slice.sliceStart}..${slice.sliceEnd} of ${audience.length} audience (isFinalDay=${slice.isFinalDay})`,
       sent: totalSent,
       failed: totalFailed,
       errors: allErrors,
+      audienceSize: audience.length,
+      sliceStart: slice.sliceStart,
+      sliceEnd: slice.sliceEnd,
+      isFinalDay: slice.isFinalDay,
     });
   } catch (err) {
     console.error("Auto-send error:", err);
