@@ -7,6 +7,7 @@
  *
  * Flags returned:
  *   - news_stale       — /api/news newest addedDate > STALE_NEWS_DAYS old
+ *   - docs_stale       — /api/documents newest addedDate > STALE_DOCS_DAYS old
  *   - weekly_stale     — /api/weekly-summary weekOf is >8 days old
  *   - ingest_stale     — content/ingest-meta.json lastSuccessfulRun > 48h old
  *   - live_lags_repo   — the deployed build's newest news date is older
@@ -25,6 +26,11 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://disclosurewatch.com";
 
 const STALE_NEWS_DAYS = 3;
+// Docs (AARO, NARA, Congress, Black Vault) publish irregularly. A dry
+// spell of 2-3 weeks is normal; longer than that starts suggesting our
+// scrapers or filters have silently broken. Flag at 21 days so we get
+// warned before a truly abandoned pipeline sits for months.
+const STALE_DOCS_DAYS = 21;
 const STALE_INGEST_HOURS = 48;
 
 export interface ContentHealthStatus {
@@ -32,12 +38,15 @@ export interface ContentHealthStatus {
   live: {
     newestNewsAddedDate: string | null;
     newestNewsAgeDays: number | null;
+    newestDocAddedDate: string | null;
+    newestDocAgeDays: number | null;
     weeklySummaryWeekOf: string | null;
     weeklySummaryAgeDays: number | null;
     error?: string;
   };
   deployedBundle: {
     newestNewsAddedDate: string | null;
+    newestDocAddedDate: string | null;
     ingestLastRunISO: string | null;
     ingestAgeHours: number | null;
     error?: string;
@@ -53,12 +62,18 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
   const live: ContentHealthStatus["live"] = {
     newestNewsAddedDate: null,
     newestNewsAgeDays: null,
+    newestDocAddedDate: null,
+    newestDocAgeDays: null,
     weeklySummaryWeekOf: null,
     weeklySummaryAgeDays: null,
   };
   try {
-    const [newsResp, sumResp] = await Promise.all([
+    const [newsResp, docsResp, sumResp] = await Promise.all([
       fetch(`${SITE_URL}/api/news`, {
+        signal: AbortSignal.timeout(15_000),
+        cache: "no-store",
+      }),
+      fetch(`${SITE_URL}/api/documents`, {
         signal: AbortSignal.timeout(15_000),
         cache: "no-store",
       }),
@@ -84,6 +99,23 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
         );
       }
     }
+    if (docsResp.ok) {
+      const docs = (await docsResp.json()) as Array<{
+        addedDate?: string;
+        publishedDate?: string;
+      }>;
+      const newest = docs
+        .map((d) => d.addedDate || "")
+        .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
+        .sort()
+        .pop() || null;
+      live.newestDocAddedDate = newest;
+      if (newest) {
+        live.newestDocAgeDays = Math.floor(
+          (now - new Date(newest).getTime()) / 86_400_000
+        );
+      }
+    }
     if (sumResp.ok) {
       const s = (await sumResp.json()) as { weekOf?: string };
       live.weeklySummaryWeekOf = s.weekOf || null;
@@ -105,6 +137,7 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
   // stale (ingest didn't commit, or ignore-build blocked the rebuild).
   const deployed: ContentHealthStatus["deployedBundle"] = {
     newestNewsAddedDate: null,
+    newestDocAddedDate: null,
     ingestLastRunISO: null,
     ingestAgeHours: null,
   };
@@ -118,12 +151,26 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
       addedDate?: string;
       publishedDate?: string;
     }>;
-    const newest = news
+    const newestNews = news
       .map((n) => n.addedDate || n.publishedDate || "")
       .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
       .sort()
       .pop() || null;
-    deployed.newestNewsAddedDate = newest;
+    deployed.newestNewsAddedDate = newestNews;
+
+    const docsRaw = fs.readFileSync(
+      path.join(contentDir, "documents.json"),
+      "utf-8"
+    );
+    const docs = JSON.parse(docsRaw) as Array<{
+      addedDate?: string;
+    }>;
+    const newestDoc = docs
+      .map((d) => d.addedDate || "")
+      .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
+      .sort()
+      .pop() || null;
+    deployed.newestDocAddedDate = newestDoc;
 
     const metaRaw = fs.readFileSync(
       path.join(contentDir, "ingest-meta.json"),
@@ -147,6 +194,14 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
   ) {
     flags.push(
       `news_stale: newest live news is ${live.newestNewsAgeDays} days old (threshold ${STALE_NEWS_DAYS}d)`
+    );
+  }
+  if (
+    live.newestDocAgeDays !== null &&
+    live.newestDocAgeDays > STALE_DOCS_DAYS
+  ) {
+    flags.push(
+      `docs_stale: newest live document is ${live.newestDocAgeDays} days old (threshold ${STALE_DOCS_DAYS}d) — check AARO/NASA/Black Vault scrapers`
     );
   }
   if (

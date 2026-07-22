@@ -145,10 +145,16 @@ function buildIssueBody(status: ContentHealthStatus): string {
     `- Live newest news addedDate: \`${status.live.newestNewsAddedDate || "?"}\` (age: ${status.live.newestNewsAgeDays ?? "?"} days)`
   );
   lines.push(
+    `- Live newest document addedDate: \`${status.live.newestDocAddedDate || "?"}\` (age: ${status.live.newestDocAgeDays ?? "?"} days)`
+  );
+  lines.push(
     `- Live weekly summary weekOf: \`${status.live.weeklySummaryWeekOf || "?"}\` (age: ${status.live.weeklySummaryAgeDays ?? "?"} days)`
   );
   lines.push(
     `- Deployed bundle newest news: \`${status.deployedBundle.newestNewsAddedDate || "?"}\``
+  );
+  lines.push(
+    `- Deployed bundle newest document: \`${status.deployedBundle.newestDocAddedDate || "?"}\``
   );
   lines.push(
     `- Deployed bundle last ingest: \`${status.deployedBundle.ingestLastRunISO || "?"}\` (${status.deployedBundle.ingestAgeHours ?? "?"}h ago)`
