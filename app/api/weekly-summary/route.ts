@@ -5,5 +5,5 @@ export const dynamic = "force-dynamic";
 
 /** GET /api/weekly-summary — returns the current weekly summary */
 export async function GET() {
-  return NextResponse.json(getWeeklySummary());
+  return NextResponse.json(await getWeeklySummary());
 }

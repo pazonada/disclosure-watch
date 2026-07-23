@@ -3,21 +3,17 @@
 # Exit 0 = cancel build (don't deploy)
 # Exit 1 = proceed with build
 #
-# Vercel serverless routes read content JSON from the deployment's frozen
-# filesystem — new content committed after a deployment is invisible to
-# visitors until the next build. That means every content commit that
-# changes user-facing data needs a build to reach production.
+# Content JSON is fetched from GitHub raw at request time (see lib/content.ts)
+# with a 5-minute Next.js fetch cache. That means content commits DO NOT need
+# a rebuild — new content is live within 5 min of hitting `main`. Only code,
+# config, or dependency changes require a rebuild.
 #
-# The ONLY files we skip builds for are internal metadata that doesn't
-# render anywhere on the site: content/ingest-meta.json (tracks when
-# ingest last ran + counts). Everything else — news.json, documents.json,
-# events.json, weekly-summary.json, milestones.json, qa-reports/*, and
-# anything outside content/ — is user-visible and warrants a build.
+# So: skip builds for anything under content/. Build everything else.
 #
-# Previous versions tried to be clever and skip builds for news.json,
-# events.json, etc. That kept the site stuck at a stale deployment for
-# ~6 days at a time whenever no "trigger" file changed. Not worth the
-# tiny build-minute savings.
+# Prior lesson: skipping by individual filename inside content/ bit us twice
+# (site stuck at stale deployment because a "trigger" file didn't change).
+# The refactor to request-time GitHub raw fetches removes that failure mode
+# entirely — the whole content/ tree is safe to skip because it isn't bundled.
 
 CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "")
 
@@ -26,14 +22,13 @@ if [ -z "$CHANGED" ]; then
   exit 1
 fi
 
-# Every file that isn't purely internal metadata triggers a build.
-USER_VISIBLE=$(echo "$CHANGED" | grep -v -E '^content/ingest-meta\.json$' || true)
-if [ -n "$USER_VISIBLE" ]; then
-  echo "User-visible files changed — proceeding with build:"
-  echo "$USER_VISIBLE"
+NON_CONTENT=$(echo "$CHANGED" | grep -v -E '^content/' || true)
+if [ -n "$NON_CONTENT" ]; then
+  echo "Non-content files changed — proceeding with build:"
+  echo "$NON_CONTENT"
   exit 1
 fi
 
-echo "Only internal metadata changed — skipping build:"
+echo "Only content/ files changed — skipping build (content is fetched at request time):"
 echo "$CHANGED"
 exit 0

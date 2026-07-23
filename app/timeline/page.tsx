@@ -9,8 +9,8 @@ export const metadata = {
     "A visual timeline of key UAP disclosure milestones: legislation, government reports, congressional hearings, and major statements.",
 };
 
-export default function TimelinePage() {
-  const milestones = getMilestones();
+export default async function TimelinePage() {
+  const milestones = await getMilestones();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">

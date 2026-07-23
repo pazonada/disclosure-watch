@@ -3,8 +3,8 @@ import NewsFeed from "@/components/NewsFeed";
 
 export const revalidate = 3600; // ISR: revalidate every hour
 
-export default function NewsPage() {
-  const news = getNews();
+export default async function NewsPage() {
+  const news = await getNews();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">

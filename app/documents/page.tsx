@@ -3,8 +3,8 @@ import DocumentFeed from "@/components/DocumentFeed";
 
 export const revalidate = 3600; // ISR: revalidate every hour
 
-export default function DocumentsPage() {
-  const documents = getDocuments();
+export default async function DocumentsPage() {
+  const documents = await getDocuments();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
