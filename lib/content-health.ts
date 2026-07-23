@@ -1,29 +1,35 @@
 /**
  * Content-freshness probe. Detects staleness caused by ANY upstream
- * failure — cron not firing, GitHub commit not landing, Vercel not
- * rebuilding, ISR serving cache, etc. — by comparing what the LIVE
- * site returns against reasonable freshness expectations and against
- * what's currently in the deployed build's filesystem.
+ * failure — cron not firing, GitHub commit not landing, GitHub raw
+ * fetch stuck in cache, etc. — by comparing what the LIVE site returns
+ * against what's currently at HEAD on main in the repo.
  *
  * Flags returned:
- *   - news_stale       — /api/news newest addedDate > STALE_NEWS_DAYS old
- *   - docs_stale       — /api/documents newest addedDate > STALE_DOCS_DAYS old
- *   - weekly_stale     — /api/weekly-summary weekOf is >8 days old
- *   - ingest_stale     — content/ingest-meta.json lastSuccessfulRun > 48h old
- *   - live_lags_repo   — the deployed build's newest news date is older
- *                        than what's in the just-fetched-from-GitHub HEAD
- *                        (which means a commit landed but Vercel didn't
- *                        rebuild). This is the specific class of failure
- *                        that has bitten this project 2+ times.
+ *   - news_stale     — live news newest addedDate > STALE_NEWS_DAYS old
+ *   - docs_stale     — live docs newest addedDate > STALE_DOCS_DAYS old
+ *   - weekly_stale   — live weekly-summary weekOf is >8 days old
+ *   - ingest_stale   — content/ingest-meta.json lastSuccessfulRun (from
+ *                      GitHub raw HEAD) > 48h old — means the ingest
+ *                      workflow itself hasn't run recently
+ *   - live_lags_repo — live returned older news than what's currently
+ *                      in the repo HEAD, i.e. the fetch cache is stuck
+ *                      or a fetch is failing and falling back to empty
  *
  * Empty flags = healthy.
+ *
+ * Note: content is fetched from GitHub raw at request time (not bundled
+ * at build), so the "deployed bundle" concept no longer exists — the
+ * "repo" and "live" columns are functionally the same modulo the 5-min
+ * fetch cache in lib/content.ts.
  */
-
-import fs from "node:fs";
-import path from "node:path";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://disclosurewatch.com";
+const GITHUB_OWNER = process.env.GITHUB_OWNER || "pazonada";
+const GITHUB_REPO_NAME =
+  (process.env.GITHUB_REPO || "pazonada/disclosure-watch").split("/").pop() ||
+  "disclosure-watch";
+const GITHUB_BRANCH = "main";
 
 const STALE_NEWS_DAYS = 3;
 // Docs (AARO, NARA, Congress, Black Vault) publish irregularly. A dry
@@ -44,7 +50,7 @@ export interface ContentHealthStatus {
     weeklySummaryAgeDays: number | null;
     error?: string;
   };
-  deployedBundle: {
+  repo: {
     newestNewsAddedDate: string | null;
     newestDocAddedDate: string | null;
     ingestLastRunISO: string | null;
@@ -54,11 +60,26 @@ export interface ContentHealthStatus {
   flags: string[];
 }
 
+async function fetchRepoJson<T>(pathInRepo: string): Promise<T | null> {
+  const url = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO_NAME}/${GITHUB_BRANCH}/content/${pathInRepo}`;
+  const token = process.env.GITHUB_TOKEN;
+  const resp = await fetch(url, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    // Bypass cache — this probe must see HEAD, not what /api/* sees.
+    cache: "no-store",
+    signal: AbortSignal.timeout(15_000),
+  });
+  if (!resp.ok) return null;
+  return (await resp.json()) as T;
+}
+
 export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
   const now = Date.now();
   const flags: string[] = [];
 
   // ── 1. What the LIVE site returns via public HTTPS ──
+  // (Live is repo + a 5-min fetch cache, so it can be up to 5 min stale
+  // versus repo. That's the point of comparing them.)
   const live: ContentHealthStatus["live"] = {
     newestNewsAddedDate: null,
     newestNewsAgeDays: null,
@@ -129,62 +150,49 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
     live.error = String(err);
   }
 
-  // ── 2. What the DEPLOYED bundle's filesystem currently has ──
-  // This monitor runs inside the same deployment it's checking, so reading
-  // the bundled JSON files here tells us the CURRENT deployment's view of
-  // reality. If this is fresher than what /api/* returned above → CDN/edge
-  // caching. If they match but both are stale → the deployment itself is
-  // stale (ingest didn't commit, or ignore-build blocked the rebuild).
-  const deployed: ContentHealthStatus["deployedBundle"] = {
+  // ── 2. What's currently at HEAD in the repo ──
+  // Uncached GitHub raw fetch. This is the ground truth against which
+  // the live site's cached view is compared.
+  const repo: ContentHealthStatus["repo"] = {
     newestNewsAddedDate: null,
     newestDocAddedDate: null,
     ingestLastRunISO: null,
     ingestAgeHours: null,
   };
   try {
-    const contentDir = path.join(process.cwd(), "content");
-    const newsRaw = fs.readFileSync(
-      path.join(contentDir, "news.json"),
-      "utf-8"
-    );
-    const news = JSON.parse(newsRaw) as Array<{
-      addedDate?: string;
-      publishedDate?: string;
-    }>;
-    const newestNews = news
-      .map((n) => n.addedDate || n.publishedDate || "")
-      .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
-      .sort()
-      .pop() || null;
-    deployed.newestNewsAddedDate = newestNews;
-
-    const docsRaw = fs.readFileSync(
-      path.join(contentDir, "documents.json"),
-      "utf-8"
-    );
-    const docs = JSON.parse(docsRaw) as Array<{
-      addedDate?: string;
-    }>;
-    const newestDoc = docs
-      .map((d) => d.addedDate || "")
-      .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
-      .sort()
-      .pop() || null;
-    deployed.newestDocAddedDate = newestDoc;
-
-    const metaRaw = fs.readFileSync(
-      path.join(contentDir, "ingest-meta.json"),
-      "utf-8"
-    );
-    const meta = JSON.parse(metaRaw) as { lastSuccessfulRun?: string };
-    deployed.ingestLastRunISO = meta.lastSuccessfulRun || null;
-    if (meta.lastSuccessfulRun) {
-      deployed.ingestAgeHours = Math.floor(
-        (now - new Date(meta.lastSuccessfulRun).getTime()) / 3_600_000
-      );
+    const [news, docs, meta] = await Promise.all([
+      fetchRepoJson<Array<{ addedDate?: string; publishedDate?: string }>>(
+        "news.json"
+      ),
+      fetchRepoJson<Array<{ addedDate?: string }>>("documents.json"),
+      fetchRepoJson<{ lastSuccessfulRun?: string }>("ingest-meta.json"),
+    ]);
+    if (news) {
+      repo.newestNewsAddedDate =
+        news
+          .map((n) => n.addedDate || n.publishedDate || "")
+          .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
+          .sort()
+          .pop() || null;
+    }
+    if (docs) {
+      repo.newestDocAddedDate =
+        docs
+          .map((d) => d.addedDate || "")
+          .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
+          .sort()
+          .pop() || null;
+    }
+    if (meta) {
+      repo.ingestLastRunISO = meta.lastSuccessfulRun || null;
+      if (meta.lastSuccessfulRun) {
+        repo.ingestAgeHours = Math.floor(
+          (now - new Date(meta.lastSuccessfulRun).getTime()) / 3_600_000
+        );
+      }
     }
   } catch (err) {
-    deployed.error = String(err);
+    repo.error = String(err);
   }
 
   // ── 3. Flags ──
@@ -213,33 +221,31 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
     );
   }
   if (
-    deployed.ingestAgeHours !== null &&
-    deployed.ingestAgeHours > STALE_INGEST_HOURS
+    repo.ingestAgeHours !== null &&
+    repo.ingestAgeHours > STALE_INGEST_HOURS
   ) {
     flags.push(
-      `ingest_stale: last successful ingest was ${deployed.ingestAgeHours}h ago (threshold ${STALE_INGEST_HOURS}h)`
+      `ingest_stale: last successful ingest was ${repo.ingestAgeHours}h ago (threshold ${STALE_INGEST_HOURS}h)`
     );
   }
-  // The specific "site frozen at old deploy" symptom: the deployed bundle
-  // reads fresher than the live API returned. Would indicate CDN, but this
-  // rarely happens with force-dynamic routes. More interesting is the
-  // reverse — deployed bundle IS the source of truth for the API, so if
-  // deployed news is stale, the ingest→commit→build chain has broken
-  // somewhere upstream of this deployment.
+  // Live should equal repo (modulo the 5-min fetch cache). If live is
+  // materially behind repo, either the fetch cache is stuck, the private
+  // repo fetch is 401ing and falling back to empty arrays, or a code
+  // deploy hasn't happened since a lib/content.ts change.
   if (
-    deployed.newestNewsAddedDate &&
+    repo.newestNewsAddedDate &&
     live.newestNewsAddedDate &&
-    deployed.newestNewsAddedDate < live.newestNewsAddedDate
+    repo.newestNewsAddedDate > live.newestNewsAddedDate
   ) {
     flags.push(
-      `live_lags_repo: live returned news dated ${live.newestNewsAddedDate}, deployed bundle only has ${deployed.newestNewsAddedDate}. CDN cache?`
+      `live_lags_repo: repo HEAD news is ${repo.newestNewsAddedDate}, live returned only ${live.newestNewsAddedDate}. GitHub raw fetch may be failing or cache is stuck.`
     );
   }
 
   return {
     timestamp: new Date().toISOString(),
     live,
-    deployedBundle: deployed,
+    repo,
     flags,
   };
 }

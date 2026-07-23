@@ -58,6 +58,35 @@ async function fetchGitHubContent<T>(pathInRepo: string, fallback: T): Promise<T
   }
 }
 
+/**
+ * Uncached variant. Use from write paths (ingest, digest jobs) that MUST
+ * see HEAD to dedupe correctly against just-committed state. Anything
+ * user-facing should keep using the cached getters above.
+ */
+export async function fetchContentFresh<T>(
+  pathInRepo: string,
+  fallback: T
+): Promise<T> {
+  const url = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO_NAME}/${GITHUB_BRANCH}/content/${pathInRepo}`;
+  const token = process.env.GITHUB_TOKEN;
+  try {
+    const resp = await fetch(url, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      cache: "no-store",
+    });
+    if (!resp.ok) {
+      console.error(
+        `[content:fresh] GitHub raw fetch ${url} → ${resp.status}. Returning fallback.`
+      );
+      return fallback;
+    }
+    return (await resp.json()) as T;
+  } catch (err) {
+    console.error(`[content:fresh] fetch error for ${url}:`, err);
+    return fallback;
+  }
+}
+
 // ── Documents ─────────────────────────────────────────────────────────
 
 export async function getDocuments(): Promise<UAPDocument[]> {
@@ -132,4 +161,16 @@ export async function getWeeklySummary(): Promise<WeeklySummary> {
     weekOf: "",
     summary: "",
   } as WeeklySummary);
+}
+
+// ── Ingest metadata ───────────────────────────────────────────────────
+
+export interface IngestMeta {
+  lastSuccessfulRun?: string;
+  lastAttempt?: string;
+  lastCounts?: Record<string, number>;
+}
+
+export async function getIngestMeta(): Promise<IngestMeta> {
+  return fetchGitHubContent<IngestMeta>("ingest-meta.json", {});
 }

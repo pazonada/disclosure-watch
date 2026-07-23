@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { getContacts, sendBatchEmail } from "@/lib/resend";
 import { buildDigestEmailHtml } from "@/lib/alert-email";
-import * as fs from "fs";
-import * as path from "path";
+import { fetchContentFresh } from "@/lib/content";
 
 // Multi-day digest batching: Resend Free tier is 100 emails/day, and once
 // the audience exceeds that we can't send the weekly digest in one shot on
@@ -68,19 +67,18 @@ export const dynamic = "force-dynamic";
 /**
  * Fallback: if no draft digest exists in Supabase (e.g. Supabase was paused
  * when Monday's ingest tried to write the draft), read the current weekly
- * summary from disk and send it. This ensures subscribers get a weekly email
- * even if the upstream digest-creation step silently failed.
+ * summary from GitHub HEAD and send it. This ensures subscribers get a
+ * weekly email even if the upstream digest-creation step silently failed.
+ * Uses fetchContentFresh (no-cache) because the deployment's fs bundle is
+ * frozen — content commits skip Vercel builds.
  */
 async function readCurrentWeeklySummary(): Promise<{ weekOf: string; summary: string } | null> {
-  try {
-    const filePath = path.join(process.cwd(), "content", "weekly-summary.json");
-    const raw = fs.readFileSync(filePath, "utf-8");
-    const data = JSON.parse(raw) as { weekOf?: string; summary?: string };
-    if (data.weekOf && data.summary && data.summary.trim().length > 20) {
-      return { weekOf: data.weekOf, summary: data.summary };
-    }
-  } catch {
-    // file missing or unreadable
+  const data = await fetchContentFresh<{ weekOf?: string; summary?: string } | null>(
+    "weekly-summary.json",
+    null
+  );
+  if (data && data.weekOf && data.summary && data.summary.trim().length > 20) {
+    return { weekOf: data.weekOf, summary: data.summary };
   }
   return null;
 }

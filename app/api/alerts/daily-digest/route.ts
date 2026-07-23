@@ -8,17 +8,7 @@ import {
 } from "@/lib/alert-email";
 import { generateAlertSummary, improveItemSummaries } from "@/lib/ai";
 import { groupAlertItems } from "@/lib/alert-grouping";
-import * as fs from "fs";
-import * as path from "path";
-
-function readContentJson<T>(filename: string): T[] {
-  try {
-    const filePath = path.join(process.cwd(), "content", filename);
-    return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T[];
-  } catch {
-    return [];
-  }
-}
+import { fetchContentFresh } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
 
@@ -50,9 +40,15 @@ export async function GET(request: NextRequest) {
 
   const items: AlertItem[] = [];
 
-  // Read content files fresh from disk so we see items from the most recent
-  // ingest run (ES6 imports would bundle at build time and miss fresh content).
-  const docs = readContentJson<any>("documents.json");
+  // Read content from GitHub HEAD (no-cache) so we see items from the most
+  // recent ingest run — content commits don't trigger builds, so the fs
+  // bundle would be days-old.
+  const [docs, news, events] = await Promise.all([
+    fetchContentFresh<any[]>("documents.json", []),
+    fetchContentFresh<any[]>("news.json", []),
+    fetchContentFresh<any[]>("events.json", []),
+  ]);
+
   for (const doc of docs) {
     if (doc.addedDate && doc.addedDate >= cutoffStr) {
       items.push({
@@ -65,7 +61,6 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  const news = readContentJson<any>("news.json");
   for (const n of news) {
     // Use addedDate (when we ingested it), falling back to publishedDate for
     // legacy items without addedDate. A news article published last week but
@@ -82,7 +77,6 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  const events = readContentJson<any>("events.json");
   for (const e of events) {
     if (e.date && e.date >= cutoffStr) {
       items.push({

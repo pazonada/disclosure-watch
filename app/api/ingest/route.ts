@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import * as fs from "fs";
-import * as path from "path";
 import { supabase } from "@/lib/supabase";
 import { commitFiles, type FileUpdate } from "@/lib/github";
+import { fetchContentFresh } from "@/lib/content";
 import { nowET, todayET } from "@/lib/utils";
 import type { AlertItem } from "@/lib/alert-email";
 import { dispatchAlertsToSubscribers } from "@/lib/alert-dispatcher";
@@ -200,25 +199,11 @@ async function fetchWithTimeout(
   return fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
 }
 
-// ── Content file paths ───────────────────────────────────────────────────────
-
-const CONTENT_DIR = path.join(process.cwd(), "content");
-const DOCUMENTS_PATH = path.join(CONTENT_DIR, "documents.json");
-const NEWS_PATH = path.join(CONTENT_DIR, "news.json");
-const EVENTS_PATH = path.join(CONTENT_DIR, "events.json");
-const WEEKLY_SUMMARY_PATH = path.join(CONTENT_DIR, "weekly-summary.json");
-
-function loadJson<T>(filePath: string): T[] {
-  try {
-    return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T[];
-  } catch {
-    return [];
-  }
-}
-
-function saveJson<T>(filePath: string, data: T[]): void {
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n");
-}
+// ── Content loaders ──────────────────────────────────────────────────────────
+// Reads go to GitHub raw at HEAD (cache: no-store) rather than the deployment
+// filesystem. The deployment doesn't rebuild on content commits anymore, so
+// fs reads would return days-old state and cause dedup to overwrite newer
+// commits — data loss. See lib/content.ts:fetchContentFresh for details.
 
 // ══════════════════════════════════════════════════════════════════════════════
 // DOCUMENT SOURCES
@@ -1083,18 +1068,15 @@ function getCurrentWeekStart(): string {
 }
 
 /** Check if an existing summary is still current (same week) and non-empty */
-function summaryNeedsUpdate(weekStart: string): boolean {
-  try {
-    const existing = JSON.parse(
-      fs.readFileSync(WEEKLY_SUMMARY_PATH, "utf-8")
-    ) as WeeklySummaryData;
-    // Regenerate if week changed OR if existing summary is empty
-    if (existing.weekOf !== weekStart) return true;
-    if (!existing.summary || existing.summary.trim().length < 20) return true;
-    return false;
-  } catch {
-    return true; // File missing or corrupt → needs update
-  }
+async function summaryNeedsUpdate(weekStart: string): Promise<boolean> {
+  const existing = await fetchContentFresh<WeeklySummaryData | null>(
+    "weekly-summary.json",
+    null
+  );
+  if (!existing) return true; // Missing or fetch failed → treat as needing update
+  if (existing.weekOf !== weekStart) return true;
+  if (!existing.summary || existing.summary.trim().length < 20) return true;
+  return false;
 }
 
 /**
@@ -1113,7 +1095,7 @@ async function generateWeeklySummary(
   events: UAPEvent[]
 ): Promise<WeeklySummaryData | null> {
   const weekStart = getCurrentWeekStart();
-  if (!summaryNeedsUpdate(weekStart)) {
+  if (!(await summaryNeedsUpdate(weekStart))) {
     return null; // Already up to date
   }
 
@@ -1391,10 +1373,13 @@ async function runIngestion(): Promise<{
   // Collect files to commit to GitHub at the end
   const filesToCommit: FileUpdate[] = [];
 
-  // 1. Load existing data (reads from the build's bundled filesystem)
-  const existingDocs = loadJson<UAPDocument>(DOCUMENTS_PATH);
-  const existingNews = loadJson<NewsItem>(NEWS_PATH);
-  const existingEvents = loadJson<UAPEvent>(EVENTS_PATH);
+  // 1. Load existing data from GitHub HEAD (no-cache). fs would return
+  //    stale bundle since content commits skip Vercel builds.
+  const [existingDocs, existingNews, existingEvents] = await Promise.all([
+    fetchContentFresh<UAPDocument[]>("documents.json", []),
+    fetchContentFresh<NewsItem[]>("news.json", []),
+    fetchContentFresh<UAPEvent[]>("events.json", []),
+  ]);
 
   // 2. Fetch all sources in parallel
   const [

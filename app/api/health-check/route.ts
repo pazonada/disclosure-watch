@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { sendEmail } from "@/lib/resend";
 import { supabase } from "@/lib/supabase";
-import * as fs from "fs";
-import * as path from "path";
+import { getIngestMeta } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
 
@@ -31,46 +30,44 @@ interface CheckResult {
 }
 
 /**
- * Check that the ingest pipeline has run recently by reading the
- * ingest-meta.json file committed after every successful run.
- * This is more reliable than checking content dates, because the
- * pipeline can run successfully but find no new items (quiet news cycle).
+ * Check that the ingest pipeline has run recently by reading
+ * ingest-meta.json (which the ingest workflow commits after every
+ * successful run) from GitHub raw. Content is no longer bundled at
+ * build time, so fs reads would be stuck at the last non-content
+ * deploy — GitHub raw gives us the live value within the 5-min
+ * fetch-cache window.
  */
 async function checkContentFreshness(): Promise<CheckResult> {
   try {
-    const metaPath = path.join(process.cwd(), "content", "ingest-meta.json");
-    const metaExists = fs.existsSync(metaPath);
+    const meta = await getIngestMeta();
 
-    if (metaExists) {
-      const meta = JSON.parse(fs.readFileSync(metaPath, "utf-8")) as { lastSuccessfulRun?: string };
-      if (meta.lastSuccessfulRun) {
-        const hoursSinceRun = Math.floor(
-          (Date.now() - new Date(meta.lastSuccessfulRun).getTime()) / (1000 * 60 * 60)
-        );
+    if (meta.lastSuccessfulRun) {
+      const hoursSinceRun = Math.floor(
+        (Date.now() - new Date(meta.lastSuccessfulRun).getTime()) / (1000 * 60 * 60)
+      );
 
-        if (hoursSinceRun > 48) {
-          return {
-            name: "Content freshness",
-            status: "error",
-            message: `Ingest last ran ${Math.floor(hoursSinceRun / 24)} days ago. Pipeline may be broken.`,
-          };
-        }
-        if (hoursSinceRun > 26) {
-          return {
-            name: "Content freshness",
-            status: "warn",
-            message: `Ingest last ran ${hoursSinceRun} hours ago (expected every 24h).`,
-          };
-        }
+      if (hoursSinceRun > 48) {
         return {
           name: "Content freshness",
-          status: "ok",
-          message: `Ingest last ran ${hoursSinceRun} hour(s) ago.`,
+          status: "error",
+          message: `Ingest last ran ${Math.floor(hoursSinceRun / 24)} days ago. Pipeline may be broken.`,
         };
       }
+      if (hoursSinceRun > 26) {
+        return {
+          name: "Content freshness",
+          status: "warn",
+          message: `Ingest last ran ${hoursSinceRun} hours ago (expected every 24h).`,
+        };
+      }
+      return {
+        name: "Content freshness",
+        status: "ok",
+        message: `Ingest last ran ${hoursSinceRun} hour(s) ago.`,
+      };
     }
 
-    // Fallback: if ingest-meta.json doesn't exist yet, check content dates
+    // Fallback: if ingest-meta.json is missing, check content dates
     const newsResp = await fetch(`${SITE_URL}/api/news`, {
       signal: AbortSignal.timeout(10_000),
     }).catch(() => null);
@@ -92,7 +89,7 @@ async function checkContentFreshness(): Promise<CheckResult> {
         return {
           name: "Content freshness",
           status: daysSince > 7 ? "error" : daysSince > 3 ? "warn" : "ok",
-          message: `Latest content: ${latestDate} (${daysSince} day(s) ago). Upgrade pending — ingest-meta.json not yet available.`,
+          message: `Latest content: ${latestDate} (${daysSince} day(s) ago). No ingest-meta.json available.`,
         };
       }
     }

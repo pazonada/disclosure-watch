@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
     console.log("[ContentMonitor] healthy", {
       newestLiveNews: status.live.newestNewsAddedDate,
       weeklyWeekOf: status.live.weeklySummaryWeekOf,
-      ingestAgeHours: status.deployedBundle.ingestAgeHours,
+      ingestAgeHours: status.repo.ingestAgeHours,
     });
   } else {
     console.error("[ContentMonitor] STALENESS DETECTED:");
@@ -151,13 +151,13 @@ function buildIssueBody(status: ContentHealthStatus): string {
     `- Live weekly summary weekOf: \`${status.live.weeklySummaryWeekOf || "?"}\` (age: ${status.live.weeklySummaryAgeDays ?? "?"} days)`
   );
   lines.push(
-    `- Deployed bundle newest news: \`${status.deployedBundle.newestNewsAddedDate || "?"}\``
+    `- Repo HEAD newest news: \`${status.repo.newestNewsAddedDate || "?"}\``
   );
   lines.push(
-    `- Deployed bundle newest document: \`${status.deployedBundle.newestDocAddedDate || "?"}\``
+    `- Repo HEAD newest document: \`${status.repo.newestDocAddedDate || "?"}\``
   );
   lines.push(
-    `- Deployed bundle last ingest: \`${status.deployedBundle.ingestLastRunISO || "?"}\` (${status.deployedBundle.ingestAgeHours ?? "?"}h ago)`
+    `- Repo HEAD last ingest: \`${status.repo.ingestLastRunISO || "?"}\` (${status.repo.ingestAgeHours ?? "?"}h ago)`
   );
   lines.push("");
   lines.push("## What to check, in order");
@@ -165,10 +165,10 @@ function buildIssueBody(status: ContentHealthStatus): string {
     `1. **Is auto-ingest committing?** Check recent \`chore: auto-ingest\` commits on \`main\`. If none in >48h, Vercel cron isn't firing (verify at Vercel Dashboard → Observability → Cron Jobs) or ingest is crashing (Vercel function logs).`
   );
   lines.push(
-    `2. **Are commits triggering builds?** If ingest commits exist but the deployed bundle's dates lag them, the Ignored Build Step at \`scripts/vercel-ignore-build.sh\` is skipping too aggressively. Repo history has been bit by this before — only \`content/ingest-meta.json\` should ever skip a build.`
+    `2. **Is the site fetching from repo?** Content is fetched at request time from \`raw.githubusercontent.com\` (see \`lib/content.ts\`). If \`live_lags_repo\` is flagged, either \`GITHUB_TOKEN\` in Vercel env is invalid (fetch 401s → empty fallback), or the Next.js fetch cache is stuck (revalidate=300; should recover within 5 min).`
   );
   lines.push(
-    `3. **Is production serving stale HTML?** CDN age headers on \`disclosurewatch.com\` tell you when the current deployment shipped. If it's fresh but the routes return old data, ISR cache — check for \`revalidate:\` values or force a deploy.`
+    `3. **Is production serving stale HTML?** ISR page-level cache. \`revalidate=3600\` on the page + \`revalidate=300\` on the inner fetch means content should update within ~5 min. If it's stuck longer, force a redeploy from the Vercel dashboard.`
   );
   lines.push("");
   lines.push(
