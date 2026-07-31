@@ -1,5 +1,45 @@
 [
   {
+    "id": "al-jazeera-israeli-forces-blow-up-structures-near-lebanon-s-beaufort-castle",
+    "title": "Israeli forces blow up structures near Lebanon’s Beaufort Castle",
+    "source": "Al Jazeera",
+    "url": "https://www.aljazeera.com/news/2026/7/31/israeli-forces-blow-up-structures-near-lebanons-beaufort-castle?traffic_source=rss",
+    "description": "Israel claims army blew up Hezbollah tunnels in southern Lebanon, amid reports of blasts near UNESCO-listed fortress.",
+    "publishedDate": "2026-07-31",
+    "type": "article",
+    "addedDate": "2026-07-31"
+  },
+  {
+    "id": "al-jazeera-southern-lebanese-towns-near-beaufort-castle-hit-by-israeli-strikes",
+    "title": "Southern Lebanese towns near Beaufort Castle hit by Israeli strikes",
+    "source": "Al Jazeera",
+    "url": "https://www.aljazeera.com/video/newsfeed/2026/7/31/aje-onl-nf_south-lebanon-towns-beaufort-hit-by-israeli-strike-300726?traffic_source=rss",
+    "description": "IDF said it used 700 tonnes of explosives to destroy parts of a Hezbollah tunnel network in southern Lebanon.",
+    "publishedDate": "2026-07-31",
+    "type": "article",
+    "addedDate": "2026-07-31"
+  },
+  {
+    "id": "al-jazeera-after-openai-disclosure-anthropic-says-claude-also-hacked-outside-sy",
+    "title": "After OpenAI disclosure, Anthropic says Claude also hacked outside systems",
+    "source": "Al Jazeera",
+    "url": "https://www.aljazeera.com/news/2026/7/31/after-openai-disclosure-anthropic-claude-hacked-outside-systems?traffic_source=rss",
+    "description": "The incidents have heightened concerns about AI agents, software products designed to perform tasks autonomously.",
+    "publishedDate": "2026-07-31",
+    "type": "article",
+    "addedDate": "2026-07-31"
+  },
+  {
+    "id": "newsnation-seti-researchers-may-be-listening-to-the-wrong-frequencies-study",
+    "title": "SETI researchers may be listening to the wrong frequencies: Study",
+    "source": "NewsNation",
+    "url": "https://www.newsnationnow.com/space/ufo/seti-researchers-wrong-frequencies-study/",
+    "description": "New research suggests that examining higher frequency radio bands could aid the search for intelligent life.",
+    "publishedDate": "2026-07-30",
+    "type": "article",
+    "addedDate": "2026-07-31"
+  },
+  {
     "id": "newsnation-elizondo-responds-to-researcher-s-controlled-narrative-role-rumors",
     "title": "Elizondo responds to researcher's 'controlled narrative' role rumors",
     "source": "NewsNation",
