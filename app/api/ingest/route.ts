@@ -2,8 +2,19 @@ import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { commitFiles, type FileUpdate } from "@/lib/github";
 import { fetchContentFresh } from "@/lib/content";
+import {
+  extractUpcomingEventsFromNews,
+  proposeMilestones,
+  type MilestoneProposal,
+} from "@/lib/ai";
+import {
+  findOpenIssueByLabel,
+  createIssue,
+  updateIssueBody,
+} from "@/lib/github-issues";
 import { nowET, todayET } from "@/lib/utils";
 import type { AlertItem } from "@/lib/alert-email";
+import type { TimelineMilestone } from "@/lib/types";
 import { dispatchAlertsToSubscribers } from "@/lib/alert-dispatcher";
 
 export const dynamic = "force-dynamic";
@@ -196,7 +207,17 @@ async function fetchWithTimeout(
   url: string,
   timeoutMs = 15000
 ): Promise<Response> {
-  return fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
+  // Cloudflare (guarding api.congress.gov and others) blocks Node's default
+  // User-Agent with error 1010. A benign UA identifying this app avoids that
+  // without pretending to be a browser.
+  return fetch(url, {
+    signal: AbortSignal.timeout(timeoutMs),
+    headers: {
+      "User-Agent":
+        "disclosurewatch.com-ingest/1.0 (+https://disclosurewatch.com; contact pazonada@gmail.com)",
+      Accept: "application/json, text/plain, */*",
+    },
+  });
 }
 
 // ── Content loaders ──────────────────────────────────────────────────────────
@@ -345,7 +366,12 @@ async function fetchCongress(): Promise<UAPDocument[]> {
     try {
       const url = `https://api.congress.gov/v3/bill?query=${q}&limit=25&api_key=${apiKey}&format=json`;
       const resp = await fetchWithTimeout(url);
-      if (!resp.ok) continue;
+      if (!resp.ok) {
+        console.warn(
+          `[Congress/bill] query="${q}" returned ${resp.status} — no bills ingested from this query`
+        );
+        continue;
+      }
 
       const data = (await resp.json()) as any;
       const bills = data?.bills || [];
@@ -394,7 +420,19 @@ async function fetchCongress(): Promise<UAPDocument[]> {
   return results;
 }
 
-/** Fetch Congress.gov hearings related to UAP */
+/**
+ * Fetch Congress.gov hearings related to UAP.
+ *
+ * NOTE: this endpoint has known limitations that make it a weak source:
+ *  - The `query=` parameter is NOT actually filtering the hearing endpoint
+ *    (verified 2026-08-17: same results with and without it).
+ *  - List-mode entries return empty `title` fields — the real title lives
+ *    on the per-hearing detail endpoint, which would require a follow-up
+ *    fetch per hearing. Not worth the request budget for near-zero UAP hits.
+ * The primary upcoming-events source now is extractUpcomingEventsFromNews
+ * (see lib/ai.ts). This function is kept as a defensive scan in case
+ * Congress.gov exposes a properly filtered/populated feed in the future.
+ */
 async function fetchCongressHearings(): Promise<UAPEvent[]> {
   const apiKey = process.env.CONGRESS_API_KEY;
   if (!apiKey) return [];
@@ -410,7 +448,12 @@ async function fetchCongressHearings(): Promise<UAPEvent[]> {
     try {
       const url = `https://api.congress.gov/v3/hearing?query=${q}&limit=20&api_key=${apiKey}&format=json`;
       const resp = await fetchWithTimeout(url);
-      if (!resp.ok) continue;
+      if (!resp.ok) {
+        console.warn(
+          `[Congress/hearing] query="${q}" returned ${resp.status} — no hearings ingested from this query`
+        );
+        continue;
+      }
 
       const data = (await resp.json()) as any;
       const hearings = data?.hearings || [];
@@ -444,8 +487,10 @@ async function fetchCongressHearings(): Promise<UAPEvent[]> {
           transcriptUrl: "",
         });
       }
-    } catch {
-      // Non-fatal
+    } catch (err) {
+      console.warn(
+        `[Congress/hearing] query="${q}" threw:`, err
+      );
     }
   }
 
@@ -1359,6 +1404,83 @@ async function dispatchAlerts(
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+// MILESTONE-PROPOSAL SIDE-CHANNEL
+// ══════════════════════════════════════════════════════════════════════════════
+
+const MILESTONE_ISSUE_LABEL = "milestone-proposals";
+
+/**
+ * Format milestone candidates as a GitHub Issue for manual review. Opens a
+ * new issue the first time proposals appear; edits the same issue's body on
+ * subsequent runs so the list stays current instead of spawning many issues.
+ * You approve items in the issue body (check the boxes), then hand-edit
+ * content/milestones.json to add them.
+ */
+async function postMilestoneProposalsToIssue(
+  proposals: MilestoneProposal[]
+): Promise<string | undefined> {
+  if (!process.env.GITHUB_TOKEN) return undefined;
+  if (proposals.length === 0) return undefined;
+
+  const mention = process.env.MONITOR_MENTION || "@pazonada";
+  const now = new Date().toISOString().slice(0, 10);
+  const lines: string[] = [];
+  lines.push(`${mention} — Claude proposed ${proposals.length} milestone candidate${proposals.length === 1 ? "" : "s"} from recent news. Review each; if it belongs on the timeline, add it manually to \`content/milestones.json\`.`);
+  lines.push("");
+  lines.push(`> Auto-managed by \`/api/ingest\` (weekly). Body gets overwritten each Monday.`);
+  lines.push(`> Last run: \`${now}\``);
+  lines.push("");
+  for (const p of proposals) {
+    lines.push(`## - [ ] ${p.title}`);
+    lines.push("");
+    lines.push(`- **Date:** \`${p.date}\``);
+    lines.push(`- **Importance:** ${p.importance}`);
+    if (p.tags.length) lines.push(`- **Tags:** ${p.tags.map((t) => `\`${t}\``).join(", ")}`);
+    lines.push("");
+    lines.push(p.description);
+    if (p.sourceUrls.length) {
+      lines.push("");
+      lines.push("Sources:");
+      for (const u of p.sourceUrls) lines.push(`- ${u}`);
+    }
+    lines.push("");
+    lines.push("<details><summary>JSON snippet to paste into <code>content/milestones.json</code></summary>");
+    lines.push("");
+    lines.push("```json");
+    lines.push(JSON.stringify(
+      {
+        id: `milestone-${p.date}-${p.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 40)}`,
+        title: p.title,
+        description: p.description,
+        date: p.date,
+        importance: p.importance,
+        tags: p.tags,
+      },
+      null,
+      2
+    ));
+    lines.push("```");
+    lines.push("</details>");
+    lines.push("");
+    lines.push("---");
+    lines.push("");
+  }
+  const body = lines.join("\n");
+
+  const existing = await findOpenIssueByLabel(MILESTONE_ISSUE_LABEL);
+  if (existing) {
+    await updateIssueBody(existing.number, body);
+    return existing.html_url;
+  }
+  const created = await createIssue({
+    title: `[Monitor] Milestone candidates for review (${proposals.length})`,
+    body,
+    labels: [MILESTONE_ISSUE_LABEL],
+  });
+  return created.html_url;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // ROUTE HANDLER
 // ══════════════════════════════════════════════════════════════════════════════
 
@@ -1368,6 +1490,7 @@ async function runIngestion(): Promise<{
   events: { fetched: number; added: number; total: number };
   weeklySummary: { updated: boolean };
   alerts: { dispatched: boolean; error?: string };
+  milestoneProposal: { proposed: number; issueUrl?: string; error?: string };
   committed: boolean;
 }> {
   // Collect files to commit to GitHub at the end
@@ -1400,8 +1523,36 @@ async function runIngestion(): Promise<{
     fetchAllNews(),
   ]);
 
-  // 3. Detect events from news items
+  // 3a. Detect (past-dated) events mentioned in news via keyword patterns
   const detectedEvents = detectEventsFromNews(allNewsItems);
+
+  // 3b. Ask Claude to extract UPCOMING events (forward-looking dates) from
+  //     recent news. This is the primary source of future-dated events now
+  //     that fetchCongressHearings is a weak source (see notes on that fn).
+  //     One Haiku call per ingest run — pennies per month.
+  //     ai.ts uses lib/types.UAPEvent (committee optional); the ingest uses
+  //     a stricter local shape (committee required). Every extracted event
+  //     already sets committee to "" — this coerces the type to match.
+  let extractedUpcoming: UAPEvent[] = [];
+  try {
+    const raw = await extractUpcomingEventsFromNews(allNewsItems);
+    extractedUpcoming = raw.map((e) => ({
+      id: e.id,
+      title: e.title,
+      description: e.description,
+      date: e.date,
+      type: e.type,
+      committee: e.committee || "",
+      sourceUrl: e.sourceUrl,
+      videoUrl: e.videoUrl || "",
+      transcriptUrl: e.transcriptUrl || "",
+    }));
+    console.log(
+      `[Ingest] LLM-extracted ${extractedUpcoming.length} upcoming events from news`
+    );
+  } catch (err) {
+    console.warn("[Ingest] extractUpcomingEventsFromNews failed:", err);
+  }
 
   // 4. Merge documents
   const incomingDocs = [
@@ -1432,8 +1583,9 @@ async function runIngestion(): Promise<{
   }
   const newlyAddedNews = newsResult.merged.filter((n) => !existingNewsIds.has(n.id));
 
-  // 6. Merge events (from Congress hearings API + auto-detected from news)
-  const incomingEvents = [...congressHearings, ...detectedEvents];
+  // 6. Merge events (from Congress hearings API + past-dated news patterns +
+  //    LLM-extracted upcoming events)
+  const incomingEvents = [...congressHearings, ...detectedEvents, ...extractedUpcoming];
   const existingEventIds = new Set(existingEvents.map((e) => e.id));
   const eventResult = mergeEvents(existingEvents, incomingEvents);
   if (eventResult.added > 0) {
@@ -1462,6 +1614,39 @@ async function runIngestion(): Promise<{
   } catch (err) {
     console.error("[WeeklySummary] Generation failed:", err);
     // Non-fatal — summary generation shouldn't break ingestion
+  }
+
+  // 7b. Weekly (Mondays): ask Claude to propose new timeline milestones
+  //     from the last 8 weeks of news, and post them as a GitHub Issue for
+  //     manual review. Nothing writes milestones.json automatically — you
+  //     approve which land.
+  let milestoneProposalResult: { proposed: number; issueUrl?: string; error?: string } = {
+    proposed: 0,
+  };
+  const isMonday = new Date().getUTCDay() === 1;
+  if (isMonday) {
+    try {
+      const existingMilestones = await fetchContentFresh<TimelineMilestone[]>(
+        "milestones.json",
+        []
+      );
+      const proposals = await proposeMilestones(
+        newsResult.merged,
+        existingMilestones,
+        8
+      );
+      milestoneProposalResult.proposed = proposals.length;
+      if (proposals.length > 0) {
+        const issue = await postMilestoneProposalsToIssue(proposals);
+        milestoneProposalResult.issueUrl = issue;
+      }
+      console.log(
+        `[Ingest] Milestone proposals: ${proposals.length} candidate(s), issue: ${milestoneProposalResult.issueUrl || "none"}`
+      );
+    } catch (err) {
+      console.warn("[Ingest] milestone proposal step failed:", err);
+      milestoneProposalResult.error = String(err);
+    }
   }
 
   // 8. Dispatch alerts to paid subscribers for newly added content
@@ -1526,6 +1711,7 @@ async function runIngestion(): Promise<{
     },
     weeklySummary: { updated: summaryUpdated },
     alerts: alertResult,
+    milestoneProposal: milestoneProposalResult,
     committed,
   };
 }
