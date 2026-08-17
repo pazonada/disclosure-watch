@@ -1,16 +1,48 @@
 [
   {
-    "id": "dod-ig-whistleblower-report-2026",
-    "date": "2026-01-07",
-    "title": "DoD IG Releases Heavily Redacted UAP Whistleblower Reprisal Report",
-    "description": "The Department of Defense Inspector General published its final report on UAP-related whistleblower reprisal complaints, confirming investigations into security clearance revocation as retaliation. Heavy redactions fueled further transparency demands.",
-    "importance": "High"
+    "id": "milestone-2026-08-01-federal-whistleblower-pathway-establishe",
+    "title": "Federal Whistleblower Pathway Established for UAP Disclosures",
+    "description": "The federal government outlined a formal procedure allowing UAP whistleblowers to come forward without violating security agreements or non-disclosure agreements. This represents an official policy shift addressing a critical barrier to disclosure identified in prior congressional hearings.",
+    "date": "2026-08-01",
+    "importance": "High",
+    "tags": [
+      "Whistleblower Protection",
+      "Statutory",
+      "ODNI",
+      "Disclosure Path"
+    ]
   },
   {
-    "id": "james-fox-press-conference-2026",
-    "date": "2026-01-20",
-    "title": "James Fox Hosts Landmark UAP Press Conference at National Press Club",
-    "description": "Filmmaker James Fox convened witnesses, medical experts, and government insiders at the National Press Club to present new evidence of alleged non-human encounters and crash-retrieval programs.",
+    "id": "milestone-2026-07-13-pentagon-rebrands-havana-syndrome-team-t",
+    "title": "Pentagon Rebrands Havana Syndrome Team to Address Directed Energy Bio-Effects",
+    "description": "The Pentagon's Anomalous Health Incidents cross-functional team was formally rebranded to focus on 'Directed Energy Bio-Effects' and 'non-kinetic threats,' representing an agency policy shift recognizing potential physiological impacts related to anomalous phenomena.",
+    "date": "2026-07-13",
+    "importance": "Medium",
+    "tags": [
+      "DoD Policy",
+      "Health Effects",
+      "Havana Syndrome",
+      "Non-Kinetic Threats"
+    ]
+  },
+  {
+    "id": "milestone-2026-07-10-pentagon-releases-fourth-tranche-of-decl",
+    "title": "Pentagon Releases Fourth Tranche of Declassified UAP Files",
+    "description": "The Department of Defense released its fourth batch of declassified UAP materials containing 40 new files, including 19 videos, continuing the systematic release ordered by President Trump in February 2026. This represents ongoing fulfillment of the executive declassification directive.",
+    "date": "2026-07-10",
+    "importance": "Medium",
+    "tags": [
+      "Declassification",
+      "Pentagon",
+      "Executive Order",
+      "Tranche Release"
+    ]
+  },
+  {
+    "id": "hegseth-disclosure-2026",
+    "date": "2026-02-25",
+    "title": "Hegseth Reaffirms UAP Disclosure Commitment",
+    "description": "Defense Secretary Pete Hegseth doubled down on Trump's promise of UAP transparency as AARO's caseload surpassed 2,000 reports.",
     "importance": "Medium"
   },
   {
@@ -21,31 +53,24 @@
     "importance": "High"
   },
   {
-    "id": "hegseth-disclosure-2026",
-    "date": "2026-02-25",
-    "title": "Hegseth Reaffirms UAP Disclosure Commitment",
-    "description": "Defense Secretary Pete Hegseth doubled down on Trump's promise of UAP transparency as AARO's caseload surpassed 2,000 reports.",
+    "id": "james-fox-press-conference-2026",
+    "date": "2026-01-20",
+    "title": "James Fox Hosts Landmark UAP Press Conference at National Press Club",
+    "description": "Filmmaker James Fox convened witnesses, medical experts, and government insiders at the National Press Club to present new evidence of alleged non-human encounters and crash-retrieval programs.",
     "importance": "Medium"
   },
   {
-    "id": "aaro-full-operational-capability",
-    "date": "2024-12-05",
-    "title": "AARO Reaches Full Operational Capability",
-    "description": "The All-domain Anomaly Resolution Office achieved full operational capability, completing its organizational buildout and establishing permanent analytical, collection, and reporting infrastructure.",
-    "importance": "Medium"
+    "id": "dod-ig-whistleblower-report-2026",
+    "date": "2026-01-07",
+    "title": "DoD IG Releases Heavily Redacted UAP Whistleblower Reprisal Report",
+    "description": "The Department of Defense Inspector General published its final report on UAP-related whistleblower reprisal complaints, confirming investigations into security clearance revocation as retaliation. Heavy redactions fueled further transparency demands.",
+    "importance": "High"
   },
   {
-    "id": "sol-foundation-italy-2025",
-    "date": "2025-10-24",
-    "title": "Sol Foundation Symposium Convenes in Italy",
-    "description": "The Sol Foundation, founded by Stanford's Garry Nolan, held its 2025 symposium at Lake Maggiore in Italy — bringing together scientists, former officials, and policy experts for one of the year's most significant UAP academic gatherings.",
-    "importance": "Medium"
-  },
-  {
-    "id": "house-task-force-hearing-sept-2025",
-    "date": "2025-09-09",
-    "title": "House Task Force Hearing: UAP Transparency and Whistleblower Protection",
-    "description": "The House Oversight Committee's Task Force on Declassification held its third public UAP hearing, featuring military whistleblowers presenting new evidence and testimony on alleged government concealment.",
+    "id": "fy2026-ndaa-signed",
+    "date": "2025-12-10",
+    "title": "FY2026 NDAA Mandates UAP Briefings",
+    "description": "Congress enacted legislation requiring the Pentagon to brief lawmakers on the number, location, and nature of UAP intercepts by NORTHCOM and NORAD.",
     "importance": "High"
   },
   {
@@ -56,17 +81,17 @@
     "importance": "Medium"
   },
   {
-    "id": "fy2026-ndaa-signed",
-    "date": "2025-12-10",
-    "title": "FY2026 NDAA Mandates UAP Briefings",
-    "description": "Congress enacted legislation requiring the Pentagon to brief lawmakers on the number, location, and nature of UAP intercepts by NORTHCOM and NORAD.",
-    "importance": "High"
-  },
-  {
     "id": "faa-uap-procedures-update",
     "date": "2025-10-26",
     "title": "FAA Formalizes UAP Reporting Procedures for Air Traffic Control",
     "description": "The FAA issued updated notices requiring all ATC personnel to report UAP sightings through standardized channels and notify AARO directly.",
+    "importance": "Medium"
+  },
+  {
+    "id": "sol-foundation-italy-2025",
+    "date": "2025-10-24",
+    "title": "Sol Foundation Symposium Convenes in Italy",
+    "description": "The Sol Foundation, founded by Stanford's Garry Nolan, held its 2025 symposium at Lake Maggiore in Italy \u2014 bringing together scientists, former officials, and policy experts for one of the year's most significant UAP academic gatherings.",
     "importance": "Medium"
   },
   {
@@ -77,10 +102,38 @@
     "importance": "High"
   },
   {
+    "id": "hr5060-whistleblower-protection-act",
+    "date": "2025-09-15",
+    "title": "UAP Whistleblower Protection Act (H.R. 5060) Introduced",
+    "description": "Reps. Burchett and Luna introduced bipartisan legislation to codify federal protections for UAP whistleblowers, explicitly prohibiting security clearance revocation as retaliation.",
+    "importance": "Medium"
+  },
+  {
+    "id": "house-task-force-hearing-sept-2025",
+    "date": "2025-09-09",
+    "title": "House Task Force Hearing: UAP Transparency and Whistleblower Protection",
+    "description": "The House Oversight Committee's Task Force on Declassification held its third public UAP hearing, featuring military whistleblowers presenting new evidence and testimony on alleged government concealment.",
+    "importance": "High"
+  },
+  {
     "id": "aaro-workshop-2025",
     "date": "2025-08-15",
     "title": "AARO Hosts Civilian Researcher Workshop",
     "description": "First formal workshop bringing together government, academic, and civilian researchers to standardize UAP data collection and analysis.",
+    "importance": "Medium"
+  },
+  {
+    "id": "burlison-disclosure-act-2025",
+    "date": "2025-06-15",
+    "title": "Burlison Introduces UAP Disclosure Act of 2025 as NDAA Amendment",
+    "description": "Rep. Eric Burlison submitted the UAP Disclosure Act of 2025 as an amendment to the FY2026 NDAA to increase transparency on government UAP records.",
+    "importance": "Medium"
+  },
+  {
+    "id": "scu-conference-huntsville-2025",
+    "date": "2025-06-06",
+    "title": "SCU Conference in Huntsville Features Former DIA UAPTF Director",
+    "description": "The Scientific Coalition for UAP Studies held its annual conference in Huntsville, Alabama, featuring a keynote by Jay Stratton \u2014 retired DIA official and first director of the UAP Task Force.",
     "importance": "Medium"
   },
   {
@@ -98,31 +151,24 @@
     "importance": "High"
   },
   {
-    "id": "hr5060-whistleblower-protection-act",
-    "date": "2025-09-15",
-    "title": "UAP Whistleblower Protection Act (H.R. 5060) Introduced",
-    "description": "Reps. Burchett and Luna introduced bipartisan legislation to codify federal protections for UAP whistleblowers, explicitly prohibiting security clearance revocation as retaliation.",
-    "importance": "Medium"
-  },
-  {
-    "id": "scu-conference-huntsville-2025",
-    "date": "2025-06-06",
-    "title": "SCU Conference in Huntsville Features Former DIA UAPTF Director",
-    "description": "The Scientific Coalition for UAP Studies held its annual conference in Huntsville, Alabama, featuring a keynote by Jay Stratton — retired DIA official and first director of the UAP Task Force.",
-    "importance": "Medium"
-  },
-  {
-    "id": "burlison-disclosure-act-2025",
-    "date": "2025-06-15",
-    "title": "Burlison Introduces UAP Disclosure Act of 2025 as NDAA Amendment",
-    "description": "Rep. Eric Burlison submitted the UAP Disclosure Act of 2025 as an amendment to the FY2026 NDAA to increase transparency on government UAP records.",
-    "importance": "Medium"
-  },
-  {
     "id": "hr1187-uap-transparency-act",
     "date": "2025-02-11",
     "title": "UAP Transparency Act (H.R. 1187) Introduced",
     "description": "Bipartisan bill requiring declassification of all government UAP documents within 270 days of enactment, with quarterly progress reports to Congress.",
+    "importance": "Medium"
+  },
+  {
+    "id": "aaro-full-operational-capability",
+    "date": "2024-12-05",
+    "title": "AARO Reaches Full Operational Capability",
+    "description": "The All-domain Anomaly Resolution Office achieved full operational capability, completing its organizational buildout and establishing permanent analytical, collection, and reporting infrastructure.",
+    "importance": "Medium"
+  },
+  {
+    "id": "aaro-annual-analysis-2024",
+    "date": "2024-11-14",
+    "title": "AARO Unveils FY2024 Annual Report \u2014 757 New Reports",
+    "description": "ODNI/AARO annual report covering 757 UAP reports received May 2023\u2013June 2024. Resolved 118 cases; 21 remained truly unexplained. Total caseload reached 1,652.",
     "importance": "Medium"
   },
   {
@@ -131,13 +177,6 @@
     "title": "House Oversight Hearing: 'Exposing the Truth'",
     "description": "Second major House hearing on UAPs, featuring military and government witnesses testifying on encounters and alleged cover-ups.",
     "importance": "High"
-  },
-  {
-    "id": "aaro-annual-analysis-2024",
-    "date": "2024-11-14",
-    "title": "AARO Unveils FY2024 Annual Report — 757 New Reports",
-    "description": "ODNI/AARO annual report covering 757 UAP reports received May 2023–June 2024. Resolved 118 cases; 21 remained truly unexplained. Total caseload reached 1,652.",
-    "importance": "Medium"
   },
   {
     "id": "nrc-records-transfer",
@@ -164,7 +203,7 @@
     "id": "aaro-historical-report-vol1",
     "date": "2024-03-08",
     "title": "AARO Historical Record Report Vol. 1 Released",
-    "description": "Comprehensive review of U.S. government UAP involvement from 1945–2023. Found no evidence of extraterrestrial technology but acknowledged gaps in record-keeping.",
+    "description": "Comprehensive review of U.S. government UAP involvement from 1945\u20132023. Found no evidence of extraterrestrial technology but acknowledged gaps in record-keeping.",
     "importance": "High"
   },
   {
@@ -175,17 +214,17 @@
     "importance": "Medium"
   },
   {
-    "id": "schumer-rounds-disclosure-act",
-    "date": "2023-07-25",
-    "title": "Schumer-Rounds UAP Disclosure Act Filed",
-    "description": "Bipartisan amendment modeled on JFK Assassination Records Act mandating presumption of disclosure for UAP records with 25-year declassification timeline.",
-    "importance": "High"
-  },
-  {
     "id": "grusch-hearing-2023",
     "date": "2023-07-26",
     "title": "Landmark House Hearing: Grusch, Graves, Fravor Testify",
     "description": "David Grusch alleged the government possesses non-human craft and biologics. Navy pilots Ryan Graves and David Fravor described firsthand UAP encounters. Watched by millions worldwide.",
+    "importance": "High"
+  },
+  {
+    "id": "schumer-rounds-disclosure-act",
+    "date": "2023-07-25",
+    "title": "Schumer-Rounds UAP Disclosure Act Filed",
+    "description": "Bipartisan amendment modeled on JFK Assassination Records Act mandating presumption of disclosure for UAP records with 25-year declassification timeline.",
     "importance": "High"
   },
   {
