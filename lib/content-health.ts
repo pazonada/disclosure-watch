@@ -57,7 +57,53 @@ export interface ContentHealthStatus {
     ingestAgeHours: number | null;
     error?: string;
   };
+  sources: Array<{
+    kind: "news" | "docs";
+    name: string;
+    lastAddedDate: string | null;
+    ageDays: number | null;
+    thresholdDays: number;
+    stale: boolean;
+  }>;
   flags: string[];
+}
+
+// Sources we ACTIVELY POLL and how long they can go silent before it's
+// worth investigating. Everything not in this map is treated as incidental
+// (e.g. one-off hits from broad feeds) and never alarms.
+//
+// Thresholds are calibrated from a year of observed cadence. Bump them if
+// a source consistently trips false positives — but 3–5 false positives are
+// the ONLY way we catch the next silent-403-Cloudflare-style regression, so
+// prefer flapping-then-tuning over silent-forever.
+const ACTIVELY_POLLED_NEWS: Record<string, number> = {
+  DefenseScoop: 30,
+  "The Debrief": 21,
+  NewsNation: 21,
+  "Liberation Times": 21,
+  "The Hill": 45,
+  "Nextgov/FCW": 60,
+  "UK Defence Journal": 60,
+  "The Guardian": 60,
+  "Al Jazeera": 60,
+  "ABC News Australia": 60,
+};
+
+const ACTIVELY_POLLED_DOCS: Record<string, number> = {
+  Archives: 45,        // NARA API — big source, hits normally monthly
+  Congress: 60,        // Bills API — lumpy
+  "The Black Vault": 30,
+  // Federal Register + NASA + White House + Manual are too rare to poll-alarm.
+};
+
+function newestAddedDate(items: Array<{ addedDate?: string; publishedDate?: string }>): string | null {
+  return (
+    items
+      .map((n) => n.addedDate || n.publishedDate || "")
+      .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
+      .sort()
+      .pop() || null
+  );
 }
 
 async function fetchRepoJson<T>(pathInRepo: string): Promise<T | null> {
@@ -159,30 +205,23 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
     ingestLastRunISO: null,
     ingestAgeHours: null,
   };
+  const sources: ContentHealthStatus["sources"] = [];
+  let newsData: Array<{ addedDate?: string; publishedDate?: string; source?: string }> | null =
+    null;
+  let docsData: Array<{ addedDate?: string; source?: string }> | null = null;
+
   try {
     const [news, docs, meta] = await Promise.all([
-      fetchRepoJson<Array<{ addedDate?: string; publishedDate?: string }>>(
+      fetchRepoJson<Array<{ addedDate?: string; publishedDate?: string; source?: string }>>(
         "news.json"
       ),
-      fetchRepoJson<Array<{ addedDate?: string }>>("documents.json"),
+      fetchRepoJson<Array<{ addedDate?: string; source?: string }>>("documents.json"),
       fetchRepoJson<{ lastSuccessfulRun?: string }>("ingest-meta.json"),
     ]);
-    if (news) {
-      repo.newestNewsAddedDate =
-        news
-          .map((n) => n.addedDate || n.publishedDate || "")
-          .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
-          .sort()
-          .pop() || null;
-    }
-    if (docs) {
-      repo.newestDocAddedDate =
-        docs
-          .map((d) => d.addedDate || "")
-          .filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d))
-          .sort()
-          .pop() || null;
-    }
+    newsData = news;
+    docsData = docs;
+    if (news) repo.newestNewsAddedDate = newestAddedDate(news);
+    if (docs) repo.newestDocAddedDate = newestAddedDate(docs);
     if (meta) {
       repo.ingestLastRunISO = meta.lastSuccessfulRun || null;
       if (meta.lastSuccessfulRun) {
@@ -193,6 +232,33 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
     }
   } catch (err) {
     repo.error = String(err);
+  }
+
+  // ── 2b. Per-source staleness ──
+  // Group items by source, take the newest addedDate per source, compare
+  // against per-source thresholds. Only the ACTIVELY_POLLED_* sources
+  // alarm — one-off pickups from broad keyword filters would flap forever.
+  if (newsData) {
+    for (const [name, thresholdDays] of Object.entries(ACTIVELY_POLLED_NEWS)) {
+      const items = newsData.filter((n) => n.source === name);
+      const last = newestAddedDate(items);
+      const ageDays = last
+        ? Math.floor((now - new Date(last).getTime()) / 86_400_000)
+        : null;
+      const stale = ageDays !== null && ageDays > thresholdDays;
+      sources.push({ kind: "news", name, lastAddedDate: last, ageDays, thresholdDays, stale });
+    }
+  }
+  if (docsData) {
+    for (const [name, thresholdDays] of Object.entries(ACTIVELY_POLLED_DOCS)) {
+      const items = docsData.filter((d) => d.source === name);
+      const last = newestAddedDate(items);
+      const ageDays = last
+        ? Math.floor((now - new Date(last).getTime()) / 86_400_000)
+        : null;
+      const stale = ageDays !== null && ageDays > thresholdDays;
+      sources.push({ kind: "docs", name, lastAddedDate: last, ageDays, thresholdDays, stale });
+    }
   }
 
   // ── 3. Flags ──
@@ -242,10 +308,20 @@ export async function getContentHealthStatus(): Promise<ContentHealthStatus> {
     );
   }
 
+  // Per-source staleness flags — collapsed into one line each so the issue
+  // body stays readable when several sources go dark at once.
+  for (const s of sources.filter((s) => s.stale)) {
+    const ageStr = s.ageDays === null ? "never seen" : `${s.ageDays}d silent`;
+    flags.push(
+      `source_stale:${s.kind}:${s.name} — ${ageStr} (threshold ${s.thresholdDays}d)`
+    );
+  }
+
   return {
     timestamp: new Date().toISOString(),
     live,
     repo,
+    sources,
     flags,
   };
 }

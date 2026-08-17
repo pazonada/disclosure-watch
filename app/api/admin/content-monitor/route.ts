@@ -159,6 +159,27 @@ function buildIssueBody(status: ContentHealthStatus): string {
   lines.push(
     `- Repo HEAD last ingest: \`${status.repo.ingestLastRunISO || "?"}\` (${status.repo.ingestAgeHours ?? "?"}h ago)`
   );
+
+  // Per-source status table — shows every actively-polled source, not just
+  // the stale ones, so it's easy to see "everything's fine EXCEPT X".
+  if (status.sources && status.sources.length) {
+    lines.push("");
+    lines.push("## Per-source freshness");
+    lines.push("");
+    lines.push("| Kind | Source | Last seen | Age | Threshold | Status |");
+    lines.push("|------|--------|-----------|-----|-----------|--------|");
+    const sorted = [...status.sources].sort((a, b) => {
+      if (a.stale !== b.stale) return a.stale ? -1 : 1;
+      return (b.ageDays ?? -1) - (a.ageDays ?? -1);
+    });
+    for (const s of sorted) {
+      const last = s.lastAddedDate || "never";
+      const age = s.ageDays === null ? "?" : `${s.ageDays}d`;
+      const status = s.stale ? "&#9888; STALE" : "OK";
+      lines.push(`| ${s.kind} | ${s.name} | ${last} | ${age} | ${s.thresholdDays}d | ${status} |`);
+    }
+  }
+
   lines.push("");
   lines.push("## What to check, in order");
   lines.push(
