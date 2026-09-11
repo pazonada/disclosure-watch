@@ -139,6 +139,15 @@ function analyzeAddress(email: string): string[] {
     if (parts.length >= 4 && parts.every((p) => p.length <= 4)) {
       flags.push("gmail-many-short-parts");
     }
+    // Severe dot-abuse pattern (mirror of audience-audit heuristic — keep
+    // in sync). Fires as a third distinct flag so Gmail dot-notation bots
+    // reach the cull threshold without also needing trailing digits.
+    if (dotCount >= 4 && parts.length >= 5) {
+      const shortParts = parts.filter((p) => p.length <= 3).length;
+      if (shortParts >= parts.length - 2) {
+        flags.push("gmail-dot-abuse-severe");
+      }
+    }
   }
 
   if (/\d+$/.test(local)) {
